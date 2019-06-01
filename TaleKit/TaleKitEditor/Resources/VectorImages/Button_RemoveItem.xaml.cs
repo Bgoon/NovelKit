@@ -13,12 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TaleKitEditor {
+namespace PendulumMotionEditor.Resources.Image
+{
 	/// <summary>
-	/// MainWindow.xaml에 대한 상호 작용 논리
+	/// Button_NewFile.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class MainWindow : Window {
-		public MainWindow() {
+	public partial class Button_RemoveItem : UserControl
+	{
+		public Button_RemoveItem()
+		{
 			InitializeComponent();
 		}
 	}

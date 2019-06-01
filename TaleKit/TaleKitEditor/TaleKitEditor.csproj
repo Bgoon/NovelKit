@@ -33,7 +33,22 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GKit.WPF">
+      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\GKit\GKit.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PendulumMotion">
+      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PendulumMotion\Release\API\PendulumMotion.dll</HintPath>
+    </Reference>
+    <Reference Include="PendulumMotionEditor">
+      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PendulumMotion\Release\Editor\PendulumMotionEditor.exe</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -54,7 +69,77 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Script\Workspaces\WorkspaceType.cs" />
+    <Compile Include="UI\Components\ContentTitle.xaml.cs">
+      <DependentUpon>ContentTitle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Components\FileManagerBar.xaml.cs">
+      <DependentUpon>FileManagerBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Components\ListManagerBar.xaml.cs">
+      <DependentUpon>ListManagerBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Components\SimpleTextbox.xaml.cs">
+      <DependentUpon>SimpleTextbox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\MotionEditor.xaml.cs">
+      <DependentUpon>MotionEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\StoryEditor.xaml.cs">
+      <DependentUpon>StoryEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\UIEditor.xaml.cs">
+      <DependentUpon>UIEditor.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Resources\VectorImages\Button_CopyMotion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Button_CreateFolder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Button_CreateMotion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Button_NewFile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Button_OpenFile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Button_RemoveItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Button_SaveFile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Components\ContentTitle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Components\FileManagerBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Components\ListManagerBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Components\SimpleTextbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Resources\UITheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -62,10 +147,43 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Resources\VectorImages\Button_CopyMotion.xaml.cs">
+      <DependentUpon>Button_CopyMotion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Button_CreateFolder.xaml.cs">
+      <DependentUpon>Button_CreateFolder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Button_CreateMotion.xaml.cs">
+      <DependentUpon>Button_CreateMotion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Button_NewFile.xaml.cs">
+      <DependentUpon>Button_NewFile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Button_OpenFile.xaml.cs">
+      <DependentUpon>Button_OpenFile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Button_RemoveItem.xaml.cs">
+      <DependentUpon>Button_RemoveItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Button_SaveFile.xaml.cs">
+      <DependentUpon>Button_SaveFile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\Workspaces\MotionEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\StoryEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\UIEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -85,13 +203,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Fonts\KoPub Dotum_Pro Bold.otf" />
+    <Resource Include="Resources\Fonts\KoPub Dotum_Pro Medium.otf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Script\TaleKit\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cursors\Cursor_Add.cur" />
+    <Resource Include="Resources\Cursors\Cursor_Default.cur" />
+    <Resource Include="Resources\Cursors\Cursor_Remove.cur" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

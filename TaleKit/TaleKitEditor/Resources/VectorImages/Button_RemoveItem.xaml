@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="PendulumMotionEditor.Resources.Image.Button_RemoveItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PendulumMotionEditor.Resources.Image"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Canvas>
+        <Canvas.Resources>
+            <SolidColorBrush Color="#FFFFFF" x:Key="FillColor"></SolidColorBrush>
+        </Canvas.Resources>
+        <Polygon Fill="{StaticResource FillColor}" Points="10.3,1.4 10.3,0 5.4,0 5.4,1.4 0,1.4 0,4.3 15.7,4.3 15.7,1.4 "></Polygon>
+        <Path Fill="{StaticResource FillColor}" Data="M0,6.5V23h15.7V6.5H0z M4.8,20.1H2.9V9.4h1.8V20.1z M8.8,20.1H6.9V9.4h1.8V20.1z M12.6,20.1h-1.8V9.4h1.8V20.1
+		z"></Path>
+    </Canvas>
+</UserControl>

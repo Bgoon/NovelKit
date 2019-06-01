@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NovelKitEditor", "TaleKitEditor\TaleKitEditor.csproj", "{98C5F110-0CB0-4F34-8C03-8DEE1B25E186}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaleKitEditor", "TaleKitEditor\TaleKitEditor.csproj", "{98C5F110-0CB0-4F34-8C03-8DEE1B25E186}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaleKit", "TaleKit\TaleKit.csproj", "{F934A090-FED0-484B-8093-4BCC65908B71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTester", "ConsoleTester\ConsoleTester.csproj", "{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{98C5F110-0CB0-4F34-8C03-8DEE1B25E186}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98C5F110-0CB0-4F34-8C03-8DEE1B25E186}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98C5F110-0CB0-4F34-8C03-8DEE1B25E186}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F934A090-FED0-484B-8093-4BCC65908B71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F934A090-FED0-484B-8093-4BCC65908B71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F934A090-FED0-484B-8093-4BCC65908B71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F934A090-FED0-484B-8093-4BCC65908B71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

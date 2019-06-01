@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="PendulumMotionEditor.Resources.Image.Button_OpenFile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PendulumMotionEditor.Resources.Image"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Canvas>
+        <Canvas.Resources>
+			<SolidColorBrush Color="#9C9C9C" x:Key="FillColor"></SolidColorBrush>
+        </Canvas.Resources>
+		<Polygon Fill="{StaticResource FillColor}" Points="0,0 0,23.8 18.6,28 18.6,16.5 16.5,14.7 16.5,3.9"></Polygon>
+		<Polygon Fill="{StaticResource FillColor}" Points="7.2,0.1 17.7,2.7 17.7,14.1 19.8,16 19.8,23.8 21.6,23 21.6,13.4 18.6,10.9 18.6,0.1"></Polygon>
+    </Canvas>
+</UserControl>

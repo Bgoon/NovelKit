@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="PendulumMotionEditor.Views.Components.ListManagerBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PendulumMotionEditor.Views.Components"
+			 xmlns:Image="clr-namespace:PendulumMotionEditor.Resources.Image"
+			 xmlns:System="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<UserControl.Resources>
+		<System:Double x:Key="TitleButtonWidth">36</System:Double>
+		<Thickness x:Key="ListControlButtonSpace" Right="5"></Thickness>
+	</UserControl.Resources>
+	<StackPanel Name="ListControlContext" Orientation="Horizontal" DockPanel.Dock="Top" Height="45" Background="#FF454545">
+		<Border Width="6"></Border>
+		<Grid Name="CreateItemButton" Background="#FFB38D61" Width="{StaticResource TitleButtonWidth}" Height="{StaticResource TitleButtonWidth}" Margin="{StaticResource ListControlButtonSpace}">
+			<Image:Button_CreateMotion Margin="9,9,0,0"/>
+			<Border/>
+		</Grid>
+		<Grid Name="CreateFolderButton" Background="DimGray" Width="{StaticResource TitleButtonWidth}" Height="{StaticResource TitleButtonWidth}" Margin="{StaticResource ListControlButtonSpace}">
+			<Image:Button_CreateFolder Margin="9,9,0,0"/>
+			<Border/>
+		</Grid>
+		<Grid Name="RemoveButton" Background="DimGray" Width="{StaticResource TitleButtonWidth}" Height="{StaticResource TitleButtonWidth}" Margin="{StaticResource ListControlButtonSpace}">
+			<Image:Button_RemoveItem Margin="11,6,0,0"/>
+			<Border/>
+		</Grid>
+		<Grid Name="CopyButton" Background="DimGray" Width="{StaticResource TitleButtonWidth}" Height="{StaticResource TitleButtonWidth}" Margin="{StaticResource ListControlButtonSpace}">
+			<Image:Button_CopyMotion Margin="8,7,0,0"/>
+			<Border/>
+		</Grid>
+	</StackPanel>
+</UserControl>

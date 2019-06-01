@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="PendulumMotionEditor.Resources.Image.Button_CopyMotion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PendulumMotionEditor.Resources.Image"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Canvas>
+        <Canvas.Resources>
+            <SolidColorBrush Color="#FFFFFF" x:Key="FillColor"></SolidColorBrush>
+        </Canvas.Resources>
+        <Polygon Fill="{StaticResource FillColor}" Points="14.4,0 0,0 0,14.4 4.3,14.4 4.3,4.5 14.4,4.5 "></Polygon>
+        <Polygon Fill="{StaticResource FillColor}" Points="14.4,6.4 5.9,6.4 5.9,14.4 5.9,20.8 20.3,20.8 20.3,6.4  "></Polygon>
+    </Canvas>
+</UserControl>
