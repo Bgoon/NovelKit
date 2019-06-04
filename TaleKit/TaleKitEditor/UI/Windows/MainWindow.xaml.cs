@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using TaleKitEditor.UI.Workspaces;
 using GKit;
 
-namespace TaleKitEditor.UI {
+namespace TaleKitEditor.UI.Windows {
 	/// <summary>
 	/// MainWindow.xaml에 대한 상호 작용 논리
 	/// </summary>

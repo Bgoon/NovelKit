@@ -17,13 +17,13 @@
 	</UserControl.Resources>
     <Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="0.3*"/>
-			<ColumnDefinition Width="1*"/>
-			<ColumnDefinition Width="0.3*"/>
+			<ColumnDefinition Width="0.3*" MinWidth="100"/>
+			<ColumnDefinition Width="1*" MinWidth="100"/>
+			<ColumnDefinition Width="0.3*" MinWidth="100"/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="1*"/>
-			<RowDefinition Height="1*"/>
+			<RowDefinition Height="1*" MinHeight="100"/>
+			<RowDefinition Height="1*" MinHeight="100"/>
 		</Grid.RowDefinitions>
 
 		<DockPanel Grid.Column="0" Margin="{StaticResource ContentMargin}">

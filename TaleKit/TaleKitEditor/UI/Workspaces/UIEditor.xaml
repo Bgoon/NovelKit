@@ -16,9 +16,9 @@
 	</UserControl.Resources>
     <Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="0.3*"/>
-			<ColumnDefinition Width="1*"/>
-			<ColumnDefinition Width="0.3*"/>
+			<ColumnDefinition Width="0.3*" MinWidth="100"/>
+			<ColumnDefinition Width="1*" MinWidth="100"/>
+			<ColumnDefinition Width="0.3*" MinWidth="100"/>
 		</Grid.ColumnDefinitions>
 
 		<DockPanel Grid.Column="0" Margin="{StaticResource ContentMargin}">

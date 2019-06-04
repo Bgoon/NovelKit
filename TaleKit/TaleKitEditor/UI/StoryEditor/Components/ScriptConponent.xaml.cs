@@ -12,13 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKitEditor.StoryEditor;
 
-namespace PendulumMotionEditor.Views.Components {
+namespace TaleKitEditor.UI.StoryEditor {
 	/// <summary>
-	/// ContentPanel.xaml에 대한 상호 작용 논리
+	/// ScriptConponent.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ContentTitle : UserControl {
-		public ContentTitle() {
+	public partial class ScriptConponent : UserControl, IComponent {
+		public ScriptConponent() {
 			InitializeComponent();
 		}
 	}

@@ -5,4 +5,7 @@
 	<System:Double x:Key="SplitterWidth">4</System:Double>
 	<Thickness x:Key="ContentMargin" Right="{StaticResource SplitterWidth}"></Thickness>
 	<SolidColorBrush x:Key="ContentBG" Color="#3B3B3B"></SolidColorBrush>
+	
+	<!--StoryEditor Component-->
+	<System:Double x:Key="ContentLabelWidth">50</System:Double>
 </ResourceDictionary>

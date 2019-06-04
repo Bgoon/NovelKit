@@ -13,15 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PendulumMotionEditor.Views.Components
-{
+namespace PendulumMotionEditor.Views.Layouts {
 	/// <summary>
-	/// SimpleTextbox.xaml에 대한 상호 작용 논리
+	/// ContentPanel.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class SimpleTextbox : UserControl
-	{
-		public SimpleTextbox()
-		{
+	public partial class ContentTitle : UserControl {
+		public ContentTitle() {
 			InitializeComponent();
 		}
 	}

@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GKit;
 
-namespace PendulumMotionEditor.Views.Components {
+namespace PendulumMotionEditor.Views.Layouts {
 	/// <summary>
 	/// ListManagerBar.xaml에 대한 상호 작용 논리
 	/// </summary>

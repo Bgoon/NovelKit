@@ -69,18 +69,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Script\Root.cs" />
+    <Compile Include="Script\Workspaces\StoryEditor\IComponent.cs" />
+    <Compile Include="UI\StoryEditor\Components\BlockClipComponent.xaml.cs">
+      <DependentUpon>BlockClipComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Script\Workspaces\StoryEditor\ComponentType.cs" />
+    <Compile Include="UI\StoryEditor\ComponentHeader.xaml.cs">
+      <DependentUpon>ComponentHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StoryEditor\Components\EventComponent.xaml.cs">
+      <DependentUpon>EventComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StoryEditor\Components\ScriptConponent.xaml.cs">
+      <DependentUpon>ScriptConponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StoryEditor\Components\UiOrderComponent.xaml.cs">
+      <DependentUpon>UiOrderComponent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Script\Workspaces\WorkspaceType.cs" />
-    <Compile Include="UI\Components\ContentTitle.xaml.cs">
+    <Compile Include="UI\StoryEditor\ComponentIndicator.xaml.cs">
+      <DependentUpon>ComponentIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Layouts\ContentTitle.xaml.cs">
       <DependentUpon>ContentTitle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Components\FileManagerBar.xaml.cs">
+    <Compile Include="UI\Layouts\FileManagerBar.xaml.cs">
       <DependentUpon>FileManagerBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Components\ListManagerBar.xaml.cs">
+    <Compile Include="UI\Layouts\ListManagerBar.xaml.cs">
       <DependentUpon>ListManagerBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Components\SimpleTextbox.xaml.cs">
+    <Compile Include="UI\Layouts\SimpleTextbox.xaml.cs">
       <DependentUpon>SimpleTextbox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\StoryEditor\StoryBlock.xaml.cs">
+      <DependentUpon>StoryBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\MotionEditor.xaml.cs">
       <DependentUpon>MotionEditor.xaml</DependentUpon>
@@ -119,23 +143,51 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Components\ContentTitle.xaml">
+    <Page Include="UI\StoryEditor\Components\BlockClipComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\StoryEditor\ComponentHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\StoryEditor\Components\EventComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\StoryEditor\Components\ScriptConponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\StoryEditor\Components\UiOrderComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\StoryEditor\ComponentIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Layouts\ContentTitle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Components\FileManagerBar.xaml">
+    <Page Include="UI\Layouts\FileManagerBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Components\ListManagerBar.xaml">
+    <Page Include="UI\Layouts\ListManagerBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Components\SimpleTextbox.xaml">
+    <Page Include="UI\Layouts\SimpleTextbox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Resources\UITheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\StoryEditor\StoryBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,6 +268,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Script\TaleKit\" />
+    <Folder Include="Script\Workspaces\MotionEditor\" />
+    <Folder Include="Script\Workspaces\UiEditor\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Cursors\Cursor_Add.cur" />
