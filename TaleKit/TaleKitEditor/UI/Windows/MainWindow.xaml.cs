@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKitEditor.UI.Workspaces;
 using GKit;
+using GKit.WPF;
 
 namespace TaleKitEditor.UI.Windows {
 	/// <summary>

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-			 xmlns:GKit="clr-namespace:GKit.WPF.Controls;assembly=GKit.WPF"
+			 xmlns:GComponents="clr-namespace:GKit.WPF.Components;assembly=GKitForWPF"
 			 xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignWidth="1280" d:DesignHeight="720">
@@ -22,23 +22,23 @@
 		</Grid.ColumnDefinitions>
 
 		<DockPanel Grid.Column="0" Margin="{StaticResource ContentMargin}">
-			<GKit:ContentTitle DockPanel.Dock="Top">
+			<GComponents:ContentTitle DockPanel.Dock="Top">
 				<UserControl.Resources>
 					<System:String x:Key="TitleText">Layers</System:String>
 				</UserControl.Resources>
-			</GKit:ContentTitle>
+			</GComponents:ContentTitle>
 			<DockPanel>
-				<GKit:ListManagerBar DockPanel.Dock="Top"></GKit:ListManagerBar>
+				<GComponents:ListManagerBar DockPanel.Dock="Top"></GComponents:ListManagerBar>
 				<ScrollViewer Background="{StaticResource ContentBG}" VerticalScrollBarVisibility="Auto"></ScrollViewer>
 			</DockPanel>
 		</DockPanel>
 		<GridSplitter Grid.Column="0" Width="{StaticResource SplitterWidth}" Background="{StaticResource SplitterBG}"></GridSplitter>
 		<DockPanel Grid.Column="1" Margin="{StaticResource ContentMargin}">
-			<GKit:ContentTitle DockPanel.Dock="Top">
+			<GComponents:ContentTitle DockPanel.Dock="Top">
 				<UserControl.Resources>
 					<System:String x:Key="TitleText">Preview</System:String>
 				</UserControl.Resources>
-			</GKit:ContentTitle>
+			</GComponents:ContentTitle>
 			<DockPanel>
 				<ScrollViewer Background="#292929" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 
@@ -47,11 +47,11 @@
 		</DockPanel>
 		<GridSplitter Grid.Column="1" Width="{StaticResource SplitterWidth}" Background="{StaticResource SplitterBG}"></GridSplitter>
 		<DockPanel Grid.Column="2">
-			<GKit:ContentTitle DockPanel.Dock="Top">
+			<GComponents:ContentTitle DockPanel.Dock="Top">
 				<UserControl.Resources>
 					<System:String x:Key="TitleText">Detail</System:String>
 				</UserControl.Resources>
-			</GKit:ContentTitle>
+			</GComponents:ContentTitle>
 			<DockPanel>
 				<ScrollViewer Background="{StaticResource ContentBG}" VerticalScrollBarVisibility="Auto">
 

@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TaleKitEditor.StoryEditor;
+using TaleKitEditor.StoryEditor_;
 
-namespace TaleKitEditor.UI.StoryEditor {
+namespace TaleKitEditor.UI.StoryEditor_ {
 	/// <summary>
 	/// ScriptConponent.xaml에 대한 상호 작용 논리
 	/// </summary>

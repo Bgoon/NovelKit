@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using GKit;
 using GKit.WPF;
 
-namespace TaleKitEditor.UI.StoryEditor {
+namespace TaleKitEditor.UI.StoryEditor_ {
 	/// <summary>
 	/// ComponentHeader.xaml에 대한 상호 작용 논리
 	/// </summary>

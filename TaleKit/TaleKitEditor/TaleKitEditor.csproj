@@ -37,8 +37,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GKit.WPF">
-      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\GKit\GKit.WPF.dll</HintPath>
+    <Reference Include="GKitForWPF">
+      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\GKit\GKitForWPF\GKitForWPF.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -63,12 +63,52 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.MetroAccent, Version=3.8.19076.18510, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.AvalonDock.Themes.MetroAccent.3.8.19076.18510\lib\net40\Xceed.Wpf.AvalonDock.Themes.MetroAccent.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Office2007, Version=3.8.19076.18510, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.AvalonDock.Themes.Office2007.3.8.19076.18510\lib\net40\Xceed.Wpf.AvalonDock.Themes.Office2007.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2013, Version=2.9.0.1, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.AvalonDock.Themes.VS2013.2.9.0.1\lib\net40-client\Xceed.Wpf.AvalonDock.Themes.VS2013.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Windows10, Version=3.8.19076.18510, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.AvalonDock.Themes.Windows10.3.8.19076.18510\lib\net40\Xceed.Wpf.AvalonDock.Themes.Windows10.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Themes, Version=3.8.19076.18510, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.Themes.3.8.19076.18510\lib\net40\Xceed.Wpf.Themes.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Themes.Metro, Version=3.8.19076.18510, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.Themes.Metro.3.8.19076.18510\lib\net40\Xceed.Wpf.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Themes.Office2007, Version=3.8.19076.18510, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.Themes.Office2007.3.8.19076.18510\lib\net40\Xceed.Wpf.Themes.Office2007.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Themes.Windows10, Version=3.8.19076.18510, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.Themes.Windows10.3.8.19076.18510\lib\net40\Xceed.Wpf.Themes.Windows10.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Resources\Styles\GKitDark\GKitDarkTheme.cs" />
     <Compile Include="Script\Root.cs" />
     <Compile Include="Script\Workspaces\StoryEditor\IComponent.cs" />
     <Compile Include="UI\StoryEditor\Components\BlockClipComponent.xaml.cs">
@@ -88,23 +128,14 @@
       <DependentUpon>UiOrderComponent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Script\Workspaces\WorkspaceType.cs" />
-    <Compile Include="UI\StoryEditor\ComponentIndicator.xaml.cs">
-      <DependentUpon>ComponentIndicator.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Layouts\ContentTitle.xaml.cs">
-      <DependentUpon>ContentTitle.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Layouts\FileManagerBar.xaml.cs">
-      <DependentUpon>FileManagerBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Layouts\ListManagerBar.xaml.cs">
-      <DependentUpon>ListManagerBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Layouts\SimpleTextbox.xaml.cs">
-      <DependentUpon>SimpleTextbox.xaml</DependentUpon>
+    <Compile Include="UI\StoryEditor\ComponentMarker.xaml.cs">
+      <DependentUpon>ComponentMarker.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\StoryEditor\StoryBlock.xaml.cs">
       <DependentUpon>StoryBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Windows\AvalonTestWindow.xaml.cs">
+      <DependentUpon>AvalonTestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\MotionEditor.xaml.cs">
       <DependentUpon>MotionEditor.xaml</DependentUpon>
@@ -115,6 +146,14 @@
     <Compile Include="UI\Workspaces\UIEditor.xaml.cs">
       <DependentUpon>UIEditor.xaml</DependentUpon>
     </Compile>
+    <Page Include="Resources\Styles\GKitDark\GKitDark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\GKitDark\Theme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\VectorImages\Button_CopyMotion.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -163,31 +202,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\StoryEditor\ComponentIndicator.xaml">
+    <Page Include="UI\StoryEditor\ComponentMarker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Layouts\ContentTitle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Layouts\FileManagerBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Layouts\ListManagerBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Layouts\SimpleTextbox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Resources\UITheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\StoryEditor\StoryBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Windows\AvalonTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -270,11 +297,52 @@
     <Folder Include="Script\TaleKit\" />
     <Folder Include="Script\Workspaces\MotionEditor\" />
     <Folder Include="Script\Workspaces\UiEditor\" />
+    <Folder Include="UI\Layouts\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Cursors\Cursor_Add.cur" />
     <Resource Include="Resources\Cursors\Cursor_Default.cur" />
     <Resource Include="Resources\Cursors\Cursor_Remove.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Styles\GKitDark\Images\DockAnchorableBottom.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockAnchorableLeft.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockAnchorableRight.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockAnchorableTop.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockDocumentAsAnchorableBottom.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockDocumentAsAnchorableLeft.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockDocumentAsAnchorableRight.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockDocumentAsAnchorableTop.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockDocumentBottom.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockDocumentInside.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockDocumentLeft.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockDocumentRight.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockDocumentTop.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockPaneEmpty.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\DockPaneLargeEmpty.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\HTabGroup.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\Locked.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinAutoHide.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinAutoHide_Black.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinAutoHide_Dark.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinAutoHide_White.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinClose.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinClose_Black.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinClose_Dark.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinClose_White.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinDocMenu.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinDocMenu_Black.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinMaximize.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinMaximize_Black.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinMaximize_Dark.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinMenu.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinMenu_Black.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinMenu_Dark.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinMenu_White.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinRestore.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinRestore_Black.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\PinRestore_Dark.png" />
+    <Resource Include="Resources\Styles\GKitDark\Images\VTabGroup.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

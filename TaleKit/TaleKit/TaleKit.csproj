@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GKit.Unity">
-      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\GKit\GKit.Unity.dll</HintPath>
+    <Reference Include="GKitForUnity">
+      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\GKit\GKitForUnity\GKitForUnity.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,20 +44,41 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Library\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\UnityEngine\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\UnityEngine\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TaleCommand.cs" />
+    <Compile Include="Debug\TestResources.cs" />
+    <Compile Include="Event\EventBase.cs" />
+    <Compile Include="Input\PlayerInput.cs" />
+    <Compile Include="Motion\MotionManager.cs" />
+    <Compile Include="Option\Option.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TaleBlock.cs" />
-    <Compile Include="TKFile.cs" />
-    <Compile Include="TaleKitLoader.cs" />
-    <Compile Include="TKResource.cs" />
-    <Compile Include="TKStoryBoard.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Library\UnityEngine.dll" />
+    <Compile Include="Story\JobBlock\Jobs\JobBase.cs" />
+    <Compile Include="Story\JobBlock\Jobs\EventJob.cs" />
+    <Compile Include="Story\JobBlock\Jobs\LogicJob.cs" />
+    <Compile Include="Story\JobBlock\Jobs\MessageJob.cs" />
+    <Compile Include="Story\JobBlock\Jobs\UiJob.cs" />
+    <Compile Include="Story\JobBlock\JobBlock.cs" />
+    <Compile Include="Story\JobBlock\JobBlockClip.cs" />
+    <Compile Include="Story\GameObject\GameObjects.cs" />
+    <Compile Include="Story\Logic\CompareOperator.cs" />
+    <Compile Include="Story\Logic\Condition.cs" />
+    <Compile Include="Story\Scene\SceneConnection.cs" />
+    <Compile Include="Story\Logic\Variable.cs" />
+    <Compile Include="Story\Logic\VariableType.cs" />
+    <Compile Include="Story\Logic\VariableStorage.cs" />
+    <Compile Include="Story\Scene\SceneManager.cs" />
+    <Compile Include="Story\Scene\Scene.cs" />
+    <Compile Include="TaleKitClient.cs" />
+    <Compile Include="UI\Component\DepthScroller.cs" />
+    <Compile Include="UI\Text\MotionChar.cs" />
+    <Compile Include="UI\Text\MotionText.cs" />
+    <Compile Include="UI\UiElement.cs" />
+    <Compile Include="UI\UiManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
