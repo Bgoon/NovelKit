@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:Ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+			 xmlns:AdTheme="clr-namespace:Bgoon.AvalonDockTheme;assembly=Bgoon.AvalonDockThemes"
 			 xmlns:GComponents="clr-namespace:GKit.WPF.Components;assembly=GKitForWPF"
 			 xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
@@ -15,48 +17,38 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
     <Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="0.3*" MinWidth="100"/>
-			<ColumnDefinition Width="1*" MinWidth="100"/>
-			<ColumnDefinition Width="0.3*" MinWidth="100"/>
-		</Grid.ColumnDefinitions>
-
-		<DockPanel Grid.Column="0" Margin="{StaticResource ContentMargin}">
-			<GComponents:ContentTitle DockPanel.Dock="Top">
-				<UserControl.Resources>
-					<System:String x:Key="TitleText">Layers</System:String>
-				</UserControl.Resources>
-			</GComponents:ContentTitle>
-			<DockPanel>
-				<GComponents:ListManagerBar DockPanel.Dock="Top"></GComponents:ListManagerBar>
-				<ScrollViewer Background="{StaticResource ContentBG}" VerticalScrollBarVisibility="Auto"></ScrollViewer>
-			</DockPanel>
-		</DockPanel>
-		<GridSplitter Grid.Column="0" Width="{StaticResource SplitterWidth}" Background="{StaticResource SplitterBG}"></GridSplitter>
-		<DockPanel Grid.Column="1" Margin="{StaticResource ContentMargin}">
-			<GComponents:ContentTitle DockPanel.Dock="Top">
-				<UserControl.Resources>
-					<System:String x:Key="TitleText">Preview</System:String>
-				</UserControl.Resources>
-			</GComponents:ContentTitle>
-			<DockPanel>
-				<ScrollViewer Background="#292929" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-
-				</ScrollViewer>
-			</DockPanel>
-		</DockPanel>
-		<GridSplitter Grid.Column="1" Width="{StaticResource SplitterWidth}" Background="{StaticResource SplitterBG}"></GridSplitter>
-		<DockPanel Grid.Column="2">
-			<GComponents:ContentTitle DockPanel.Dock="Top">
-				<UserControl.Resources>
-					<System:String x:Key="TitleText">Detail</System:String>
-				</UserControl.Resources>
-			</GComponents:ContentTitle>
-			<DockPanel>
-				<ScrollViewer Background="{StaticResource ContentBG}" VerticalScrollBarVisibility="Auto">
-
-				</ScrollViewer>
-			</DockPanel>
-		</DockPanel>
+		<Ad:DockingManager>
+			<Ad:DockingManager.Theme>
+				<AdTheme:FlatDarkTheme/>
+			</Ad:DockingManager.Theme>
+			<Ad:LayoutRoot>
+				<Ad:LayoutPanel>
+					<Ad:LayoutDocumentPaneGroup Orientation="Horizontal">
+						<Ad:LayoutDocumentPaneGroup Orientation="Vertical">
+							<Ad:LayoutDocumentPane>
+								<Ad:LayoutAnchorable Title="AnchorA"/>
+								<Ad:LayoutAnchorable Title="AnchorB"/>
+							</Ad:LayoutDocumentPane>
+						</Ad:LayoutDocumentPaneGroup>
+						<Ad:LayoutDocumentPaneGroup Orientation="Vertical">
+							<Ad:LayoutDocumentPane>
+								<Ad:LayoutDocument Title="TitleC">
+									<Grid Background="#FF92FFE6"/>
+								</Ad:LayoutDocument>
+								<Ad:LayoutDocument Title="TitleC">
+									<Grid Background="#FF92FFE6"/>
+								</Ad:LayoutDocument>
+								<Ad:LayoutDocument Title="TitleC">
+									<Grid Background="#FF92FFE6"/>
+								</Ad:LayoutDocument>
+								<Ad:LayoutDocument Title="TitleD">
+									<Grid Background="#FFFFB1F1"/>
+								</Ad:LayoutDocument>
+							</Ad:LayoutDocumentPane>
+						</Ad:LayoutDocumentPaneGroup>
+					</Ad:LayoutDocumentPaneGroup>
+				</Ad:LayoutPanel>
+			</Ad:LayoutRoot>
+		</Ad:DockingManager>
 	</Grid>
 </UserControl>

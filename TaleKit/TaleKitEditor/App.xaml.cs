@@ -16,12 +16,16 @@ namespace TaleKitEditor {
 	/// </summary>
 	public partial class App : Application {
 		private void OnStartup(object sender, StartupEventArgs e) {
+			LoadResources();
+
+			CreateRoot();
+		}
+		private void LoadResources() {
 			StyleResource.Apply(Resources, ThemeType.FlatTheme);
 			StyleResource.ApplyCustom(Resources, "PendulumMotionEditor", "Resources/Style/EditorStyle.xaml");
-
-			//new Root();
-			AvalonTestWindow window = new AvalonTestWindow();
-			window.Show();
+		}
+		private void CreateRoot() {
+			new Root();
 		}
 	}
 }

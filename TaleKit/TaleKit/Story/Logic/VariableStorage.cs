@@ -9,8 +9,8 @@ namespace TaleKit.Story.Logic {
 		private Dictionary<string, Variable> variableDict;
 
 		public VariableStorage() {
-			variableDict = new Dictionary<string, dynamic>();
+			variableDict = new Dictionary<string, Variable>();
 		}
-		public Variable
+		//public Variable
 	}
 }
