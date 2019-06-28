@@ -22,9 +22,9 @@ namespace TaleKitEditor.UI.Windows {
 	/// </summary>
 	public partial class MainWindow : Window {
 
-		public UIEditor UiEditor;
-		public MotionEditor motionEditor;
-		public StoryEditor storyEditor;
+		public UiEditorLayout UiEditor;
+		public MotionEditorLayout motionEditor;
+		public Workspaces.StoryEditorLayout storyEditor;
 		private UserControl[] workspaces;
 
 		public MainWindow() {
@@ -36,9 +36,9 @@ namespace TaleKitEditor.UI.Windows {
 			RegisterEvents();
 		}
 		private void Init() {
-			UiEditor = new UIEditor();
-			motionEditor = new MotionEditor();
-			storyEditor = new StoryEditor();
+			UiEditor = new UiEditorLayout();
+			motionEditor = new MotionEditorLayout();
+			storyEditor = new Workspaces.StoryEditorLayout();
 
 			workspaces = new UserControl[] {
 				UiEditor,

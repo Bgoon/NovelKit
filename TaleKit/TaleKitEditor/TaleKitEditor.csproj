@@ -66,11 +66,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.8.19076.18510, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xceed.Wpf.AvalonDock.3.8.19076.18510\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=3.8.19076.18510, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xceed.Wpf.Toolkit.3.8.19076.18510\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.5.7.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dirkster.AvalonDock.3.5.7\lib\net4\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -103,14 +100,14 @@
     <Compile Include="UI\StoryEditor\StoryBlock.xaml.cs">
       <DependentUpon>StoryBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\MotionEditor.xaml.cs">
-      <DependentUpon>MotionEditor.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\MotionEditorLayout.xaml.cs">
+      <DependentUpon>MotionEditorLayout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryEditor.xaml.cs">
-      <DependentUpon>StoryEditor.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\StoryEditorLayout.xaml.cs">
+      <DependentUpon>StoryEditorLayout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UIEditor.xaml.cs">
-      <DependentUpon>UIEditor.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\UiEditorLayout.xaml.cs">
+      <DependentUpon>UiEditorLayout.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\VectorImages\Button_CopyMotion.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -205,15 +202,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\Workspaces\MotionEditor.xaml">
+    <Page Include="UI\Workspaces\MotionEditorLayout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditor.xaml">
+    <Page Include="UI\Workspaces\StoryEditorLayout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UIEditor.xaml">
+    <Page Include="UI\Workspaces\UiEditorLayout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
