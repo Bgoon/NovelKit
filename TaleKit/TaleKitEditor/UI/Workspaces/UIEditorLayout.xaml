@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.UiEditorLayout"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			
+			 xmlns:Ad="clr-namespace:Xceed.Wpf.AvalonDock;assembly=Xceed.Wpf.AvalonDock"
+			 xmlns:AdConverters="clr-namespace:Xceed.Wpf.AvalonDock.Converters;assembly=Xceed.Wpf.AvalonDock"
+			 xmlns:AdLayout="clr-namespace:Xceed.Wpf.AvalonDock.Layout;assembly=Xceed.Wpf.AvalonDock"
+			 xmlns:AdCtrls="clr-namespace:Xceed.Wpf.AvalonDock.Controls;assembly=Xceed.Wpf.AvalonDock"
+			 xmlns:AdThemes="clr-namespace:Bgoon.AvalonDockTheme;assembly=Bgoon.AvalonDockThemes"
+
+			 xmlns:GComponents="clr-namespace:GKit.WPF.Components;assembly=GKitForWPF"
+			 xmlns:System="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignWidth="1280" d:DesignHeight="720">
+	<UserControl.Resources>
+		<Style TargetType="{x:Type AdLayout:LayoutAnchorable}">
+			<Setter Property="CanHide" Value="False"/>
+		</Style>
+	</UserControl.Resources>
+    <Grid>
+		<Ad:DockingManager>
+			<Ad:DockingManager.Theme>
+				<AdThemes:FlatDarkTheme/>
+			</Ad:DockingManager.Theme>
+
+			<AdLayout:LayoutRoot>
+				<AdLayout:LayoutPanel>
+					<AdLayout:LayoutDocumentPaneGroup Orientation="Horizontal">
+						<AdLayout:LayoutDocumentPane>
+							<AdLayout:LayoutAnchorable Title="Perfect"/>
+							<AdLayout:LayoutAnchorable Title="AnchorB"/>
+							<AdLayout:LayoutAnchorable Title="AnchorB"/>
+						</AdLayout:LayoutDocumentPane>
+					</AdLayout:LayoutDocumentPaneGroup>
+					<AdLayout:LayoutDocumentPaneGroup Orientation="Vertical">
+						<AdLayout:LayoutDocumentPane>
+							<AdLayout:LayoutAnchorable Title="AnchorA"/>
+							<AdLayout:LayoutAnchorable Title="AnchorB"/>
+							<AdLayout:LayoutAnchorable Title="AnchorB"/>
+						</AdLayout:LayoutDocumentPane>
+					</AdLayout:LayoutDocumentPaneGroup>
+				</AdLayout:LayoutPanel>
+			</AdLayout:LayoutRoot>
+		</Ad:DockingManager>
+	</Grid>
+</UserControl>

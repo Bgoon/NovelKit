@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.MotionEditorLayout"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			
+
+			 xmlns:PMEditor="clr-namespace:PendulumMotionEditor.Views.Contexts;assembly=PendulumMotionEditor"
+             mc:Ignorable="d" 
+             d:DesignWidth="1280" d:DesignHeight="720">
+    <Grid>
+		<PMEditor:MotionEditorContext x:Name="EditorContext"/>
+
+	</Grid>
+</UserControl>
