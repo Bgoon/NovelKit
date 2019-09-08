@@ -4,11 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:Workspaces="clr-namespace:TaleKitEditor.UI.Workspaces"
-		xmlns:GComponents="clr-namespace:GKit.WPF.Components;assembly=GKitForWPF"
+		xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
         mc:Ignorable="d"
         Title="MainWindow" Width="1280" Height="720">
     <DockPanel>
-		<GComponents:FileManagerBar DockPanel.Dock="Top"></GComponents:FileManagerBar>
+		<GControls:FileManagerBar DockPanel.Dock="Top"></GControls:FileManagerBar>
 		<Grid Name="WorkspaceContext">
 		</Grid>
 	</DockPanel>

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TaleKit</RootNamespace>
     <AssemblyName>TaleKit</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GKitForUnity">
-      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\GKit\GKitForUnity\GKitForUnity.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,34 +52,55 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datas\IDataFile.cs" />
+    <Compile Include="Datas\Motion\MotionFile.cs" />
+    <Compile Include="Datas\Story\StoryBlockClipItem.cs" />
+    <Compile Include="Datas\Story\StoryBlockItem.cs" />
+    <Compile Include="Datas\Story\StoryBlockItemBase.cs" />
+    <Compile Include="Datas\Story\StoryFile.cs" />
+    <Compile Include="Datas\TaleData.cs" />
     <Compile Include="Debug\TestResources.cs" />
     <Compile Include="Event\EventBase.cs" />
     <Compile Include="Input\PlayerInput.cs" />
-    <Compile Include="Motion\MotionManager.cs" />
+    <Compile Include="Datas\Motion\MotionManager.cs" />
     <Compile Include="Option\Option.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Story\JobBlock\Jobs\JobBase.cs" />
-    <Compile Include="Story\JobBlock\Jobs\EventJob.cs" />
-    <Compile Include="Story\JobBlock\Jobs\LogicJob.cs" />
-    <Compile Include="Story\JobBlock\Jobs\MessageJob.cs" />
-    <Compile Include="Story\JobBlock\Jobs\UiJob.cs" />
-    <Compile Include="Story\JobBlock\JobBlock.cs" />
-    <Compile Include="Story\JobBlock\JobBlockClip.cs" />
-    <Compile Include="Story\GameObject\GameObjects.cs" />
-    <Compile Include="Story\Logic\CompareOperator.cs" />
-    <Compile Include="Story\Logic\Condition.cs" />
-    <Compile Include="Story\Scene\SceneConnection.cs" />
-    <Compile Include="Story\Logic\Variable.cs" />
-    <Compile Include="Story\Logic\VariableType.cs" />
-    <Compile Include="Story\Logic\VariableStorage.cs" />
-    <Compile Include="Story\Scene\SceneManager.cs" />
-    <Compile Include="Story\Scene\Scene.cs" />
+    <Compile Include="Datas\Story\JobBlock\Jobs\JobBase.cs" />
+    <Compile Include="Datas\Story\JobBlock\Jobs\EventJob.cs" />
+    <Compile Include="Datas\Story\JobBlock\Jobs\LogicJob.cs" />
+    <Compile Include="Datas\Story\JobBlock\Jobs\MessageJob.cs" />
+    <Compile Include="Datas\Story\JobBlock\Jobs\UiJob.cs" />
+    <Compile Include="Datas\Story\JobBlock\JobBlock.cs" />
+    <Compile Include="Datas\Story\JobBlock\JobBlockClip.cs" />
+    <Compile Include="Datas\Story\GameObject\GameObjects.cs" />
+    <Compile Include="Datas\Story\Logic\CompareOperator.cs" />
+    <Compile Include="Datas\Story\Logic\Condition.cs" />
+    <Compile Include="Datas\Story\Scene\SceneConnection.cs" />
+    <Compile Include="Datas\Story\Logic\Variable.cs" />
+    <Compile Include="Datas\Story\Logic\VariableType.cs" />
+    <Compile Include="Datas\Story\Logic\VariableStorage.cs" />
+    <Compile Include="Datas\Story\Scene\SceneManager.cs" />
+    <Compile Include="Datas\Story\Scene\Scene.cs" />
     <Compile Include="TaleKitClient.cs" />
-    <Compile Include="UI\Component\DepthScroller.cs" />
-    <Compile Include="UI\Text\MotionChar.cs" />
-    <Compile Include="UI\Text\MotionText.cs" />
-    <Compile Include="UI\UiElement.cs" />
-    <Compile Include="UI\UiManager.cs" />
+    <Compile Include="Datas\UI\Component\DepthScroller.cs" />
+    <Compile Include="Datas\UI\Text\MotionChar.cs" />
+    <Compile Include="Datas\UI\Text\MotionText.cs" />
+    <Compile Include="Datas\UI\UiFile.cs" />
+    <Compile Include="Datas\UI\UiItem.cs" />
+    <Compile Include="Datas\UI\UiManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKitForUnity\GKitForUnity.csproj">
+      <Project>{958f842d-c748-40f0-b0d4-1a2c54cb070b}</Project>
+      <Name>GKitForUnity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\PenMotion\PenMotion\PenMotion.csproj">
+      <Project>{91981f2b-f18b-4f4b-8822-075a572a7cac}</Project>
+      <Name>PenMotion</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

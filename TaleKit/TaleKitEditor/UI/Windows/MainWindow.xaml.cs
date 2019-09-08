@@ -46,7 +46,7 @@ namespace TaleKitEditor.UI.Windows {
 				storyEditor,
 			};
 
-			ActiveWorkspace(WorkspaceType.UiEditor);
+			ActiveWorkspace(WorkspaceType.StoryEditor);
 		}
 		private void RegisterEvents() {
 

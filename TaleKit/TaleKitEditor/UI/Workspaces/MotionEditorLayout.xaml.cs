@@ -29,7 +29,7 @@ namespace TaleKitEditor.UI.Workspaces {
 			Init();
 		}
 		private void Init() {
-			EditorContext.CreateNewFile();
+			EditorContext.CreateFile();
 		}
 	}
 }

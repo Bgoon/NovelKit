@@ -4,8 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 
+			 xmlns:Ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+			 xmlns:AdThemes="clr-namespace:Bgoon.AvalonDockTheme;assembly=Bgoon.AvalonDockThemes"
 
-			 xmlns:GComponents="clr-namespace:GKit.WPF.Components;assembly=GKitForWPF"
+			 xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
+
+			 xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
+			 xmlns:Tabs="clr-namespace:TaleKitEditor.UI.Workspaces.StoryEditorTabs"
 			 xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:TaleKitEditor.UI.Workspaces"
              mc:Ignorable="d" 
@@ -18,5 +23,51 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 	<Grid>
+		<Ad:DockingManager>
+			<Ad:DockingManager.Theme>
+				<AdThemes:FlatDarkTheme/>
+			</Ad:DockingManager.Theme>
+
+			<Ad:LayoutRoot>
+				<Ad:LayoutPanel>
+					<Ad:LayoutAnchorablePaneGroup Orientation="Horizontal">
+						<!--Tab 1-->
+						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
+							<Ad:LayoutAnchorablePane DockHeight="0.5*">
+								<Controls:FixedLayoutAnchorable Title="Blocks">
+									<GControls:EditListView/>
+								</Controls:FixedLayoutAnchorable>
+								<Controls:FixedLayoutAnchorable Title="Resources">
+									<GControls:EditListView/>
+								</Controls:FixedLayoutAnchorable>
+							</Ad:LayoutAnchorablePane>
+							<Ad:LayoutAnchorablePane>
+								<Controls:FixedLayoutAnchorable Title="StoryBoard">
+									<Tabs:StoryBoardTab/>
+								</Controls:FixedLayoutAnchorable>
+							</Ad:LayoutAnchorablePane>
+						</Ad:LayoutAnchorablePaneGroup>
+
+
+						<!--Tab 2-->
+						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="3*">
+							<Ad:LayoutAnchorablePane DockHeight="0.5*">
+								<Controls:FixedLayoutAnchorable Title="Scenes"/>
+							</Ad:LayoutAnchorablePane>
+							<Ad:LayoutAnchorablePane>
+								<Controls:FixedLayoutAnchorable Title="Viewport"/>
+							</Ad:LayoutAnchorablePane>
+						</Ad:LayoutAnchorablePaneGroup>
+
+						<!--Tab 3-->
+						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
+							<Ad:LayoutAnchorablePane>
+								<Controls:FixedLayoutAnchorable Title="Detail"/>
+							</Ad:LayoutAnchorablePane>
+						</Ad:LayoutAnchorablePaneGroup>
+					</Ad:LayoutAnchorablePaneGroup>
+				</Ad:LayoutPanel>
+			</Ad:LayoutRoot>
+		</Ad:DockingManager>
 	</Grid>
 </UserControl>

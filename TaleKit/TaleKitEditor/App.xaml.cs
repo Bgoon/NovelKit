@@ -22,7 +22,6 @@ namespace TaleKitEditor {
 		}
 		private void LoadResources() {
 			StyleResource.Apply(Resources, ThemeType.FlatTheme);
-			StyleResource.ApplyCustom(Resources, "PendulumMotionEditor", "Resources/Style/EditorStyle.xaml");
 		}
 		private void CreateRoot() {
 			new Root();

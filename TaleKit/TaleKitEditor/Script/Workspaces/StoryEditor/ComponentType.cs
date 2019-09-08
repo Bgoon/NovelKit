@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaleKitEditor.StoryEditor_ {
+namespace TaleKitEditor.StoryEditor {
 	public enum ComponentType {
 		Script,
 		UiOrder,

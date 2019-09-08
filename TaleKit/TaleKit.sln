@@ -9,6 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaleKit", "TaleKit\TaleKit.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTester", "ConsoleTester\ConsoleTester.csproj", "{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GKitForWPF", "..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKitForWPF\GKitForWPF.csproj", "{896246BD-905D-4A62-90D2-54664A158656}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PenMotion", "..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\PenMotion\PenMotion\PenMotion.csproj", "{91981F2B-F18B-4F4B-8822-075A572A7CAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PenMotionEditor", "..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\PenMotion\PenMotionEditor\PenMotionEditor.csproj", "{E155BA23-08FA-4138-8992-0490AAC34012}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GKitForUnity", "..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKitForUnity\GKitForUnity.csproj", "{958F842D-C748-40F0-B0D4-1A2C54CB070B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +35,22 @@ Global
 		{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{896246BD-905D-4A62-90D2-54664A158656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{896246BD-905D-4A62-90D2-54664A158656}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{896246BD-905D-4A62-90D2-54664A158656}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{896246BD-905D-4A62-90D2-54664A158656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91981F2B-F18B-4F4B-8822-075A572A7CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91981F2B-F18B-4F4B-8822-075A572A7CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91981F2B-F18B-4F4B-8822-075A572A7CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91981F2B-F18B-4F4B-8822-075A572A7CAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E155BA23-08FA-4138-8992-0490AAC34012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E155BA23-08FA-4138-8992-0490AAC34012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E155BA23-08FA-4138-8992-0490AAC34012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E155BA23-08FA-4138-8992-0490AAC34012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{958F842D-C748-40F0-B0D4-1A2C54CB070B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{958F842D-C748-40F0-B0D4-1A2C54CB070B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{958F842D-C748-40F0-B0D4-1A2C54CB070B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{958F842D-C748-40F0-B0D4-1A2C54CB070B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,11 +8,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TaleKitEditor</RootNamespace>
     <AssemblyName>TaleKitEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,17 +41,14 @@
     <Reference Include="Bgoon.AvalonDockThemes">
       <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\Bgoon.AvalonDockThemes\Bgoon.AvalonDockThemes.dll</HintPath>
     </Reference>
-    <Reference Include="GKitForWPF">
-      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\GKit\GKitForWPF\GKitForWPF.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PendulumMotion">
-      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PendulumMotion\Release\API\PendulumMotion.dll</HintPath>
+    <Reference Include="PenMotion">
+      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\Release\API\PenMotion.dll</HintPath>
     </Reference>
-    <Reference Include="PendulumMotionEditor">
-      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PendulumMotion\Release\Editor\PendulumMotionEditor.exe</HintPath>
+    <Reference Include="PenMotionEditor">
+      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\Release\Editor\PenMotionEditor.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -66,8 +64,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.5.7.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dirkster.AvalonDock.3.5.7\lib\net4\Xceed.Wpf.AvalonDock.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.5.11.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dirkster.AvalonDock.3.5.11\lib\net4\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -77,28 +75,29 @@
     </ApplicationDefinition>
     <Compile Include="Script\Root.cs" />
     <Compile Include="Script\Workspaces\StoryEditor\IComponent.cs" />
-    <Compile Include="UI\StoryEditor\Components\BlockClipComponent.xaml.cs">
+    <Compile Include="UI\Controls\FixedLayoutAnchorable.cs" />
+    <Compile Include="UI\Workspaces\StoryEditorTabs\Components\BlockClipComponent.xaml.cs">
       <DependentUpon>BlockClipComponent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Script\Workspaces\StoryEditor\ComponentType.cs" />
-    <Compile Include="UI\StoryEditor\ComponentHeader.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryEditorTabs\DetailElements\ComponentHeader.xaml.cs">
       <DependentUpon>ComponentHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\StoryEditor\Components\EventComponent.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryEditorTabs\Components\EventComponent.xaml.cs">
       <DependentUpon>EventComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\StoryEditor\Components\ScriptConponent.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryEditorTabs\Components\ScriptConponent.xaml.cs">
       <DependentUpon>ScriptConponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\StoryEditor\Components\UiOrderComponent.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryEditorTabs\Components\UiOrderComponent.xaml.cs">
       <DependentUpon>UiOrderComponent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Script\Workspaces\WorkspaceType.cs" />
-    <Compile Include="UI\StoryEditor\ComponentMarker.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryEditorTabs\CommonElements\ComponentMarker.xaml.cs">
       <DependentUpon>ComponentMarker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\StoryEditor\StoryBlock.xaml.cs">
-      <DependentUpon>StoryBlock.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\StoryEditorTabs\StoryBoardElements\StoryBlockItemView.xaml.cs">
+      <DependentUpon>StoryBlockItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\MotionEditorLayout.xaml.cs">
       <DependentUpon>MotionEditorLayout.xaml</DependentUpon>
@@ -106,8 +105,38 @@
     <Compile Include="UI\Workspaces\StoryEditorLayout.xaml.cs">
       <DependentUpon>StoryEditorLayout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Workspaces\StoryEditorTabs\BlockClipTab.xaml.cs">
+      <DependentUpon>BlockClipTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\StoryEditorTabs\DetailTab.xaml.cs">
+      <DependentUpon>DetailTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\StoryEditorTabs\PreviewTab.xaml.cs">
+      <DependentUpon>PreviewTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\StoryEditorTabs\ResourceTab.xaml.cs">
+      <DependentUpon>ResourceTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\StoryEditorTabs\SceneTab.xaml.cs">
+      <DependentUpon>SceneTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\StoryEditorTabs\StoryBoardTab.xaml.cs">
+      <DependentUpon>StoryBoardTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Workspaces\UiEditorLayout.xaml.cs">
       <DependentUpon>UiEditorLayout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\UiEditor\DetailTab.xaml.cs">
+      <DependentUpon>DetailTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\UiEditor\LayerElements\UiItemView.xaml.cs">
+      <DependentUpon>UiItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\UiEditor\LayerTab.xaml.cs">
+      <DependentUpon>LayerTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\UiEditor\PreviewTab.xaml.cs">
+      <DependentUpon>PreviewTab.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\VectorImages\Button_CopyMotion.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -137,27 +166,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\StoryEditor\Components\BlockClipComponent.xaml">
+    <Page Include="UI\Workspaces\StoryEditorTabs\Components\BlockClipComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\StoryEditor\ComponentHeader.xaml">
+    <Page Include="UI\Workspaces\StoryEditorTabs\DetailElements\ComponentHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\StoryEditor\Components\EventComponent.xaml">
+    <Page Include="UI\Workspaces\StoryEditorTabs\Components\EventComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\StoryEditor\Components\ScriptConponent.xaml">
+    <Page Include="UI\Workspaces\StoryEditorTabs\Components\ScriptConponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\StoryEditor\Components\UiOrderComponent.xaml">
+    <Page Include="UI\Workspaces\StoryEditorTabs\Components\UiOrderComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\StoryEditor\ComponentMarker.xaml">
+    <Page Include="UI\Workspaces\StoryEditorTabs\CommonElements\ComponentMarker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,7 +194,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\StoryEditor\StoryBlock.xaml">
+    <Page Include="UI\Workspaces\StoryEditorTabs\StoryBoardElements\StoryBlockItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -210,7 +239,47 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Workspaces\StoryEditorTabs\BlockClipTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\StoryEditorTabs\DetailTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\StoryEditorTabs\PreviewTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\StoryEditorTabs\ResourceTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\StoryEditorTabs\SceneTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\StoryEditorTabs\StoryBoardTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Workspaces\UiEditorLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\UiEditor\DetailTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\UiEditor\LayerElements\UiItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\UiEditor\LayerTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\UiEditor\PreviewTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -248,12 +317,18 @@
     <Folder Include="Script\TaleKit\" />
     <Folder Include="Script\Workspaces\MotionEditor\" />
     <Folder Include="Script\Workspaces\UiEditor\" />
-    <Folder Include="UI\Layouts\" />
+    <Folder Include="UI\Workspaces\MotionEditorTabs\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Cursors\Cursor_Add.cur" />
     <Resource Include="Resources\Cursors\Cursor_Default.cur" />
     <Resource Include="Resources\Cursors\Cursor_Remove.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKitForWPF\GKitForWPF.csproj">
+      <Project>{896246bd-905d-4a62-90d2-54664a158656}</Project>
+      <Name>GKitForWPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

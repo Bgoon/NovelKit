@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			
+			 xmlns:Ad="http://schemas.xceed.com/wpf/xaml/avalondock"
 
-			 xmlns:PMEditor="clr-namespace:PendulumMotionEditor.Views.Contexts;assembly=PendulumMotionEditor"
+			 xmlns:PMEditor="clr-namespace:PenMotionEditor.UI.Tabs;assembly=PenMotionEditor"
              mc:Ignorable="d" 
              d:DesignWidth="1280" d:DesignHeight="720">
     <Grid>
-		<PMEditor:MotionEditorContext x:Name="EditorContext"/>
-
+		<PMEditor:EditorContext x:Name="EditorContext"/>
 	</Grid>
 </UserControl>
