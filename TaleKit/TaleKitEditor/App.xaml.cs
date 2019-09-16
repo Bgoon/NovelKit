@@ -18,13 +18,11 @@ namespace TaleKitEditor {
 		private void OnStartup(object sender, StartupEventArgs e) {
 			LoadResources();
 
-			CreateRoot();
+			//MainWindow도 여기서 생성합니다.
+			new Root();
 		}
 		private void LoadResources() {
 			StyleResource.Apply(Resources, ThemeType.FlatTheme);
-		}
-		private void CreateRoot() {
-			new Root();
 		}
 	}
 }

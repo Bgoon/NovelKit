@@ -3,13 +3,70 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+		xmlns:System="clr-namespace:System;assembly=mscorlib"
 		xmlns:Workspaces="clr-namespace:TaleKitEditor.UI.Workspaces"
+		xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
 		xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
+		xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
+
+		xmlns:PMEditor="clr-namespace:PenMotionEditor.UI.Tabs;assembly=PenMotionEditor"
+
         mc:Ignorable="d"
-        Title="MainWindow" Width="1280" Height="720">
+        Title="TaleKit - 비주얼 노벨 에디터" Width="1280" Height="720" Background="{StaticResource MainWindowBackground}" Icon="/TaleKitEditor;component/Resources/Images/TaleKitEditorIcon.png">
     <DockPanel>
-		<GControls:FileManagerBar DockPanel.Dock="Top"></GControls:FileManagerBar>
+		<Grid Height="50" DockPanel.Dock="Top">
+			<GControls:FileManagerBar DockPanel.Dock="Top"></GControls:FileManagerBar>
+			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+				<StackPanel.Resources>
+					<Style TargetType="Controls:WorkspaceButton">
+						<Setter Property="Background" Value="#3B3B3B"/>
+						<Setter Property="BorderThickness" Value="0"/>
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="Controls:WorkspaceButton">
+									<Grid>
+										<Border Name="BackPanel" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+										<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+										<Border Name="EventCover"/>
+									</Grid>
+									<ControlTemplate.Triggers>
+										<Trigger Property="IsMouseOver" Value="True">
+											<Setter TargetName="EventCover" Property="Background" Value="#15FFFFFF"/>
+										</Trigger>
+										<Trigger Property="IsPressed" Value="True">
+											<Setter TargetName="EventCover" Property="Background" Value="#15000000"/>
+										</Trigger>
+										<Trigger Property="IsEnabled" Value="False">
+											<Setter Property="Opacity" Value="0.3"/>
+										</Trigger>
+										<Trigger Property="IsActiveWorkspace" Value="True">
+											<Setter TargetName="BackPanel" Property="Background" Value="#9C653E"/>
+										</Trigger>
+									</ControlTemplate.Triggers>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+					<System:Double x:Key="LayoutButtonWidth">68</System:Double>
+					<System:Double x:Key="LayoutButtonHeight">38</System:Double>
+				</StackPanel.Resources>
+				<Controls:WorkspaceButton x:Name="UiWorkspaceButton" Width="{StaticResource LayoutButtonWidth}" Height="{StaticResource LayoutButtonHeight}" IsActiveWorkspace="True"
+					Click="UiWorkspaceButton_Click">
+					<VectorImages:LayoutIcon_Ui/>
+				</Controls:WorkspaceButton>
+				<Controls:WorkspaceButton x:Name="MotionWorkspaceButton" Width="{StaticResource LayoutButtonWidth}" Height="{StaticResource LayoutButtonHeight}" 
+					Click="MotionWorkspaceButton_Click">
+					<VectorImages:LayoutIcon_Motion/>
+				</Controls:WorkspaceButton>
+				<Controls:WorkspaceButton x:Name="StoryWorkspaceButton" Width="{StaticResource LayoutButtonWidth}" Height="{StaticResource LayoutButtonHeight}" 
+					Click="StoryWorkspaceButton_Click">
+					<VectorImages:LayoutIcon_Story/>
+				</Controls:WorkspaceButton>
+			</StackPanel>
+		</Grid>
 		<Grid Name="WorkspaceContext">
+			<PMEditor:MotionEditorContext x:Name="MotionEditorContext"/>
 		</Grid>
 	</DockPanel>
 </Window>

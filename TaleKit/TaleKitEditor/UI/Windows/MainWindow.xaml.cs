@@ -15,62 +15,112 @@ using System.Windows.Shapes;
 using TaleKitEditor.UI.Workspaces;
 using GKit;
 using GKit.WPF;
+using TaleKit.Datas;
+using TaleKitEditor.UI.Controls;
+using PenMotionEditor.UI.Tabs;
 
 namespace TaleKitEditor.UI.Windows {
-	/// <summary>
-	/// MainWindow.xaml에 대한 상호 작용 논리
-	/// </summary>
 	public partial class MainWindow : Window {
+		//Workspaces
+		public UiWorkspace uiWorkspace {
+			get; private set;
+		}
+		public MotionEditorContext motionWorkspace {
+			get; private set;
+		}
+		public StoryWorkspace storyWorkspace {
+			get; private set;
+		}
+		private Tuple<UserControl, WorkspaceButton>[] workspacePairs;
 
-		public UiEditorLayout UiEditor;
-		public MotionEditorLayout motionEditor;
-		public Workspaces.StoryEditorLayout storyEditor;
-		private UserControl[] workspaces;
+		//Datas
+		public TaleData EditingData {
+			get; private set;
+		}
+
+		public event Action<TaleData> DataLoaded;
+		public event Action<TaleData> DataUnloaded;
 
 		public MainWindow() {
 			InitializeComponent();
 			if (this.IsDesignMode())
 				return;
 
-			Init();
-			RegisterEvents();
+			ContentRendered += MainWindow_ContentRendered;
 		}
-		private void Init() {
-			UiEditor = new UiEditorLayout();
-			motionEditor = new MotionEditorLayout();
-			storyEditor = new Workspaces.StoryEditorLayout();
 
-			workspaces = new UserControl[] {
-				UiEditor,
-				motionEditor,
-				storyEditor,
+		private void MainWindow_ContentRendered(object sender, EventArgs e) {
+			InitData();
+			InitWorkspaces();
+			RegisterEvents();
+
+			CreateData();
+		}
+
+		private void InitWorkspaces() {
+			uiWorkspace = new UiWorkspace();
+			motionWorkspace = MotionEditorContext;
+			storyWorkspace = new StoryWorkspace();
+
+			workspacePairs = new Tuple<UserControl, WorkspaceButton>[] {
+				new Tuple<UserControl, WorkspaceButton>(uiWorkspace, UiWorkspaceButton),
+				new Tuple<UserControl, WorkspaceButton>(motionWorkspace, MotionWorkspaceButton),
+				new Tuple<UserControl, WorkspaceButton>(storyWorkspace, StoryWorkspaceButton),
 			};
 
-			ActiveWorkspace(WorkspaceType.StoryEditor);
+			foreach(Tuple<UserControl, WorkspaceButton> workspacePair in workspacePairs) {
+				if (workspacePair.Item1.Parent == null) {
+					WorkspaceContext.Children.Add(workspacePair.Item1);
+				}
+			}
+
+			ActiveWorkspace(WorkspaceType.Story);
+		}
+		private void InitData() {
 		}
 		private void RegisterEvents() {
 
 		}
 
-		public void ActiveWorkspace(WorkspaceType type) {
-			for(int i=0; i< workspaces.Length; ++i) {
-				workspaces[i].DetachParent();
-			}
+		public void CreateData() {
+			motionWorkspace.CreateFile();
+			EditingData = new TaleData();
 
-			UserControl workspace;
-			switch(type) {
-				default:
-				case WorkspaceType.UiEditor:
-					workspace = UiEditor;
-					break;
-				case WorkspaceType.MotionEditor:
-					workspace = motionEditor;
-					break;
-				case WorkspaceType.StoryEditor:
-					workspace = storyEditor;
-					break;
+			DataLoaded?.Invoke(EditingData);
+
+			EditingData.PostInit();
+		}
+		public void UnloadData() {
+			DataUnloaded?.Invoke(EditingData);
+
+			EditingData = null;
+		}
+
+		public void ActiveWorkspace(WorkspaceType type) {
+			DeactiveWorkspaces();
+
+			Tuple<UserControl, WorkspaceButton> workspacePair = workspacePairs[(int)type];
+			
+			workspacePair.Item1.Visibility = Visibility.Visible;
+			workspacePair.Item2.IsActiveWorkspace = true;
+		}
+		private void DeactiveWorkspaces() {
+			Tuple<UserControl, WorkspaceButton> workspacePair;
+			for (int i = 0; i < workspacePairs.Length; ++i) {
+				workspacePair = workspacePairs[i];
+				workspacePair.Item1.Visibility = Visibility.Collapsed;
+				workspacePair.Item2.IsActiveWorkspace = false;
 			}
-			workspace.SetParent(WorkspaceContext);
+		}
+
+		private void UiWorkspaceButton_Click(object sender, RoutedEventArgs e) {
+			ActiveWorkspace(WorkspaceType.Ui);
+		}
+		private void MotionWorkspaceButton_Click(object sender, RoutedEventArgs e) {
+			ActiveWorkspace(WorkspaceType.Motion);
+		}
+		private void StoryWorkspaceButton_Click(object sender, RoutedEventArgs e) {
+			ActiveWorkspace(WorkspaceType.Story);
 		}
 	}
 }

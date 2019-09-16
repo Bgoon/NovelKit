@@ -54,9 +54,9 @@
   <ItemGroup>
     <Compile Include="Datas\IDataFile.cs" />
     <Compile Include="Datas\Motion\MotionFile.cs" />
-    <Compile Include="Datas\Story\StoryBlockClipItem.cs" />
-    <Compile Include="Datas\Story\StoryBlockItem.cs" />
-    <Compile Include="Datas\Story\StoryBlockItemBase.cs" />
+    <Compile Include="Datas\Story\StoryClip.cs" />
+    <Compile Include="Datas\Story\StoryBlock.cs" />
+    <Compile Include="Datas\Story\StoryBlockBase.cs" />
     <Compile Include="Datas\Story\StoryFile.cs" />
     <Compile Include="Datas\TaleData.cs" />
     <Compile Include="Debug\TestResources.cs" />
@@ -65,13 +65,11 @@
     <Compile Include="Datas\Motion\MotionManager.cs" />
     <Compile Include="Option\Option.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Datas\Story\JobBlock\Jobs\JobBase.cs" />
-    <Compile Include="Datas\Story\JobBlock\Jobs\EventJob.cs" />
-    <Compile Include="Datas\Story\JobBlock\Jobs\LogicJob.cs" />
-    <Compile Include="Datas\Story\JobBlock\Jobs\MessageJob.cs" />
-    <Compile Include="Datas\Story\JobBlock\Jobs\UiJob.cs" />
-    <Compile Include="Datas\Story\JobBlock\JobBlock.cs" />
-    <Compile Include="Datas\Story\JobBlock\JobBlockClip.cs" />
+    <Compile Include="Datas\Story\Orders\OrderBase.cs" />
+    <Compile Include="Datas\Story\Orders\EventOrder.cs" />
+    <Compile Include="Datas\Story\Orders\LogicOrder.cs" />
+    <Compile Include="Datas\Story\Orders\MessageOrder.cs" />
+    <Compile Include="Datas\Story\Orders\UiOrder.cs" />
     <Compile Include="Datas\Story\GameObject\GameObjects.cs" />
     <Compile Include="Datas\Story\Logic\CompareOperator.cs" />
     <Compile Include="Datas\Story\Logic\Condition.cs" />
@@ -93,6 +91,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKit.XInput\GKit.XInput.csproj">
+      <Project>{5c947285-0c2f-4722-8290-d09c25b22fa3}</Project>
+      <Name>GKit.XInput</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKitForUnity\GKitForUnity.csproj">
       <Project>{958f842d-c748-40f0-b0d4-1a2c54cb070b}</Project>
       <Name>GKitForUnity</Name>

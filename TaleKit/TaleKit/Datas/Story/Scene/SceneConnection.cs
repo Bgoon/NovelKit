@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TaleKit.Story.Logic;
+using TaleKit.Datas.Story.Logic;
 
 namespace TaleKit.Datas.Story.Scenes {
 	public class SceneConnection {

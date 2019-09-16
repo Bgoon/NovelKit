@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 using GKit.Data;
 
 namespace TaleKit.Datas.UI {
+	//UiData {
+	//	UiItem {
+	//		Components {} []
+	//		Childs {} []
+	//	}
+	//}
 	public class UiFile : ITaleDataFile {
 		public DateTime exportedTime;
 
@@ -42,7 +48,7 @@ namespace TaleKit.Datas.UI {
 			if(parentUiItem == null)
 				parentUiItem = RootUiItem;
 
-			UiItem item = new UiItem();
+			UiItem item = new UiItem(null);
 
 			ItemCreated?.Invoke(item, parentUiItem);
 
@@ -59,6 +65,12 @@ namespace TaleKit.Datas.UI {
 			parentItem.ChildItemList.Remove(item);
 
 			ItemRemoved?.Invoke(item, parentItem);
+		}
+
+		public JObject ToJObject() {
+			JObject jFile = new JObject();
+
+			return jFile;
 		}
 	}
 }

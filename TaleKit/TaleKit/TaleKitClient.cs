@@ -7,7 +7,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using GKit;
 using GKit.Unity;
-using TaleKit.UI;
+using TaleKit.Datas.UI;
+using TaleKit.Datas.Story.Logic;
 
 namespace TaleKit {
 	public class TaleKitClient : MonoBehaviour {
@@ -30,6 +31,10 @@ namespace TaleKit {
 		}
 		public GameObjects GameObjects {
 			get; private set;
+		}
+
+		public VariableStorage VariableStorage { 
+			get; private set; 
 		}
 
 		private void Awake() {

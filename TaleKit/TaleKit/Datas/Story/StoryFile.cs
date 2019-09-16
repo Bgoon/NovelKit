@@ -6,43 +6,70 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaleKit.Datas.Story.Scenes;
 
 namespace TaleKit.Datas.Story {
+
+	//StoryData {
+	//	Scenes {
+	//		Clip {} []
+	//	}
+	//	Clips {
+	//		Clip {} []
+	//	}
+	//}
 	public class StoryFile : ITaleDataFile {
+		public const string Version = "2019.9";
 		public DateTime exportedTime;
 
-		public StoryBlockClipItem RootClipItem {
+		public StoryClip RootClip {
 			get; private set;
 		}
 
-		public event NodeItemDelegate<StoryBlockItemBase, StoryBlockClipItem> ItemCreated;
-		public event NodeItemDelegate<StoryBlockItemBase, StoryBlockClipItem> ItemRemoved;
+		public Dictionary<string, Scene> SceneDict {
+			get; private set;
+		}
+		public Dictionary<string, StoryClip> ClipDict {
+			get; private set;
+		}
+
+		public event NodeItemDelegate<StoryBlockBase, StoryClip> ItemCreated;
+		public event NodeItemDelegate<StoryBlockBase, StoryClip> ItemRemoved;
 
 		public StoryFile() {
+			InitMembers();
+		}
+		private void InitMembers() {
+			SceneDict = new Dictionary<string, Scene>();
+			ClipDict = new Dictionary<string, StoryClip>();
 
+			CreateRootItem();
 		}
 
 		public bool Save(string filename) {
-			JObject jMotionFile = new JObject();
+			JObject jFile = ToJObject();	
 
-			//File info
-			jMotionFile.Add(nameof(exportedTime), exportedTime);
-
-			IOUtility.SaveText(jMotionFile.ToString(), filename);
+			//Save
+			IOUtility.SaveText(jFile.ToString(), filename);
 			return true;
 		}
 		public bool Load(string filename) {
-			string jMotionFileString = IOUtility.LoadText(filename, Encoding.UTF8);
-			JObject jMotionFile = JObject.Parse(jMotionFileString);
+			string jFileString = IOUtility.LoadText(filename, Encoding.UTF8);
+			JObject jMotionFile = JObject.Parse(jFileString);
 
 			return true;
 		}
 
-		public StoryBlockItem CreateStoryBlockItem(StoryBlockClipItem parentUiItem) {
-			if (parentUiItem == null)
-				parentUiItem = RootClipItem;
+		private void CreateRootItem() {
+			RootClip = new StoryClip(this);
 
-			StoryBlockItem item = new StoryBlockItem();
+			ItemCreated?.Invoke(RootClip, null);
+		}
+		public StoryBlock CreateStoryBlockItem(StoryClip parentUiItem) {
+			if (parentUiItem == null)
+				parentUiItem = RootClip;
+
+			StoryBlock item = new StoryBlock(this);
 
 			ItemCreated?.Invoke(item, parentUiItem);
 
@@ -50,14 +77,26 @@ namespace TaleKit.Datas.Story {
 
 			return item;
 		}
-		public void RemoveUiItem(StoryBlockItemBase item) {
-			if (item is StoryBlockClipItem) {
-				foreach (StoryBlockItemBase childItem in ((StoryBlockClipItem)item).ChildItemList) {
-					RemoveUiItem(childItem);
+		public StoryClip CreateStoryBlockClipItem(StoryClip parentUiItem) {
+			if (parentUiItem == null)
+				parentUiItem = RootClip;
+
+			StoryClip item = new StoryClip(this);
+
+			ItemCreated?.Invoke(item, parentUiItem);
+
+			parentUiItem.AddChildItem(item);
+
+			return item;
+		}
+		public void RemoveStoryBlockItem(StoryBlockBase item) {
+			if (item is StoryClip) {
+				foreach (StoryBlockBase childItem in ((StoryClip)item).ChildItemList) {
+					RemoveStoryBlockItem(childItem);
 				}
 			}
 
-			StoryBlockClipItem parentItem = item.ParentItem;
+			StoryClip parentItem = item.ParentItem;
 			parentItem.ChildItemList.Remove(item);
 
 			ItemRemoved?.Invoke(item, parentItem);
@@ -65,6 +104,41 @@ namespace TaleKit.Datas.Story {
 
 		private string GetNewItemName() {
 			return "New object";
+		}
+
+		public JObject ToJObject() {
+			JObject jFile = new JObject();
+
+			exportedTime = DateTime.Now;
+
+			//File info
+			jFile.Add(nameof(exportedTime), exportedTime.ToOADate());
+
+			//Add scenes
+			JObject jScenes = new JObject();
+			jFile.Add("Scenes", jScenes);
+
+			foreach (KeyValuePair<string, Scene> scenePair in SceneDict) {
+				JObject jScene = new JObject();
+				jScenes.Add(scenePair.Key, jScene);
+
+				Scene scene = scenePair.Value;
+				jScene.Add(scene.ToJObject());
+			}
+
+			//Add clips
+			JObject jClips = new JObject();
+			jFile.Add("Clips", jClips);
+
+			foreach (KeyValuePair<string, StoryClip> clipPair in ClipDict) {
+				JObject jClip = new JObject();
+				jClips.Add(clipPair.Key, jClip);
+
+				StoryClip clip = clipPair.Value;
+				jClip.Add(clip.ToJObject());
+			}
+
+			return jFile;
 		}
 	}
 }

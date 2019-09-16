@@ -8,12 +8,14 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TaleKitEditor</RootNamespace>
     <AssemblyName>TaleKitEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,18 +39,15 @@
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Images\TaleKitEditorIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bgoon.AvalonDockThemes">
       <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\Bgoon.AvalonDockThemes\Bgoon.AvalonDockThemes.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PenMotion">
-      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\Release\API\PenMotion.dll</HintPath>
-    </Reference>
-    <Reference Include="PenMotionEditor">
-      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\Release\Editor\PenMotionEditor.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -73,128 +72,126 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Resources\VectorImages\LayoutIcon_Motion.xaml.cs">
+      <DependentUpon>LayoutIcon_Motion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\LayoutIcon_Story.xaml.cs">
+      <DependentUpon>LayoutIcon_Story.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\LayoutIcon_Ui.xaml.cs">
+      <DependentUpon>LayoutIcon_Ui.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Script\Root.cs" />
-    <Compile Include="Script\Workspaces\StoryEditor\IComponent.cs" />
+    <Compile Include="Script\Workspaces\StoryWorkspace\IComponent.cs" />
     <Compile Include="UI\Controls\FixedLayoutAnchorable.cs" />
-    <Compile Include="UI\Workspaces\StoryEditorTabs\Components\BlockClipComponent.xaml.cs">
+    <Compile Include="UI\Controls\WorkspaceButton.cs" />
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Components\BlockClipComponent.xaml.cs">
       <DependentUpon>BlockClipComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Script\Workspaces\StoryEditor\ComponentType.cs" />
-    <Compile Include="UI\Workspaces\StoryEditorTabs\DetailElements\ComponentHeader.xaml.cs">
+    <Compile Include="Script\Workspaces\StoryWorkspace\ComponentType.cs" />
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\DetailElements\ComponentHeader.xaml.cs">
       <DependentUpon>ComponentHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryEditorTabs\Components\EventComponent.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Components\EventComponent.xaml.cs">
       <DependentUpon>EventComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryEditorTabs\Components\ScriptConponent.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Components\ScriptConponent.xaml.cs">
       <DependentUpon>ScriptConponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryEditorTabs\Components\UiOrderComponent.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Components\UiOrderComponent.xaml.cs">
       <DependentUpon>UiOrderComponent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Script\Workspaces\WorkspaceType.cs" />
-    <Compile Include="UI\Workspaces\StoryEditorTabs\CommonElements\ComponentMarker.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\CommonElements\ComponentMarker.xaml.cs">
       <DependentUpon>ComponentMarker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryEditorTabs\StoryBoardElements\StoryBlockItemView.xaml.cs">
-      <DependentUpon>StoryBlockItemView.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\StoryBoardElements\StoryBlockView.xaml.cs">
+      <DependentUpon>StoryBlockView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\MotionEditorLayout.xaml.cs">
-      <DependentUpon>MotionEditorLayout.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\MotionWorkspace.xaml.cs">
+      <DependentUpon>MotionWorkspace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryEditorLayout.xaml.cs">
-      <DependentUpon>StoryEditorLayout.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\StoryWorkspace.xaml.cs">
+      <DependentUpon>StoryWorkspace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryEditorTabs\BlockClipTab.xaml.cs">
-      <DependentUpon>BlockClipTab.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\StoryClipTab.xaml.cs">
+      <DependentUpon>StoryClipTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryEditorTabs\DetailTab.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\DetailTab.xaml.cs">
       <DependentUpon>DetailTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryEditorTabs\PreviewTab.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\PreviewTab.xaml.cs">
       <DependentUpon>PreviewTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryEditorTabs\ResourceTab.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\ResourceTab.xaml.cs">
       <DependentUpon>ResourceTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryEditorTabs\SceneTab.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\SceneTab.xaml.cs">
       <DependentUpon>SceneTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryEditorTabs\StoryBoardTab.xaml.cs">
-      <DependentUpon>StoryBoardTab.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\StoryBlockTab.xaml.cs">
+      <DependentUpon>StoryBlockTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiEditorLayout.xaml.cs">
-      <DependentUpon>UiEditorLayout.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\UiWorkspace.xaml.cs">
+      <DependentUpon>UiWorkspace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiEditor\DetailTab.xaml.cs">
+    <Compile Include="UI\Workspaces\UiWorkspaceTabs\DetailTab.xaml.cs">
       <DependentUpon>DetailTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiEditor\LayerElements\UiItemView.xaml.cs">
+    <Compile Include="UI\Workspaces\UiWorkspaceTabs\LayerElements\UiItemView.xaml.cs">
       <DependentUpon>UiItemView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiEditor\LayerTab.xaml.cs">
+    <Compile Include="UI\Workspaces\UiWorkspaceTabs\LayerTab.xaml.cs">
       <DependentUpon>LayerTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiEditor\PreviewTab.xaml.cs">
+    <Compile Include="UI\Workspaces\UiWorkspaceTabs\PreviewTab.xaml.cs">
       <DependentUpon>PreviewTab.xaml</DependentUpon>
     </Compile>
-    <Page Include="Resources\VectorImages\Button_CopyMotion.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\VectorImages\Button_CreateFolder.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\VectorImages\Button_CreateMotion.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\VectorImages\Button_NewFile.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\VectorImages\Button_OpenFile.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\VectorImages\Button_RemoveItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\VectorImages\Button_SaveFile.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\Components\BlockClipComponent.xaml">
+    <Page Include="Resources\VectorImages\LayoutIcon_Brushes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\DetailElements\ComponentHeader.xaml">
+    <Page Include="Resources\VectorImages\LayoutIcon_Motion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\Components\EventComponent.xaml">
+    <Page Include="Resources\VectorImages\LayoutIcon_Story.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\Components\ScriptConponent.xaml">
+    <Page Include="Resources\VectorImages\LayoutIcon_Ui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\Components\UiOrderComponent.xaml">
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Components\BlockClipComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\CommonElements\ComponentMarker.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\DetailElements\ComponentHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Resources\UITheme.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Components\EventComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\StoryBoardElements\StoryBlockItemView.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Components\ScriptConponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Components\UiOrderComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\CommonElements\ComponentMarker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\StoryBoardElements\StoryBlockView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -206,80 +203,59 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Resources\VectorImages\Button_CopyMotion.xaml.cs">
-      <DependentUpon>Button_CopyMotion.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\VectorImages\Button_CreateFolder.xaml.cs">
-      <DependentUpon>Button_CreateFolder.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\VectorImages\Button_CreateMotion.xaml.cs">
-      <DependentUpon>Button_CreateMotion.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\VectorImages\Button_NewFile.xaml.cs">
-      <DependentUpon>Button_NewFile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\VectorImages\Button_OpenFile.xaml.cs">
-      <DependentUpon>Button_OpenFile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\VectorImages\Button_RemoveItem.xaml.cs">
-      <DependentUpon>Button_RemoveItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\VectorImages\Button_SaveFile.xaml.cs">
-      <DependentUpon>Button_SaveFile.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\Workspaces\MotionEditorLayout.xaml">
+    <Page Include="UI\Workspaces\MotionWorkspace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorLayout.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\BlockClipTab.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\StoryClipTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\DetailTab.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\DetailTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\PreviewTab.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\PreviewTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\ResourceTab.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\ResourceTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\SceneTab.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\SceneTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryEditorTabs\StoryBoardTab.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\StoryBlockTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UiEditorLayout.xaml">
+    <Page Include="UI\Workspaces\UiWorkspace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UiEditor\DetailTab.xaml">
+    <Page Include="UI\Workspaces\UiWorkspaceTabs\DetailTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UiEditor\LayerElements\UiItemView.xaml">
+    <Page Include="UI\Workspaces\UiWorkspaceTabs\LayerElements\UiItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UiEditor\LayerTab.xaml">
+    <Page Include="UI\Workspaces\UiWorkspaceTabs\LayerTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UiEditor\PreviewTab.xaml">
+    <Page Include="UI\Workspaces\UiWorkspaceTabs\PreviewTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -315,8 +291,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Script\TaleKit\" />
-    <Folder Include="Script\Workspaces\MotionEditor\" />
-    <Folder Include="Script\Workspaces\UiEditor\" />
+    <Folder Include="Script\Workspaces\MotionWorkspace\" />
+    <Folder Include="Script\Workspaces\UiWorkspace\" />
+    <Folder Include="UI\Resources\" />
     <Folder Include="UI\Workspaces\MotionEditorTabs\" />
   </ItemGroup>
   <ItemGroup>
@@ -325,10 +302,31 @@
     <Resource Include="Resources\Cursors\Cursor_Remove.cur" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKitForUnity\GKitForUnity.csproj">
+      <Project>{958f842d-c748-40f0-b0d4-1a2c54cb070b}</Project>
+      <Name>GKitForUnity</Name>
+      <Aliases>GKitForUnity</Aliases>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKitForWPF\GKitForWPF.csproj">
       <Project>{896246bd-905d-4a62-90d2-54664a158656}</Project>
       <Name>GKitForWPF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\PenMotion\PenMotionEditor\PenMotionEditor.csproj">
+      <Project>{e155ba23-08fa-4138-8992-0490aac34012}</Project>
+      <Name>PenMotionEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\PenMotion\PenMotion\PenMotion.csproj">
+      <Project>{91981f2b-f18b-4f4b-8822-075a572a7cac}</Project>
+      <Name>PenMotion</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaleKit\TaleKit.csproj">
+      <Project>{F934A090-FED0-484B-8093-4BCC65908B71}</Project>
+      <Name>TaleKit</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\TaleKitEditorIcon.ico" />
+    <Resource Include="Resources\Images\TaleKitEditorIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

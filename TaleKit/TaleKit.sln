@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PenMotionEditor", "..\..\..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GKitForUnity", "..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKitForUnity\GKitForUnity.csproj", "{958F842D-C748-40F0-B0D4-1A2C54CB070B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GKit.XInput", "..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKit.XInput\GKit.XInput.csproj", "{5C947285-0C2F-4722-8290-D09C25B22FA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{958F842D-C748-40F0-B0D4-1A2C54CB070B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{958F842D-C748-40F0-B0D4-1A2C54CB070B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{958F842D-C748-40F0-B0D4-1A2C54CB070B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C947285-0C2F-4722-8290-D09C25B22FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C947285-0C2F-4722-8290-D09C25B22FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C947285-0C2F-4722-8290-D09C25B22FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C947285-0C2F-4722-8290-D09C25B22FA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,7 +11,7 @@ namespace TaleKit.Datas.UI {
 
 		public event NodeItemInsertedDelegate<UiItem> ChildInserted;
 
-		public event ChildRemovedDelegate<UiItem> ChildRemoved;
+		public event NodeItemDelegate<UiItem, UiItem> ChildRemoved;
 
 		public readonly UiFile OwnerFile;
 		public UiItem ParentItem {
@@ -34,11 +34,12 @@ namespace TaleKit.Datas.UI {
 			}
 		}
 
-		public UiItem() {
+		public UiItem(UiFile ownerFile) {
+			this.OwnerFile = ownerFile;
+
 			ChildItemList = new List<UiItem>();
 
-			ParentItem = new UiItem();
-
+			//For unity only (제거할것)
 			GameObject = new GameObject();
 			RectTransform = GameObject.AddComponent<RectTransform>();
 			UiTransform = GameObject.AddComponent<UiTransform>();
@@ -56,7 +57,9 @@ namespace TaleKit.Datas.UI {
 		public void RemoveChildItem(UiItem item) {
 			ChildItemList.Remove(item);
 
-			ChildRemoved?.Invoke(item);
+			ChildRemoved?.Invoke(item, this);
 		}
+
+
 	}
 }

@@ -9,6 +9,9 @@ using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor {
 	public class Root {
+		public static Root Instance {
+			get; private set;
+		}
 
 		public GLoopEngine LoopEngine {
 			get; private set;
@@ -18,11 +21,12 @@ namespace TaleKitEditor {
 		}
 
 		public Root() {
+			Instance = this;
+
 			InitModules();
 			StartModules();
 		}
 		private void InitModules() {
-
 			MainWindow = new MainWindow();
 			LoopEngine = new GLoopEngine();
 

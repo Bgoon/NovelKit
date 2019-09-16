@@ -27,5 +27,8 @@ namespace TaleKit.Datas.Motion {
 			return true;
 		}
 
+		public JObject ToJObject() {
+			return motionFileData.ToJObject();
+		}
 	}
 }

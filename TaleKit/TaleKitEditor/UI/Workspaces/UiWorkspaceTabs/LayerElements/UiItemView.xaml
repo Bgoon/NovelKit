@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.UiWorkspaceTabs.LayerItem.UiItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaleKitEditor.UI.Workspaces.UiWorkspaceTabs.LayerItem"
+			 xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
+             mc:Ignorable="d" 
+			 
+             d:DesignWidth="200">
+	<StackPanel>
+		<DockPanel Name="ItemPanel" Background="{StaticResource ItemBackground}" Height="34">
+			<StackPanel DockPanel.Dock="Right" Name="TypeMarkStackPanel"/>
+			<Polygon Fill="#9C9C9C" Points="0,0 6,4, 0,8" VerticalAlignment="Center" Margin="6,0" />
+			<GControls:EditTextBlock Name="NameEditText" Text="ItemName" Foreground="#D6D6D6" EditingBackground="#FF2C2C2C" EditingForeground="#FFC1C1C1"/>
+		</DockPanel>
+
+		<StackPanel Name="ChildStackPanel" Orientation="Vertical" Margin="4, 0, 0, 0"/>
+	</StackPanel>
+</UserControl>

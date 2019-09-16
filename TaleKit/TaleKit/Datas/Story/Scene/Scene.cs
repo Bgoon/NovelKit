@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,23 +12,23 @@ namespace TaleKit.Datas.Story.Scenes {
 		public bool HasConnection => connectionList.Count > 0;
 		private List<SceneConnection> connectionList;
 
-		private List<JobBlock> blockList;
-		public JobBlock CurrentBlock {
+		public int CurrentBlockIndex {
+			get; private set;
+		}
+		public StoryBlock CurrentBlock {
 			get {
 				if (CurrentBlockIndex < 0 || CurrentBlockIndex >= blockList.Count)
 					return null;
 
-				JobBlock block = blockList[CurrentBlockIndex];
+				StoryBlock block = blockList[CurrentBlockIndex];
 				return block;
 			}
 		}
-		public int CurrentBlockIndex {
-			get; private set;
-		}
+		private List<StoryBlock> blockList;
 
 		public Scene() {
 			connectionList = new List<SceneConnection>();
-			blockList = new List<JobBlock>();
+			blockList = new List<StoryBlock>();
 		}
 
 		public void OnTick() {
@@ -46,12 +47,12 @@ namespace TaleKit.Datas.Story.Scenes {
 
 		public bool NextBlock() {
 			if(CurrentBlock.IsComplete) {
-				JobBlock prevBlock = CurrentBlock;
+				StoryBlock prevBlock = CurrentBlock;
 				prevBlock.OnEnd();
 
 				++CurrentBlockIndex;
 				if(CurrentBlockIndex < blockList.Count) {
-					JobBlock currentBlock = CurrentBlock;
+					StoryBlock currentBlock = CurrentBlock;
 					currentBlock.OnEnter();
 
 					return true;
@@ -59,7 +60,7 @@ namespace TaleKit.Datas.Story.Scenes {
 					return false;
 				}
 			} else {
-				JobBlock currentBlock = CurrentBlock;
+				StoryBlock currentBlock = CurrentBlock;
 				currentBlock.Skip();
 
 				return true;
@@ -73,6 +74,12 @@ namespace TaleKit.Datas.Story.Scenes {
 				}
 			}
 			return null;
+		}
+
+		public JObject ToJObject() {
+			JObject jScene = new JObject();
+
+			return jScene;
 		}
 	}
 }

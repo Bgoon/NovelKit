@@ -10,6 +10,8 @@
 
              Startup="OnStartup">
 	<Application.Resources>
+		<SolidColorBrush x:Key="MainWindowBackground" Color="#FF2E2E2E"/>
+
 		<SolidColorBrush x:Key="TabBackground" Color="#3B3B3B"/>
 
 		<SolidColorBrush x:Key="ItemBackground" Color="#4F4F4F"/>
