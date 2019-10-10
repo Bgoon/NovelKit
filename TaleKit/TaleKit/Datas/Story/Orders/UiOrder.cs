@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using TaleKit.Datas.UI;
+using Newtonsoft.Json.Linq;
+using TaleKit.Datas.Editor;
 
-namespace TaleKit.Datas.Story.Orders {
+namespace TaleKit.Datas.Story {
 	/// <summary>
-	/// UI를 조작할 수 있는 Job
+	/// UI를 조작할 수 있는 명령
 	/// </summary>
 	public class UiOrder : OrderBase {
 		public string targetUiName;
@@ -18,10 +20,15 @@ namespace TaleKit.Datas.Story.Orders {
 		public float BlendTotalSeconds;
 		private float blendElapsedSeconds;
 
+		[EditableValue("위치 변경", ValueEditorType.CheckBox)]
 		public bool UsePosition;
+		[EditableValue("회전 변경", ValueEditorType.CheckBox)]
 		public bool UseRotation;
+		[EditableValue("크기 변경", ValueEditorType.CheckBox)]
 		public bool UseScale;
+		[EditableValue("투명도 변경", ValueEditorType.CheckBox)]
 		public bool UseAlpha;
+		[EditableValue("보이기 변경", ValueEditorType.CheckBox)]
 		public bool UseVisible;
 
 		private Vector2 srcPosition;
@@ -35,7 +42,7 @@ namespace TaleKit.Datas.Story.Orders {
 		public float DstAlpha;
 		public bool DstVisible;
 
-		public UiOrder(JobBlock ownerBlock) : base(ownerBlock) {
+		public UiOrder(StoryBlock ownerBlock) : base(ownerBlock) {
 
 		}
 
@@ -79,6 +86,10 @@ namespace TaleKit.Datas.Story.Orders {
 			targetUi.RectTransform.sizeDelta = srcSizeDelta + (DstSizeDelta - srcSizeDelta) * time;
 			targetUi.Alpha = srcAlpha + (DstAlpha - srcAlpha) * time;
 			targetUi.GameObject.SetActive(DstVisible);
+		}
+
+		public override JObject ToJObject() {
+			throw new NotImplementedException();
 		}
 	}
 }

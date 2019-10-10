@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.OrderTypeItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:StoryWorkspaceTabs="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs"
+             mc:Ignorable="d" 
+             d:DesignWidth="400" Height="30">
+	<Grid>
+		<DockPanel Margin="8,0">
+			<Separator Name="ItemSeparator" DockPanel.Dock="Bottom" Background="{StaticResource LightSeparator}"/>
+			<StoryWorkspaceTabs:OrderIndicator x:Name="OrderIndicator" DockPanel.Dock="Right" IsCountVisible="False" VerticalAlignment="Center"/>
+			<TextBlock Name="TypeTextBlock" Style="{StaticResource MainHeader}" Text="Type" VerticalAlignment="Center"/>
+		</DockPanel>
+		<Button Style="{StaticResource FlatButton}" Background="Transparent"
+			Click="Button_Click"/>
+	</Grid>
+</UserControl>

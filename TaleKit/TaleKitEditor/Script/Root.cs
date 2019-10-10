@@ -30,6 +30,8 @@ namespace TaleKitEditor {
 			MainWindow = new MainWindow();
 			LoopEngine = new GLoopEngine();
 
+			MainWindow.Initialize();
+
 		}
 		private void StartModules() {
 			LoopEngine.StartLoop();

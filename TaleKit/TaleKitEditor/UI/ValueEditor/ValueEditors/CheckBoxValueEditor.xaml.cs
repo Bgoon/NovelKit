@@ -12,20 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GKit;
-using GKit.WPF;
 
-namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.DetailElements {
+namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
-	/// ComponentHeader.xaml에 대한 상호 작용 논리
+	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ComponentHeader : UserControl {
-		public ComponentHeader() {
+	public partial class CheckBoxValueEditor : UserControl, IValueEditor {
+		public CheckBoxValueEditor() {
 			InitializeComponent();
-			Init();
-		}
-		private void Init() {
-			Indicator.DetachParent();
 		}
 	}
 }

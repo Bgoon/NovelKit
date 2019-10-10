@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:TaleKitEditor.UI.Workspaces.UiWorkspaceTabs"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+	<StackPanel>
+	</StackPanel>
 </UserControl>

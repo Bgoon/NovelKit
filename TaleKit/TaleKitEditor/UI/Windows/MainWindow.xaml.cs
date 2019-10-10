@@ -21,16 +21,6 @@ using PenMotionEditor.UI.Tabs;
 
 namespace TaleKitEditor.UI.Windows {
 	public partial class MainWindow : Window {
-		//Workspaces
-		public UiWorkspace uiWorkspace {
-			get; private set;
-		}
-		public MotionEditorContext motionWorkspace {
-			get; private set;
-		}
-		public StoryWorkspace storyWorkspace {
-			get; private set;
-		}
 		private Tuple<UserControl, WorkspaceButton>[] workspacePairs;
 
 		//Datas
@@ -42,7 +32,10 @@ namespace TaleKitEditor.UI.Windows {
 		public event Action<TaleData> DataUnloaded;
 
 		public MainWindow() {
+		}
+		public void Initialize() {
 			InitializeComponent();
+
 			if (this.IsDesignMode())
 				return;
 
@@ -58,14 +51,10 @@ namespace TaleKitEditor.UI.Windows {
 		}
 
 		private void InitWorkspaces() {
-			uiWorkspace = new UiWorkspace();
-			motionWorkspace = MotionEditorContext;
-			storyWorkspace = new StoryWorkspace();
-
 			workspacePairs = new Tuple<UserControl, WorkspaceButton>[] {
-				new Tuple<UserControl, WorkspaceButton>(uiWorkspace, UiWorkspaceButton),
-				new Tuple<UserControl, WorkspaceButton>(motionWorkspace, MotionWorkspaceButton),
-				new Tuple<UserControl, WorkspaceButton>(storyWorkspace, StoryWorkspaceButton),
+				new Tuple<UserControl, WorkspaceButton>(UiWorkspace, UiWorkspaceButton),
+				new Tuple<UserControl, WorkspaceButton>(MotionWorkspace, MotionWorkspaceButton),
+				new Tuple<UserControl, WorkspaceButton>(StoryWorkspace, StoryWorkspaceButton),
 			};
 
 			foreach(Tuple<UserControl, WorkspaceButton> workspacePair in workspacePairs) {
@@ -83,7 +72,6 @@ namespace TaleKitEditor.UI.Windows {
 		}
 
 		public void CreateData() {
-			motionWorkspace.CreateFile();
 			EditingData = new TaleData();
 
 			DataLoaded?.Invoke(EditingData);

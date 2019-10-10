@@ -9,6 +9,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
 		<GControls:ListManagerBar DockPanel.Dock="Top"/>
-		<GControls:EditListView DockPanel.Dock="Top"/>
+		<GControls:EditTreeView DockPanel.Dock="Top"/>
 	</DockPanel>
 </UserControl>

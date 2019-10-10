@@ -31,6 +31,19 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private static StoryFile StoryFile => MainWindow.EditingData.StoryFile;
 
 		private Dictionary<StoryBlockBase, StoryBlockItemView> dataToViewDict;
+		public StoryBlockItemView SelectedBlockViewSingle {
+			get {
+				if (StoryBlockTreeView.SelectedItemSet.Count > 0) {
+					return (StoryBlockItemView)StoryBlockTreeView.SelectedItemSet.Last();
+				}
+				return null;
+			}
+		}
+		public StoryBlock SelectedBlockSingle {
+			get {
+				return SelectedBlockViewSingle.Data as StoryBlock;
+			}
+		}
 
 		public StoryClip EditingClip {
 			get; private set;
@@ -38,6 +51,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		public StoryBlockTab() {
 			InitializeComponent();
+
+			if (this.IsDesignMode())
+				return;
+
 			InitMembers();
 			InitEvents();
 		}
@@ -48,7 +65,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StoryBlockListController.CreateItemButtonClick += StoryBlockListController_CreateItemButtonClick;
 			StoryBlockListController.RemoveItemButtonClick += StoryBlockListController_RemoveItemButtonClick;
 
-			StoryBlockListView.ItemMoved += StoryBlockListView_ItemMoved;
+			StoryBlockTreeView.ItemMoved += StoryBlockListView_ItemMoved;
 			
 			MainWindow.DataLoaded += MainWindow_DataLoaded;
 			MainWindow.DataUnloaded += MainWindow_DataUnloaded;
@@ -69,7 +86,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StoryFile.CreateStoryBlockItem(EditingClip);
 		}
 		private void StoryBlockListController_RemoveItemButtonClick(object sender, RoutedEventArgs e) {
-			foreach (StoryBlockItemView itemView in StoryBlockListView.SelectedItemSet) {
+			foreach (StoryBlockItemView itemView in StoryBlockTreeView.SelectedItemSet) {
 				StoryBlockBase data = itemView.Data;
 
 				StoryFile.RemoveStoryBlockItem(data);
@@ -84,8 +101,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			//Create view
 			StoryBlockItemView itemView = new StoryBlockItemView(item);
-			StoryBlockListView.ChildItemCollection.Add(itemView);
-			itemView.ParentItem = StoryBlockListView;
+			StoryBlockTreeView.ChildItemCollection.Add(itemView);
+			itemView.ParentItem = StoryBlockTreeView;
 
 			dataToViewDict.Add(item, itemView);
 		}
@@ -97,7 +114,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			dataToViewDict.Remove(item);
 		}
 
-		private void StoryBlockListView_ItemMoved(IListItem itemView, IListFolder oldParentView, IListFolder newParentView, int index) {
+
+		private void StoryBlockListView_ItemMoved(ITreeItem itemView, ITreeFolder oldParentView, ITreeFolder newParentView, int index) {
 			//Data에 적용하기
 			StoryBlockBase item = ((StoryBlockItemView)itemView).Data;
 

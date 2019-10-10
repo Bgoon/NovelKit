@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.CommonElements {
+namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
-	/// ComponentBelt.xaml에 대한 상호 작용 논리
+	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ComponentMarker : UserControl {
-		public ComponentMarker() {
+	public partial class NumberValueEditor : UserControl, IValueEditor {
+		public NumberValueEditor() {
 			InitializeComponent();
 		}
 	}

@@ -52,8 +52,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datas\Editor\EditableValueAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditorType.cs" />
     <Compile Include="Datas\IDataFile.cs" />
     <Compile Include="Datas\Motion\MotionFile.cs" />
+    <Compile Include="Datas\Story\Orders\ClipOrder.cs" />
+    <Compile Include="Datas\Story\Orders\OrderFactory.cs" />
+    <Compile Include="Datas\Story\Orders\OrderType.cs" />
     <Compile Include="Datas\Story\StoryClip.cs" />
     <Compile Include="Datas\Story\StoryBlock.cs" />
     <Compile Include="Datas\Story\StoryBlockBase.cs" />

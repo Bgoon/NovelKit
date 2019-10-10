@@ -18,7 +18,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs.LayerItem {
 	/// <summary>
 	/// UiItem.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class UiItemView : UserControl, IListFolder {
+	public partial class UiItemView : UserControl, ITreeFolder {
 
 		public UIElementCollection ChildItemCollection => ChildStackPanel.Children;
 
@@ -26,7 +26,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs.LayerItem {
 
 		public FrameworkElement ItemContext => ItemPanel;
 
-		public IListFolder ParentItem {
+		public ITreeFolder ParentItem {
 			get; set;
 		}
 

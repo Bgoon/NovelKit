@@ -4,13 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
-			 xmlns:CommonElements="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.CommonElements"
+			 xmlns:StoryWorkspaceTabs="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs"
 
              mc:Ignorable="d" 
              d:DesignWidth="220">
 	<DockPanel Name="ItemPanel" Background="{StaticResource ItemBackground}" Height="35">
 		<StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Margin="8,0,8,0">
-			<CommonElements:ComponentMarker></CommonElements:ComponentMarker>
+			<StoryWorkspaceTabs:OrderIndicator></StoryWorkspaceTabs:OrderIndicator>
 		</StackPanel>
 		<TextBlock Name="PreviewTextBlock" Text="스크립트 미리보기" VerticalAlignment="Center" FontFamily="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium" Foreground="#FFB5B5B5" Margin="8,0,0,0"></TextBlock>
 	</DockPanel>

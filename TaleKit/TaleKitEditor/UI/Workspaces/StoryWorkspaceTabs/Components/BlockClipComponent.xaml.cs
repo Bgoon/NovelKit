@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKitEditor.StoryWorkspaceElements;
 
-namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Components {
+namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	/// <summary>
 	/// BlockClipComponent.xaml에 대한 상호 작용 논리
 	/// </summary>

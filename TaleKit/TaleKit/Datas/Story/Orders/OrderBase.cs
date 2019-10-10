@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using TaleKit.Datas.UI;
 using GKit;
 using Newtonsoft.Json.Linq;
+using System.Collections;
 
-namespace TaleKit.Datas.Story.Orders {
+namespace TaleKit.Datas.Story {
 	/// <summary>
 	/// StoryBlock에 붙는 컴포넌트이다. 편집기를 통해서 데이터를 수정할 수 있다.
 	/// 이것을 상속받는 클래스는 생성자에서 부모만을 정해줘야 한다.
 	/// </summary>
-	public abstract class OrderBase {
+	public abstract class OrderBase : IComparer {
 		protected static TaleKitClient Client => TaleKitClient.Instance;
 		protected static UiManager UiManager => Client.UiManager;
 		protected static GLoopEngine LoopEngine => Client.LoopEngine;
@@ -45,5 +46,9 @@ namespace TaleKit.Datas.Story.Orders {
 		}
 
 		public abstract JObject ToJObject();
+
+		public int Compare(object x, object y) {
+			return x.GetHashCode();
+		}
 	}
 }

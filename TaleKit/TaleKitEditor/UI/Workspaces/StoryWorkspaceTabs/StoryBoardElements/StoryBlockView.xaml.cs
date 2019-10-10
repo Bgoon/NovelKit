@@ -20,7 +20,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements {
 	/// <summary>
 	/// StoryBlock.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class StoryBlockItemView : UserControl, IListItem {
+	public partial class StoryBlockItemView : UserControl, ITreeItem {
 
 		public string description;
 		public readonly StoryBlockBase Data;
@@ -36,7 +36,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements {
 
 		public FrameworkElement ItemContext => this;
 
-		public IListFolder ParentItem {
+		public ITreeFolder ParentItem {
 			get; set;
 		}
 

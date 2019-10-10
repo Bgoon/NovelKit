@@ -11,9 +11,10 @@
 		xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
 
 		xmlns:PMEditor="clr-namespace:PenMotionEditor.UI.Tabs;assembly=PenMotionEditor"
+		xmlns:TWorkspaces="clr-namespace:TaleKitEditor.UI.Workspaces"
 
         mc:Ignorable="d"
-        Title="TaleKit - 비주얼 노벨 에디터" Width="1280" Height="720" Background="{StaticResource MainWindowBackground}" Icon="/TaleKitEditor;component/Resources/Images/TaleKitEditorIcon.png">
+        Title="TaleKit - 비주얼 노벨 에디터" Width="1280" Height="720" Background="{StaticResource MainWindowBackground}" Icon="/TaleKitEditor;component/Resources/Images/TaleKitIcon.png">
     <DockPanel>
 		<Grid Height="50" DockPanel.Dock="Top">
 			<GControls:FileManagerBar DockPanel.Dock="Top"></GControls:FileManagerBar>
@@ -66,7 +67,9 @@
 			</StackPanel>
 		</Grid>
 		<Grid Name="WorkspaceContext">
-			<PMEditor:MotionEditorContext x:Name="MotionEditorContext"/>
+			<TWorkspaces:UiWorkspace x:Name="UiWorkspace" x:FieldModifier="public"/>
+			<TWorkspaces:MotionWorkspace x:Name="MotionWorkspace" x:FieldModifier="public"/>
+			<TWorkspaces:StoryWorkspace x:Name="StoryWorkspace" x:FieldModifier="public"/>
 		</Grid>
 	</DockPanel>
 </Window>

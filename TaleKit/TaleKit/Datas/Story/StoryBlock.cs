@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TaleKit.Datas.Story.Orders;
 
 namespace TaleKit.Datas.Story {
 	public class StoryBlock : StoryBlockBase {
+
+		public event Action<OrderBase> OrderAdded;
+		public event Action<OrderBase> OrderRemoved;
 		
 		public string DisplayName {
 			get; set;
@@ -52,6 +54,20 @@ namespace TaleKit.Datas.Story {
 			}
 		}
 
+		public OrderBase AddOrder(OrderType orderType) {
+			OrderBase order = OrderFactory.CreateOrder(this, orderType);
+			OrderList.Add(order);
+
+			OrderAdded?.Invoke(order);
+
+			return order;
+		}
+		public void RemoveOrder(OrderBase order) {
+			OrderList.Remove(order);
+
+			OrderRemoved?.Invoke(order);
+		}
+
 		public override JObject ToJObject() {
 			JObject jBlock = new JObject();
 
@@ -66,4 +82,5 @@ namespace TaleKit.Datas.Story {
 			return jBlock;
 		}
 	}
+	
 }

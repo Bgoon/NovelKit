@@ -34,7 +34,7 @@
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
 							<Ad:LayoutAnchorablePane DockHeight="0.5*">
 								<Controls:FixedLayoutAnchorable Title="StoryClip">
-									<Tabs:StoryClipTab/>
+									<Tabs:StoryClipTab x:Name="StoryClipTab"/>
 								</Controls:FixedLayoutAnchorable>
 								<Controls:FixedLayoutAnchorable Title="Resource">
 									<Tabs:ResourceTab/>
@@ -42,7 +42,7 @@
 							</Ad:LayoutAnchorablePane>
 							<Ad:LayoutAnchorablePane>
 								<Controls:FixedLayoutAnchorable Title="StoryBlock">
-									<Tabs:StoryBlockTab/>
+									<Tabs:StoryBlockTab x:Name="StoryBlockTab"/>
 								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>
@@ -61,7 +61,9 @@
 						<!--Tab 3-->
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
 							<Ad:LayoutAnchorablePane>
-								<Controls:FixedLayoutAnchorable Title="Detail"/>
+								<Controls:FixedLayoutAnchorable Title="Detail">
+									<Tabs:DetailTab x:Name="DetailTab"/>
+								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>
 					</Ad:LayoutAnchorablePaneGroup>

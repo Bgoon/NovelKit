@@ -10,11 +10,44 @@
 
              Startup="OnStartup">
 	<Application.Resources>
-		<SolidColorBrush x:Key="MainWindowBackground" Color="#FF2E2E2E"/>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="pack://application:,,,/GKitForWPF;component/WPF/Resources/Themes/FlatTheme.xaml"/>
+				<ResourceDictionary>
+					<SolidColorBrush x:Key="MainWindowBackground" Color="#FF2E2E2E"/>
+					<SolidColorBrush x:Key="PopupWindowBackground" Color="#454545"/>
+					<SolidColorBrush x:Key="PopupWindowStroke" Color="#6B6B6B"/>
 
-		<SolidColorBrush x:Key="TabBackground" Color="#3B3B3B"/>
+					<SolidColorBrush x:Key="TabBackground" Color="#3B3B3B"/>
 
-		<SolidColorBrush x:Key="ItemBackground" Color="#4F4F4F"/>
-		<SolidColorBrush x:Key="ItemBackground_Selected" Color="#626262"/>
+					<SolidColorBrush x:Key="ItemBackground" Color="#4F4F4F"/>
+					<SolidColorBrush x:Key="ItemBackground_Selected" Color="#626262"/>
+
+					<SolidColorBrush x:Key="LightSeparator" Color="#26FFFFFF"/>
+
+					<!--Texts-->
+					<Style x:Key="MainHeader" TargetType="TextBlock">
+						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Bold"/>
+						<Setter Property="Foreground" Value="#ABABAB"/>
+					</Style>
+					<Style x:Key="SubHeaer" TargetType="TextBlock">
+						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Bold"/>
+						<Setter Property="Foreground" Value="#7A7A7A"/>
+					</Style>
+					<Style x:Key="Content" TargetType="TextBlock">
+						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium"/>
+						<Setter Property="Foreground" Value="#BDBDBD"/>
+					</Style>
+
+					<!--ValueEditor-->
+					<Style x:Key="ValueEditorHeader" TargetType="TextBlock">
+						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Bold"/>
+						<Setter Property="Foreground" Value="#7A7A7A"/>
+					</Style>
+
+
+				</ResourceDictionary>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
 	</Application.Resources>
 </Application>
