@@ -14,14 +14,10 @@ namespace TaleKit.Datas.Story {
 	public class MessageOrder : OrderBase {
 		protected static MotionText ScriptText => UiManager.ScriptText;
 
-		[EditableValue("화자", ValueEditorType.Text)]
-		public string Talker {
-			get; set;
-		}
-		[EditableValue("메세지", ValueEditorType.Text)]
-		public string Message {
-			get; set;
-		}
+		[ValueEditor_Text("화자")]
+		public string talker;
+		[ValueEditor_Text("메세지")]
+		public string message;
 
 		public MessageOrder(StoryBlock ownerBlock) : base(ownerBlock) {
 		}

@@ -8,8 +8,8 @@ using TaleKit.Datas.Editor;
 
 namespace TaleKit.Datas.Story {
 	public class EventOrder : OrderBase {
-		[EditableValue("이벤트 키", ValueEditorType.Text)]
-		public string EventKey;
+		[ValueEditor_Text("이벤트 키")]
+		public string eventKey;
 
 		public EventOrder(StoryBlock ownerBlock) : base(ownerBlock) {
 			

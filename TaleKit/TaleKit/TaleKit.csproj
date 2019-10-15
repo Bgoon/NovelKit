@@ -52,8 +52,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Datas\Editor\EditableValueAttribute.cs" />
-    <Compile Include="Datas\Editor\ValueEditorType.cs" />
+    <Compile Include="Datas\Editor\NumberType.cs" />
+    <Compile Include="Datas\Editor\ValueEditorAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditor_SwitchAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditor_TextAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditor_NumberAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditor_SliderAttribute.cs" />
     <Compile Include="Datas\IDataFile.cs" />
     <Compile Include="Datas\Motion\MotionFile.cs" />
     <Compile Include="Datas\Story\Orders\ClipOrder.cs" />

@@ -17,6 +17,9 @@ using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
 using GKit;
 using GKit.WPF.UI.Controls;
+using System.Reflection;
+using TaleKit.Datas.Editor;
+using TaleKitEditor.UI.ValueEditors;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	public partial class DetailTab : UserControl {
@@ -68,9 +71,31 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void EditingBlock_OrderAdded(OrderBase order) {
-			UserControl control = OrderControlFactory.CreateControl(order);
+			Type modelType = order.GetType();
+			FieldInfo[] fields = modelType.GetFields();
 
-			OrderStackPanel.Children.Add(control);
+			foreach (FieldInfo field in fields) {
+				ValueEditorAttribute editorAttribute = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
+
+				if (editorAttribute == null)
+					continue;
+
+				//Factory로 옮길것
+				UserControl editor = null;
+				if (editorAttribute is ValueEditor_NumberAttribute) {
+					editor = new ValueEditorView_Number();
+				} else if (editorAttribute is ValueEditor_SliderAttribute) {
+					editor = new ValueEditorView_Slider();
+				} else if (editorAttribute is ValueEditor_SwitchAttribute) {
+					editor = new ValueEditorView_Switch();
+				} else if (editorAttribute is ValueEditor_TextAttribute) {
+					editor = new ValueEditorView_Text();
+				} else {
+					throw new NotImplementedException();
+				}
+
+				OrderStackPanel.Children.Add(editor);
+			}
 		}
 		private void EditingBlock_OrderRemoved(OrderBase order) {
 			OrderStackPanel.Children.Remove(orderControlDict[order]);

@@ -20,15 +20,15 @@ namespace TaleKit.Datas.Story {
 		public float BlendTotalSeconds;
 		private float blendElapsedSeconds;
 
-		[EditableValue("위치 변경", ValueEditorType.CheckBox)]
+		[ValueEditor_Switch("위치 변경")]
 		public bool UsePosition;
-		[EditableValue("회전 변경", ValueEditorType.CheckBox)]
+		[ValueEditor_Switch("회전 변경")]
 		public bool UseRotation;
-		[EditableValue("크기 변경", ValueEditorType.CheckBox)]
+		[ValueEditor_Switch("크기 변경")]
 		public bool UseScale;
-		[EditableValue("투명도 변경", ValueEditorType.CheckBox)]
+		[ValueEditor_Switch("투명도 변경")]
 		public bool UseAlpha;
-		[EditableValue("보이기 변경", ValueEditorType.CheckBox)]
+		[ValueEditor_Switch("보이기 변경")]
 		public bool UseVisible;
 
 		private Vector2 srcPosition;
