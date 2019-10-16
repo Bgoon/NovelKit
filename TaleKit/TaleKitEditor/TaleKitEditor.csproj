@@ -86,11 +86,11 @@
     <Compile Include="Script\Workspaces\StoryWorkspace\IComponent.cs" />
     <Compile Include="UI\Controls\FixedLayoutAnchorable.cs" />
     <Compile Include="UI\Controls\WorkspaceButton.cs" />
-    <Compile Include="UI\ValueEditor\ValueEditors\ValueEditorView_Slider.xaml.cs">
-      <DependentUpon>ValueEditorView_Slider.xaml</DependentUpon>
+    <Compile Include="UI\ValueEditor\ValueEditors\ValueEditorElement_Slider.xaml.cs">
+      <DependentUpon>ValueEditorElement_Slider.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ValueEditor\ValueEditors\ValueEditorView_Number.xaml.cs">
-      <DependentUpon>ValueEditorView_Number.xaml</DependentUpon>
+    <Compile Include="UI\ValueEditor\ValueEditors\ValueEditorElement_Number.xaml.cs">
+      <DependentUpon>ValueEditorElement_Number.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ValueEditor\ValueEditors\NumberType.cs" />
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\OrderManage\OrderTypeItemView.xaml.cs">
@@ -103,11 +103,11 @@
       <DependentUpon>BlockClipComponent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Script\Workspaces\StoryWorkspace\ComponentType.cs" />
-    <Compile Include="UI\ValueEditor\ValueEditors\ValueEditorView_Text.xaml.cs">
-      <DependentUpon>ValueEditorView_Text.xaml</DependentUpon>
+    <Compile Include="UI\ValueEditor\ValueEditors\ValueEditorElement_Text.xaml.cs">
+      <DependentUpon>ValueEditorElement_Text.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ValueEditor\ValueEditors\ValueEditorView_Switch.xaml.cs">
-      <DependentUpon>ValueEditorView_Switch.xaml</DependentUpon>
+    <Compile Include="UI\ValueEditor\ValueEditors\ValueEditorElement_Switch.xaml.cs">
+      <DependentUpon>ValueEditorElement_Switch.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ValueEditor\IValueEditor.cs" />
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderItem.xaml.cs">
@@ -191,11 +191,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ValueEditor\ValueEditors\ValueEditorView_Slider.xaml">
+    <Page Include="UI\ValueEditor\ValueEditors\ValueEditorElement_Slider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ValueEditor\ValueEditors\ValueEditorView_Number.xaml">
+    <Page Include="UI\ValueEditor\ValueEditors\ValueEditorElement_Number.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -231,11 +231,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ValueEditor\ValueEditors\ValueEditorView_Text.xaml">
+    <Page Include="UI\ValueEditor\ValueEditors\ValueEditorElement_Text.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ValueEditor\ValueEditors\ValueEditorView_Switch.xaml">
+    <Page Include="UI\ValueEditor\ValueEditors\ValueEditorElement_Switch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

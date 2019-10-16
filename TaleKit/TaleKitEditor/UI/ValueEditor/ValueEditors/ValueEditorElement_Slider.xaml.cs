@@ -18,12 +18,12 @@ namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
 	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ValueEditorView_Slider : UserControl, INotifyPropertyChanged, IValueEditor {
-		public static readonly DependencyProperty NumberTypeProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(NumberType), typeof(ValueEditorView_Slider), new PropertyMetadata(NumberType.Float));
-		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(float), typeof(ValueEditorView_Slider), new PropertyMetadata(0f));
-		public static readonly DependencyProperty DefaultValueProperty = DependencyProperty.RegisterAttached(nameof(DefaultValue), typeof(float), typeof(ValueEditorView_Slider), new PropertyMetadata(0f));
-		public static readonly DependencyProperty MinValueProperty = DependencyProperty.RegisterAttached(nameof(MinValue), typeof(float), typeof(ValueEditorView_Slider), new PropertyMetadata(0f));
-		public static readonly DependencyProperty MaxValueProperty = DependencyProperty.RegisterAttached(nameof(MaxValue), typeof(float), typeof(ValueEditorView_Slider), new PropertyMetadata(1f));
+	public partial class ValueEditorElement_Slider : UserControl, INotifyPropertyChanged, IValueEditor {
+		public static readonly DependencyProperty NumberTypeProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(NumberType), typeof(ValueEditorElement_Slider), new PropertyMetadata(NumberType.Float));
+		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(0f));
+		public static readonly DependencyProperty DefaultValueProperty = DependencyProperty.RegisterAttached(nameof(DefaultValue), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(0f));
+		public static readonly DependencyProperty MinValueProperty = DependencyProperty.RegisterAttached(nameof(MinValue), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(0f));
+		public static readonly DependencyProperty MaxValueProperty = DependencyProperty.RegisterAttached(nameof(MaxValue), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(1f));
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -101,7 +101,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 		}
 
-		public ValueEditorView_Slider() {
+		public ValueEditorElement_Slider() {
 			InitializeComponent();
 			PropertyChanged += SliderValueEditor_PropertyChanged;
 			SizeChanged += SliderValueEditor_SizeChanged;

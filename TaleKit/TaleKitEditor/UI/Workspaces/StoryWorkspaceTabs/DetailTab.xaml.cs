@@ -80,21 +80,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				if (editorAttribute == null)
 					continue;
 
-				//Factory로 옮길것
-				UserControl editor = null;
-				if (editorAttribute is ValueEditor_NumberAttribute) {
-					editor = new ValueEditorView_Number();
-				} else if (editorAttribute is ValueEditor_SliderAttribute) {
-					editor = new ValueEditorView_Slider();
-				} else if (editorAttribute is ValueEditor_SwitchAttribute) {
-					editor = new ValueEditorView_Switch();
-				} else if (editorAttribute is ValueEditor_TextAttribute) {
-					editor = new ValueEditorView_Text();
-				} else {
-					throw new NotImplementedException();
-				}
-
-				OrderStackPanel.Children.Add(editor);
+				ValueEditorView valueEditorView = new ValueEditorView(editorAttribute);
+				OrderStackPanel.Children.Add(valueEditorView);
 			}
 		}
 		private void EditingBlock_OrderRemoved(OrderBase order) {

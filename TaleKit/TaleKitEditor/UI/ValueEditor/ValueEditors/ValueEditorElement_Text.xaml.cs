@@ -17,8 +17,8 @@ namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
 	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ValueEditorView_Switch : UserControl, IValueEditor {
-		public ValueEditorView_Switch() {
+	public partial class ValueEditorElement_Text : UserControl, IValueEditor {
+		public ValueEditorElement_Text() {
 			InitializeComponent();
 		}
 	}
