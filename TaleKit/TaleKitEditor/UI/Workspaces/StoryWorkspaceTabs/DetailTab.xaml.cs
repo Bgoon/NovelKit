@@ -80,7 +80,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				if (editorAttribute == null)
 					continue;
 
-				ValueEditorView valueEditorView = new ValueEditorView(editorAttribute);
+				ValueEditorView valueEditorView = new ValueEditorView(order, field, editorAttribute);
 				OrderStackPanel.Children.Add(valueEditorView);
 			}
 		}

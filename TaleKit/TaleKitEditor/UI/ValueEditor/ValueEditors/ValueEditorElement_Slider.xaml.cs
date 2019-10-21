@@ -18,7 +18,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
 	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ValueEditorElement_Slider : UserControl, INotifyPropertyChanged, IValueEditor {
+	public partial class ValueEditorElement_Slider : UserControl, INotifyPropertyChanged, IValueEditorElement {
 		public static readonly DependencyProperty NumberTypeProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(NumberType), typeof(ValueEditorElement_Slider), new PropertyMetadata(NumberType.Float));
 		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(0f));
 		public static readonly DependencyProperty DefaultValueProperty = DependencyProperty.RegisterAttached(nameof(DefaultValue), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(0f));
@@ -26,6 +26,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 		public static readonly DependencyProperty MaxValueProperty = DependencyProperty.RegisterAttached(nameof(MaxValue), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(1f));
 
 		public event PropertyChangedEventHandler PropertyChanged;
+		public event Action<object> EditableValueChanged;
 
 		private const string DisplayFormat = "0.00";
 		public string DisplayValue {
@@ -100,6 +101,8 @@ namespace TaleKitEditor.UI.ValueEditors {
 				SetValue(MaxValueProperty, value);
 			}
 		}
+
+		public object EditableValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 		public ValueEditorElement_Slider() {
 			InitializeComponent();

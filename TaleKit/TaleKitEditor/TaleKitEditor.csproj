@@ -109,7 +109,7 @@
     <Compile Include="UI\ValueEditor\ValueEditors\ValueEditorElement_Switch.xaml.cs">
       <DependentUpon>ValueEditorElement_Switch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ValueEditor\IValueEditor.cs" />
+    <Compile Include="UI\ValueEditor\IValueEditorElement.cs" />
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderItem.xaml.cs">
       <DependentUpon>OrderItem.xaml</DependentUpon>
     </Compile>
