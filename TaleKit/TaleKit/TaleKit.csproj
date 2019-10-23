@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Datas\Editor\NumberType.cs" />
+    <Compile Include="Datas\Editor\ValueEditorComponentAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditorComponent_HeaderAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_SwitchAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_TextAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_NumberAttribute.cs" />

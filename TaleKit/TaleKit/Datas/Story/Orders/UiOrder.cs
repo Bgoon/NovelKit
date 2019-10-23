@@ -20,6 +20,8 @@ namespace TaleKit.Datas.Story {
 		public float BlendTotalSeconds;
 		private float blendElapsedSeconds;
 
+
+		[ValueEditorComponent_Header("테스트 헤더 이거 파란색으로 떠야함")]
 		[ValueEditor_Switch("위치 변경")]
 		public bool UsePosition;
 		[ValueEditor_Switch("회전 변경")]

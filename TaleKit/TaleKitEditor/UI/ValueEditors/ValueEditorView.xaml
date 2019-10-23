@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.ValueEditors.ValueEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignWidth="220" MinHeight="30">
+	<StackPanel Orientation="Vertical">
+		<StackPanel Name="ValueEditorComponentContext" Orientation="Vertical"/>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*" MaxWidth="140"/>
+				<ColumnDefinition Width="2*"/>
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="0" Height="30" Margin="8, 0">
+				<TextBlock Text="{Binding HeaderText, Mode=OneWay}" Style="{StaticResource ValueEditorHeader}"  VerticalAlignment="Center"/>
+			</Grid>
+			<Grid Grid.Column="1" Name="ValueEditorElementContext" Margin="0, 0, 8, 0"/>
+		</Grid>
+	</StackPanel>
+</UserControl>

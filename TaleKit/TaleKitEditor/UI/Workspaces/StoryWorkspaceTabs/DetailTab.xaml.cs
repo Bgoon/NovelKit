@@ -58,6 +58,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		//이게 두번 호출되는 버그가 있다
+		//그건 바로 Window.Loaded가 두번 호출되는 버그여따.
 		private void SelectedItemSet_SelectionAdded(ITreeItem item) {
 			SelectionChanged();
 		}
@@ -80,7 +81,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				if (editorAttribute == null)
 					continue;
 
-				ValueEditorView valueEditorView = new ValueEditorView(order, field, editorAttribute);
+				ValueEditorView valueEditorView = new ValueEditorView(order, field);
 				OrderStackPanel.Children.Add(valueEditorView);
 			}
 		}

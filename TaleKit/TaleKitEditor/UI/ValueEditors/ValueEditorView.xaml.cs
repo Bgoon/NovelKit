@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using TaleKit.Datas.Editor;
 using TaleKitEditor.UI.ValueEditors;
 
-namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
+namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
 	/// ValueEditorView.xaml에 대한 상호 작용 논리
 	/// </summary>
@@ -48,30 +48,56 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		public ValueEditorView() {
 			InitializeComponent();
 		}
-		public ValueEditorView(object model, FieldInfo field, ValueEditorAttribute editorAttribute) : this() {
+		public ValueEditorView(object model, FieldInfo field) : this() {
 			this.DataContext = this;
 			this.model = model;
 			this.field = field;
-			HeaderText = editorAttribute.header;
 
-			UserControl editorElement = null;
-			if (editorAttribute is ValueEditor_NumberAttribute) {
-				editorElement = new ValueEditorElement_Number();
-			} else if (editorAttribute is ValueEditor_SliderAttribute) {
-				editorElement = new ValueEditorElement_Slider();
-			} else if (editorAttribute is ValueEditor_SwitchAttribute) {
-				editorElement = new ValueEditorElement_Switch();
-			} else if (editorAttribute is ValueEditor_TextAttribute) {
-				editorElement = new ValueEditorElement_Text();
-			} else {
-				throw new NotImplementedException();
+			//Classify components
+			ValueEditorComponentAttribute[] components = field.GetCustomAttributes(typeof(ValueEditorComponentAttribute)).Select(x=>(ValueEditorComponentAttribute)x).ToArray();
+			foreach(ValueEditorComponentAttribute component in components) {
+				UserControl view = CreateEditorComponentView(component);
+
+				ValueEditorComponentContext.Children.Add(view);
 			}
 
+			//Classify elements
+			ValueEditorAttribute element = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
+			HeaderText = element.header;
+
+			UserControl editorElement = CreateEditorElementView(element);
 			valueEditorElement = (IValueEditorElement)editorElement;
 
 			valueEditorElement.EditableValueChanged += IEditorElement_ElementValueChanged;
 
 			ValueEditorElementContext.Children.Add(editorElement);
+		}
+
+		private UserControl CreateEditorComponentView(ValueEditorComponentAttribute componentAttribute) {
+			UserControl view;
+			if(componentAttribute is ValueEditorComponent_HeaderAttribute) {
+				view = new ValueEditorComponent_Header(((ValueEditorComponent_HeaderAttribute)componentAttribute).headerText);
+			} else {
+				throw new NotImplementedException();
+			}
+
+			return view;
+		}
+		private UserControl CreateEditorElementView(ValueEditorAttribute elementAttribute) {
+			UserControl view;
+			if (elementAttribute is ValueEditor_NumberAttribute) {
+				view = new ValueEditorElement_Number();
+			} else if (elementAttribute is ValueEditor_SliderAttribute) {
+				view = new ValueEditorElement_Slider();
+			} else if (elementAttribute is ValueEditor_SwitchAttribute) {
+				view = new ValueEditorElement_Switch();
+			} else if (elementAttribute is ValueEditor_TextAttribute) {
+				view = new ValueEditorElement_Text();
+			} else {
+				throw new NotImplementedException();
+			}
+
+			return view;
 		}
 
 		private void IEditorElement_ElementValueChanged(object value) {
