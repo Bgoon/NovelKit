@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GKit;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class ValueEditorElement_Slider : UserControl, INotifyPropertyChanged, IValueEditorElement {
-		public static readonly DependencyProperty NumberTypeProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(NumberType), typeof(ValueEditorElement_Slider), new PropertyMetadata(NumberType.Float));
+		public static readonly DependencyProperty NumberTypeProperty = DependencyProperty.RegisterAttached(nameof(NumberType), typeof(NumberType), typeof(ValueEditorElement_Slider), new PropertyMetadata(NumberType.Float));
 		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(0f));
 		public static readonly DependencyProperty DefaultValueProperty = DependencyProperty.RegisterAttached(nameof(DefaultValue), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(0f));
 		public static readonly DependencyProperty MinValueProperty = DependencyProperty.RegisterAttached(nameof(MinValue), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(0f));
@@ -65,7 +66,6 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 			set {
 				SetValue(NumberTypeProperty, value);
-
 			}
 		}
 		public float Value {
@@ -74,7 +74,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 			set {
 				SetValue(ValueProperty, value);
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IntValue)));
+				RaisePropertyChanged(nameof(Value));
 			}
 		}
 		public float DefaultValue {
@@ -83,6 +83,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 			set {
 				SetValue(DefaultValueProperty, value);
+				RaisePropertyChanged(nameof(DefaultValue));
 			}
 		}
 		public float MinValue {
@@ -91,6 +92,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 			set {
 				SetValue(MinValueProperty, value);
+				RaisePropertyChanged(nameof(MinValue));
 			}
 		}
 		public float MaxValue {
@@ -102,28 +104,76 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 		}
 
-		public object EditableValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		public object EditableValue {
+			get {
+				return Value;
+			}
+			set {
+				Value = (float)value;
+				EditableValueChanged?.Invoke(value);
+			}
+		}
+
+		//Input
+		private bool onDragging;
 
 		public ValueEditorElement_Slider() {
 			InitializeComponent();
-			PropertyChanged += SliderValueEditor_PropertyChanged;
-			SizeChanged += SliderValueEditor_SizeChanged;
+			Init();
+			RegisterEvents();
 
 			UpdateUI();
+		}
+		private void Init() {
+			DataContext = this;
+
+			MinValue = 0f;
+			MaxValue = 1f;
+			Value = 0f;
+		}
+		private void RegisterEvents() {
+			PropertyChanged += ValueEditorElement_Slider_PropertyChanged;
+			SizeChanged += ValueEditorElement_Slider_SizeChanged;
 		}
 
 		private void RaisePropertyChanged(string propertyName) {
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
-		private void SliderValueEditor_SizeChanged(object sender, SizeChangedEventArgs e) {
+		private void InputContext_MouseDown(object sender, MouseButtonEventArgs e) {
+			Mouse.Capture(InputContext);
+
+			onDragging = true;
+			Console.WriteLine("MouseDown");
+		}
+		private void InputContext_MouseMove(object sender, MouseEventArgs e) {
+			if (!onDragging)
+				return;
+
+			float sideMargin = (float)BackLine.Margin.Left;
+			float sliderWidth = (float)InputContext.ActualWidth - sideMargin * 2f;
+			Point cursorPos = e.GetPosition(InputContext);
+
+			float inputValue = Mathf.Clamp01(((float)cursorPos.X - sideMargin) / sliderWidth);
+
+			Value = Mathf.Max(0, inputValue * (MaxValue - MinValue) + MinValue);
+
+			EditableValueChanged?.Invoke(Value);
+		}
+		private void InputContext_MouseUp(object sender, MouseButtonEventArgs e) {
+			Mouse.Capture(null);
+
+			onDragging = false;
+			Console.WriteLine("MouseUp");
+		}
+		private void ValueEditorElement_Slider_SizeChanged(object sender, SizeChangedEventArgs e) {
 			UpdateUI();
 		}
-
-		private void SliderValueEditor_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+		private void ValueEditorElement_Slider_PropertyChanged(object sender, PropertyChangedEventArgs e) {
 			switch(e.PropertyName) {
 				case nameof(Value):
-					UpdateUI();
+					RaisePropertyChanged(nameof(IntValue));
 					RaisePropertyChanged(nameof(DisplayValue));
+					UpdateUI();
 					break;
 				case nameof(MinValue):
 					RaisePropertyChanged(nameof(DisplayMinValue));
@@ -134,13 +184,17 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 		}
 
+
 		private void UpdateUI() {
 			float valueRatio = (Value - MinValue) / (MaxValue - MinValue);
 			float fullWidth = (float)ActualWidth;
 
-			CircleButton.Margin = new Thickness(valueRatio * (fullWidth - CircleButton.Width), 0d, 0d, 0d);
-			ForeLine.Width = valueRatio * (fullWidth - CircleButton.Width);
-			ValueTextBlock.Margin = new Thickness(valueRatio * (fullWidth - CircleButton.Width), 0d, 0d, 0d);
+			float lineWidth = Mathf.Max(0, (float)(valueRatio * (fullWidth - CircleButton.Width)));
+
+			CircleButton.Margin = new Thickness(lineWidth, 0d, 0d, 0d);
+			ForeLine.Width = lineWidth;
+			ValueTextBlock.Margin = new Thickness(lineWidth, 0d, 0d, 0d);
 		}
+
 	}
 }

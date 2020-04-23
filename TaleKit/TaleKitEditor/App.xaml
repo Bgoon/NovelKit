@@ -14,11 +14,12 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="pack://application:,,,/GKitForWPF;component/WPF/Resources/Themes/FlatTheme.xaml"/>
 				<ResourceDictionary>
+
 					<SolidColorBrush x:Key="MainWindowBackground" Color="#FF2E2E2E"/>
 					<SolidColorBrush x:Key="PopupWindowBackground" Color="#454545"/>
 					<SolidColorBrush x:Key="PopupWindowStroke" Color="#6B6B6B"/>
 
-					<SolidColorBrush x:Key="TabBackground" Color="#3B3B3B"/>
+					<SolidColorBrush x:Key="TabBackground" Color="#454545"/>
 
 					<SolidColorBrush x:Key="ItemBackground" Color="#4F4F4F"/>
 					<SolidColorBrush x:Key="ItemBackground_Selected" Color="#626262"/>
@@ -26,24 +27,30 @@
 					<SolidColorBrush x:Key="LightSeparator" Color="#26FFFFFF"/>
 
 					<!--Texts-->
-					<Style x:Key="MainHeader" TargetType="TextBlock">
+					<Style x:Key="MainHeaderText" TargetType="TextBlock">
 						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Bold"/>
+						<Setter Property="FontSize" Value="14"/>
 						<Setter Property="Foreground" Value="#ABABAB"/>
 					</Style>
-					<Style x:Key="SubHeaer" TargetType="TextBlock">
+					<Style x:Key="SubHeaerText" TargetType="TextBlock">
 						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Bold"/>
 						<Setter Property="Foreground" Value="#7A7A7A"/>
 					</Style>
-					<Style x:Key="Content" TargetType="TextBlock">
+					<Style x:Key="ContentText" TargetType="TextBlock">
 						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium"/>
 						<Setter Property="Foreground" Value="#BDBDBD"/>
 					</Style>
 
 					<!--ValueEditor-->
-					<Style x:Key="ValueEditorHeader" TargetType="TextBlock">
+					<Style x:Key="ValueEditorHeaderComponentText" TargetType="TextBlock" BasedOn="{StaticResource MainHeaderText}">
+						<Setter Property="FontSize" Value="12"/>
+					</Style>
+					<Style x:Key="ValueEditorNameText" TargetType="TextBlock">
 						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Bold"/>
 						<Setter Property="Foreground" Value="#7A7A7A"/>
+						<Setter Property="FontSize" Value="12"/>
 					</Style>
+
 
 
 				</ResourceDictionary>

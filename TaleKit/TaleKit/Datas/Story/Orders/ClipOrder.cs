@@ -11,6 +11,7 @@ namespace TaleKit.Datas.Story {
 	/// </summary>
 	public class ClipOrder : OrderBase {
 
+		public override OrderType OrderType => OrderType.Clip;
 
 		public ClipOrder(StoryBlock ownerBlock) : base(ownerBlock) {
 

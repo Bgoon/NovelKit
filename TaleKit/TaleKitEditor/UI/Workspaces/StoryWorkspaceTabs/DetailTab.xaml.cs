@@ -72,18 +72,9 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void EditingBlock_OrderAdded(OrderBase order) {
-			Type modelType = order.GetType();
-			FieldInfo[] fields = modelType.GetFields();
+			OrderItemView orderItemView = new OrderItemView(order);
 
-			foreach (FieldInfo field in fields) {
-				ValueEditorAttribute editorAttribute = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
-
-				if (editorAttribute == null)
-					continue;
-
-				ValueEditorView valueEditorView = new ValueEditorView(order, field);
-				OrderStackPanel.Children.Add(valueEditorView);
-			}
+			OrderStackPanel.Children.Add(orderItemView);
 		}
 		private void EditingBlock_OrderRemoved(OrderBase order) {
 			OrderStackPanel.Children.Remove(orderControlDict[order]);

@@ -21,16 +21,16 @@ namespace TaleKitEditor.UI.ValueEditors {
 	/// ValueEditorView.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class ValueEditorView : UserControl {
-		public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.RegisterAttached(nameof(HeaderText), typeof(string), typeof(ValueEditorView), new PropertyMetadata(null));
+		public static readonly DependencyProperty ValueNameTextProperty = DependencyProperty.RegisterAttached(nameof(ValueNameText), typeof(string), typeof(ValueEditorView), new PropertyMetadata(null));
 
 		public event Action<object> EditableValueChanged;
 
-		public string HeaderText {
+		public string ValueNameText {
 			get {
-				return (string)GetValue(HeaderTextProperty);
+				return (string)GetValue(ValueNameTextProperty);
 			}
 			set {
-				SetValue(HeaderTextProperty, value);
+				SetValue(ValueNameTextProperty, value);
 			}
 		}
 		public object EditableValue {
@@ -63,12 +63,13 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 			//Classify elements
 			ValueEditorAttribute element = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
-			HeaderText = element.header;
+			ValueNameText = element.header;
 
 			UserControl editorElement = CreateEditorElementView(element);
 			valueEditorElement = (IValueEditorElement)editorElement;
 
 			valueEditorElement.EditableValueChanged += IEditorElement_ElementValueChanged;
+			valueEditorElement.EditableValue = field.GetValue(model);
 
 			ValueEditorElementContext.Children.Add(editorElement);
 		}
@@ -85,8 +86,8 @@ namespace TaleKitEditor.UI.ValueEditors {
 		}
 		private UserControl CreateEditorElementView(ValueEditorAttribute elementAttribute) {
 			UserControl view;
-			if (elementAttribute is ValueEditor_NumberAttribute) {
-				view = new ValueEditorElement_Number();
+			if (elementAttribute is ValueEditor_NumberBoxAttribute) {
+				view = new ValueEditorElement_NumberBox();
 			} else if (elementAttribute is ValueEditor_SliderAttribute) {
 				view = new ValueEditorElement_Slider();
 			} else if (elementAttribute is ValueEditor_SwitchAttribute) {

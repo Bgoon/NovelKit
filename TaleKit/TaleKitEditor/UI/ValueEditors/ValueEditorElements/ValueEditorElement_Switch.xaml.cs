@@ -19,7 +19,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class ValueEditorElement_Switch : UserControl, IValueEditorElement {
-		public static readonly DependencyProperty ElementValueProperty = DependencyProperty.RegisterAttached(nameof(EditableValue), typeof(bool), typeof(ValueEditorElement_Switch), new PropertyMetadata(false));
+		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(bool), typeof(ValueEditorElement_Switch), new PropertyMetadata(false));
 
 		private static SolidColorBrush DeactiveBackBrush = "737373".ToBrush();
 		private static SolidColorBrush ActiveBackBrush = "408DC7".ToBrush();
@@ -28,27 +28,37 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 		public object EditableValue {
 			get {
-				return GetValue(ElementValueProperty);
+				return Value;
 			} set {
-				SetValue(ElementValueProperty, value);
-				EditableValueChanged?.Invoke(value);
+				Value = (bool)value;
 			}
 		}
-		public bool BoolValue {
+		public bool Value {
 			get {
-				return (bool)EditableValue;
+				return (bool)GetValue(ValueProperty);
 			} set {
-				EditableValue = value;
+				SetValue(ValueProperty, value);
+				EditableValueChanged?.Invoke(value);
 			}
 		}
 
 		public ValueEditorElement_Switch() {
 			InitializeComponent();
+			RegisterEvents();
+		}
+		private void RegisterEvents() {
+			EditableValueChanged += ValueEditorElement_Switch_EditableValueChanged;
 		}
 
+		private void ValueEditorElement_Switch_EditableValueChanged(object obj) {
+			UpdateUI();
+		}
 		private void Button_Click(object sender, RoutedEventArgs e) {
-			BoolValue = !BoolValue;
-			if(BoolValue) {
+			Value = !Value;
+		}
+
+		private void UpdateUI() {
+			if (Value) {
 				BtnBack.Fill = ActiveBackBrush;
 				Button.HorizontalAlignment = HorizontalAlignment.Right;
 			} else {

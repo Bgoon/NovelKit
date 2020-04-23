@@ -20,8 +20,13 @@ namespace TaleKit.Datas.Story {
 		public float BlendTotalSeconds;
 		private float blendElapsedSeconds;
 
+		[ValueEditorComponent_Header("UI테스트 변수")]
+		[ValueEditor_Slider("슬라이더", NumberType.Float)]
+		public float Float;
+		[ValueEditor_Text("텍스트")]
+		public string Text;
 
-		[ValueEditorComponent_Header("테스트 헤더 이거 파란색으로 떠야함")]
+		[ValueEditorComponent_Header("실제 모델변수")]
 		[ValueEditor_Switch("위치 변경")]
 		public bool UsePosition;
 		[ValueEditor_Switch("회전 변경")]
@@ -43,6 +48,8 @@ namespace TaleKit.Datas.Story {
 		public Vector2 DstSizeDelta;
 		public float DstAlpha;
 		public bool DstVisible;
+
+		public override OrderType OrderType => OrderType.Ui;
 
 		public UiOrder(StoryBlock ownerBlock) : base(ownerBlock) {
 

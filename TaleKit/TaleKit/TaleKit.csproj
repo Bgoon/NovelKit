@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -58,7 +58,7 @@
     <Compile Include="Datas\Editor\ValueEditorComponent_HeaderAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_SwitchAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_TextAttribute.cs" />
-    <Compile Include="Datas\Editor\ValueEditor_NumberAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditor_NumberBoxAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_SliderAttribute.cs" />
     <Compile Include="Datas\IDataFile.cs" />
     <Compile Include="Datas\Motion\MotionFile.cs" />
@@ -99,9 +99,6 @@
     <Compile Include="Datas\UI\UiManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKit.XInput\GKit.XInput.csproj">
       <Project>{5c947285-0c2f-4722-8290-d09c25b22fa3}</Project>
       <Name>GKit.XInput</Name>
@@ -114,6 +111,9 @@
       <Project>{91981f2b-f18b-4f4b-8822-075a572a7cac}</Project>
       <Name>PenMotion</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

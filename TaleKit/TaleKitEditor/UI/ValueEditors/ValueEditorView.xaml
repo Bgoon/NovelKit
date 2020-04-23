@@ -13,7 +13,7 @@
 				<ColumnDefinition Width="2*"/>
 			</Grid.ColumnDefinitions>
 			<Grid Grid.Column="0" Height="30" Margin="8, 0">
-				<TextBlock Text="{Binding HeaderText, Mode=OneWay}" Style="{StaticResource ValueEditorHeader}"  VerticalAlignment="Center"/>
+				<TextBlock Text="{Binding ValueNameText, Mode=OneWay}" Style="{StaticResource ValueEditorNameText}"  VerticalAlignment="Center"/>
 			</Grid>
 			<Grid Grid.Column="1" Name="ValueEditorElementContext" Margin="0, 0, 8, 0"/>
 		</Grid>

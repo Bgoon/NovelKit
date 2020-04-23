@@ -10,7 +10,7 @@
 		<DockPanel Margin="8,0">
 			<Separator Name="ItemSeparator" DockPanel.Dock="Bottom" Background="{StaticResource LightSeparator}"/>
 			<StoryWorkspaceTabs:OrderIndicator x:Name="OrderIndicator" DockPanel.Dock="Right" IsCountVisible="False" VerticalAlignment="Center"/>
-			<TextBlock Name="TypeTextBlock" Style="{StaticResource MainHeader}" Text="Type" VerticalAlignment="Center"/>
+			<TextBlock Name="TypeTextBlock" Style="{StaticResource MainHeaderText}" Text="Type" VerticalAlignment="Center"/>
 		</DockPanel>
 		<Button Style="{StaticResource FlatButton}" Background="Transparent"
 			Click="Button_Click"/>

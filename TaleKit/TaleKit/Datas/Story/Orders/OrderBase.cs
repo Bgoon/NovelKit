@@ -27,6 +27,10 @@ namespace TaleKit.Datas.Story {
 			get; protected set;
 		}
 
+		public abstract OrderType OrderType {
+			get;
+		}
+
 		public OrderBase(StoryBlock ownerBlock) {
 			this.OwnerBlock = ownerBlock;
 		}

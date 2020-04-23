@@ -5,7 +5,46 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignWidth="100" d:DesignHeight="21">
-    <Grid>
-		<TextBox/>
+	<UserControl.Resources>
+		<Style TargetType="TextBox">
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Background" Value="#DEDEDE"/>
+			<Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+			<Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
+			<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="TextBox">
+						<Grid>
+							<Border x:Name="border" 
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+								<ScrollViewer x:Name="PART_ContentHost" Margin="0"
+                                          HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}" 
+                                          VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"/>
+
+							</Border>
+							<Border x:Name="Cover" IsHitTestVisible="False"/>
+						</Grid>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsEnabled" Value="False">
+								<Setter Property="Opacity" Value="0.6"/>
+							</Trigger>
+							<Trigger Property="IsMouseOver" Value="True" SourceName="Cover">
+								<Setter Property="Background" Value="#16FFFFFF"/>
+							</Trigger>
+							<Trigger Property="IsFocused" Value="False">
+								<Setter Property="Background" Value="#A3A3A3"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</UserControl.Resources>
+	<Grid>
+		<TextBox Name="ValueTextBox" BorderThickness="0" Background="#DEDEDE" Text="asdf" FontSize="14" Padding="3"
+			TextChanged="ValueTextBox_TextChanged"/>
 	</Grid>
 </UserControl>

@@ -11,6 +11,7 @@ namespace TaleKit.Datas.Story {
 	/// </summary>
 	public class LogicOrder : OrderBase {
 
+		public override OrderType OrderType => OrderType.Logic;
 
 		public LogicOrder(StoryBlock ownerBlock) : base(ownerBlock) {
 

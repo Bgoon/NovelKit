@@ -19,6 +19,8 @@ namespace TaleKit.Datas.Story {
 		[ValueEditor_Text("메세지")]
 		public string message;
 
+		public override OrderType OrderType => OrderType.Message;
+
 		public MessageOrder(StoryBlock ownerBlock) : base(ownerBlock) {
 		}
 

@@ -11,6 +11,8 @@ namespace TaleKit.Datas.Story {
 		[ValueEditor_Text("이벤트 키")]
 		public string eventKey;
 
+		public override OrderType OrderType => OrderType.Event;
+
 		public EventOrder(StoryBlock ownerBlock) : base(ownerBlock) {
 			
 		}

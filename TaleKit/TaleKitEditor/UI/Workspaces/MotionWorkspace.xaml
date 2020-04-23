@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			
-			 xmlns:Ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+			 xmlns:Ad="https://github.com/Dirkster99/AvalonDock"
 
 			 xmlns:PMEditor="clr-namespace:PenMotionEditor.UI.Tabs;assembly=PenMotionEditor"
              mc:Ignorable="d" 
