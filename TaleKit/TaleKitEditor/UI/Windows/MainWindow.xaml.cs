@@ -68,7 +68,10 @@ namespace TaleKitEditor.UI.Windows {
 		private void InitData() {
 		}
 		private void RegisterEvents() {
-
+			FileManagerBar.CreateFileButtonClick += CreateData;
+			FileManagerBar.OpenFileButtonClick += OpenFile;
+			FileManagerBar.SaveFileButtonClick += SaveData;
+			FileManagerBar.ExportButtonClick += ExportData;
 		}
 
 		public void CreateData() {
@@ -82,6 +85,15 @@ namespace TaleKitEditor.UI.Windows {
 			DataUnloaded?.Invoke(EditingData);
 
 			EditingData = null;
+		}
+		public void OpenFile() {
+
+		}
+		public void SaveData() {
+
+		}
+		public void ExportData() {
+
 		}
 
 		public void ActiveWorkspace(WorkspaceType type) {

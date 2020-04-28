@@ -16,6 +16,8 @@ using TaleKit.Datas.Story;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
 using GKit;
+using GKit.WPF;
+using GKit.WPF.UI;
 using GKit.WPF.UI.Controls;
 using System.Reflection;
 using TaleKit.Datas.Editor;
@@ -40,9 +42,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			InitializeComponent();
 		}
 		private void DetailTab_Loaded(object sender, RoutedEventArgs e) {
-			if (isInitiliazed)
+			if (this.IsDesignMode() || isInitiliazed)
 				return;
 			isInitiliazed = true;
+
 
 			InitMembers();
 			RegisterEvents();

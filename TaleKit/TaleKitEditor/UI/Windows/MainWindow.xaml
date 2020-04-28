@@ -17,7 +17,7 @@
         Title="TaleKit - 비주얼 노벨 에디터" Width="1280" Height="720" Background="{StaticResource MainWindowBackground}" Icon="/TaleKitEditor;component/Resources/Images/TaleKitIcon.png">
     <DockPanel>
 		<Grid Height="50" DockPanel.Dock="Top">
-			<GControls:FileManagerBar DockPanel.Dock="Top"></GControls:FileManagerBar>
+			<GControls:FileManagerBar DockPanel.Dock="Top" x:Name="FileManagerBar" Separator1Visible="True" ImportButtonVisible="False" ExportButtonVisible="True"></GControls:FileManagerBar>
 			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
 				<StackPanel.Resources>
 					<Style TargetType="Controls:WorkspaceButton">

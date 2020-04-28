@@ -82,10 +82,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StoryFile.ItemRemoved -= StoryFile_ItemRemoved;
 		}
 
-		private void StoryBlockListController_CreateItemButtonClick(object sender, RoutedEventArgs e) {
+		private void StoryBlockListController_CreateItemButtonClick() {
 			StoryFile.CreateStoryBlockItem(EditingClip);
 		}
-		private void StoryBlockListController_RemoveItemButtonClick(object sender, RoutedEventArgs e) {
+		private void StoryBlockListController_RemoveItemButtonClick() {
 			foreach (StoryBlockItemView itemView in StoryBlockTreeView.SelectedItemSet) {
 				StoryBlockBase data = itemView.Data;
 

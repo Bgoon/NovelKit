@@ -2,10 +2,10 @@
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
-			 xmlns:Ad="clr-namespace:Xceed.Wpf.AvalonDock;assembly=Xceed.Wpf.AvalonDock"
-			 xmlns:AdConverters="clr-namespace:Xceed.Wpf.AvalonDock.Converters;assembly=Xceed.Wpf.AvalonDock"
-			 xmlns:AdLayout="clr-namespace:Xceed.Wpf.AvalonDock.Layout;assembly=Xceed.Wpf.AvalonDock"
-			 xmlns:AdCtrls="clr-namespace:Xceed.Wpf.AvalonDock.Controls;assembly=Xceed.Wpf.AvalonDock"
+			 xmlns:Ad="clr-namespace:AvalonDock;assembly=AvalonDock"
+			 xmlns:AdConverters="clr-namespace:AvalonDock.Converters;assembly=AvalonDock"
+			 xmlns:AdLayout="clr-namespace:AvalonDock.Layout;assembly=AvalonDock"
+			 xmlns:AdCtrls="clr-namespace:AvalonDock.Controls;assembly=AvalonDock"
 			 xmlns:AdThemes="clr-namespace:Bgoon.AvalonDockTheme;assembly=Bgoon.AvalonDockThemes"
 
              Startup="OnStartup">
