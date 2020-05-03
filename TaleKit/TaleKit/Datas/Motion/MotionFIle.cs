@@ -18,6 +18,10 @@ namespace TaleKit.Datas.Motion {
 		public MotionFile() {
 		}
 
+		public void SetMotionFileData(PenMotion.Datas.MotionFile motionFile) {
+			this.motionFileData = motionFile;
+		}
+
 		public bool Save(string filename) {
 			motionFileData.Save(filename);
 			return true;

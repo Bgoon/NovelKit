@@ -53,7 +53,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 			this.model = model;
 			this.field = field;
 
-			//Classify components
+			//Classify components : 헤더 등등
 			ValueEditorComponentAttribute[] components = field.GetCustomAttributes(typeof(ValueEditorComponentAttribute)).Select(x=>(ValueEditorComponentAttribute)x).ToArray();
 			foreach(ValueEditorComponentAttribute component in components) {
 				UserControl view = CreateEditorComponentView(component);
@@ -61,7 +61,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 				ValueEditorComponentContext.Children.Add(view);
 			}
 
-			//Classify elements
+			//Classify elements : 실제 값
 			ValueEditorAttribute element = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
 			ValueNameText = element.header;
 

@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:StoryWorkspaceTabs="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs"
              mc:Ignorable="d" 
-             d:DesignWidth="400" Height="30">
+             d:DesignWidth="400" Height="40">
 	<Grid>
-		<DockPanel Margin="8,0">
-			<Separator Name="ItemSeparator" DockPanel.Dock="Bottom" Background="{StaticResource LightSeparator}"/>
-			<StoryWorkspaceTabs:OrderIndicator x:Name="OrderIndicator" DockPanel.Dock="Right" IsCountVisible="False" VerticalAlignment="Center"/>
-			<TextBlock Name="TypeTextBlock" Style="{StaticResource MainHeaderText}" Text="Type" VerticalAlignment="Center"/>
+		<DockPanel>
+			<Separator Name="ItemSeparator" DockPanel.Dock="Bottom" Background="{StaticResource LightSeparator}" Margin="0"/>
+			<StoryWorkspaceTabs:OrderIndicator x:Name="OrderIndicator" DockPanel.Dock="Left" IsCountVisible="False" VerticalAlignment="Center" Margin="8,0,0,0"/>
+			<TextBlock Name="TypeTextBlock" Style="{StaticResource MainHeaderText}" Text="Type" VerticalAlignment="Center" Margin="8,0"/>
 		</DockPanel>
 		<Button Style="{StaticResource FlatButton}" Background="Transparent"
 			Click="Button_Click"/>

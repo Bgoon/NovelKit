@@ -11,6 +11,8 @@ using TaleKit.Datas.UI;
 
 namespace TaleKit.Datas {
 	public class TaleData {
+		public const string Version = "2019.9";
+		public const string FileExt = ".taledata";	
 
 		public MotionFile MotionFile {
 			get; private set;
@@ -21,6 +23,8 @@ namespace TaleKit.Datas {
 		public StoryFile StoryFile {
 			get; private set;
 		}
+
+		public DateTime exportedTime;
 
 		public TaleData() {
 			MotionFile = new MotionFile();
@@ -43,13 +47,18 @@ namespace TaleKit.Datas {
 		/// 클라이언트에서 플레이할 수 있는 데이터 파일로 내보냅니다.
 		/// </summary>
 		public void Export(string fileName) {
-			JObject taleData = new JObject();
+			JObject jFile = new JObject();
 
-			taleData.Add("MotionFile", MotionFile.ToJObject());
-			taleData.Add("UiFile", UiFile.ToJObject());
-			taleData.Add("StoryFile", StoryFile.ToJObject());
+			exportedTime = DateTime.Now;
 
-			File.WriteAllText(fileName, taleData.ToString(), Encoding.UTF8);
+			//File info
+			jFile.Add(nameof(exportedTime), exportedTime.ToOADate());
+
+			jFile.Add("MotionFile", MotionFile.ToJObject());
+			jFile.Add("UiFile", UiFile.ToJObject());
+			jFile.Add("StoryFile", StoryFile.ToJObject());
+
+			File.WriteAllText(fileName, jFile.ToString(), Encoding.UTF8);
 		}
 	}
 }

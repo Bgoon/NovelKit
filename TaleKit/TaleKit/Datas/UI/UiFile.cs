@@ -15,8 +15,6 @@ namespace TaleKit.Datas.UI {
 	//	}
 	//}
 	public class UiFile : ITaleDataFile {
-		public DateTime exportedTime;
-
 		public UiItem RootUiItem {
 			get; private set;
 		}
@@ -29,17 +27,14 @@ namespace TaleKit.Datas.UI {
 		}
 
 		public bool Save(string filename) {
-			JObject jMotionFile = new JObject();
+			JObject jFile = new JObject();
 
-			//File info
-			jMotionFile.Add(nameof(exportedTime), exportedTime);
-
-			IOUtility.SaveText(jMotionFile.ToString(), filename);
+			IOUtility.SaveText(jFile.ToString(), filename);
 			return true;
 		}
 		public bool Load(string filename) {
 			string jMotionFileString = IOUtility.LoadText(filename, Encoding.UTF8);
-			JObject jMotionFile = JObject.Parse(jMotionFileString);
+			JObject jFile = JObject.Parse(jMotionFileString);
 
 			return true;
 		}

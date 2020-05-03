@@ -19,9 +19,6 @@ namespace TaleKit.Datas.Story {
 	//	}
 	//}
 	public class StoryFile : ITaleDataFile {
-		public const string Version = "2019.9";
-		public DateTime exportedTime;
-
 		public StoryClip RootClip {
 			get; private set;
 		}
@@ -55,7 +52,7 @@ namespace TaleKit.Datas.Story {
 		}
 		public bool Load(string filename) {
 			string jFileString = IOUtility.LoadText(filename, Encoding.UTF8);
-			JObject jMotionFile = JObject.Parse(jFileString);
+			JObject jFile = JObject.Parse(jFileString);
 
 			return true;
 		}
@@ -109,11 +106,6 @@ namespace TaleKit.Datas.Story {
 		public JObject ToJObject() {
 			JObject jFile = new JObject();
 
-			exportedTime = DateTime.Now;
-
-			//File info
-			jFile.Add(nameof(exportedTime), exportedTime.ToOADate());
-
 			//Add scenes
 			JObject jScenes = new JObject();
 			jFile.Add("Scenes", jScenes);
@@ -137,6 +129,10 @@ namespace TaleKit.Datas.Story {
 				StoryClip clip = clipPair.Value;
 				jClip.Add(clip.ToJObject());
 			}
+
+			//Add rootClip
+			JObject jRootClip = new JObject();
+			jFile.Add("RootClip", RootClip.ToJObject());
 
 			return jFile;
 		}

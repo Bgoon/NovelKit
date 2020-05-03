@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="Script\Root.cs" />
     <Compile Include="Script\Workspaces\StoryWorkspace\IComponent.cs" />
+    <Compile Include="Script\Workspaces\Workspace.cs" />
     <Compile Include="UI\Controls\FixedLayoutAnchorable.cs" />
     <Compile Include="UI\Controls\WorkspaceButton.cs" />
     <Compile Include="UI\ValueEditors\IValueEditorComponent.cs" />

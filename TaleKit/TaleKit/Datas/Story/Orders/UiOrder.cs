@@ -96,9 +96,5 @@ namespace TaleKit.Datas.Story {
 			targetUi.Alpha = srcAlpha + (DstAlpha - srcAlpha) * time;
 			targetUi.GameObject.SetActive(DstVisible);
 		}
-
-		public override JObject ToJObject() {
-			throw new NotImplementedException();
-		}
 	}
 }

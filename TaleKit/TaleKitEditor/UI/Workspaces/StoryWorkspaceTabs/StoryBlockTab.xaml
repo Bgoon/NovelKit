@@ -12,6 +12,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
 		<GControls:ListManagerBar Name="StoryBlockListController" DockPanel.Dock="Top" CreateFolderButtonVisible="False"/>
-		<GControls:EditTreeView Name="StoryBlockTreeView" DockPanel.Dock="Top"/>
+		<GControls:EditTreeView Name="StoryBlockTreeView" DockPanel.Dock="Top" ItemShadowVisible="True"/>
 	</DockPanel>
 </UserControl>

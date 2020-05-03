@@ -18,10 +18,12 @@ using GKit.WPF;
 using TaleKit.Datas;
 using TaleKitEditor.UI.Controls;
 using PenMotionEditor.UI.Tabs;
+using Microsoft.Win32;
+using TaleKitEditor.Workspaces;
 
 namespace TaleKitEditor.UI.Windows {
 	public partial class MainWindow : Window {
-		private Tuple<UserControl, WorkspaceButton>[] workspacePairs;
+		private Workspace[] workspaces;
 
 		//Datas
 		public TaleData EditingData {
@@ -43,7 +45,6 @@ namespace TaleKitEditor.UI.Windows {
 		}
 
 		private void MainWindow_ContentRendered(object sender, EventArgs e) {
-			InitData();
 			InitWorkspaces();
 			RegisterEvents();
 
@@ -51,21 +52,19 @@ namespace TaleKitEditor.UI.Windows {
 		}
 
 		private void InitWorkspaces() {
-			workspacePairs = new Tuple<UserControl, WorkspaceButton>[] {
-				new Tuple<UserControl, WorkspaceButton>(UiWorkspace, UiWorkspaceButton),
-				new Tuple<UserControl, WorkspaceButton>(MotionWorkspace, MotionWorkspaceButton),
-				new Tuple<UserControl, WorkspaceButton>(StoryWorkspace, StoryWorkspaceButton),
+			workspaces = new Workspace[] {
+				new Workspace(UiWorkspace, UiWorkspaceButton),
+				new Workspace(MotionWorkspace, MotionWorkspaceButton),
+				new Workspace(StoryWorkspace, StoryWorkspaceButton),
 			};
 
-			foreach(Tuple<UserControl, WorkspaceButton> workspacePair in workspacePairs) {
-				if (workspacePair.Item1.Parent == null) {
-					WorkspaceContext.Children.Add(workspacePair.Item1);
+			foreach(Workspace workspace in workspaces) {
+				if (workspace.context.Parent == null) {
+					WorkspaceContext.Children.Add(workspace.context);
 				}
 			}
 
 			ActiveWorkspace(WorkspaceType.Story);
-		}
-		private void InitData() {
 		}
 		private void RegisterEvents() {
 			FileManagerBar.CreateFileButtonClick += CreateData;
@@ -76,6 +75,7 @@ namespace TaleKitEditor.UI.Windows {
 
 		public void CreateData() {
 			EditingData = new TaleData();
+			EditingData.MotionFile.SetMotionFileData(MotionWorkspace.EditorContext.EditingFile);
 
 			DataLoaded?.Invoke(EditingData);
 
@@ -87,29 +87,50 @@ namespace TaleKitEditor.UI.Windows {
 			EditingData = null;
 		}
 		public void OpenFile() {
+			if (!ShowCheckSaveDialog())
+				return;
 
+			OpenFileDialog dialog = new OpenFileDialog();
+			if (!dialog.ShowDialog(this).HasTrueValue())
+				return;
+
+			
 		}
 		public void SaveData() {
+			SaveFileDialog dialog = new SaveFileDialog();
 
+			if (!dialog.ShowDialog(this).HasTrueValue())
+				return;
 		}
 		public void ExportData() {
+			if (!ShowCheckSaveDialog())
+				return;
 
+			SaveFileDialog dialog = new SaveFileDialog();
+
+			if (!dialog.ShowDialog(this).HasTrueValue())
+				return;
+
+			EditingData.Export(dialog.FileName);
+		}
+		public bool ShowCheckSaveDialog() {
+			return true;
 		}
 
 		public void ActiveWorkspace(WorkspaceType type) {
 			DeactiveWorkspaces();
 
-			Tuple<UserControl, WorkspaceButton> workspacePair = workspacePairs[(int)type];
+			Workspace workspace = workspaces[(int)type];
 			
-			workspacePair.Item1.Visibility = Visibility.Visible;
-			workspacePair.Item2.IsActiveWorkspace = true;
+			workspace.context.Visibility = Visibility.Visible;
+			workspace.button.IsActiveWorkspace = true;
 		}
 		private void DeactiveWorkspaces() {
-			Tuple<UserControl, WorkspaceButton> workspacePair;
-			for (int i = 0; i < workspacePairs.Length; ++i) {
-				workspacePair = workspacePairs[i];
-				workspacePair.Item1.Visibility = Visibility.Collapsed;
-				workspacePair.Item2.IsActiveWorkspace = false;
+			Workspace workspace;
+			for (int i = 0; i < workspaces.Length; ++i) {
+				workspace = workspaces[i];
+				workspace.context.Visibility = Visibility.Collapsed;
+				workspace.button.IsActiveWorkspace = false;
 			}
 		}
 

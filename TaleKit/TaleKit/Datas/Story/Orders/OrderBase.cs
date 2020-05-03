@@ -7,6 +7,8 @@ using TaleKit.Datas.UI;
 using GKit;
 using Newtonsoft.Json.Linq;
 using System.Collections;
+using System.Reflection;
+using TaleKit.Datas.Editor;
 
 namespace TaleKit.Datas.Story {
 	/// <summary>
@@ -49,7 +51,27 @@ namespace TaleKit.Datas.Story {
 
 		}
 
-		public abstract JObject ToJObject();
+		public virtual JObject ToJObject() {
+			JObject jOrder = new JObject();
+			jOrder.Add("Type", OrderType.ToString());
+
+			JObject jAttributes = new JObject();
+			jOrder.Add("Attributes", jAttributes);
+
+			Type modelType = GetType();
+			FieldInfo[] fields = modelType.GetFields();
+
+			foreach (FieldInfo field in fields) {
+				ValueEditorAttribute editorAttribute = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
+				
+				if (editorAttribute == null)
+					continue;
+
+				jAttributes.Add(field.Name, field.GetValue(this).ToString());
+			}
+
+			return jOrder;
+		}
 
 		public int Compare(object x, object y) {
 			return x.GetHashCode();
