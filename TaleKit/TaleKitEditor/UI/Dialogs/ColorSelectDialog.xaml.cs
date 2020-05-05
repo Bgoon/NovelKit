@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TaleKitEditor.Resources.Shader;
 
 namespace TaleKitEditor.UI.Dialogs {
 	/// <summary>
@@ -26,6 +27,9 @@ namespace TaleKitEditor.UI.Dialogs {
 		}
 
 		private void Window_ContentRendered(object sender, EventArgs e) {
+			ColorBox_SV.Effect = new Shader_ColorEditor_SV();
+			ColorBox_H.Effect = new Shader_ColorEditor_H();
+
 			//Vector2 windowPos = dstPosition;
 			//windowPos += -(Vector2)TailShape.TranslatePoint(new Point((float)TailShape.ActualWidth, (float)-TailShape.ActualHeight * 0.5f), this);
 
@@ -36,9 +40,9 @@ namespace TaleKitEditor.UI.Dialogs {
 			//Opacity = 1d;
 		}
 		private void Window_Deactivated(object sender, EventArgs e) {
-			if (!isClosing) {
-				Close();
-			}
+			//if (!isClosing) {
+			//	Close();
+			//}
 		}
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
 			isClosing = true;

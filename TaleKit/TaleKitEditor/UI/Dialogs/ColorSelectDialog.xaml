@@ -15,8 +15,8 @@
 
 			<DockPanel Margin="14">
 				<Grid DockPanel.Dock="Right" Width="140"/>
-				<Rectangle Fill="Black" DockPanel.Dock="Right" Width="30" Margin="12, 0"/>
-				<Rectangle Fill="Black"/>
+				<Rectangle Name="ColorBox_H" Fill="Black" DockPanel.Dock="Right" Width="30" Margin="12, 0"/>
+				<Rectangle Name="ColorBox_SV" Fill="Black"/>
 			
 			</DockPanel>
 		</Grid>

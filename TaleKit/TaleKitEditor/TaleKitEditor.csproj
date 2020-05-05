@@ -73,6 +73,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Resources\Shader\Shader_ColorEditor_H.cs" />
+    <Compile Include="Resources\Shader\Shader_ColorEditor_SV.cs" />
     <Compile Include="Resources\VectorImages\Anchor\Anchor_BotWide.xaml.cs">
       <DependentUpon>Anchor_BotWide.xaml</DependentUpon>
     </Compile>
@@ -480,6 +482,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Shader\ColorEditor_H.ps" />
+    <Resource Include="Resources\Shader\ColorEditor_SV.ps" />
+    <None Include="Resources\Shader\Library\Common.fxlib" />
     <Resource Include="Resources\Fonts\KoPub Dotum_Pro Bold.otf" />
     <Resource Include="Resources\Fonts\KoPub Dotum_Pro Medium.otf" />
   </ItemGroup>
@@ -490,7 +495,7 @@
     <Folder Include="Script\TaleKit\" />
     <Folder Include="Script\Workspaces\MotionWorkspace\" />
     <Folder Include="Script\Workspaces\UiWorkspace\" />
-    <Folder Include="UI\Resources\Shader\" />
+    <Folder Include="UI\Resources\" />
     <Folder Include="UI\Workspaces\MotionEditorTabs\" />
   </ItemGroup>
   <ItemGroup>
@@ -530,7 +535,11 @@
     <Resource Include="Resources\Images\TaleKitIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="External\fxc.exe" />
+    <None Include="External\fxc.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shader\ColorEditor_H.fx" />
+    <None Include="Resources\Shader\ColorEditor_SV.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

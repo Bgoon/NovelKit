@@ -20,6 +20,7 @@ using TaleKitEditor.UI.Controls;
 using PenMotionEditor.UI.Tabs;
 using Microsoft.Win32;
 using TaleKitEditor.Workspaces;
+using TaleKitEditor.UI.Dialogs;
 
 namespace TaleKitEditor.UI.Windows {
 	public partial class MainWindow : Window {
@@ -49,6 +50,9 @@ namespace TaleKitEditor.UI.Windows {
 			RegisterEvents();
 
 			CreateData();
+
+			//Test
+			new ColorSelectDialog().Show();
 		}
 
 		private void InitWorkspaces() {
