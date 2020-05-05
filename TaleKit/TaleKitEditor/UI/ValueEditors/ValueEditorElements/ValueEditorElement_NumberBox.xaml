@@ -6,6 +6,6 @@
              mc:Ignorable="d" 
              d:DesignWidth="100" Height="21">
     <Grid>
-		<TextBox/>
+		<TextBox Name="ValueTextBox" Style="{StaticResource DefaultTextBox}" PreviewTextInput="ValueTextBox_PreviewTextInput" LostFocus="ValueTextBox_LostFocus"/>
 	</Grid>
 </UserControl>

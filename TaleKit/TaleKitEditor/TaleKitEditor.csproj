@@ -73,20 +73,77 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Resources\VectorImages\LayoutIcon_Motion.xaml.cs">
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_BotWide.xaml.cs">
+      <DependentUpon>Anchor_BotWide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_BotRight.xaml.cs">
+      <DependentUpon>Anchor_BotRight.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_BotMid.xaml.cs">
+      <DependentUpon>Anchor_BotMid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_BotLeft.xaml.cs">
+      <DependentUpon>Anchor_BotLeft.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_MidWide.xaml.cs">
+      <DependentUpon>Anchor_MidWide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_MidRight.xaml.cs">
+      <DependentUpon>Anchor_MidRight.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_MidMid.xaml.cs">
+      <DependentUpon>Anchor_MidMid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_MidLeft.xaml.cs">
+      <DependentUpon>Anchor_MidLeft.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_WideWide.xaml.cs">
+      <DependentUpon>Anchor_WideWide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_WideRight.xaml.cs">
+      <DependentUpon>Anchor_WideRight.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_WideMid.xaml.cs">
+      <DependentUpon>Anchor_WideMid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_WideLeft.xaml.cs">
+      <DependentUpon>Anchor_WideLeft.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_TopWide.xaml.cs">
+      <DependentUpon>Anchor_TopWide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_TopRight.xaml.cs">
+      <DependentUpon>Anchor_TopRight.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_TopMid.xaml.cs">
+      <DependentUpon>Anchor_TopMid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_TopLeft.xaml.cs">
+      <DependentUpon>Anchor_TopLeft.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\LayoutIcon\LayoutIcon_Motion.xaml.cs">
       <DependentUpon>LayoutIcon_Motion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\VectorImages\LayoutIcon_Story.xaml.cs">
+    <Compile Include="Resources\VectorImages\LayoutIcon\LayoutIcon_Story.xaml.cs">
       <DependentUpon>LayoutIcon_Story.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\VectorImages\LayoutIcon_Ui.xaml.cs">
+    <Compile Include="Resources\VectorImages\LayoutIcon\LayoutIcon_Ui.xaml.cs">
       <DependentUpon>LayoutIcon_Ui.xaml</DependentUpon>
     </Compile>
     <Compile Include="Script\Root.cs" />
     <Compile Include="Script\Workspaces\StoryWorkspace\IComponent.cs" />
     <Compile Include="Script\Workspaces\Workspace.cs" />
     <Compile Include="UI\Controls\FixedLayoutAnchorable.cs" />
+    <Compile Include="UI\Controls\MainHeaderText.xaml.cs">
+      <DependentUpon>MainHeaderText.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Controls\WorkspaceButton.cs" />
+    <Compile Include="UI\ValueEditors\ItemEditorView.xaml.cs">
+      <DependentUpon>ItemEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ValueEditors\ItemSeparator.xaml.cs">
+      <DependentUpon>ItemSeparator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ValueEditors\IValueEditorComponent.cs" />
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorComponent_Header.xaml.cs">
       <DependentUpon>ValueEditorComponent_Header.xaml</DependentUpon>
@@ -97,7 +154,6 @@
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_NumberBox.xaml.cs">
       <DependentUpon>ValueEditorElement_NumberBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ValueEditors\ValueEditorElements\NumberType.cs" />
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\OrderManage\OrderTypeItemView.xaml.cs">
       <DependentUpon>OrderTypeItemView.xaml</DependentUpon>
     </Compile>
@@ -112,8 +168,8 @@
       <DependentUpon>ValueEditorElement_Switch.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ValueEditors\IValueEditorElement.cs" />
-    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderItemView.xaml.cs">
-      <DependentUpon>OrderItemView.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderItemEditorView.xaml.cs">
+      <DependentUpon>OrderItemEditorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Script\Workspaces\WorkspaceType.cs" />
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\CommonElements\OrderIndicator.xaml.cs">
@@ -164,25 +220,105 @@
     <Compile Include="UI\Workspaces\UiWorkspaceTabs\PreviewTab.xaml.cs">
       <DependentUpon>PreviewTab.xaml</DependentUpon>
     </Compile>
-    <Page Include="Resources\VectorImages\LayoutIcon_Brushes.xaml">
+    <Page Include="Resources\VectorImages\Anchor\AnchorIconResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\VectorImages\LayoutIcon_Motion.xaml">
+    <Page Include="Resources\VectorImages\Anchor\Anchor_BotWide.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_BotRight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_BotMid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_BotLeft.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_MidWide.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_MidRight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_MidMid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_MidLeft.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_WideWide.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_WideRight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_WideMid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_WideLeft.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_TopWide.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_TopRight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_TopMid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\Anchor\Anchor_TopLeft.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\VectorImages\LayoutIcon_Story.xaml">
+    <Page Include="Resources\VectorImages\LayoutIcon\LayoutIconResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\VectorImages\LayoutIcon_Ui.xaml">
+    <Page Include="Resources\VectorImages\LayoutIcon\LayoutIcon_Motion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\VectorImages\LayoutIcon\LayoutIcon_Story.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\VectorImages\LayoutIcon\LayoutIcon_Ui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Controls\MainHeaderText.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ValueEditors\ItemEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ValueEditors\ItemSeparator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorComponent_Header.xaml">
       <SubType>Designer</SubType>
@@ -204,7 +340,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderItemView.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderItemEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

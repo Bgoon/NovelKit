@@ -23,17 +23,17 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	/// <summary>
 	/// ComponentHeader.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class OrderItemView : UserControl {
+	public partial class OrderItemEditorView : UserControl {
 
 		private OrderBase order;
 
 		public string OrderTypeText => order == null ? null : order.OrderType.ToString();
 
-		public OrderItemView() {
+		public OrderItemEditorView() {
 			InitializeComponent();
 			Init();
 		}
-		public OrderItemView(OrderBase order) {
+		public OrderItemEditorView(OrderBase order) {
 			this.order = order;
 
 			InitializeComponent();
@@ -49,7 +49,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		private void CreateValueEditors() {
 			Type modelType = order.GetType();
-			FieldInfo[] fields = modelType.GetFields();
+			FieldInfo[] fields = modelType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
 			foreach (FieldInfo field in fields) {
 				ValueEditorAttribute editorAttribute = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;

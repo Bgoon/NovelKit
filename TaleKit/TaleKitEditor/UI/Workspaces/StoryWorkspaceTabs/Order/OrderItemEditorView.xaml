@@ -1,21 +1,23 @@
-﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.OrderItemView"
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.OrderItemEditorView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
 			 xmlns:StoryWorkspaceTabs="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs"
+			 xmlns:ValueEditors="clr-namespace:TaleKitEditor.UI.ValueEditors"
+			 xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
 
              mc:Ignorable="d" 
              d:DesignWidth="220">
 	<StackPanel>
 		<Grid Height="30">
-			<TextBlock Text="{Binding OrderTypeText}" Style="{StaticResource MainHeaderText}" VerticalAlignment="Center" Margin="8,0" HorizontalAlignment="Left"/>
+			<Controls:MainHeaderText Text="{Binding OrderTypeText}"/>
 			<StoryWorkspaceTabs:OrderIndicator x:Name="Indicator" Margin="0,0,8,0" HorizontalAlignment="Right"/>
 		</Grid>
 		<StackPanel Name="ValueEditorViewContext" Orientation="Vertical">
 			
 		</StackPanel>
-		<Border Height="4" Background="#3D3D3D"/>
+		<ValueEditors:ItemSeparator/>
 	</StackPanel>
 </UserControl>

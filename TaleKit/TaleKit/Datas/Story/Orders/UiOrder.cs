@@ -23,7 +23,9 @@ namespace TaleKit.Datas.Story {
 		[ValueEditorComponent_Header("UI테스트 변수")]
 		[ValueEditor_Slider("슬라이더", NumberType.Float)]
 		public float Float;
-		[ValueEditor_Text("텍스트")]
+		[ValueEditor_NumberBox("숫자박스", NumberType.Float)]
+		public float FloatTextBox;
+		[ValueEditor_Text("텍스트", allowMultiline:true)]
 		public string Text;
 
 		[ValueEditorComponent_Header("실제 모델변수")]

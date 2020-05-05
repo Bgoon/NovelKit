@@ -25,6 +25,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private bool isClosing;
+		private OrderTypeItemView[] itemViews;
 
 		public AddOrderWindow() {
 			InitializeComponent();
@@ -43,11 +44,12 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		private void CreateTypeItems() {
 			string[] orderTypeTexts = Enum.GetNames(typeof(OrderType));
+			itemViews = new OrderTypeItemView[orderTypeTexts.Length];
 
 			for (int i = 0; i < orderTypeTexts.Length; ++i) {
 				string orderTypeText = orderTypeTexts[i];
 
-				OrderTypeItemView typeItemView = new OrderTypeItemView();
+				OrderTypeItemView typeItemView = itemViews[i] = new OrderTypeItemView();
 				typeItemView.TypeNameText = orderTypeText;
 				typeItemView.OrderType = (OrderType)Enum.Parse(typeof(OrderType), orderTypeText);
 				typeItemView.Click += TypeItemView_Click;
@@ -61,22 +63,43 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void PlayShowingAnimation() {
-			const int DurationMillisec = 300;
+			//Slide animation
+			const int SlideDurationMillisec = 300;
 
-			double dstTop = Top;
-			Top = dstTop + 10d;
+			double slideDstTop = Top;
+			Top = slideDstTop + 10d;
 			DependencyObject targetElement = RootContext;
 
-			//Create animation
-			IEasingFunction easing = new PowerEase() { EasingMode = EasingMode.EaseOut };
-			Duration duration = new Duration(new TimeSpan(0, 0, 0, 0, DurationMillisec));
-			DoubleAnimation anim = new DoubleAnimation() {
-				To = dstTop,
-				Duration = duration,
-				EasingFunction = easing,
+			IEasingFunction powerEasing = new PowerEase() { EasingMode = EasingMode.EaseOut };
+			Duration slideDuration = new Duration(new TimeSpan(0, 0, 0, 0, SlideDurationMillisec));
+			DoubleAnimation slideAnim = new DoubleAnimation() {
+				To = slideDstTop,
+				Duration = slideDuration,
+				EasingFunction = powerEasing,
 			};
+			this.BeginAnimation(Window.TopProperty, slideAnim);
 
-			this.BeginAnimation(Window.TopProperty, anim);
+			//BG alpha animation
+			Color startColor = "#FFFFFF55".ToColor();
+			Color endColor = "#FFFFFF00".ToColor();
+			const int AlphaDurationMillisec = 400;
+			for(int i=0; i<itemViews.Length; ++i) {
+				int reverseI = itemViews.Length - 1 - i;
+
+				Duration alphaDuration = new Duration(new TimeSpan(0, 0, 0, 0, AlphaDurationMillisec));
+				ColorAnimation alhpaAnim = new ColorAnimation() {
+					BeginTime = new TimeSpan(0, 0, 0, 0, reverseI * 30),
+					From = startColor,
+					To = endColor,
+					Duration = alphaDuration,
+					EasingFunction = powerEasing,
+				};
+				OrderTypeItemView itemView = itemViews[i];
+				itemView.Background = new SolidColorBrush(startColor);
+				itemView.Background.BeginAnimation(SolidColorBrush.ColorProperty, alhpaAnim);
+			}
+			
+
 		}
 
 		private void Window_ContentRendered(object sender, EventArgs e) {

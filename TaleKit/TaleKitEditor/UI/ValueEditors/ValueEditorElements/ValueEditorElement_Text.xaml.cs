@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKit.Datas.Editor;
 
 namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
@@ -22,11 +23,11 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 		public ValueEditorElement_Text() {
 			InitializeComponent();
-
-			Init();
 		}
-		private void Init() {
-			EditableValue = string.Empty;
+		public ValueEditorElement_Text(ValueEditor_TextAttribute attribute) : this() {
+			ValueTextBox.AcceptsReturn = attribute.allowMultiline;
+			ValueTextBox.MaxLength = attribute.maxLength;
+			ValueTextBox.AcceptsTab = true;
 		}
 
 		public object EditableValue {

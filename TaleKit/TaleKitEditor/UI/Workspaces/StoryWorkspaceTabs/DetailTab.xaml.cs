@@ -75,7 +75,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void EditingBlock_OrderAdded(OrderBase order) {
-			OrderItemView orderItemView = new OrderItemView(order);
+			OrderItemEditorView orderItemView = new OrderItemEditorView(order);
 
 			OrderStackPanel.Children.Add(orderItemView);
 		}

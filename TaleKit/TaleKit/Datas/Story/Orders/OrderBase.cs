@@ -59,7 +59,7 @@ namespace TaleKit.Datas.Story {
 			jOrder.Add("Attributes", jAttributes);
 
 			Type modelType = GetType();
-			FieldInfo[] fields = modelType.GetFields();
+			FieldInfo[] fields = modelType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
 			foreach (FieldInfo field in fields) {
 				ValueEditorAttribute editorAttribute = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;

@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -17,13 +18,12 @@ using TaleKit.Datas.Editor;
 using TaleKitEditor.UI.ValueEditors;
 
 namespace TaleKitEditor.UI.ValueEditors {
-	/// <summary>
-	/// ValueEditorView.xaml에 대한 상호 작용 논리
-	/// </summary>
+	[ContentProperty(nameof(Children))]
 	public partial class ValueEditorView : UserControl {
+		public static readonly DependencyPropertyKey ChildrenProperty = DependencyProperty.RegisterReadOnly(nameof(Children), typeof(UIElementCollection), typeof(ValueEditorView), new PropertyMetadata());
 		public static readonly DependencyProperty ValueNameTextProperty = DependencyProperty.RegisterAttached(nameof(ValueNameText), typeof(string), typeof(ValueEditorView), new PropertyMetadata(null));
 
-		public event Action<object> EditableValueChanged;
+		public event Action<object> ElementEditorValueChanged;
 
 		public string ValueNameText {
 			get {
@@ -45,11 +45,20 @@ namespace TaleKitEditor.UI.ValueEditors {
 		protected FieldInfo field;
 		protected object model;
 
+		public UIElementCollection Children {
+			get { 
+				return (UIElementCollection)GetValue(ChildrenProperty.DependencyProperty);
+			} private set { 
+				SetValue(ChildrenProperty, value);
+			}
+		}
+
 		public ValueEditorView() {
 			InitializeComponent();
+
+			Children = ValueEditorElementContext.Children;
 		}
 		public ValueEditorView(object model, FieldInfo field) : this() {
-			this.DataContext = this;
 			this.model = model;
 			this.field = field;
 
@@ -63,7 +72,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 			//Classify elements : 실제 값
 			ValueEditorAttribute element = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
-			ValueNameText = element.header;
+			ValueNameText = element.valueName;
 
 			UserControl editorElement = CreateEditorElementView(element);
 			valueEditorElement = (IValueEditorElement)editorElement;
@@ -71,29 +80,36 @@ namespace TaleKitEditor.UI.ValueEditors {
 			valueEditorElement.EditableValueChanged += IEditorElement_ElementValueChanged;
 			valueEditorElement.EditableValue = field.GetValue(model);
 
-			ValueEditorElementContext.Children.Add(editorElement);
+			Children.Add(editorElement);
 		}
 
 		private UserControl CreateEditorComponentView(ValueEditorComponentAttribute componentAttribute) {
 			UserControl view;
 			if(componentAttribute is ValueEditorComponent_HeaderAttribute) {
-				view = new ValueEditorComponent_Header(((ValueEditorComponent_HeaderAttribute)componentAttribute).headerText);
+				var header = new ValueEditorComponent_Header();
+				header.Text = ((ValueEditorComponent_HeaderAttribute)componentAttribute).headerText;
+
+				view = header;
 			} else {
 				throw new NotImplementedException();
 			}
 
 			return view;
 		}
-		private UserControl CreateEditorElementView(ValueEditorAttribute elementAttribute) {
+		private UserControl CreateEditorElementView(ValueEditorAttribute elementAttr) {
 			UserControl view;
-			if (elementAttribute is ValueEditor_NumberBoxAttribute) {
+			if (elementAttr is ValueEditor_NumberBoxAttribute) {
 				view = new ValueEditorElement_NumberBox();
-			} else if (elementAttribute is ValueEditor_SliderAttribute) {
+			} else if (elementAttr is ValueEditor_SliderAttribute) {
 				view = new ValueEditorElement_Slider();
-			} else if (elementAttribute is ValueEditor_SwitchAttribute) {
+			} else if (elementAttr is ValueEditor_SwitchAttribute) {
 				view = new ValueEditorElement_Switch();
-			} else if (elementAttribute is ValueEditor_TextAttribute) {
-				view = new ValueEditorElement_Text();
+			} else if (elementAttr is ValueEditor_TextAttribute) {
+				var attr = elementAttr as ValueEditor_TextAttribute;
+				view = new ValueEditorElement_Text(attr);
+			} else if (elementAttr is ValueEditor_NumberBoxAttribute) {
+				var attr = elementAttr as ValueEditor_NumberBoxAttribute;
+				view = new ValueEditorElement_NumberBox(attr);
 			} else {
 				throw new NotImplementedException();
 			}
@@ -102,7 +118,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 		}
 
 		private void IEditorElement_ElementValueChanged(object value) {
-			EditableValueChanged?.Invoke(value);
+			ElementEditorValueChanged?.Invoke(value);
 			field.SetValue(model, value);
 		}
 	}

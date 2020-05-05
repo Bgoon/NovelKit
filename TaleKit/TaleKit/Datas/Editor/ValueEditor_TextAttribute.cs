@@ -9,12 +9,10 @@ namespace TaleKit.Datas.Editor {
 
 		public int maxLength;
 		public bool allowMultiline;
-		public string defaultValue;
 
-		public ValueEditor_TextAttribute(string header, int maxLength = 100, bool allowMultiline = false, string defaultValue = null) : base(header) {
+		public ValueEditor_TextAttribute(string valueName, int maxLength = 100, bool allowMultiline = false) : base(valueName) {
 			this.maxLength = maxLength;
 			this.allowMultiline = allowMultiline;
-			this.defaultValue = defaultValue;
 		}
 	}
 }

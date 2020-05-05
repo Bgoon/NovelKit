@@ -3,10 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TaleKitEditor.Resources.VectorImages"
              mc:Ignorable="d" >
 	<UserControl.Resources>
-		<ResourceDictionary Source="LayoutIcon_Brushes.xaml"/>
+		<ResourceDictionary Source="LayoutIconResource.xaml"/>
 	</UserControl.Resources>
     <Grid>
 		<Polygon Fill = "{StaticResource IconColor}" Points="18.07,1.12 6.76,12.43 9.62,15.29 20.93,3.98 18.54,1.59  "/>

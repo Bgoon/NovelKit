@@ -9,7 +9,7 @@ namespace TaleKit.Datas.Editor {
 
 		public bool defaultValue;
 
-		public ValueEditor_SwitchAttribute(string header, bool defaultValue = false) : base(header) {
+		public ValueEditor_SwitchAttribute(string valueName, bool defaultValue = false) : base(valueName) {
 			this.defaultValue = defaultValue;
 		}
 	}

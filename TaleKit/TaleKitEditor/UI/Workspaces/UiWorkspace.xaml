@@ -9,6 +9,7 @@
 			 xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
 
 			 xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
+			 xmlns:Tabs="clr-namespace:TaleKitEditor.UI.Workspaces.UiWorkspaceTabs"
 			 xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignWidth="1280" d:DesignHeight="720">
@@ -24,7 +25,9 @@
 					<Ad:LayoutAnchorablePaneGroup Orientation="Horizontal">
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
 							<Ad:LayoutAnchorablePane>
-								<Controls:FixedLayoutAnchorable Title="Layer"/>
+								<Controls:FixedLayoutAnchorable Title="Layer">
+									<Tabs:LayerTab/>
+								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>
 
@@ -38,7 +41,9 @@
 						<!--Tab 3-->
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
 							<Ad:LayoutAnchorablePane>
-								<Controls:FixedLayoutAnchorable Title="Detail"/>
+								<Controls:FixedLayoutAnchorable Title="Detail">
+									<Tabs:DetailTab/>
+								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>
 					</Ad:LayoutAnchorablePaneGroup>

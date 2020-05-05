@@ -3,10 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TaleKitEditor.Resources.VectorImages"
              mc:Ignorable="d" >
 	<UserControl.Resources>
-		<ResourceDictionary Source="LayoutIcon_Brushes.xaml"/>
+		<ResourceDictionary Source="LayoutIconResource.xaml"/>
 	</UserControl.Resources>
     <Grid>
 		<Path Fill = "{StaticResource IconColor}" Data="M21.25,8.07c-0.19-0.2-0.51-0.2-0.71-0.01l-3.62,3.51c-0.21-2.68-1.66-5.01-3.78-6.41l4.44-4.3

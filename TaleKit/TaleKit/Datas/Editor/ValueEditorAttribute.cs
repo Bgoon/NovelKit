@@ -9,10 +9,10 @@ namespace TaleKit.Datas.Editor {
 	[AttributeUsage(AttributeTargets.Field)]
 	public class ValueEditorAttribute : Attribute {
 
-		public string header;
+		public string valueName;
 
-		public ValueEditorAttribute(string header) {
-			this.header = header;
+		public ValueEditorAttribute(string valueName) {
+			this.valueName = valueName;
 		}
 	}
 }

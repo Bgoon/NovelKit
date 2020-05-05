@@ -14,12 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKit.Datas.Editor;
 
 namespace TaleKitEditor.UI.ValueEditors {
-	/// <summary>
-	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
-	/// </summary>
-	public partial class ValueEditorElement_Slider : UserControl, INotifyPropertyChanged, IValueEditorElement {
+	public partial class ValueEditorElement_Slider : UserControl, IValueEditorElement, INotifyPropertyChanged {
 		public static readonly DependencyProperty NumberTypeProperty = DependencyProperty.RegisterAttached(nameof(NumberType), typeof(NumberType), typeof(ValueEditorElement_Slider), new PropertyMetadata(NumberType.Float));
 		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(0f));
 		public static readonly DependencyProperty DefaultValueProperty = DependencyProperty.RegisterAttached(nameof(DefaultValue), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(0f));
@@ -56,7 +54,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 		}
 		public int IntValue {
 			get {
-				return (int)Value;
+				return Mathf.RoundToInt(Value);
 			}
 		}
 
@@ -66,6 +64,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 			set {
 				SetValue(NumberTypeProperty, value);
+				RaisePropertyChanged(nameof(NumberType));
 			}
 		}
 		public float Value {
@@ -101,12 +100,17 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 			set {
 				SetValue(MaxValueProperty, value);
+				RaisePropertyChanged(nameof(MaxValue));
 			}
 		}
 
 		public object EditableValue {
 			get {
-				return Value;
+				if(NumberType == NumberType.Int) {
+					return IntValue;
+				} else {
+					return Value;
+				}
 			}
 			set {
 				Value = (float)value;
@@ -177,9 +181,14 @@ namespace TaleKitEditor.UI.ValueEditors {
 					break;
 				case nameof(MinValue):
 					RaisePropertyChanged(nameof(DisplayMinValue));
+					RaisePropertyChanged(nameof(Value));
 					break;
 				case nameof(MaxValue):
 					RaisePropertyChanged(nameof(DisplayMaxValue));
+					RaisePropertyChanged(nameof(Value));
+					break;
+				case nameof(NumberType):
+					RaisePropertyChanged(nameof(Value));
 					break;
 			}
 		}

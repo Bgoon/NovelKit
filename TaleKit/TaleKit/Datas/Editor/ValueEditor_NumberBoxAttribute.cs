@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 namespace TaleKit.Datas.Editor {
 	public class ValueEditor_NumberBoxAttribute : ValueEditorAttribute {
 		public NumberType numberType;
-		public float defaultValue;
 		public float minValue;
 		public float maxValue;
 
-		public ValueEditor_NumberBoxAttribute(string header, NumberType numberType = NumberType.Float, float defaultValue = 0f, float minValue = float.NegativeInfinity, float maxValue = float.PositiveInfinity) : base(header) {
+		public ValueEditor_NumberBoxAttribute(string valueName, NumberType numberType = NumberType.Float, float minValue = float.NegativeInfinity, float maxValue = float.PositiveInfinity) : base(valueName) {
 			this.numberType = numberType;
-			this.defaultValue = defaultValue;
 			this.minValue = minValue;
 			this.maxValue = maxValue;
 		}

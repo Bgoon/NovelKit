@@ -1,0 +1,6 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TaleKitEditor.Resources.VectorImages">
+	<SolidColorBrush x:Key="LineColor" Color="#7A7A7A"/>
+	<SolidColorBrush x:Key="TargetAreaColor" Color="#719AC2"/>
+</ResourceDictionary>

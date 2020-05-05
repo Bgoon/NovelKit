@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignWidth="220" MinHeight="30">
+             d:DesignWidth="220" MinHeight="30" Margin="0,0,0,4">
 	<StackPanel Orientation="Vertical">
 		<StackPanel Name="ValueEditorComponentContext" Orientation="Vertical"/>
 		<Grid>
@@ -12,10 +12,11 @@
 				<ColumnDefinition Width="1*" MaxWidth="140"/>
 				<ColumnDefinition Width="2*"/>
 			</Grid.ColumnDefinitions>
-			<Grid Grid.Column="0" Height="30" Margin="8, 0">
-				<TextBlock Text="{Binding ValueNameText, Mode=OneWay}" Style="{StaticResource ValueEditorNameText}"  VerticalAlignment="Center"/>
+			<Grid Grid.Column="0" Height="30" Margin="8,0" VerticalAlignment="Top">
+				<TextBlock Text="{Binding ValueNameText, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" Style="{StaticResource ValueEditorNameText}" 
+					VerticalAlignment="Top" Margin="0, 8"/>
 			</Grid>
-			<Grid Grid.Column="1" Name="ValueEditorElementContext" Margin="0, 0, 8, 0"/>
+			<Grid Grid.Column="1" x:Name="ValueEditorElementContext" Margin="0, 0, 8, 0"/>
 		</Grid>
 	</StackPanel>
 </UserControl>
