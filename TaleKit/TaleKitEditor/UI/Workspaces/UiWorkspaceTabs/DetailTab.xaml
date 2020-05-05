@@ -87,11 +87,11 @@
 
 		<ValueEditors:ItemEditorView HeaderText="Transform">
 			<ValueEditors:ValueEditorView ValueNameText="Size">
-				<ValueEditors:ValueEditorElement_Text/>
+				<ValueEditors:ValueEditorElement_Vector2/>
 			</ValueEditors:ValueEditorView>
 
 			<ValueEditors:ValueEditorView ValueNameText="Size">
-				<ValueEditors:ValueEditorElement_Text/>
+				<ValueEditors:ValueEditorElement_NumberBox/>
 			</ValueEditors:ValueEditorView>
 		</ValueEditors:ItemEditorView>
 

@@ -18,7 +18,6 @@ using GKit.WPF;
 namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 	
 	public partial class DetailTab : UserControl {
-
 		[FindByTag] private Button AnchorTopLeftButton;
 		[FindByTag] private Button AnchorTopMidButton;
 		[FindByTag] private Button AnchorTopRightButton;

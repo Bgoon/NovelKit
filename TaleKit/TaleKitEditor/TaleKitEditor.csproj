@@ -121,6 +121,9 @@
     <Compile Include="Resources\VectorImages\Anchor\Anchor_TopLeft.xaml.cs">
       <DependentUpon>Anchor_TopLeft.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\VectorImages\Cross.xaml.cs">
+      <DependentUpon>Cross.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\VectorImages\LayoutIcon\LayoutIcon_Motion.xaml.cs">
       <DependentUpon>LayoutIcon_Motion.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,9 @@
       <DependentUpon>MainHeaderText.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\WorkspaceButton.cs" />
+    <Compile Include="UI\Dialogs\ColorSelectDialog.xaml.cs">
+      <DependentUpon>ColorSelectDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ValueEditors\ItemEditorView.xaml.cs">
       <DependentUpon>ItemEditorView.xaml</DependentUpon>
     </Compile>
@@ -148,16 +154,22 @@
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorComponent_Header.xaml.cs">
       <DependentUpon>ValueEditorComponent_Header.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Color.xaml.cs">
+      <DependentUpon>ValueEditorElement_Color.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Slider.xaml.cs">
       <DependentUpon>ValueEditorElement_Slider.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_NumberBox.xaml.cs">
       <DependentUpon>ValueEditorElement_NumberBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\OrderManage\OrderTypeItemView.xaml.cs">
+    <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Vector2.xaml.cs">
+      <DependentUpon>ValueEditorElement_Vector2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderTypeItemView.xaml.cs">
       <DependentUpon>OrderTypeItemView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\OrderManage\AddOrderWindow.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\AddOrderWindow.xaml.cs">
       <DependentUpon>AddOrderWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Script\Workspaces\StoryWorkspace\ComponentType.cs" />
@@ -288,6 +300,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\VectorImages\Cross.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\VectorImages\LayoutIcon\LayoutIconResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -312,6 +328,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Dialogs\ColorSelectDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\ValueEditors\ItemEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -324,6 +344,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Color.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Slider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -332,11 +356,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Workspaces\StoryWorkspaceTabs\OrderManage\OrderTypeItemView.xaml">
+    <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Vector2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryWorkspaceTabs\OrderManage\AddOrderWindow.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderTypeItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Order\AddOrderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -462,7 +490,7 @@
     <Folder Include="Script\TaleKit\" />
     <Folder Include="Script\Workspaces\MotionWorkspace\" />
     <Folder Include="Script\Workspaces\UiWorkspace\" />
-    <Folder Include="UI\Resources\" />
+    <Folder Include="UI\Resources\Shader\" />
     <Folder Include="UI\Workspaces\MotionEditorTabs\" />
   </ItemGroup>
   <ItemGroup>
@@ -501,6 +529,9 @@
     <Resource Include="Resources\Images\TaleKitIcon.ico" />
     <Resource Include="Resources\Images\TaleKitIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="External\fxc.exe" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -510,4 +541,12 @@
     <Error Condition="!Exists('..\packages\Fody.6.1.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.1.1\build\Fody.targets'))" />
   </Target>
   <Import Project="..\packages\Fody.6.1.1\build\Fody.targets" Condition="Exists('..\packages\Fody.6.1.1\build\Fody.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>@echo off
+
+for /r $(ProjectDir) %25%25i in (*.fx) do (
+	echo compiling %25%25~ni.fx ...
+	$(ProjectDir)\External\fxc.exe /nologo /T ps_2_0 /E main /Fo %25%25~pi%25%25~ni.ps %25%25i
+)</PreBuildEvent>
+  </PropertyGroup>
 </Project>

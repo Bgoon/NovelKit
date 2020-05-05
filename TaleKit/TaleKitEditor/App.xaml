@@ -26,6 +26,8 @@
 
 					<SolidColorBrush x:Key="LightSeparator" Color="#26FFFFFF"/>
 
+					<SolidColorBrush x:Key="SubInfoColor" Color="#636363"/>
+
 					<!--Texts-->
 					<Style x:Key="MainHeaderText" TargetType="TextBlock">
 						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Bold"/>
@@ -54,6 +56,7 @@
 					<!--TextBox-->
 					<Style x:Key="DefaultTextBox" TargetType="TextBox">
 						<Setter Property="BorderThickness" Value="0"/>
+						<Setter Property="Foreground" Value="#4C4C4C"/>
 						<Setter Property="Padding" Value="3"/>
 						<Setter Property="Background" Value="#DEDEDE"/>
 						<Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
