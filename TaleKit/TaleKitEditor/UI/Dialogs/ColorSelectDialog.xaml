@@ -3,10 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TaleKitEditor.UI.Dialogs"
+
+		xmlns:ValueEditors="clr-namespace:TaleKitEditor.UI.ValueEditors"
+		xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
+
         mc:Ignorable="d"
         Title="ColorSelectDialog" Width="500" Height="300" ResizeMode="NoResize" ShowInTaskbar="False" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}"
-		ContentRendered="Window_ContentRendered" Deactivated="Window_Deactivated" Closing="Window_Closing">
+		Loaded="Window_Loaded" ContentRendered="Window_ContentRendered" Deactivated="Window_Deactivated" Closing="Window_Closing">
 	<Grid Name="RootContext" SnapsToDevicePixels="True">
 		<Grid Background="{StaticResource PopupWindowBackground}" Margin="0, 0, 16, 0">
 			<Grid.BitmapEffect>
@@ -14,14 +17,87 @@
 			</Grid.BitmapEffect>
 
 			<DockPanel Margin="14">
-				<Grid DockPanel.Dock="Right" Width="140"/>
-				<Rectangle Name="ColorBox_H" Fill="Black" DockPanel.Dock="Right" Width="30" Margin="12, 0"/>
-				<Rectangle Name="ColorBox_SV" Fill="Black"/>
-			
+				<Grid DockPanel.Dock="Right" Width="140">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="2*"/>
+						<RowDefinition Height="1*"/>
+						<RowDefinition Height="1*"/>
+						<RowDefinition Height="1*"/>
+						<RowDefinition Height="0.3*"/>
+						<RowDefinition Height="1*"/>
+						<RowDefinition Height="1*"/>
+						<RowDefinition Height="1*"/>
+						<RowDefinition Height="0.3*"/>
+						<RowDefinition Height="1*"/>
+					</Grid.RowDefinitions>
+
+					<!--Color diff-->
+					<StackPanel Height="40" Margin="0, 0, 0, 8" Orientation="Horizontal" HorizontalAlignment="Center">
+						<Grid Grid.Row="0" Width="70" HorizontalAlignment="Left">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="1*"/>
+								<RowDefinition Height="1*"/>
+							</Grid.RowDefinitions>
+							<Rectangle Name="NewColorIndicator" Grid.Row="0" Fill="#FF5CEEF5"/>
+							<Rectangle Name="CurrentColorIndicator" Grid.Row="1" Fill="#FFE0954A"/>
+						</Grid>
+						<VectorImages:ColorDiffArrow Grid.RowSpan="2" VerticalAlignment="Center" Margin="4,0,0,0"/>
+					</StackPanel>
+					<Separator VerticalAlignment="Bottom" Background="#33FFFFFF"/>
+
+					<!--HSB-->
+					<ValueEditors:ValueEditorView Grid.Row="1" ValueNameText="H">
+						<ValueEditors:ValueEditorElement_NumberBox Tag="HsbEditor_H"/>
+					</ValueEditors:ValueEditorView>
+					<ValueEditors:ValueEditorView Grid.Row="2" ValueNameText="S">
+						<ValueEditors:ValueEditorElement_NumberBox Tag="HsbEditor_S"/>
+					</ValueEditors:ValueEditorView>
+					<ValueEditors:ValueEditorView Grid.Row="3" ValueNameText="B">
+						<ValueEditors:ValueEditorElement_NumberBox Tag="HsbEditor_B"/>
+					</ValueEditors:ValueEditorView>
+
+					<!--RGB-->
+					<ValueEditors:ValueEditorView Grid.Row="5" ValueNameText="R">
+						<ValueEditors:ValueEditorElement_NumberBox Tag="RgbEditor_R"/>
+					</ValueEditors:ValueEditorView>
+					<ValueEditors:ValueEditorView Grid.Row="6" ValueNameText="G">
+						<ValueEditors:ValueEditorElement_NumberBox Tag="RgbEditor_G"/>
+					</ValueEditors:ValueEditorView>
+					<ValueEditors:ValueEditorView Grid.Row="7" ValueNameText="B">
+						<ValueEditors:ValueEditorElement_NumberBox Tag="RgbEditor_B"/>
+					</ValueEditors:ValueEditorView>
+
+					<!--Hex-->
+					<ValueEditors:ValueEditorView Grid.Row="9"  ValueNameText="Hex">
+						<ValueEditors:ValueEditorElement_NumberBox Tag="HexEditor"/>
+					</ValueEditors:ValueEditorView>
+				</Grid>
+				<Grid DockPanel.Dock="Right" Width="30" Margin="12, 0"
+					MouseDown="HueEditor_MouseDown" MouseMove="HueEditor_MouseMove" MouseUp="HueEditor_MouseUp">
+					<Rectangle Name="ColorBox_H" Fill="Black" />
+					<VectorImages:HueIndicator x:Name="HueIndicator" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Margin="0, 265, 0, 0">
+						<VectorImages:HueIndicator.RenderTransform>
+							<TransformGroup>
+								<ScaleTransform/>
+								<SkewTransform/>
+								<RotateTransform/>
+								<TranslateTransform X="12"/>
+							</TransformGroup>
+						</VectorImages:HueIndicator.RenderTransform>
+					</VectorImages:HueIndicator>
+				</Grid>
+				<Grid ClipToBounds="True"
+					MouseDown="SvEditor_MouseDown" MouseMove="SvEditor_MouseMove" MouseUp="SvEditor_MouseUp">
+					<Rectangle Name="ColorBox_SV" Fill="Black" />
+					<VectorImages:SvIndicator x:Name="SvIndicator" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" RenderTransformOrigin="0.5,0.5"/>
+
+
+				</Grid>
+
 			</DockPanel>
 		</Grid>
 		<Border BorderBrush="{StaticResource PopupWindowStroke}" BorderThickness="1" Margin="0, 0, 16, 0"/>
 		<Polyline Name="TailShape" Points="0,0 16,10, 0,20" Fill="{StaticResource PopupWindowBackground}" Stroke="{StaticResource PopupWindowStroke}" HorizontalAlignment="Right" Margin="0, 20" VerticalAlignment="Bottom" StrokeThickness="1" />
-		
+
 	</Grid>
 </Window>

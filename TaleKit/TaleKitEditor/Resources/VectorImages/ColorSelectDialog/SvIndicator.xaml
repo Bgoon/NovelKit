@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="TaleKitEditor.Resources.VectorImages.SvIndicator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaleKitEditor.Resources.VectorImages"
+             mc:Ignorable="d" Width="20" Height="20">
+    <Grid>
+		<Ellipse Stroke="#FF2E2E2E" Margin="1"/>
+		<Ellipse Stroke="White"/>
+	</Grid>
+</UserControl>

@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TaleKitEditor.UI.ValueEditors {
+namespace TaleKitEditor.Resources.VectorImages {
 	/// <summary>
-	/// ValueEditorElement_Color.xaml에 대한 상호 작용 논리
+	/// ColorDiffArrow.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ValueEditorElement_Color : UserControl {
-		public ValueEditorElement_Color() {
+	public partial class HueIndicator : UserControl {
+		public HueIndicator() {
 			InitializeComponent();
 		}
 	}

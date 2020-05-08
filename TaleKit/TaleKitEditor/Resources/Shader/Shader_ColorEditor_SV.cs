@@ -17,7 +17,9 @@ namespace TaleKitEditor.Resources.Shader {
 			get { 
 				return (double)GetValue(HueProperty); 
 			} set {
-				SetValue(HueProperty, value); 
+				SetValue(HueProperty, value);
+				if(pixelShader != null)
+					UpdateShaderValue(HueProperty);
 			}
 		}
 

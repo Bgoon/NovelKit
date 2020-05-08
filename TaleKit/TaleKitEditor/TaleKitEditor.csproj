@@ -123,6 +123,15 @@
     <Compile Include="Resources\VectorImages\Anchor\Anchor_TopLeft.xaml.cs">
       <DependentUpon>Anchor_TopLeft.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\VectorImages\ColorSelectDialog\SvIndicator.xaml.cs">
+      <DependentUpon>SvIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\ColorSelectDialog\HueIndicator.xaml.cs">
+      <DependentUpon>HueIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\ColorSelectDialog\ColorDiffArrow.xaml.cs">
+      <DependentUpon>ColorDiffArrow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\VectorImages\Cross.xaml.cs">
       <DependentUpon>Cross.xaml</DependentUpon>
     </Compile>
@@ -299,6 +308,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\VectorImages\Anchor\Anchor_TopLeft.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\VectorImages\ColorSelectDialog\SvIndicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\ColorSelectDialog\HueIndicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\ColorSelectDialog\ColorDiffArrow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
