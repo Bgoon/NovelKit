@@ -9,8 +9,9 @@
 
         mc:Ignorable="d"
         Title="ColorSelectDialog" Width="500" Height="300" ResizeMode="NoResize" ShowInTaskbar="False" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}"
-		Loaded="Window_Loaded" ContentRendered="Window_ContentRendered" Deactivated="Window_Deactivated" Closing="Window_Closing">
-	<Grid Name="RootContext" SnapsToDevicePixels="True">
+		Loaded="Window_Loaded" ContentRendered="Window_ContentRendered" Deactivated="Window_Deactivated" Closing="Window_Closing"
+		MouseDown="Window_MouseDown" KeyDown="Window_KeyDown">
+	<Grid Name="RootContext" SnapsToDevicePixels="True" Focusable="True">
 		<Grid Background="{StaticResource PopupWindowBackground}" Margin="0, 0, 16, 0">
 			<Grid.BitmapEffect>
 				<DropShadowBitmapEffect Opacity="0.3" Softness="0.3" ShadowDepth="3"/>
@@ -47,34 +48,34 @@
 
 					<!--HSB-->
 					<ValueEditors:ValueEditorView Grid.Row="1" ValueNameText="H">
-						<ValueEditors:ValueEditorElement_NumberBox Tag="HsbEditor_H"/>
+						<ValueEditors:ValueEditorElement_NumberBox Tag="EditText_H" MinValue="0" MaxValue="360" NumberType="Float" NumberFormat="0.00"/>
 					</ValueEditors:ValueEditorView>
 					<ValueEditors:ValueEditorView Grid.Row="2" ValueNameText="S">
-						<ValueEditors:ValueEditorElement_NumberBox Tag="HsbEditor_S"/>
+						<ValueEditors:ValueEditorElement_NumberBox Tag="EditText_S" MinValue="0" MaxValue="1" NumberType="Float" NumberFormat="0.00"/>
 					</ValueEditors:ValueEditorView>
-					<ValueEditors:ValueEditorView Grid.Row="3" ValueNameText="B">
-						<ValueEditors:ValueEditorElement_NumberBox Tag="HsbEditor_B"/>
+					<ValueEditors:ValueEditorView Grid.Row="3" ValueNameText="V">
+						<ValueEditors:ValueEditorElement_NumberBox Tag="EditText_V" MinValue="0" MaxValue="1" NumberType="Float" NumberFormat="0.00"/>
 					</ValueEditors:ValueEditorView>
 
 					<!--RGB-->
 					<ValueEditors:ValueEditorView Grid.Row="5" ValueNameText="R">
-						<ValueEditors:ValueEditorElement_NumberBox Tag="RgbEditor_R"/>
+						<ValueEditors:ValueEditorElement_NumberBox Tag="EditText_R" MinValue="0" MaxValue="255" NumberType="Int"/>
 					</ValueEditors:ValueEditorView>
 					<ValueEditors:ValueEditorView Grid.Row="6" ValueNameText="G">
-						<ValueEditors:ValueEditorElement_NumberBox Tag="RgbEditor_G"/>
+						<ValueEditors:ValueEditorElement_NumberBox Tag="EditText_G" MinValue="0" MaxValue="255" NumberType="Int"/>
 					</ValueEditors:ValueEditorView>
 					<ValueEditors:ValueEditorView Grid.Row="7" ValueNameText="B">
-						<ValueEditors:ValueEditorElement_NumberBox Tag="RgbEditor_B"/>
+						<ValueEditors:ValueEditorElement_NumberBox Tag="EditText_B" MinValue="0" MaxValue="255" NumberType="Int"/>
 					</ValueEditors:ValueEditorView>
 
 					<!--Hex-->
 					<ValueEditors:ValueEditorView Grid.Row="9"  ValueNameText="Hex">
-						<ValueEditors:ValueEditorElement_NumberBox Tag="HexEditor"/>
+						<ValueEditors:ValueEditorElement_TextBox Tag="EditText_Hex"/>
 					</ValueEditors:ValueEditorView>
 				</Grid>
 				<Grid DockPanel.Dock="Right" Width="30" Margin="12, 0"
 					MouseDown="HueEditor_MouseDown" MouseMove="HueEditor_MouseMove" MouseUp="HueEditor_MouseUp">
-					<Rectangle Name="ColorBox_H" Fill="Black" />
+					<Rectangle Name="ColorBox_Hue" Fill="Black" />
 					<VectorImages:HueIndicator x:Name="HueIndicator" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Margin="0, 265, 0, 0">
 						<VectorImages:HueIndicator.RenderTransform>
 							<TransformGroup>

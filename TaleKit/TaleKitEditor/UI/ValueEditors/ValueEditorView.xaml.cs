@@ -104,9 +104,9 @@ namespace TaleKitEditor.UI.ValueEditors {
 				view = new ValueEditorElement_Slider();
 			} else if (elementAttr is ValueEditor_SwitchAttribute) {
 				view = new ValueEditorElement_Switch();
-			} else if (elementAttr is ValueEditor_TextAttribute) {
-				var attr = elementAttr as ValueEditor_TextAttribute;
-				view = new ValueEditorElement_Text(attr);
+			} else if (elementAttr is ValueEditor_TextBoxAttribute) {
+				var attr = elementAttr as ValueEditor_TextBoxAttribute;
+				view = new ValueEditorElement_TextBox(attr);
 			} else if (elementAttr is ValueEditor_NumberBoxAttribute) {
 				var attr = elementAttr as ValueEditor_NumberBoxAttribute;
 				view = new ValueEditorElement_NumberBox(attr);

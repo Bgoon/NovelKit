@@ -18,13 +18,13 @@ namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
 	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ValueEditorElement_Text : UserControl, IValueEditorElement {
+	public partial class ValueEditorElement_TextBox : UserControl, IValueEditorElement {
 		public event Action<object> EditableValueChanged;
 
-		public ValueEditorElement_Text() {
+		public ValueEditorElement_TextBox() {
 			InitializeComponent();
 		}
-		public ValueEditorElement_Text(ValueEditor_TextAttribute attribute) : this() {
+		public ValueEditorElement_TextBox(ValueEditor_TextBoxAttribute attribute) : this() {
 			ValueTextBox.AcceptsReturn = attribute.allowMultiline;
 			ValueTextBox.MaxLength = attribute.maxLength;
 			ValueTextBox.AcceptsTab = true;

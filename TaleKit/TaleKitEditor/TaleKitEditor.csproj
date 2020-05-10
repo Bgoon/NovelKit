@@ -184,8 +184,8 @@
       <DependentUpon>AddOrderWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Script\Workspaces\StoryWorkspace\ComponentType.cs" />
-    <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Text.xaml.cs">
-      <DependentUpon>ValueEditorElement_Text.xaml</DependentUpon>
+    <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_TextBox.xaml.cs">
+      <DependentUpon>ValueEditorElement_TextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Switch.xaml.cs">
       <DependentUpon>ValueEditorElement_Switch.xaml</DependentUpon>
@@ -399,7 +399,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Text.xaml">
+    <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -505,7 +505,7 @@
     </None>
     <Resource Include="Resources\Shader\ColorEditor_H.ps" />
     <Resource Include="Resources\Shader\ColorEditor_SV.ps" />
-    <None Include="Resources\Shader\Library\Common.fxlib" />
+    <None Include="Resources\Shader\Library\Global.fxlib" />
     <Resource Include="Resources\Fonts\KoPub Dotum_Pro Bold.otf" />
     <Resource Include="Resources\Fonts\KoPub Dotum_Pro Medium.otf" />
   </ItemGroup>

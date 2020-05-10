@@ -24,16 +24,23 @@ namespace TaleKitEditor.UI.ValueEditors {
 		public static readonly DependencyProperty MinValueProperty = DependencyProperty.RegisterAttached(nameof(MinValue), typeof(float), typeof(ValueEditorElement_NumberBox), new PropertyMetadata(0f));
 		public static readonly DependencyProperty MaxValueProperty = DependencyProperty.RegisterAttached(nameof(MaxValue), typeof(float), typeof(ValueEditorElement_NumberBox), new PropertyMetadata(1f));
 		public static readonly DependencyProperty NumberTypeProperty = DependencyProperty.RegisterAttached(nameof(NumberType), typeof(NumberType), typeof(ValueEditorElement_NumberBox), new PropertyMetadata(NumberType.Float));
+		public static readonly DependencyProperty NumberFormatProperty = DependencyProperty.RegisterAttached(nameof(NumberFormat), typeof(string), typeof(ValueEditorElement_NumberBox), new PropertyMetadata());
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		public event Action<object> EditableValueChanged;
 
 		public string DisplayValue {
 			get {
-				if (NumberType == NumberType.Float)
-					return Value.ToString();
-				else
+				if (NumberType == NumberType.Float) {
+					if(string.IsNullOrWhiteSpace(NumberFormat)) {
+						return Value.ToString();
+					} else {
+						return Value.ToString(NumberFormat);
+					}
+				}
+				else {
 					return IntValue.ToString();
+				}
 			}
 		}
 		public int IntValue {
@@ -42,15 +49,6 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 		}
 
-		public NumberType NumberType {
-			get {
-				return (NumberType)GetValue(NumberTypeProperty);
-			}
-			set {
-				SetValue(NumberTypeProperty, value);
-				RaisePropertyChanged(nameof(NumberType));
-			}
-		}
 		public float Value {
 			get {
 				return (float)GetValue(ValueProperty);
@@ -78,6 +76,24 @@ namespace TaleKitEditor.UI.ValueEditors {
 				RaisePropertyChanged(nameof(MaxValue));
 			}
 		}
+		public NumberType NumberType {
+			get {
+				return (NumberType)GetValue(NumberTypeProperty);
+			}
+			set {
+				SetValue(NumberTypeProperty, value);
+				RaisePropertyChanged(nameof(NumberType));
+			}
+		}
+		public string NumberFormat {
+			get {
+				return (string)GetValue(NumberFormatProperty);
+			}
+			set {
+				SetValue(NumberFormatProperty, value);
+				RaisePropertyChanged(nameof(NumberFormat));
+			}
+		}
 
 		public object EditableValue {
 			get {
@@ -88,6 +104,9 @@ namespace TaleKitEditor.UI.ValueEditors {
 				}
 			}
 			set {
+				if(value is int) {
+					value = (float)(int)value;
+				}
 				Value = (float)value;
 				EditableValueChanged?.Invoke(value);
 			}
@@ -150,6 +169,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 				case nameof(MinValue):
 				case nameof(MaxValue):
 				case nameof(NumberType):
+				case nameof(NumberFormat):
 					RaisePropertyChanged(nameof(Value));
 					break;
 			}

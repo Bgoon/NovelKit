@@ -25,7 +25,7 @@ namespace TaleKit.Datas.Story {
 		public float Float;
 		[ValueEditor_NumberBox("숫자박스", NumberType.Float)]
 		public float FloatTextBox;
-		[ValueEditor_Text("텍스트", allowMultiline:true)]
+		[ValueEditor_TextBox("텍스트", allowMultiline:true)]
 		public string Text;
 
 		[ValueEditorComponent_Header("실제 모델변수")]

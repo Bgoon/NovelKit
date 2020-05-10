@@ -14,9 +14,9 @@ namespace TaleKit.Datas.Story {
 	public class MessageOrder : OrderBase {
 		protected static MotionText ScriptText => UiManager.ScriptText;
 
-		[ValueEditor_Text("화자")]
+		[ValueEditor_TextBox("화자")]
 		public string talker;
-		[ValueEditor_Text("메세지")]
+		[ValueEditor_TextBox("메세지")]
 		public string message;
 
 		public override OrderType OrderType => OrderType.Message;

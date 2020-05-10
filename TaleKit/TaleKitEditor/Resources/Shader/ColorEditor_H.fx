@@ -1,4 +1,4 @@
-#include "Library\Common.fxlib"
+#include "Library\Global.fxlib"
 
 float4 main(float2 uv : TEXCOORD) : COLOR
 {
