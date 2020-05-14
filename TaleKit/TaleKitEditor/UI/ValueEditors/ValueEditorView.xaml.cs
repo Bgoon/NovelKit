@@ -110,6 +110,9 @@ namespace TaleKitEditor.UI.ValueEditors {
 			} else if (elementAttr is ValueEditor_NumberBoxAttribute) {
 				var attr = elementAttr as ValueEditor_NumberBoxAttribute;
 				view = new ValueEditorElement_NumberBox(attr);
+			} else if (elementAttr is ValueEditor_ColorBoxAttribute) {
+				var attr = elementAttr as ValueEditor_ColorBoxAttribute;
+				view = new ValueEditorElement_ColorBox();
 			} else {
 				throw new NotImplementedException();
 			}

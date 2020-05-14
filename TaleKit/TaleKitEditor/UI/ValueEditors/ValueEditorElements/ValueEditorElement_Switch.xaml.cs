@@ -45,6 +45,8 @@ namespace TaleKitEditor.UI.ValueEditors {
 		public ValueEditorElement_Switch() {
 			InitializeComponent();
 			RegisterEvents();
+
+			UpdateUI();
 		}
 		private void RegisterEvents() {
 			EditableValueChanged += ValueEditorElement_Switch_EditableValueChanged;

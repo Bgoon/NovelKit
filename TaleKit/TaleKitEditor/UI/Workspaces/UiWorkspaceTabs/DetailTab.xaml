@@ -96,6 +96,9 @@
 		</ValueEditors:ItemEditorView>
 
 		<ValueEditors:ItemEditorView HeaderText="Render">
+			<ValueEditors:ValueEditorView ValueNameText="Color">
+				<ValueEditors:ValueEditorElement_ColorBox/>
+			</ValueEditors:ValueEditorView>
 		</ValueEditors:ItemEditorView>
 
 	</StackPanel>

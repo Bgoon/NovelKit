@@ -121,6 +121,8 @@ namespace TaleKitEditor.UI.ValueEditors {
 			this.NumberType = attribute.numberType;
 			this.MinValue = attribute.minValue;
 			this.MaxValue = attribute.maxValue;
+
+			UpdateUI();
 		}
 		private void RegisterEvents() {
 			PropertyChanged += ValueEditorElement_NumberBox_PropertyChanged;
@@ -129,7 +131,6 @@ namespace TaleKitEditor.UI.ValueEditors {
 		private void OnEditableValueChanged(object value) {
 			
 		}
-
 
 		private void RaisePropertyChanged(string propertyName) {
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

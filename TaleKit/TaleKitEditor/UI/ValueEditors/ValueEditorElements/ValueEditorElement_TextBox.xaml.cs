@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.Editor;
+using TaleKitEditor.UI.Utility;
 
 namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
@@ -38,7 +39,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 		}
 
-		private void ValueTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+		private void ValueTextBox_LostFocus(object sender, RoutedEventArgs e) {
 			EditableValueChanged?.Invoke((string)EditableValue);
 		}
 	}

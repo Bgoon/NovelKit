@@ -147,7 +147,6 @@ namespace TaleKitEditor.UI.ValueEditors {
 			Mouse.Capture(InputContext);
 
 			onDragging = true;
-			Console.WriteLine("MouseDown");
 		}
 		private void InputContext_MouseMove(object sender, MouseEventArgs e) {
 			if (!onDragging)
@@ -167,7 +166,6 @@ namespace TaleKitEditor.UI.ValueEditors {
 			Mouse.Capture(null);
 
 			onDragging = false;
-			Console.WriteLine("MouseUp");
 		}
 		private void ValueEditorElement_Slider_SizeChanged(object sender, SizeChangedEventArgs e) {
 			UpdateUI();

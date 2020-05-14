@@ -1,20 +1,12 @@
 ﻿using GKit;
 using GKit.WPF;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TaleKitEditor.Resources.Shader;
 using TaleKitEditor.Resources.VectorImages;
+using TaleKitEditor.UI.Utility;
 
 namespace TaleKitEditor.UI.Dialogs {
 	/// <summary>
@@ -34,11 +26,14 @@ namespace TaleKitEditor.UI.Dialogs {
 		[FindByTag] private ValueEditors.ValueEditorElement_TextBox EditText_Hex;
 
 		private HSV selectedHsv;
+		private Color oldColor;
 
 		private bool hueDragging;
 		private bool svDragging;
 
 		public event Action<Color> ValueChanged;
+
+		private Vector2 windowTalePosition;
 
 		private bool isClosing;
 		private bool onEditTextEvent;
@@ -47,6 +42,18 @@ namespace TaleKitEditor.UI.Dialogs {
 		public ColorSelectDialog() {
 			InitializeComponent();
 			this.FindControlsByTag();
+		}
+		public ColorSelectDialog(Vector2 windowTalePosition, Color currentColor) : this() {
+			this.windowTalePosition = windowTalePosition;
+			this.oldColor = currentColor;
+			this.selectedHsv = currentColor.ToHSV();
+
+			ColorBox_SV.Effect = colorEditor_SV_Shader = new Shader_ColorEditor_SV();
+			ColorBox_Hue.Effect = new Shader_ColorEditor_H();
+
+			CurrentColorIndicator.Fill = currentColor.ToBrush();
+
+			Opacity = 0d;
 		}
 		private void RegisterEvents() {
 			EditText_H.EditableValueChanged += UpdateColorByHSV;
@@ -58,28 +65,24 @@ namespace TaleKitEditor.UI.Dialogs {
 			EditText_Hex.EditableValueChanged += UpdateColorByHex;
 		}
 
-		private void Window_Loaded(object sender, RoutedEventArgs e) {
-			ColorBox_SV.Effect = colorEditor_SV_Shader = new Shader_ColorEditor_SV();
-			ColorBox_Hue.Effect = new Shader_ColorEditor_H();
-
-		}
 		private void Window_ContentRendered(object sender, EventArgs e) {
 			RegisterEvents();
 			OnValueChanged_SelectedHsv();
 
-			//Vector2 windowPos = dstPosition;
-			//windowPos += -(Vector2)TailShape.TranslatePoint(new Point((float)TailShape.ActualWidth, (float)-TailShape.ActualHeight * 0.5f), this);
+			Vector2 windowPos = windowTalePosition;
+			windowPos += -(Vector2)TailShape.TranslatePoint(new Point((float)TailShape.ActualWidth, (float)-TailShape.ActualHeight * 0.5f), this);
 
-			//Left = windowPos.x;
-			//Top = windowPos.y;
+			Left = windowPos.x;
+			Top = windowPos.y;
 
-			//PlayShowingAnimation();
-			//Opacity = 1d;
+			this.PlaySlideInAnim();
+
+			Opacity = 1d;
 		}
 		private void Window_Deactivated(object sender, EventArgs e) {
-			//if (!isClosing) {
-			//	Close();
-			//}
+			if (!isClosing) {
+				Close();
+			}
 		}
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
 			isClosing = true;
@@ -145,12 +148,15 @@ namespace TaleKitEditor.UI.Dialogs {
 		private void OnValueChanged_SelectedHsv() {
 			UpdateTextBoxes();
 
+			//Update indicators
 			float hIndicatorOffset = (float)HueIndicator.Height * -0.5f;
 			colorEditor_SV_Shader.Hue = selectedHsv.hue;
 			HueIndicator.Margin = new Thickness(0f, selectedHsv.hue / 360f * ColorBox_Hue.ActualHeight + hIndicatorOffset, 0f, 0f);
 
 			float svIndicatorOffset = (float)SvIndicator.Width * -0.5f;
 			SvIndicator.Margin = new Thickness(selectedHsv.saturation * ColorBox_SV.ActualWidth + svIndicatorOffset, (1f - selectedHsv.value) * ColorBox_SV.ActualHeight + svIndicatorOffset, 0f, 0f);
+
+			NewColorIndicator.Fill = selectedHsv.ToColor().ToBrush();
 
 			ValueChanged?.Invoke(selectedHsv.ToColor());
 		}

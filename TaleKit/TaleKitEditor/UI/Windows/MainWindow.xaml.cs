@@ -21,6 +21,7 @@ using PenMotionEditor.UI.Tabs;
 using Microsoft.Win32;
 using TaleKitEditor.Workspaces;
 using TaleKitEditor.UI.Dialogs;
+using TaleKitEditor.UI.Utility;
 
 namespace TaleKitEditor.UI.Windows {
 	public partial class MainWindow : Window {
@@ -35,14 +36,15 @@ namespace TaleKitEditor.UI.Windows {
 		public event Action<TaleData> DataUnloaded;
 
 		public MainWindow() {
+			if (this.IsDesignMode()) {
+				InitializeComponent();
+			}
 		}
 		public void Initialize() {
 			InitializeComponent();
-
-			if (this.IsDesignMode())
-				return;
-
 			ContentRendered += MainWindow_ContentRendered;
+
+			this.SetFocusableWindow();
 		}
 
 		private void MainWindow_ContentRendered(object sender, EventArgs e) {
@@ -50,9 +52,6 @@ namespace TaleKitEditor.UI.Windows {
 			RegisterEvents();
 
 			CreateData();
-
-			//Test
-			new ColorSelectDialog().Show();
 		}
 
 		private void InitWorkspaces() {

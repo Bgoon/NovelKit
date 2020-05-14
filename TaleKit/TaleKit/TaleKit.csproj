@@ -56,6 +56,7 @@
     <Compile Include="Datas\Editor\ValueEditorComponentAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorComponent_HeaderAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditor_ColorBoxAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_SwitchAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_TextBoxAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_NumberBoxAttribute.cs" />
