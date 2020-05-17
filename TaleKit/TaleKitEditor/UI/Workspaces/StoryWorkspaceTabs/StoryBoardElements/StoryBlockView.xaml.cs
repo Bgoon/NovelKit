@@ -25,21 +25,20 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements {
 		public string description;
 		public readonly StoryBlockBase Data;
 
+		//ITreeItem interface
+		public string DisplayName => PreviewTextBlock.Text;
+		public ITreeFolder ParentItem {
+			get; set;
+		}
+		public FrameworkElement ItemContext => this;
+
+
 		public StoryBlockItemView() {
 			InitializeComponent();
 		}
 		public StoryBlockItemView(StoryBlockBase data) : this() {
 			this.Data = data;
 		}
-
-		public string DisplayName => PreviewTextBlock.Text;
-
-		public FrameworkElement ItemContext => this;
-
-		public ITreeFolder ParentItem {
-			get; set;
-		}
-
 
 		public void SetDisplayName(string name) {
 			PreviewTextBlock.Text = name;

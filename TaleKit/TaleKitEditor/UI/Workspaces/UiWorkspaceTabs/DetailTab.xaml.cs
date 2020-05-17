@@ -14,32 +14,70 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GKit.WPF;
+using TaleKit.Datas.UI;
+using TaleKitEditor.UI.ValueEditors;
+using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 	
 	public partial class DetailTab : UserControl {
-		[FindByTag] private Button AnchorTopLeftButton;
-		[FindByTag] private Button AnchorTopMidButton;
-		[FindByTag] private Button AnchorTopRightButton;
-		[FindByTag] private Button AnchorMidLeftButton;
-		[FindByTag] private Button AnchorMidMidButton;
-		[FindByTag] private Button AnchorMidRightButton;
-		[FindByTag] private Button AnchorBotLeftButton;
-		[FindByTag] private Button AnchorBotMidButton;
-		[FindByTag] private Button AnchorBotRightButton;
-		[FindByTag] private Button AnchorWideLeftButton;
-		[FindByTag] private Button AnchorWideMidButton;
-		[FindByTag] private Button AnchorWideRightButton;
-		[FindByTag] private Button AnchorTopWideButton;
-		[FindByTag] private Button AnchorMidWideButton;
-		[FindByTag] private Button AnchorBotWideButton;
-		[FindByTag] private Button AnchorWideWideButton;
+		private static Root Root => Root.Instance;
+		private static MainWindow MainWindow => Root.MainWindow;
+		private static UiWorkspace UiWorkspace => MainWindow.UiWorkspace;
+		private static LayerTab LayerTab => UiWorkspace.LayerTab;
+
+		public UiItem EditingUiItem {
+			get; private set;
+		}
+
+		private bool isInitialized;
 
 		public DetailTab() {
 			InitializeComponent();
-			this.FindControlsByTag();
+		}
+		private void OnLoaded(object sender, RoutedEventArgs e) {
+			if (this.IsDesignMode() || isInitialized)
+				return;
+			isInitialized = true;
+
+			InitMembers();
+			RegisterEvents();
+
+			SelectionChanged();
+		}
+		private void InitMembers() {
+		}
+		private void RegisterEvents() {
+			LayerTab.UiTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
+			LayerTab.UiTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
 		}
 
-		
+		private void SelectedItemSet_SelectionAdded(GKit.WPF.UI.Controls.ITreeItem item) {
+			SelectionChanged();
+		}
+		private void SelectedItemSet_SelectionRemoved(GKit.WPF.UI.Controls.ITreeItem item) {
+			SelectionChanged();
+		}
+
+		private void SelectionChanged() {
+			AttachUiItem(LayerTab.SelectedUiItemSingle);
+		}
+
+		private void AttachUiItem(UiItem uiItem) {
+			DetachUiItem();
+
+			if (uiItem == null)
+				return;
+
+			ValueEditorUtility.CreateValueEditorViews(uiItem, EditorViewContext);
+		}
+		private void DetachUiItem() {
+			if (EditingUiItem == null)
+				return;
+
+			this.EditingUiItem = null;
+
+			EditorViewContext.Children.Clear();
+		}
 	}
 }

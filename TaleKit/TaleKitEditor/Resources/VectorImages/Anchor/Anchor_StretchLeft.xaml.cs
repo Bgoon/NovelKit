@@ -17,8 +17,8 @@ namespace TaleKitEditor.Resources.VectorImages {
 	/// <summary>
 	/// Anchor_TopLeft.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class Anchor_BotWide : UserControl {
-		public Anchor_BotWide() {
+	public partial class Anchor_StretchLeft : UserControl {
+		public Anchor_StretchLeft() {
 			InitializeComponent();
 		}
 	}

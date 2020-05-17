@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TaleKitEditor.Resources.VectorImages {
+namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs.ViewportElements {
 	/// <summary>
-	/// Anchor_TopLeft.xaml에 대한 상호 작용 논리
+	/// UiRenderer.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class Anchor_MidWide : UserControl {
-		public Anchor_MidWide() {
+	public partial class UiRenderer : UserControl {
+		public UiRenderer() {
 			InitializeComponent();
 		}
 	}

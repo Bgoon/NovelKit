@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GKit.WPF;
+using GKit.WPF.UI.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +14,131 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKit.Datas;
+using TaleKit.Datas.UI;
+using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
-	/// <summary>
-	/// Layer.xaml에 대한 상호 작용 논리
-	/// </summary>
 	public partial class LayerTab : UserControl {
+		private static Root Root => Root.Instance;
+		private static MainWindow MainWindow => Root.MainWindow;
+		private static UiFile UiFile => MainWindow.EditingData.UiFile;
+
+		public UiItemView RootItemView {
+			get; private set;
+		}
+		private Dictionary<UiItem, UiItemView> dataToViewDict;
+
+		//Selected
+		public UiItemView SelectedUiItemViewSingle {
+			get {
+				if (UiTreeView.SelectedItemSet.Count > 0) {
+					return (UiItemView)UiTreeView.SelectedItemSet.Last();
+				}
+				return null;
+			}
+		}
+		public UiItem SelectedUiItemSingle {
+			get {
+				UiItemView selectedItemView = SelectedUiItemViewSingle;
+				return selectedItemView == null ? null : selectedItemView.Data;
+			}
+		}
+
 		public LayerTab() {
 			InitializeComponent();
+
+			if (this.IsDesignMode())
+				return;
+
+			InitMembers();
+			RegisterEvents();
+		}
+		private void InitMembers() {
+			dataToViewDict = new Dictionary<UiItem, UiItemView>();
+
+			UiTreeView.AutoApplyItemMove = false;
+		}
+		private void RegisterEvents() {
+			UiItemListController.CreateItemButtonClick += UiItemListController_CreateItemButtonClick;
+			UiItemListController.RemoveItemButtonClick += UiItemListController_RemoveItemButtonClick;
+
+			UiTreeView.ItemMoved += UiTreeView_ItemMoved;
+
+			MainWindow.DataLoaded += MainWindow_DataLoaded;
+			MainWindow.DataUnloaded += MainWindow_DataUnloaded;
+		}
+
+		//Events
+		private void MainWindow_DataLoaded(TaleData obj) {
+			UiFile.ItemCreated += UiFile_ItemCreated;
+			UiFile.ItemRemoved += UiFile_ItemRemoved;
+
+			UiFile_ItemCreated(UiFile.RootUiItem, null);
+		}
+		private void MainWindow_DataUnloaded(TaleData obj) {
+			UiFile.ItemCreated -= UiFile_ItemCreated;
+			UiFile.ItemRemoved -= UiFile_ItemRemoved;
+
+			UiFile_ItemRemoved(UiFile.RootUiItem, null);
+		}
+
+		private void UiItemListController_CreateItemButtonClick() {
+			UiFile.CreateUiItem(SelectedUiItemSingle);
+		}
+		private void UiItemListController_RemoveItemButtonClick() {
+			foreach(UiItemView itemView in UiTreeView.SelectedItemSet) {
+				UiItem data = itemView.Data;
+
+				UiFile.RemoveUiItem(data);
+			}
+		}
+
+		private void UiFile_ItemCreated(UiItem item, UiItem parentItem) {
+			UiItemView itemView = new UiItemView(item);
+
+			if (parentItem == null) {
+				//Create root
+				itemView.SetRootItem();
+				RootItemView = itemView;
+
+				UiTreeView.ChildItemCollection.Add(itemView);
+				UiTreeView.ManualRootFolder = itemView;
+			} else {
+				itemView.ParentItem = dataToViewDict[parentItem];
+			}
+			//Add to collection
+			dataToViewDict.Add(item, itemView);
+
+			//Register events
+			item.ChildInserted += Data_ChildInserted;
+			item.ChildRemoved += Data_ChildRemoved;
+
+			void Data_ChildInserted(int index, UiItem childItem) {
+				UiItemView childItemView = dataToViewDict[childItem];
+				itemView.ChildItemCollection.Insert(index, childItemView);
+			}
+			void Data_ChildRemoved(UiItem childItem, UiItem currentItem) {
+				UiItemView childItemView = dataToViewDict[childItem];
+				itemView.ChildItemCollection.Remove(childItemView);
+			}
+		}
+		private void UiFile_ItemRemoved(UiItem item, UiItem parentItem) {
+			//Remove view	
+			dataToViewDict[item].DetachParent();
+			dataToViewDict.Remove(item);
+		}
+
+		private void UiTreeView_ItemMoved(ITreeItem itemView, ITreeFolder oldParentView, ITreeFolder newParentView, int index) {
+			//Data에 적용하기
+			UiItem item = ((UiItemView)itemView).Data;
+			UiItem newParentItem = ((UiItemView)newParentView).Data;
+			UiItemView oldParentItemView = (oldParentView as UiItemView);
+
+			if(oldParentItemView != null) {
+				oldParentItemView.Data.RemoveChildItem(item);
+			}
+			newParentItem.InsertChildItem(index, item);
 		}
 	}
 }

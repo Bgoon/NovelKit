@@ -71,16 +71,27 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 
 			//Classify elements : 실제 값
+			//ValueName
 			ValueEditorAttribute element = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
 			ValueNameText = element.valueName;
 
+			//ValueEditor
 			UserControl editorElement = CreateEditorElementView(element);
 			valueEditorElement = (IValueEditorElement)editorElement;
 
 			valueEditorElement.EditableValueChanged += IEditorElement_ElementValueChanged;
 			valueEditorElement.EditableValue = field.GetValue(model);
 
+			if(string.IsNullOrEmpty(element.valueName)) {
+				SetWideEditorElementContext();
+			}
+
 			Children.Add(editorElement);
+		}
+
+		private void IEditorElement_ElementValueChanged(object value) {
+			ElementEditorValueChanged?.Invoke(value);
+			field.SetValue(model, value);
 		}
 
 		private UserControl CreateEditorComponentView(ValueEditorComponentAttribute componentAttribute) {
@@ -100,19 +111,32 @@ namespace TaleKitEditor.UI.ValueEditors {
 			UserControl view;
 			if (elementAttr is ValueEditor_NumberBoxAttribute) {
 				view = new ValueEditorElement_NumberBox();
+
 			} else if (elementAttr is ValueEditor_SliderAttribute) {
 				view = new ValueEditorElement_Slider();
+
 			} else if (elementAttr is ValueEditor_SwitchAttribute) {
 				view = new ValueEditorElement_Switch();
+
 			} else if (elementAttr is ValueEditor_TextBoxAttribute) {
 				var attr = elementAttr as ValueEditor_TextBoxAttribute;
 				view = new ValueEditorElement_TextBox(attr);
+
 			} else if (elementAttr is ValueEditor_NumberBoxAttribute) {
 				var attr = elementAttr as ValueEditor_NumberBoxAttribute;
 				view = new ValueEditorElement_NumberBox(attr);
-			} else if (elementAttr is ValueEditor_ColorBoxAttribute) {
+
+			} else if (elementAttr is ValueEditor_Vector2Attribute) {
+				var attr = elementAttr as ValueEditor_Vector2Attribute;
+				view = new ValueEditorElement_Vector2(attr);
+
+			}  else if (elementAttr is ValueEditor_ColorBoxAttribute) {
 				var attr = elementAttr as ValueEditor_ColorBoxAttribute;
 				view = new ValueEditorElement_ColorBox();
+
+			} else if (elementAttr is ValueEditor_AnchorPresetAttribute) {
+				view = new ValueEditorElement_AnchorPreset();
+
 			} else {
 				throw new NotImplementedException();
 			}
@@ -120,9 +144,9 @@ namespace TaleKitEditor.UI.ValueEditors {
 			return view;
 		}
 
-		private void IEditorElement_ElementValueChanged(object value) {
-			ElementEditorValueChanged?.Invoke(value);
-			field.SetValue(model, value);
+		private void SetWideEditorElementContext() {
+			Grid.SetColumn(ValueEditorElementContext, 0);
+			Grid.SetColumnSpan(ValueEditorElementContext, 2);
 		}
 	}
 }

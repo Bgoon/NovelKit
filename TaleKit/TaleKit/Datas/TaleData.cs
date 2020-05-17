@@ -24,7 +24,14 @@ namespace TaleKit.Datas {
 			get; private set;
 		}
 
+		public string projectName;
 		public DateTime exportedTime;
+
+		//EditorData
+		public string projectDir;
+		public string AssetDir => Path.Combine(projectDir, "Assets");
+		public bool savedMark;
+
 
 		public TaleData() {
 			MotionFile = new MotionFile();
@@ -59,6 +66,11 @@ namespace TaleKit.Datas {
 			jFile.Add("StoryFile", StoryFile.ToJObject());
 
 			File.WriteAllText(fileName, jFile.ToString(), Encoding.UTF8);
+		}
+
+		//EditorFunction
+		public string GetResourcePath(string filename) {
+			return Path.Combine(AssetDir, filename);
 		}
 	}
 }

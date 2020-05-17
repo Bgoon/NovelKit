@@ -52,17 +52,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datas\Editor\IEditableModel.cs" />
     <Compile Include="Datas\Editor\NumberType.cs" />
     <Compile Include="Datas\Editor\ValueEditorComponentAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorComponent_HeaderAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_ColorBoxAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditor_AnchorPresetAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditor_Vector2Attribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_SwitchAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_TextBoxAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_NumberBoxAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_SliderAttribute.cs" />
     <Compile Include="Datas\IDataFile.cs" />
     <Compile Include="Datas\Motion\MotionFile.cs" />
+    <Compile Include="Datas\Asset\AssetFile.cs" />
     <Compile Include="Datas\Story\Orders\ClipOrder.cs" />
     <Compile Include="Datas\Story\Orders\OrderFactory.cs" />
     <Compile Include="Datas\Story\Orders\OrderType.cs" />

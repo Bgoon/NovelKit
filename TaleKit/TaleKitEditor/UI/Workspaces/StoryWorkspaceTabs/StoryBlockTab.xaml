@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs"
 
 			 xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
-			 xmlns:LayerItem="clr-namespace:TaleKitEditor.UI.Workspaces.UiWorkspaceTabs.LayerItem"
 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">

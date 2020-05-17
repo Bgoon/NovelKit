@@ -35,12 +35,11 @@ namespace TaleKit.Datas.Story {
 
 		public StoryFile() {
 			InitMembers();
+			CreateRootItem();
 		}
 		private void InitMembers() {
 			SceneDict = new Dictionary<string, Scene>();
 			ClipDict = new Dictionary<string, StoryClip>();
-
-			CreateRootItem();
 		}
 
 		public bool Save(string filename) {

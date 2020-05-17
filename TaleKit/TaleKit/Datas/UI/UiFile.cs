@@ -15,6 +15,8 @@ namespace TaleKit.Datas.UI {
 	//	}
 	//}
 	public class UiFile : ITaleDataFile {
+		public delegate void NodeChangedDelegate();
+
 		public UiItem RootUiItem {
 			get; private set;
 		}
@@ -22,8 +24,10 @@ namespace TaleKit.Datas.UI {
 		public event NodeItemDelegate<UiItem, UiItem> ItemCreated;
 		public event NodeItemDelegate<UiItem, UiItem> ItemRemoved;
 
-		public UiFile() {
-
+		public UiFile(bool createRootItem = true) {
+			if(createRootItem) {
+				RootUiItem = new UiItem(this);
+			}
 		}
 
 		public bool Save(string filename) {
@@ -52,12 +56,13 @@ namespace TaleKit.Datas.UI {
 			return item;
 		}
 		public void RemoveUiItem(UiItem item) {
-			foreach(UiItem childItem in item.ChildItemList) {
+			UiItem[] childs = item.ChildItemList.ToArray();
+			foreach (UiItem childItem in childs) {
 				RemoveUiItem(childItem);
 			}
 
 			UiItem parentItem = item.ParentItem;
-			parentItem.ChildItemList.Remove(item);
+			parentItem.RemoveChildItem(item);
 
 			ItemRemoved?.Invoke(item, parentItem);
 		}

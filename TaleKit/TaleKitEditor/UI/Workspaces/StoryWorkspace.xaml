@@ -11,6 +11,7 @@
 
 			 xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
 			 xmlns:Tabs="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs"
+			 xmlns:CommonTabs="clr-namespace:TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs"
 			 xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:TaleKitEditor.UI.Workspaces"
              mc:Ignorable="d" 
@@ -36,8 +37,8 @@
 								<Controls:FixedLayoutAnchorable Title="StoryClip">
 									<Tabs:StoryClipTab x:Name="StoryClipTab"/>
 								</Controls:FixedLayoutAnchorable>
-								<Controls:FixedLayoutAnchorable Title="Resource">
-									<Tabs:ResourceTab/>
+								<Controls:FixedLayoutAnchorable Title="Asset">
+									<CommonTabs:AssetTab/>
 								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 							<Ad:LayoutAnchorablePane>

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GKit;
+using TaleKit.Datas.Editor;
 
 namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
@@ -32,9 +33,17 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 		public event Action<object> EditableValueChanged;
 
-		public ValueEditorElement_Vector2() {
+		public ValueEditorElement_Vector2(ValueEditor_Vector2Attribute attr) {
 			InitializeComponent();
 			RegisterEvents();
+
+			ValueTextBox_X.MinValue = attr.minValue;
+			ValueTextBox_X.MaxValue = attr.maxValue;
+			ValueTextBox_X.NumberType = attr.numberType;
+
+			ValueTextBox_Y.MinValue = attr.minValue;
+			ValueTextBox_Y.MaxValue = attr.maxValue;
+			ValueTextBox_Y.NumberType = attr.numberType;
 		}
 		private void RegisterEvents() {
 			ValueTextBox_X.EditableValueChanged += ValueTextBox_X_EditableValueChanged;

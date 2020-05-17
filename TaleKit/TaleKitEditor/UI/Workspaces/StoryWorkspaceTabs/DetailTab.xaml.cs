@@ -30,7 +30,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private static StoryWorkspace StoryWorkspace => MainWindow.StoryWorkspace;
 		private static StoryBlockTab StoryBlockTab => StoryWorkspace.StoryBlockTab;
 
-		private Dictionary<OrderBase, UserControl> orderControlDict;
+		private Dictionary<OrderBase, OrderItemEditorView> editorViewDict;
 
 		public StoryBlock EditingBlock {
 			get; private set;
@@ -41,7 +41,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		public DetailTab() {
 			InitializeComponent();
 		}
-		private void DetailTab_Loaded(object sender, RoutedEventArgs e) {
+		private void OnLoaded(object sender, RoutedEventArgs e) {
 			if (this.IsDesignMode() || isInitiliazed)
 				return;
 			isInitiliazed = true;
@@ -53,7 +53,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			SelectionChanged();
 		}
 		private void InitMembers() {
-			orderControlDict = new Dictionary<OrderBase, UserControl>();
+			editorViewDict = new Dictionary<OrderBase, OrderItemEditorView>();
 		}
 		private void RegisterEvents() {
 			StoryBlockTab.StoryBlockTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
@@ -75,12 +75,13 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void EditingBlock_OrderAdded(OrderBase order) {
-			OrderItemEditorView orderItemView = new OrderItemEditorView(order);
+			OrderItemEditorView editorView = new OrderItemEditorView(order);
+			editorViewDict.Add(order, editorView);
 
-			OrderStackPanel.Children.Add(orderItemView);
+			OrderEditorViewContext.Children.Add(editorView);
 		}
 		private void EditingBlock_OrderRemoved(OrderBase order) {
-			OrderStackPanel.Children.Remove(orderControlDict[order]);
+			OrderEditorViewContext.Children.Remove(editorViewDict[order]);
 		}
 
 		private void SelectionChanged() {
@@ -105,17 +106,20 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			}
 		}
 
-		public void AttachBlock(StoryBlock block) {
+		public void AttachBlock(StoryBlock blockItem) {
 			DetachBlock();
 
-			this.EditingBlock = block;
+			this.EditingBlock = blockItem;
 
-			foreach (OrderBase order in block.OrderList) {
+			if (blockItem == null)
+				return;
+
+			foreach (OrderBase order in blockItem.OrderList) {
 				EditingBlock_OrderAdded(order);
 			}
 			//Register events
-			block.OrderAdded += EditingBlock_OrderAdded;
-			block.OrderRemoved += EditingBlock_OrderRemoved;
+			blockItem.OrderAdded += EditingBlock_OrderAdded;
+			blockItem.OrderRemoved += EditingBlock_OrderRemoved;
 		}
 		public void DetachBlock() {
 			if (EditingBlock == null)
@@ -127,7 +131,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			this.EditingBlock = null;
 
-			OrderStackPanel.Children.Clear();
+			OrderEditorViewContext.Children.Clear();
 		}
 
 	}

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKit.Datas.Editor;
 
 namespace TaleKitEditor.UI.ValueEditors {
 	[ContentProperty(nameof(Children))]
@@ -41,6 +42,9 @@ namespace TaleKitEditor.UI.ValueEditors {
 		public ItemEditorView() {
 			InitializeComponent();
 			Children = ValueEditorViewContext.Children;
+		}
+		public ItemEditorView(IEditableModel model) : this() {
+			ValueEditorUtility.CreateValueEditorViews(model, ValueEditorViewContext);
 		}
 	}
 }

@@ -12,7 +12,7 @@
              d:DesignWidth="220">
 	<StackPanel>
 		<Grid Height="30">
-			<Controls:MainHeaderText Text="{Binding OrderTypeText}"/>
+			<Controls:MainHeaderText Text="{Binding OrderTypeText, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"/>
 			<StoryWorkspaceTabs:OrderIndicator x:Name="Indicator" Margin="0,0,8,0" HorizontalAlignment="Right"/>
 		</Grid>
 		<StackPanel Name="ValueEditorViewContext" Orientation="Vertical">

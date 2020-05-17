@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs"
              mc:Ignorable="d" 
              d:DesignWidth="300" d:DesignHeight="500"
-			 Loaded="DetailTab_Loaded">
+			 Loaded="OnLoaded">
 	<Grid>
 		<!--Message context-->
 		<Grid Name="MessageContext">
@@ -16,7 +16,7 @@
 		<!--Editing context-->
 		<ScrollViewer Name="EditingContext">
 			<StackPanel>
-				<StackPanel Name="OrderStackPanel">
+				<StackPanel Name="OrderEditorViewContext">
 				</StackPanel>
 				<Button Name="AddOrderButton" Style="{StaticResource FlatButton}" Height="34" Background="#545454"
 					Click="AddOrderButton_Click">

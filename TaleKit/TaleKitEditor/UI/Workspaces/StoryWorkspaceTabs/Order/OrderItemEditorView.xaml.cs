@@ -31,35 +31,14 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		public OrderItemEditorView() {
 			InitializeComponent();
-			Init();
 		}
 		public OrderItemEditorView(OrderBase order) {
 			this.order = order;
 
 			InitializeComponent();
-			Init();
-
-			CreateValueEditors();
-		}
-		private void Init() {
-			DataContext = this;
-
 			Indicator.IsCountVisible = false;
-		}
 
-		private void CreateValueEditors() {
-			Type modelType = order.GetType();
-			FieldInfo[] fields = modelType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-
-			foreach (FieldInfo field in fields) {
-				ValueEditorAttribute editorAttribute = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
-
-				if (editorAttribute == null)
-					continue;
-
-				ValueEditorView valueEditorView = new ValueEditorView(order, field);
-				ValueEditorViewContext.Children.Add(valueEditorView);
-			}
+			ValueEditorUtility.CreateValueEditorViews(order, ValueEditorViewContext);
 		}
 	}
 }

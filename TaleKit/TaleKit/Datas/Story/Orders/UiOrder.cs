@@ -7,6 +7,7 @@ using UnityEngine;
 using TaleKit.Datas.UI;
 using Newtonsoft.Json.Linq;
 using TaleKit.Datas.Editor;
+using GKit;
 
 namespace TaleKit.Datas.Story {
 	/// <summary>
@@ -27,6 +28,8 @@ namespace TaleKit.Datas.Story {
 		public float FloatTextBox;
 		[ValueEditor_TextBox("텍스트", allowMultiline:true)]
 		public string Text;
+		[ValueEditor_AnchorPreset]
+		public AnchorPreset anchorPreset;
 
 		[ValueEditorComponent_Header("실제 모델변수")]
 		[ValueEditor_Switch("위치 변경")]

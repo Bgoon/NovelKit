@@ -13,31 +13,37 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKit.Datas.UI;
 
-namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs.LayerItem {
+namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 	/// <summary>
 	/// UiItem.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class UiItemView : UserControl, ITreeFolder {
+		public readonly UiItem Data;
 
-		public UIElementCollection ChildItemCollection => ChildStackPanel.Children;
-
+		//ITreeFolder interface
 		public string DisplayName => NameEditText.Text;
-
-		public FrameworkElement ItemContext => ItemPanel;
-
 		public ITreeFolder ParentItem {
 			get; set;
 		}
+		public FrameworkElement ItemContext => ItemPanel;
+		public UIElementCollection ChildItemCollection => ChildStackPanel.Children;
+
 
 		public UiItemView() {
 			InitializeComponent();
 		}
+		public UiItemView(UiItem data) : this() {
+			this.Data = data;
+		}
 
+		public void SetRootItem() {
+			ItemPanel.Visibility = Visibility.Collapsed;
+		}
 		public void SetDisplayName(string name) {
 			NameEditText.Text = name;
 		}
-
 		public void SetDisplaySelected(bool isSelected) {
 			ItemPanel.Background = (Brush)Application.Current.Resources[isSelected ? "ItemBackground_Selected" : "ItemBackground"];
 		}

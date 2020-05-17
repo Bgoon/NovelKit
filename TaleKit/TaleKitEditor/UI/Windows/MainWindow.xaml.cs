@@ -18,6 +18,7 @@ using GKit.WPF;
 using TaleKit.Datas;
 using TaleKitEditor.UI.Controls;
 using PenMotionEditor.UI.Tabs;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.Win32;
 using TaleKitEditor.Workspaces;
 using TaleKitEditor.UI.Dialogs;
@@ -51,7 +52,7 @@ namespace TaleKitEditor.UI.Windows {
 			InitWorkspaces();
 			RegisterEvents();
 
-			CreateData();
+			//CreateFile();
 		}
 
 		private void InitWorkspaces() {
@@ -67,22 +68,38 @@ namespace TaleKitEditor.UI.Windows {
 				}
 			}
 
-			ActiveWorkspace(WorkspaceType.Story);
+			WorkspaceContext.Visibility = Visibility.Collapsed;
 		}
 		private void RegisterEvents() {
-			FileManagerBar.CreateFileButtonClick += CreateData;
+			FileManagerBar.CreateFileButtonClick += CreateFile;
 			FileManagerBar.OpenFileButtonClick += OpenFile;
-			FileManagerBar.SaveFileButtonClick += SaveData;
+			FileManagerBar.SaveFileButtonClick += SaveFile;
 			FileManagerBar.ExportButtonClick += ExportData;
 		}
 
-		public void CreateData() {
-			EditingData = new TaleData();
-			EditingData.MotionFile.SetMotionFileData(MotionWorkspace.EditorContext.EditingFile);
+		public void CreateFile() {
+			if (!ShowCheckSaveDialog())
+				return;
+
+			CommonOpenFileDialog dialog = new CommonOpenFileDialog() {
+				IsFolderPicker = true,
+			};
+			if (dialog.ShowDialog(this) != CommonFileDialogResult.Ok)
+				return;
+
+			try {
+				EditingData = new TaleData();
+				EditingData.projectDir = dialog.FileName;
+				EditingData.MotionFile.SetMotionFileData(MotionWorkspace.EditorContext.EditingFile);
+			} catch(Exception ex) {
+				MessageBox.Show("파일을 여는 데 실패했습니다.");
+			}
 
 			DataLoaded?.Invoke(EditingData);
 
 			EditingData.PostInit();
+
+			WorkspaceContext.Visibility = Visibility.Visible;
 		}
 		public void UnloadData() {
 			DataUnloaded?.Invoke(EditingData);
@@ -99,7 +116,7 @@ namespace TaleKitEditor.UI.Windows {
 
 			
 		}
-		public void SaveData() {
+		public void SaveFile() {
 			SaveFileDialog dialog = new SaveFileDialog();
 
 			if (!dialog.ShowDialog(this).HasTrueValue())

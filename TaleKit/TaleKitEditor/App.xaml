@@ -8,12 +8,16 @@
 			 xmlns:AdCtrls="clr-namespace:AvalonDock.Controls;assembly=AvalonDock"
 			 xmlns:AdThemes="clr-namespace:Bgoon.AvalonDockTheme;assembly=Bgoon.AvalonDockThemes"
 
+			 xmlns:System="clr-namespace:System;assembly=mscorlib"
+			 xmlns:GConverters="clr-namespace:GKit.WPF.UI.Converters;assembly=GKitForWPF"
+
              Startup="OnStartup">
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="pack://application:,,,/GKitForWPF;component/WPF/Resources/Themes/FlatTheme.xaml"/>
 				<ResourceDictionary>
+					
 
 					<SolidColorBrush x:Key="MainWindowBackground" Color="#FF2E2E2E"/>
 					<SolidColorBrush x:Key="PopupWindowBackground" Color="#454545"/>
@@ -27,6 +31,9 @@
 					<SolidColorBrush x:Key="LightSeparator" Color="#26FFFFFF"/>
 
 					<SolidColorBrush x:Key="SubInfoColor" Color="#636363"/>
+
+					<SolidColorBrush x:Key="ScrollbarBackground" Color="#FF383838"/>
+					<SolidColorBrush x:Key="ScrollbarForeground" Color="#FF595959"/>
 
 					<!--Texts-->
 					<Style x:Key="MainHeaderText" TargetType="TextBlock">
@@ -88,6 +95,129 @@
 											<Setter Property="Background" Value="#A3A3A3"/>
 										</Trigger>
 									</ControlTemplate.Triggers>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+
+					<!--ScrollBar-->
+					<GConverters:DoubleToHalfRadiusConverter x:Key="DoubleToHalfRadiusConverter"/>
+					<System:Double x:Key="ScrollBarBackgroundWidth">14</System:Double>
+					<System:Double x:Key="ScrollBarWidth">14</System:Double>
+					<Style x:Key="ScrollBarTrackThumb" TargetType="Thumb">
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="Thumb">
+									<Grid x:Name="Grid" Background="Transparent">
+										<Border x:Name="CornerScrollBarRectangle" CornerRadius="{Binding Width, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource DoubleToHalfRadiusConverter}}" 
+											HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+											Width="{StaticResource ScrollBarWidth}" Height="Auto" Margin="0" Background="{TemplateBinding Background}" />
+									</Grid>
+									<ControlTemplate.Triggers>
+										<Trigger Property="Tag" Value="Horizontal">
+											<Setter TargetName="CornerScrollBarRectangle" Property="Width" Value="Auto" />
+											<Setter TargetName="CornerScrollBarRectangle" Property="Height" Value="{StaticResource ScrollBarWidth}" />
+											<Setter TargetName="CornerScrollBarRectangle" Property="CornerRadius" Value="{Binding Height, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource DoubleToHalfRadiusConverter}}" />
+										</Trigger>
+									</ControlTemplate.Triggers>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+					<Style TargetType="ScrollBar">
+						<Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+						<Setter Property="Foreground" Value="#B6B6B6" />
+						<Setter Property="Background" Value="Transparent" />
+						<Setter Property="Width" Value="{StaticResource ScrollBarBackgroundWidth}" />
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="{x:Type ScrollBar}">
+									<Grid x:Name="GridRoot" Background="{TemplateBinding BorderBrush}">
+										<Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="false">
+											<Track.Thumb>
+												<Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" Style="{DynamicResource ScrollBarTrackThumb}" />
+											</Track.Thumb>
+											<Track.IncreaseRepeatButton>
+												<RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+											</Track.IncreaseRepeatButton>
+											<Track.DecreaseRepeatButton>
+												<RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+											</Track.DecreaseRepeatButton>
+										</Track>
+									</Grid>
+									<ControlTemplate.Triggers>
+										<Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+											<Setter Value="{DynamicResource ButtonSelectBrush}" TargetName="Thumb" Property="Background" />
+										</Trigger>
+										<Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+											<Setter Value="{DynamicResource DarkBrush}" TargetName="Thumb" Property="Background" />
+										</Trigger>
+
+										<Trigger Property="IsEnabled" Value="false">
+											<Setter TargetName="Thumb" Property="Visibility" Value="Collapsed" />
+										</Trigger>
+										<Trigger Property="Orientation" Value="Horizontal">
+											<Setter TargetName="GridRoot" Property="LayoutTransform">
+												<Setter.Value>
+													<RotateTransform Angle="-90" />
+												</Setter.Value>
+											</Setter>
+											<Setter TargetName="PART_Track" Property="LayoutTransform">
+												<Setter.Value>
+													<RotateTransform Angle="-90" />
+												</Setter.Value>
+											</Setter>
+											<Setter Property="Width" Value="Auto" />
+											<Setter Property="Height" Value="{StaticResource ScrollBarBackgroundWidth}" />
+											<Setter TargetName="Thumb" Property="Tag" Value="Horizontal" />
+											<Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+											<Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+										</Trigger>
+									</ControlTemplate.Triggers>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+					<Style TargetType="ScrollViewer">
+						<Setter Property="OverridesDefaultStyle" Value="True" />
+						<!--<Setter Property="BorderBrush" Value="Transparent" />
+						<Setter Property="Foreground" Value="#B6B6B6" />-->
+						<Setter Property="BorderBrush" Value="{StaticResource ScrollbarBackground}"/>
+						<Setter Property="Foreground" Value="{StaticResource ScrollbarForeground}"/>
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="{x:Type ScrollViewer}">
+									<Grid>
+										<Grid.RowDefinitions>
+											<RowDefinition />
+											<RowDefinition Height="Auto" />
+										</Grid.RowDefinitions>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition />
+											<ColumnDefinition Width="Auto" />
+										</Grid.ColumnDefinitions>
+										<ScrollContentPresenter/>
+										<ScrollBar x:Name="PART_VerticalScrollBar"
+											Grid.Row="0"
+											Grid.Column="1"
+											Value="{TemplateBinding VerticalOffset}"
+											Maximum="{TemplateBinding ScrollableHeight}"
+											ViewportSize="{TemplateBinding ViewportHeight}"
+											Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											Foreground="{TemplateBinding Foreground}"/>
+										<ScrollBar x:Name="PART_HorizontalScrollBar"
+											Orientation="Horizontal"
+											Grid.Row="1"
+											Grid.Column="0"
+											Value="{TemplateBinding HorizontalOffset}"
+											Maximum="{TemplateBinding ScrollableWidth}"
+											ViewportSize="{TemplateBinding ViewportWidth}"
+											Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											Foreground="{TemplateBinding Foreground}"/>
+										<Border Grid.Row="1" Grid.Column="1" Background="{TemplateBinding BorderBrush}"/>
+									</Grid>
 								</ControlTemplate>
 							</Setter.Value>
 						</Setter>

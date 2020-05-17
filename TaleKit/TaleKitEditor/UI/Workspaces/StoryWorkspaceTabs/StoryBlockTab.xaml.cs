@@ -17,7 +17,7 @@ using TaleKit.Datas;
 using TaleKit.Datas.Story;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements;
-using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs.LayerItem;
+using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
 using GKit.WPF;
 using GKit.WPF.UI.Controls;
 
@@ -41,7 +41,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 		public StoryBlock SelectedBlockSingle {
 			get {
-				return SelectedBlockViewSingle.Data as StoryBlock;
+				StoryBlockItemView selectedItemView = SelectedBlockViewSingle;
+				return selectedItemView == null ? null : selectedItemView.Data as StoryBlock;
 			}
 		}
 
@@ -56,12 +57,12 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				return;
 
 			InitMembers();
-			InitEvents();
+			RegisterEvents();
 		}
 		private void InitMembers() {
 			dataToViewDict = new Dictionary<StoryBlockBase, StoryBlockItemView>();
 		}
-		private void InitEvents() {
+		private void RegisterEvents() {
 			StoryBlockListController.CreateItemButtonClick += StoryBlockListController_CreateItemButtonClick;
 			StoryBlockListController.RemoveItemButtonClick += StoryBlockListController_RemoveItemButtonClick;
 
@@ -71,6 +72,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			MainWindow.DataUnloaded += MainWindow_DataUnloaded;
 		}
 
+		//Events
 		private void MainWindow_DataLoaded(TaleData obj) {
 			StoryFile.ItemCreated += StoryFile_ItemCreated;
 			StoryFile.ItemRemoved += StoryFile_ItemRemoved;

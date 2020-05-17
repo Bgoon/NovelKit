@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs.ViewportTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+             mc:Ignorable="d" 
+             d:DesignWidth="800" d:DesignHeight="450"
+			 Loaded="OnLoaded">
+	<DockPanel Background="#FF252525">
+		<DockPanel DockPanel.Dock="Top" Height="28" Background="{StaticResource TabBackground}">
+			<Grid DockPanel.Dock="Left" Width="150"/>
+			<Grid DockPanel.Dock="Right" Width="140"/>
+			<Grid/>
+		</DockPanel>
+		<ScrollViewer Name="CanvasScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+			<Grid Name="CanvasContext" Width="500" Height="500" Margin="1000" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White"></Grid>
+		</ScrollViewer>
+    </DockPanel>
+</UserControl>

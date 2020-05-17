@@ -10,6 +10,7 @@
 
 			 xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
 			 xmlns:Tabs="clr-namespace:TaleKitEditor.UI.Workspaces.UiWorkspaceTabs"
+			 xmlns:CommonTabs="clr-namespace:TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs"
 			 xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignWidth="1280" d:DesignHeight="720">
@@ -24,9 +25,14 @@
 					<!--Tab 1-->
 					<Ad:LayoutAnchorablePaneGroup Orientation="Horizontal">
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
-							<Ad:LayoutAnchorablePane>
+							<Ad:LayoutAnchorablePane DockHeight="0.6*">
+								<Controls:FixedLayoutAnchorable Title="Asset">
+									<CommonTabs:AssetTab/>
+								</Controls:FixedLayoutAnchorable>
+							</Ad:LayoutAnchorablePane>
+							<Ad:LayoutAnchorablePane DockHeight="1*">
 								<Controls:FixedLayoutAnchorable Title="Layer">
-									<Tabs:LayerTab/>
+									<Tabs:LayerTab x:Name="LayerTab"/>
 								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>
@@ -34,7 +40,9 @@
 						<!--Tab 2-->
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="3*">
 							<Ad:LayoutAnchorablePane>
-								<Controls:FixedLayoutAnchorable Title="Viewport"/>
+								<Controls:FixedLayoutAnchorable Title="Viewport">
+									<CommonTabs:ViewportTab/>
+								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>
 
@@ -42,7 +50,7 @@
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
 							<Ad:LayoutAnchorablePane>
 								<Controls:FixedLayoutAnchorable Title="Detail">
-									<Tabs:DetailTab/>
+									<Tabs:DetailTab x:Name="DetailTab"/>
 								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>

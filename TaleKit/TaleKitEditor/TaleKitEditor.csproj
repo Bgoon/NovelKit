@@ -50,6 +50,21 @@
     <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.ExtendedLinguisticServices, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack.1.1.1\lib\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Sensors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack.1.1.1\lib\Microsoft.WindowsAPICodePack.Sensors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.ShellExtensions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack.1.1.1\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -75,8 +90,8 @@
     </ApplicationDefinition>
     <Compile Include="Resources\Shader\Shader_ColorEditor_H.cs" />
     <Compile Include="Resources\Shader\Shader_ColorEditor_SV.cs" />
-    <Compile Include="Resources\VectorImages\Anchor\Anchor_BotWide.xaml.cs">
-      <DependentUpon>Anchor_BotWide.xaml</DependentUpon>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_BotStretch.xaml.cs">
+      <DependentUpon>Anchor_BotStretch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\VectorImages\Anchor\Anchor_BotRight.xaml.cs">
       <DependentUpon>Anchor_BotRight.xaml</DependentUpon>
@@ -87,8 +102,8 @@
     <Compile Include="Resources\VectorImages\Anchor\Anchor_BotLeft.xaml.cs">
       <DependentUpon>Anchor_BotLeft.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\VectorImages\Anchor\Anchor_MidWide.xaml.cs">
-      <DependentUpon>Anchor_MidWide.xaml</DependentUpon>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_MidStretch.xaml.cs">
+      <DependentUpon>Anchor_MidStretch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\VectorImages\Anchor\Anchor_MidRight.xaml.cs">
       <DependentUpon>Anchor_MidRight.xaml</DependentUpon>
@@ -99,20 +114,20 @@
     <Compile Include="Resources\VectorImages\Anchor\Anchor_MidLeft.xaml.cs">
       <DependentUpon>Anchor_MidLeft.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\VectorImages\Anchor\Anchor_WideWide.xaml.cs">
-      <DependentUpon>Anchor_WideWide.xaml</DependentUpon>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_StretchAll.xaml.cs">
+      <DependentUpon>Anchor_StretchAll.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\VectorImages\Anchor\Anchor_WideRight.xaml.cs">
-      <DependentUpon>Anchor_WideRight.xaml</DependentUpon>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_StretchRight.xaml.cs">
+      <DependentUpon>Anchor_StretchRight.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\VectorImages\Anchor\Anchor_WideMid.xaml.cs">
-      <DependentUpon>Anchor_WideMid.xaml</DependentUpon>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_StretchMid.xaml.cs">
+      <DependentUpon>Anchor_StretchMid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\VectorImages\Anchor\Anchor_WideLeft.xaml.cs">
-      <DependentUpon>Anchor_WideLeft.xaml</DependentUpon>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_StretchLeft.xaml.cs">
+      <DependentUpon>Anchor_StretchLeft.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\VectorImages\Anchor\Anchor_TopWide.xaml.cs">
-      <DependentUpon>Anchor_TopWide.xaml</DependentUpon>
+    <Compile Include="Resources\VectorImages\Anchor\Anchor_TopStretch.xaml.cs">
+      <DependentUpon>Anchor_TopStretch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\VectorImages\Anchor\Anchor_TopRight.xaml.cs">
       <DependentUpon>Anchor_TopRight.xaml</DependentUpon>
@@ -163,6 +178,7 @@
       <DependentUpon>ItemSeparator.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ValueEditors\IValueEditorComponent.cs" />
+    <Compile Include="UI\ValueEditors\Utility\ValueEditorUtility.cs" />
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorComponent_Header.xaml.cs">
       <DependentUpon>ValueEditorComponent_Header.xaml</DependentUpon>
     </Compile>
@@ -174,6 +190,9 @@
     </Compile>
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_NumberBox.xaml.cs">
       <DependentUpon>ValueEditorElement_NumberBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_AnchorPreset.xaml.cs">
+      <DependentUpon>ValueEditorElement_AnchorPreset.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Vector2.xaml.cs">
       <DependentUpon>ValueEditorElement_Vector2.xaml</DependentUpon>
@@ -196,7 +215,7 @@
       <DependentUpon>OrderItemEditorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Script\Workspaces\WorkspaceType.cs" />
-    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\CommonElements\OrderIndicator.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderIndicator.xaml.cs">
       <DependentUpon>OrderIndicator.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ValueEditors\ValueEditorView.xaml.cs">
@@ -220,9 +239,6 @@
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\PreviewTab.xaml.cs">
       <DependentUpon>PreviewTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\ResourceTab.xaml.cs">
-      <DependentUpon>ResourceTab.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\SceneTab.xaml.cs">
       <DependentUpon>SceneTab.xaml</DependentUpon>
     </Compile>
@@ -231,6 +247,9 @@
     </Compile>
     <Compile Include="UI\Workspaces\UiWorkspace.xaml.cs">
       <DependentUpon>UiWorkspace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\CommonTabs\AssetTab.xaml.cs">
+      <DependentUpon>AssetTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\UiWorkspaceTabs\DetailTab.xaml.cs">
       <DependentUpon>DetailTab.xaml</DependentUpon>
@@ -241,14 +260,17 @@
     <Compile Include="UI\Workspaces\UiWorkspaceTabs\LayerTab.xaml.cs">
       <DependentUpon>LayerTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiWorkspaceTabs\PreviewTab.xaml.cs">
-      <DependentUpon>PreviewTab.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\UiWorkspaceTabs\ViewportElements\UiRenderer.xaml.cs">
+      <DependentUpon>UiRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\CommonTabs\ViewportTab.xaml.cs">
+      <DependentUpon>ViewportTab.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\VectorImages\Anchor\AnchorIconResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\VectorImages\Anchor\Anchor_BotWide.xaml">
+    <Page Include="Resources\VectorImages\Anchor\Anchor_BotStretch.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -264,7 +286,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\VectorImages\Anchor\Anchor_MidWide.xaml">
+    <Page Include="Resources\VectorImages\Anchor\Anchor_MidStretch.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -280,23 +302,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\VectorImages\Anchor\Anchor_WideWide.xaml">
+    <Page Include="Resources\VectorImages\Anchor\Anchor_StretchAll.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\VectorImages\Anchor\Anchor_WideRight.xaml">
+    <Page Include="Resources\VectorImages\Anchor\Anchor_StretchRight.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\VectorImages\Anchor\Anchor_WideMid.xaml">
+    <Page Include="Resources\VectorImages\Anchor\Anchor_StretchMid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\VectorImages\Anchor\Anchor_WideLeft.xaml">
+    <Page Include="Resources\VectorImages\Anchor\Anchor_StretchLeft.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\VectorImages\Anchor\Anchor_TopWide.xaml">
+    <Page Include="Resources\VectorImages\Anchor\Anchor_TopStretch.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -380,6 +402,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_AnchorPreset.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Vector2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -396,7 +422,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryWorkspaceTabs\CommonElements\OrderIndicator.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -448,10 +474,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryWorkspaceTabs\ResourceTab.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\Workspaces\StoryWorkspaceTabs\SceneTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -461,6 +483,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Workspaces\UiWorkspace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\CommonTabs\AssetTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -476,7 +502,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UiWorkspaceTabs\PreviewTab.xaml">
+    <Page Include="UI\Workspaces\UiWorkspaceTabs\ViewportElements\UiRenderer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\CommonTabs\ViewportTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -514,7 +544,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Script\TaleKit\" />
     <Folder Include="Script\Workspaces\MotionWorkspace\" />
     <Folder Include="Script\Workspaces\UiWorkspace\" />
     <Folder Include="UI\Resources\" />
@@ -562,6 +591,9 @@
   <ItemGroup>
     <None Include="Resources\Shader\ColorEditor_H.fx" />
     <None Include="Resources\Shader\ColorEditor_SV.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Windows Logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
