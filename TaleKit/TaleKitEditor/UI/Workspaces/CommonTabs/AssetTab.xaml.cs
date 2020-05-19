@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using TaleKit.Datas;
 using TaleKitEditor.UI.Windows;
+using TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements;
 
 namespace TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs {
 	/// <summary>
@@ -24,36 +25,69 @@ namespace TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs {
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static TaleData TaleFile => MainWindow.EditingData;
 
+		private static string[] ExcludeDirNames = new string[] {
+			".vs",
+			".git",
+			".svn",
+		};
+		private static string[] ExcludeFileExtensions = new string[] {
+			".meta",
+		};
+
 		public string AssetDir => TaleFile.AssetDir;
 		public string ExploringDir {
 			get; private set;
 		}
 
+		private FileSystemWatcher watcher;
+
 		public AssetTab() {
 			InitializeComponent();
+			RegisterEvents();
 		}
+		private void RegisterEvents() {
+			
+		}
+
 		private void ExplorerContext_Loaded(object sender, RoutedEventArgs e) {
 			MainWindow.DataLoaded += MainWindow_DataLoaded;
+			MainWindow.DataUnloaded += MainWindow_DataUnloaded;
 		}
 		private void ExplorerContext_Drop(object sender, DragEventArgs e) {
 			string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
 
 			foreach(string filename in filenames) {
 				if(File.Exists(filename)) {
-					LoadAsset(filename);
+					ImportAsset(filename);
 				}
 			}
 		}
 
 		private void MainWindow_DataLoaded(TaleData obj) {
+			Directory.CreateDirectory(AssetDir);
+
 			ExploreDir(AssetDir);
 		}
-
-
-		public void LoadAsset(string filename) {
-			LoadAsset(filename, ExploringDir);
+		private void MainWindow_DataUnloaded(TaleData obj) {
+			UnwatchDirectory();
 		}
-		public void LoadAsset(string filename, string targetDir) {
+
+		private void Watcher_Changed(object sender, FileSystemEventArgs e) {
+			Dispatcher.BeginInvoke(new Action(() => {
+				UpdateExplorer();
+			}));
+		}
+
+		public void ExploreDir(string dir) {
+			ExploringDir = dir;
+			
+			UpdateExplorer();
+		}
+
+		public void ImportAsset(string filename) {
+			ImportAsset(filename, ExploringDir);
+		}
+		public void ImportAsset(string filename, string targetDir) {
 			string onlyFilename = Path.GetFileName(filename);
 			try {
 				Directory.CreateDirectory(targetDir);
@@ -63,8 +97,79 @@ namespace TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs {
 			}
 		}
 
-		public void ExploreDir(string dir) {
-			ExploringDir = dir;
+		public void ShowAlertText(string text) {
+			AlertTextBlock.Text = text;
+		}
+
+		private void WatchDirectory() {
+			UnwatchDirectory();
+
+			watcher = new FileSystemWatcher() {
+				Path = ExploringDir,
+				IncludeSubdirectories = false,
+			};
+			watcher.Created += Watcher_Changed;
+			watcher.Deleted += Watcher_Changed;
+			watcher.Renamed += Watcher_Changed;
+			watcher.Changed += Watcher_Changed;
+			watcher.EnableRaisingEvents = true;
+		}
+		private void UnwatchDirectory() {
+			if (watcher != null) {
+				watcher.Dispose();
+				watcher = null;
+			}
+		}
+
+		private void UpdateExplorer() {
+			//TODO : 디렉토리가 존재하는지 확인하고 없으면 상위디렉토리로 가도록 하자
+
+			WatchDirectory();
+
+			CurrentDirectoryTextBlock.Text = GetRelativePath(ExploringDir);
+
+			FileItemContext.Children.Clear();
+
+			try {
+				string[] dirs = Directory.GetDirectories(ExploringDir).Where((string dirName) => {
+					return !ExcludeDirNames.Contains(dirName);
+				}).ToArray();
+				string[] files = Directory.GetFiles(ExploringDir).Where((string fileName) => {
+				if(!fileName.Contains('.')) {
+					return true;
+				}
+				return !ExcludeFileExtensions.Contains(Path.GetExtension(fileName));
+			}).ToArray();
+
+				foreach (string dir in dirs) {
+					FileItemView itemView = new FileItemView(FileIconType.Directory) {
+						Filename = Path.GetFileName(dir),
+					};
+
+					FileItemContext.Children.Add(itemView);
+				}
+				foreach (string file in files) {
+					FileItemView itemView = new FileItemView(FileIconType.File) {
+						Filename = Path.GetFileName(file),
+					};
+
+					FileItemContext.Children.Add(itemView);
+				}
+
+				ShowAlertText("");
+			} catch(Exception ex) {
+				ShowAlertText("파일 목록을 불러오는 중 오류가 발생했습니다.");
+			}
+		}
+
+		private string GetRelativePath(string fullPath) {
+			const string AssetDirName = "Assets";
+
+			if (fullPath.Contains(AssetDirName)) {
+				return fullPath.Substring(fullPath.IndexOf(AssetDirName));
+			} else {
+				return fullPath;
+			}
 		}
 
 	}

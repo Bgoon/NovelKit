@@ -150,6 +150,12 @@
     <Compile Include="Resources\VectorImages\Cross.xaml.cs">
       <DependentUpon>Cross.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\VectorImages\FileIcon\DirectoryIcon.xaml.cs">
+      <DependentUpon>DirectoryIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\FileIcon\FileIcon.xaml.cs">
+      <DependentUpon>FileIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\VectorImages\LayoutIcon\LayoutIcon_Motion.xaml.cs">
       <DependentUpon>LayoutIcon_Motion.xaml</DependentUpon>
     </Compile>
@@ -197,6 +203,10 @@
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Vector2.xaml.cs">
       <DependentUpon>ValueEditorElement_Vector2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Workspaces\CommonTabs\AssetElements\FileItemView.xaml.cs">
+      <DependentUpon>FileItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\CommonTabs\AssetElements\FileIconType.cs" />
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderTypeItemView.xaml.cs">
       <DependentUpon>OrderTypeItemView.xaml</DependentUpon>
     </Compile>
@@ -350,6 +360,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\VectorImages\FileIcon\DirectoryIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\FileIcon\FileIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\VectorImages\FileIcon\FileIconResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\VectorImages\LayoutIcon\LayoutIconResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -407,6 +429,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Vector2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\CommonTabs\AssetElements\FileItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -50,8 +50,8 @@ namespace TaleKitEditor.UI.ValueEditors {
 			UpdateUI();
 		}
 		private void RegisterEvents() {
-			ButtonContext.SetButtonReaction();
-			ButtonContext.SetOnClick(ButtonContext_OnClick);
+			ButtonContext.RegisterButtonReaction();
+			ButtonContext.RegisterOnClick(ButtonContext_OnClick);
 			EditableValueChanged += OnEditableValueChanged;
 		}
 

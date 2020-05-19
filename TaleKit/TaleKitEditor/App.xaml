@@ -35,6 +35,8 @@
 					<SolidColorBrush x:Key="ScrollbarBackground" Color="#FF383838"/>
 					<SolidColorBrush x:Key="ScrollbarForeground" Color="#FF595959"/>
 
+					<SolidColorBrush x:Key="ListBackground" Color="#3B3B3B"/>
+
 					<!--Texts-->
 					<Style x:Key="MainHeaderText" TargetType="TextBlock">
 						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Bold"/>
