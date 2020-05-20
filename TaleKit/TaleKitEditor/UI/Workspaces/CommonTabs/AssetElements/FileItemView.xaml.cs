@@ -2,6 +2,7 @@
 using GKit.WPF;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TaleKitEditor.Resources.VectorImages;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements {
@@ -26,6 +26,9 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements {
 		private static SolidColorBrush SelectedBrush = "535E69".ToBrush();
 		private static SolidColorBrush UnselectedBrush = "4F4F4F".ToBrush();
 
+		public string FullFilename {
+			get; private set;
+		}
 		public string Filename {
 			get {
 				return (string)GetValue(FilenameProperty);
@@ -35,11 +38,15 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements {
 			}
 		}
 
-		public FileItemView() {
+		[Obsolete]
+		internal FileItemView() {
 			InitializeComponent();
 		}
-		public FileItemView(FileIconType fileType) {
+		public FileItemView(string fullFilename, FileIconType fileType) {
 			InitializeComponent();
+
+			this.FullFilename = fullFilename;
+			this.Filename = Path.GetFileName(fullFilename);
 
 			UserControl icon = null;
 			switch(fileType) {
@@ -58,7 +65,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements {
 			SetSelected(false);
 		}
 		private void RegisterEvents() {
-			ButtonContext.RegisterButtonReaction();
+			ButtonContext.RegisterButtonReaction(0.05f);
 		}
 
 		public void SetSelected(bool isSelected) {

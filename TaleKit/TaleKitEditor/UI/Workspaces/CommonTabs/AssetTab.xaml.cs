@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GKit.WPF;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,6 +16,7 @@ using System.Windows.Navigation;
 using TaleKit.Datas;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements;
+using TaleKitEditor.Workspaces.Tabs;
 
 namespace TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs {
 	/// <summary>
@@ -23,14 +25,14 @@ namespace TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs {
 	public partial class AssetTab : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
-		private static TaleData TaleFile => MainWindow.EditingData;
+		private static TaleData TaleFile => MainWindow.EditingProject;
 
-		private static string[] ExcludeDirNames = new string[] {
+		public static string[] ExcludeDirNames = new string[] {
 			".vs",
 			".git",
 			".svn",
 		};
-		private static string[] ExcludeFileExtensions = new string[] {
+		public static string[] ExcludeFileExtensions = new string[] {
 			".meta",
 		};
 
@@ -43,15 +45,18 @@ namespace TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs {
 
 		public AssetTab() {
 			InitializeComponent();
-			RegisterEvents();
+		}
+		private void InitDirTree() {
+			DirTreeContext.Children.Clear();
+			DirTreeContext.Children.Add(new DirTreeItemView(AssetDir));
 		}
 		private void RegisterEvents() {
-			
+			MainWindow.ProjectLoaded += MainWindow_ProjectLoaded;
+			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
 		}
 
-		private void ExplorerContext_Loaded(object sender, RoutedEventArgs e) {
-			MainWindow.DataLoaded += MainWindow_DataLoaded;
-			MainWindow.DataUnloaded += MainWindow_DataUnloaded;
+		private void OnLoaded(object sender, RoutedEventArgs e) {
+			RegisterEvents();
 		}
 		private void ExplorerContext_Drop(object sender, DragEventArgs e) {
 			string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
@@ -63,12 +68,13 @@ namespace TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs {
 			}
 		}
 
-		private void MainWindow_DataLoaded(TaleData obj) {
+		private void MainWindow_ProjectLoaded(TaleData obj) {
 			Directory.CreateDirectory(AssetDir);
 
+			InitDirTree();
 			ExploreDir(AssetDir);
 		}
-		private void MainWindow_DataUnloaded(TaleData obj) {
+		private void MainWindow_ProjectUnloaded(TaleData obj) {
 			UnwatchDirectory();
 		}
 
@@ -142,16 +148,15 @@ namespace TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs {
 			}).ToArray();
 
 				foreach (string dir in dirs) {
-					FileItemView itemView = new FileItemView(FileIconType.Directory) {
-						Filename = Path.GetFileName(dir),
-					};
+					FileItemView itemView = new FileItemView(dir, FileIconType.Directory);
+					itemView.RegisterDoubleClickEvent(() => {
+						ExploreDir(itemView.FullFilename);
+					});
 
 					FileItemContext.Children.Add(itemView);
 				}
 				foreach (string file in files) {
-					FileItemView itemView = new FileItemView(FileIconType.File) {
-						Filename = Path.GetFileName(file),
-					};
+					FileItemView itemView = new FileItemView(file, FileIconType.File);
 
 					FileItemContext.Children.Add(itemView);
 				}
@@ -172,5 +177,6 @@ namespace TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs {
 			}
 		}
 
+		
 	}
 }

@@ -28,7 +28,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	public partial class StoryBlockTab : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
-		private static StoryFile StoryFile => MainWindow.EditingData.StoryFile;
+		private static StoryFile StoryFile => MainWindow.EditingProject.StoryFile;
 
 		private Dictionary<StoryBlockBase, StoryBlockItemView> dataToViewDict;
 		public StoryBlockItemView SelectedBlockViewSingle {
@@ -68,8 +68,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			StoryBlockTreeView.ItemMoved += StoryBlockListView_ItemMoved;
 			
-			MainWindow.DataLoaded += MainWindow_DataLoaded;
-			MainWindow.DataUnloaded += MainWindow_DataUnloaded;
+			MainWindow.ProjectLoaded += MainWindow_DataLoaded;
+			MainWindow.ProjectUnloaded += MainWindow_DataUnloaded;
 		}
 
 		//Events

@@ -22,7 +22,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 	public partial class LayerTab : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
-		private static UiFile UiFile => MainWindow.EditingData.UiFile;
+		private static UiFile UiFile => MainWindow.EditingProject.UiFile;
 
 		public UiItemView RootItemView {
 			get; private set;
@@ -65,8 +65,8 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 			UiTreeView.ItemMoved += UiTreeView_ItemMoved;
 
-			MainWindow.DataLoaded += MainWindow_DataLoaded;
-			MainWindow.DataUnloaded += MainWindow_DataUnloaded;
+			MainWindow.ProjectLoaded += MainWindow_DataLoaded;
+			MainWindow.ProjectUnloaded += MainWindow_DataUnloaded;
 		}
 
 		//Events

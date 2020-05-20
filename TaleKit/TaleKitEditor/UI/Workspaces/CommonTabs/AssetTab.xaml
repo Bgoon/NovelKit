@@ -5,23 +5,36 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
 			 xmlns:GControls="clr-namespace:GKitForWPF.WPF.UI.Controls;assembly=GKitForWPF"
+			 xmlns:AssetElements ="clr-namespace:TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements"
 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-		<DockPanel>
+             d:DesignHeight="450" d:DesignWidth="800"
+			 Loaded="OnLoaded">
+	<Grid Name="ExplorerContext" Background="{StaticResource ListBackground}" AllowDrop="True" 
+				Drop="ExplorerContext_Drop">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="0.6*"/>
+			<ColumnDefinition Width="1*"/>
+		</Grid.ColumnDefinitions>
+		<ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto">
+			<StackPanel Name="DirTreeContext">
+			</StackPanel>
+		</ScrollViewer>
+		<GridSplitter Grid.Column="0" Width="4" Background="{StaticResource LightSeparator}"/>
+		<DockPanel Grid.Column="1">
 			<DockPanel DockPanel.Dock="Top" Height="30" Background="{StaticResource TabBackground}">
 				<TextBlock Name="CurrentDirectoryTextBlock" Text="현재 디렉토리 표시줄" Style="{StaticResource ContentText}" VerticalAlignment="Center" Margin="8,0,0,0"/>
 			</DockPanel>
-			<Grid Name="ExplorerContext" Background="{StaticResource ListBackground}" AllowDrop="True" 
-				Loaded="ExplorerContext_Loaded" Drop="ExplorerContext_Drop">
-				<StackPanel>
-					<StackPanel Name="FileItemContext">
+			<Grid DockPanel.Dock="Bottom">
+				<ScrollViewer VerticalScrollBarVisibility="Auto">
+					<StackPanel>
+						<StackPanel Name="FileItemContext">
+						</StackPanel>
+						<GControls:ItemShadow/>
 					</StackPanel>
-					<GControls:ItemShadow/>
-				</StackPanel>
+				</ScrollViewer>
 				<TextBlock Name="AlertTextBlock" Style="{StaticResource ContentText}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 			</Grid>
 		</DockPanel>
-    </Grid>
+	</Grid>
 </UserControl>

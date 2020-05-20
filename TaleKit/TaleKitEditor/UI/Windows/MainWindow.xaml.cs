@@ -23,18 +23,27 @@ using Microsoft.Win32;
 using TaleKitEditor.Workspaces;
 using TaleKitEditor.UI.Dialogs;
 using TaleKitEditor.UI.Utility;
+using TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs;
 
 namespace TaleKitEditor.UI.Windows {
 	public partial class MainWindow : Window {
 		private Workspace[] workspaces;
 
 		//Datas
-		public TaleData EditingData {
+		public TaleData EditingProject {
 			get; private set;
 		}
 
-		public event Action<TaleData> DataLoaded;
-		public event Action<TaleData> DataUnloaded;
+		//CommonTabs
+		public ViewportTab ViewportTab {
+			get; private set;
+		}
+		public AssetTab AssetTab {
+			get; private set;
+		}
+
+		public event Action<TaleData> ProjectLoaded;
+		public event Action<TaleData> ProjectUnloaded;
 
 		public MainWindow() {
 			if (this.IsDesignMode()) {
@@ -52,7 +61,11 @@ namespace TaleKitEditor.UI.Windows {
 			InitWorkspaces();
 			RegisterEvents();
 
-			//CreateFile();
+			ActiveWorkspace(WorkspaceType.Ui);
+
+#if DEBUG
+			CreateProject(@"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectSB\Develop\TaleKitProject");
+#endif
 		}
 
 		private void InitWorkspaces() {
@@ -69,15 +82,19 @@ namespace TaleKitEditor.UI.Windows {
 			}
 
 			WorkspaceContext.Visibility = Visibility.Collapsed;
+
+			//공통 탭 할당
+			AssetTab = UiWorkspace.AssetTab;
+			ViewportTab = UiWorkspace.ViewportTab;
 		}
 		private void RegisterEvents() {
-			FileManagerBar.CreateFileButtonClick += CreateFile;
+			FileManagerBar.CreateFileButtonClick += CreateProject;
 			FileManagerBar.OpenFileButtonClick += OpenFile;
 			FileManagerBar.SaveFileButtonClick += SaveFile;
 			FileManagerBar.ExportButtonClick += ExportData;
 		}
 
-		public void CreateFile() {
+		public void CreateProject() {
 			if (!ShowCheckSaveDialog())
 				return;
 
@@ -87,24 +104,28 @@ namespace TaleKitEditor.UI.Windows {
 			if (dialog.ShowDialog(this) != CommonFileDialogResult.Ok)
 				return;
 
+			CreateProject(dialog.FileName);
+		}
+		public void CreateProject(string projectDir) {
 			try {
-				EditingData = new TaleData();
-				EditingData.projectDir = dialog.FileName;
-				EditingData.MotionFile.SetMotionFileData(MotionWorkspace.EditorContext.EditingFile);
-			} catch(Exception ex) {
+				EditingProject = new TaleData();
+				EditingProject.projectDir = projectDir;
+				EditingProject.MotionFile.SetMotionFileData(MotionWorkspace.EditorContext.EditingFile);
+			} catch (Exception ex) {
 				MessageBox.Show("파일을 여는 데 실패했습니다.");
+				return;
 			}
 
-			DataLoaded?.Invoke(EditingData);
+			ProjectLoaded?.Invoke(EditingProject);
 
-			EditingData.PostInit();
+			EditingProject.PostInit();
 
 			WorkspaceContext.Visibility = Visibility.Visible;
 		}
-		public void UnloadData() {
-			DataUnloaded?.Invoke(EditingData);
+		public void CloseFile() {
+			ProjectUnloaded?.Invoke(EditingProject);
 
-			EditingData = null;
+			EditingProject = null;
 		}
 		public void OpenFile() {
 			if (!ShowCheckSaveDialog())
@@ -131,7 +152,7 @@ namespace TaleKitEditor.UI.Windows {
 			if (!dialog.ShowDialog(this).HasTrueValue())
 				return;
 
-			EditingData.Export(dialog.FileName);
+			EditingProject.Export(dialog.FileName);
 		}
 		public bool ShowCheckSaveDialog() {
 			return true;

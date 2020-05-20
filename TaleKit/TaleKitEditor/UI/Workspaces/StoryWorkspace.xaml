@@ -37,8 +37,7 @@
 								<Controls:FixedLayoutAnchorable Title="StoryClip">
 									<Tabs:StoryClipTab x:Name="StoryClipTab"/>
 								</Controls:FixedLayoutAnchorable>
-								<Controls:FixedLayoutAnchorable Title="Asset">
-									<CommonTabs:AssetTab/>
+								<Controls:FixedLayoutAnchorable Title="Asset" x:Name="AssetTabContext">
 								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 							<Ad:LayoutAnchorablePane>
@@ -55,7 +54,7 @@
 								<Controls:FixedLayoutAnchorable Title="Scene"/>
 							</Ad:LayoutAnchorablePane>
 							<Ad:LayoutAnchorablePane>
-								<Controls:FixedLayoutAnchorable Title="Viewport"/>
+								<Controls:FixedLayoutAnchorable Title="Viewport" x:Name="ViewportTabContext"/>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>
 

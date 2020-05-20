@@ -165,8 +165,11 @@
     <Compile Include="Resources\VectorImages\LayoutIcon\LayoutIcon_Ui.xaml.cs">
       <DependentUpon>LayoutIcon_Ui.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\VectorImages\Tree\TreeRightArrow.xaml.cs">
+      <DependentUpon>TreeRightArrow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Script\Root.cs" />
-    <Compile Include="Script\Workspaces\StoryWorkspace\IComponent.cs" />
+    <Compile Include="Script\Workspaces\Tabs\INeedPostInit.cs" />
     <Compile Include="Script\Workspaces\Workspace.cs" />
     <Compile Include="UI\Controls\FixedLayoutAnchorable.cs" />
     <Compile Include="UI\Controls\MainHeaderText.xaml.cs">
@@ -203,6 +206,9 @@
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Vector2.xaml.cs">
       <DependentUpon>ValueEditorElement_Vector2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Workspaces\CommonTabs\AssetElements\DirTreeItemView.xaml.cs">
+      <DependentUpon>DirTreeItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Workspaces\CommonTabs\AssetElements\FileItemView.xaml.cs">
       <DependentUpon>FileItemView.xaml</DependentUpon>
     </Compile>
@@ -213,7 +219,6 @@
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\AddOrderWindow.xaml.cs">
       <DependentUpon>AddOrderWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Script\Workspaces\StoryWorkspace\ComponentType.cs" />
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_TextBox.xaml.cs">
       <DependentUpon>ValueEditorElement_TextBox.xaml</DependentUpon>
     </Compile>
@@ -388,6 +393,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\VectorImages\Tree\TreeRightArrow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -429,6 +438,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Vector2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\CommonTabs\AssetElements\DirTreeItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -570,8 +583,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Script\Workspaces\MotionWorkspace\" />
-    <Folder Include="Script\Workspaces\UiWorkspace\" />
     <Folder Include="UI\Resources\" />
     <Folder Include="UI\Workspaces\MotionEditorTabs\" />
   </ItemGroup>

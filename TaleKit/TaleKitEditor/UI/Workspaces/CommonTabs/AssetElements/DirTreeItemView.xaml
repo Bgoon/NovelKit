@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements.DirTreeItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+			 xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
+			 xmlns:AssetElements="clr-namespace:TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements"
+
+			 mc:Ignorable="d" >
+	<StackPanel>
+		<DockPanel Name="BackPanel" Height="22" Background="Transparent">
+			<Grid Name="TreeRightArrow" DockPanel.Dock="Left" Background="Transparent">
+				<VectorImages:TreeRightArrow Width="8" Margin="2, 0, 3, 0" RenderTransformOrigin="0.5,0.5">
+					<VectorImages:TreeRightArrow.RenderTransform>
+						<RotateTransform Angle="{Binding TreeOpenArrowAngle, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type AssetElements:DirTreeItemView}}}"/>
+					</VectorImages:TreeRightArrow.RenderTransform>
+				</VectorImages:TreeRightArrow>
+			</Grid>
+			<DockPanel Name="PathContext" Background="Transparent">
+				<VectorImages:DirectoryIcon DockPanel.Dock="Left" Margin="0, 0, 4, 0" RenderTransformOrigin="0.5,0.5">
+					<VectorImages:DirectoryIcon.RenderTransform>
+						<TransformGroup>
+							<ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
+							<SkewTransform/>
+							<RotateTransform/>
+							<TranslateTransform/>
+						</TransformGroup>
+					</VectorImages:DirectoryIcon.RenderTransform>
+				</VectorImages:DirectoryIcon>
+				<TextBlock Style="{StaticResource ContentText}" Text="{Binding DirName, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" FontSize="11" VerticalAlignment="Center"/>
+			</DockPanel>
+		</DockPanel>
+		<StackPanel Name="ChildItemContext" Margin="10, 0, 0, 0">
+		</StackPanel>
+	</StackPanel>
+</UserControl>

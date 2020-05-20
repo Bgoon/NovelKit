@@ -4,11 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaleKitEditor.StoryWorkspaceElements {
-	public enum ComponentType {
-		Script,
-		UiOrder,
-		Event,
-		BlockClip,
+namespace TaleKitEditor.Workspaces.Tabs {
+	public interface INeedPostInit {
+		void PostInit();
 	}
 }

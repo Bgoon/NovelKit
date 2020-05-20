@@ -1,32 +1,64 @@
 TaleKit의 사용 범위는 '인게임씬을 담당하는 엔진'
 엔진에서 관리하는 UI는 인게임만, 메인메뉴와 세이브/로드 메뉴, 옵션, 크레딧 등은 유니티에서 구현한다.
 
--클릭하는 순간 draggingClone, draggingCursor가 기본 위치에 나타나서 순간적으로 깜빡이는 것처럼 보임 v
--쉬프트 멀티셀렉트 구현 v
--폴더 테스트 v
--선택한 상태로 생성해도 루트에 생성됨 v
--Foreach 최적화 (화면에 보이는 인덱스만 탐색하게 하기) v
--라이브러리로 옮기기 v
--MotionEditor에 적용하기 v
--최상위 / 최하위로 옮기기 구현 (폴더 바깥으로 나가게 하기) v
--NameEditing 구현
--폴더 접기 구현
--저장기능 구현 v
--EditTextBlock 구현 v
--UiItem 구현 v
--ITaleDataFile 인터페이스 작성 v
--ITaleDataFile 상속받는 클래스들 구현 V
--빈 json 저장하는것부터 구현 v
--TaleData들 노드구조 갖추기 v
--불러오기 구현
--프로젝트 생성기능 구현
-	//경로 지정할 수 있도록
--TaleData들 노드 추가/제거함수들 갖추기
--StoryBlock Component구조 정리하기
+TODO {
+	-DetailTab 통합하기
+	-Viewport 구현 {
+	}
+	-불러오기 구현
+	-리소스 Wrapper 구현
+		//리소스마다 ID 지정할 수 있게 하기 (ID=파일명)
+	-StoryBlock Component구조 정리하기
+	-프로젝트 자동백업 기능 구현
+	-공통 탭 관리하기
+		//UI <-> Story 전환할때 Asset탭 같이 공통적으로 사용되는 탭 옮기기
+		//Attribute 사용해도 좋을 듯 하다
+}
+Doing {	
+	-폴더 접기 구현
+	-AssetTab 구현 {
+		-드래그 앤 드롭으로 파일 임포트 구현 v
+		-DirExplorer 구현 {
+			-화살표 버튼을 눌러 트리 열기 구현 v
+			-더블클릭해서 폴더 탐색 구현 v
+			-선택한 파일 색 변경
+		}
+		-DirTreeExplorer 구현 {
+			-클릭해서 폴더 탐색 구현 v
+			-현재 경로 색 변경
+			-상위폴더 탐색버튼 구현
+		}
+	}
+	-Asset폴더 Lock걸기
+}
+Done {
+	-ItemTreeView { v
+		-클릭하는 순간 draggingClone, draggingCursor가 기본 위치에 나타나서 순간적으로 깜빡이는 것처럼 보임 v
+		-쉬프트 멀티셀렉트 구현 v
+		-ITreeFolder 선택한 상태로 아이템 생성시 안에 생성되게 하기 v
+		-폴더 테스트 v
+		-드래깅 이벤트에서 커서위치 탐색 Foreach 최적화 (화면에 보이는 인덱스만 탐색하게 하기) v
+		-GKit 라이브러리로 옮기기 v
+		-최상위 / 최하위로 옮기기 구현 (폴더 바깥으로 나가게 하기) v
+		-NameEditing 구현
+	}
+	-MotionEditor와 연동시키기 v
+	-EditTextBlock 구현 v
+	-UiItem 구현 v
+	-ITaleDataFile 인터페이스 작성 v
+	-ITaleDataFile 상속받는 클래스들 구현 V
+	-TaleData들 노드구조 갖추기 v
+	-TaleData 저장 구현 v
+		//Reflection을 이용해 필요한 데이터만 Json으로 저장 v
+		//데이터 카테고리별로 파일 따로 저장
+		//프로젝트 경로에 에셋 저장 구현
+	-프로젝트 생성기능 구현 v
+		//경로 지정할 수 있도록
+}
 
 
-
-(스크립트)
-네, [Delay short]네?
-	//어떻게 구현하느냐.. Delay 태그를 10글자로 인식시키면 10글자 뜨는 동안의 딜레이가 생길 거다.
-
+메모 {
+	(스크립트)
+	네, [Delay short]네?
+		//어떻게 구현하느냐.. Delay 태그를 10글자로 인식시키면 10글자 뜨는 동안의 딜레이가 생길 거다
+}

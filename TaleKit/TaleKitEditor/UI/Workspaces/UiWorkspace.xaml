@@ -26,8 +26,8 @@
 					<Ad:LayoutAnchorablePaneGroup Orientation="Horizontal">
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
 							<Ad:LayoutAnchorablePane DockHeight="0.6*">
-								<Controls:FixedLayoutAnchorable Title="Asset">
-									<CommonTabs:AssetTab/>
+								<Controls:FixedLayoutAnchorable Title="Asset" x:Name="AssetTabContext">
+									<CommonTabs:AssetTab x:Name="AssetTab"/>
 								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 							<Ad:LayoutAnchorablePane DockHeight="1*">
@@ -40,8 +40,8 @@
 						<!--Tab 2-->
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="3*">
 							<Ad:LayoutAnchorablePane>
-								<Controls:FixedLayoutAnchorable Title="Viewport">
-									<CommonTabs:ViewportTab/>
+								<Controls:FixedLayoutAnchorable Title="Viewport" x:Name="ViewportTabContext">
+									<CommonTabs:ViewportTab x:Name="ViewportTab"/>
 								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>
