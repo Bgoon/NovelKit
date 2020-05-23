@@ -43,6 +43,9 @@
 								<Controls:FixedLayoutAnchorable Title="Viewport" x:Name="ViewportTabContext">
 									<CommonTabs:ViewportTab x:Name="ViewportTab"/>
 								</Controls:FixedLayoutAnchorable>
+								<Controls:FixedLayoutAnchorable Title="Viewport2" x:Name="ViewportTabContext2">
+									<CommonTabs:ViewportTab x:Name="ViewportTab2"/>
+								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>
 

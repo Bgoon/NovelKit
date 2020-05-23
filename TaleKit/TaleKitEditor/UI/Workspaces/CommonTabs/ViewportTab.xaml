@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
+			 xmlns:GBehaviors="clr-namespace:GKit.WPF.UI.Behaviors;assembly=GKitForWPF"
+
              mc:Ignorable="d" 
              d:DesignWidth="800" d:DesignHeight="450"
 			 Loaded="OnLoaded">
@@ -13,7 +15,8 @@
 			<Grid DockPanel.Dock="Right" Width="140"/>
 			<Grid/>
 		</DockPanel>
-		<ScrollViewer Name="CanvasScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+		<ScrollViewer Name="CanvasScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible"
+			GBehaviors:SmoothScrollBehavior.IsEnabled="True">
 			<Grid Name="CanvasContext" Width="500" Height="500" Margin="1000" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White"></Grid>
 		</ScrollViewer>
     </DockPanel>
