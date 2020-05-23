@@ -6,13 +6,19 @@
 
 			 xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
 			 xmlns:AssetElements ="clr-namespace:TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements"
+			 xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
 			 Loaded="OnLoaded">
 	<DockPanel>
 		<DockPanel DockPanel.Dock="Top" Height="30" Background="{StaticResource TabBackground}">
-			<TextBlock Name="CurrentDirectoryTextBlock" Text="현재 디렉토리 표시줄" Style="{StaticResource ContentText}" VerticalAlignment="Center" Margin="8,0,0,0"/>
+			<Grid Name="GotoParentButton" Background="Transparent">
+				<VectorImages:GotoParentIcon Margin="8, 0"/>
+			</Grid>
+			<Grid HorizontalAlignment="Left">
+				<TextBlock Name="CurrentDirectoryTextBlock" Text="CurrentDirectory" Style="{StaticResource ContentText}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+			</Grid>
 		</DockPanel>
 		<Grid Name="ExplorerContext" Background="{StaticResource ListBackground}" AllowDrop="True" 
 					Drop="ExplorerContext_Drop">

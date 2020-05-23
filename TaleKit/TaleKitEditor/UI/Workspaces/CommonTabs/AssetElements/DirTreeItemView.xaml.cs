@@ -60,6 +60,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements {
 				SetValue(TreeOpenArrowAngleProperty, value);
 			}
 		}
+		private List<DirTreeItemView> childItemList;
 
 		private FileSystemWatcher watcher;
 
@@ -70,10 +71,12 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements {
 		}
 		public DirTreeItemView(string dirFullName) {
 			InitializeComponent();
-			RegisterEvents();
+
+			childItemList = new List<DirTreeItemView>();
 			this.DirFullName = dirFullName;
 			this.DirName = Path.GetFileName(dirFullName);
 
+			RegisterEvents();
 			SetTreeOpen(false);
 		}
 		private void RegisterEvents() {
@@ -84,19 +87,37 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements {
 		}
 		public void Dispose() {
 			if(isChildLoaded) {
-				if(watcher != null) {
-					watcher.Dispose();
-					watcher = null;
+				UnwatchDirectory();
+
+				foreach(DirTreeItemView childItem in childItemList) {
+					childItem.Dispose();
 				}
+
+				DeleteTree();
 			}
 		}
 
-		private void TreeRightArrow_MouseDown() {
-			SetTreeOpen(!IsTreeOpen);
-		}
 		private void OnClick() {
 			AssetTab.ExploreDir(DirFullName);
 		}
+		private void TreeRightArrow_MouseDown() {
+			SetTreeOpen(!IsTreeOpen);
+		}
+		private void Watcher_Changed(object sender, FileSystemEventArgs e) {
+			Dispatcher.BeginInvoke(new Action(() => {
+				UpdateTree();
+			}));
+		}
+		private void OnTreeOpen() {
+			if(!isChildLoaded) {
+				UpdateTree();
+			}
+		}
+		private void OnTreeClose() {
+			UnwatchDirectory();
+			DeleteTree();
+		}
+
 
 		public void SetTreeOpen(bool isTreeOpen) {
 			this.IsTreeOpen = isTreeOpen;
@@ -114,16 +135,28 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements {
 			//Show/Hide childs
 			ChildItemContext.Visibility = isTreeOpen ? Visibility.Visible : Visibility.Collapsed;
 
-			if(isTreeOpen && !isChildLoaded) {
-				UpdateTree();
+			if (isTreeOpen) {
+				OnTreeOpen();
 			}
+			if(!isTreeOpen) {
+				OnTreeClose();
+			}
+		}
+
+		public DirTreeItemView FindChildDir(string dirName) {
+			foreach(DirTreeItemView childItem in childItemList) {
+				if(childItem.DirName == dirName) {
+					return childItem;
+				}
+			}
+			return null;
 		}
 
 		private void UpdateTree() {
 			if(!isChildLoaded) {
 				isChildLoaded = true;
 
-				RegisterWatcher();
+				WatchDirectory();
 			}
 
 			string[] subDirs = Directory.GetDirectories(DirFullName).Where((string subDir) => {
@@ -131,14 +164,39 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements {
 			}).ToArray();
 
 			ChildItemContext.Children.Clear();
+			childItemList.Clear();
 			foreach (string subDir in subDirs) {
 				DirTreeItemView itemView = new DirTreeItemView(subDir);
 
 				ChildItemContext.Children.Add(itemView);
+				childItemList.Add(itemView);
 			}
 		}
-		private void RegisterWatcher() {
+		private void DeleteTree() {
+			ChildItemContext.Children.Clear();
+			childItemList.Clear();
 
+			isChildLoaded = false;
+		}
+
+		private void WatchDirectory() {
+			UnwatchDirectory();
+
+			watcher = new FileSystemWatcher() {
+				Path = DirFullName,
+				IncludeSubdirectories = false,
+			};
+			watcher.Created += Watcher_Changed;
+			watcher.Deleted += Watcher_Changed;
+			watcher.Renamed += Watcher_Changed;
+			watcher.Changed += Watcher_Changed;
+			watcher.EnableRaisingEvents = true;
+		}
+		private void UnwatchDirectory() {
+			if (watcher != null) {
+				watcher.Dispose();
+				watcher = null;
+			}
 		}
 
 	}

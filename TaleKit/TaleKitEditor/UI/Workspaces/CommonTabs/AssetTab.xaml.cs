@@ -1,4 +1,5 @@
-﻿using GKit.WPF;
+﻿using GKit;
+using GKit.WPF;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,20 +44,42 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 		private FileSystemWatcher watcher;
 
+		private DirTreeItemView rootDirTreeItemView;
+
+		//Selection
+		private List<FileItemView> selectedFileItemList;
+		
+		private bool isInitialized;
+
 		public AssetTab() {
 			InitializeComponent();
-		}
-		private void InitDirTree() {
-			DirTreeContext.Children.Clear();
-			DirTreeContext.Children.Add(new DirTreeItemView(AssetDir));
 		}
 		private void RegisterEvents() {
 			MainWindow.ProjectLoaded += MainWindow_ProjectLoaded;
 			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
+
+			GotoParentButton.RegisterButtonReaction();
+			GotoParentButton.RegisterOnClick(GotoParentButton_Click);
 		}
 
 		private void OnLoaded(object sender, RoutedEventArgs e) {
+			if (isInitialized)
+				return;
+			isInitialized = true;
+
 			RegisterEvents();
+		}
+
+		private void MainWindow_ProjectLoaded(TaleData obj) {
+			selectedFileItemList = new List<FileItemView>();
+			Directory.CreateDirectory(AssetDir);
+
+			InitDirTree();
+			ExploreDir(AssetDir);
+		}
+		private void MainWindow_ProjectUnloaded(TaleData obj) {
+			UnwatchDirectory();
+			ResetDirTree();
 		}
 		private void ExplorerContext_Drop(object sender, DragEventArgs e) {
 			string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
@@ -67,17 +90,11 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 				}
 			}
 		}
-
-		private void MainWindow_ProjectLoaded(TaleData obj) {
-			Directory.CreateDirectory(AssetDir);
-
-			InitDirTree();
-			ExploreDir(AssetDir);
+		private void GotoParentButton_Click() {
+			if(!IOUtility.ComparePath(AssetDir, ExploringDir)) {
+				ExploreDir(Directory.GetParent(ExploringDir).FullName);
+			}
 		}
-		private void MainWindow_ProjectUnloaded(TaleData obj) {
-			UnwatchDirectory();
-		}
-
 		private void Watcher_Changed(object sender, FileSystemEventArgs e) {
 			Dispatcher.BeginInvoke(new Action(() => {
 				UpdateExplorer();
@@ -105,6 +122,17 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 		public void ShowAlertText(string text) {
 			AlertTextBlock.Text = text;
+		}
+
+		private void InitDirTree() {
+			DirTreeContext.Children.Clear();
+
+			rootDirTreeItemView = new DirTreeItemView(AssetDir);
+			DirTreeContext.Children.Add(rootDirTreeItemView);
+		}
+		private void ResetDirTree() {
+			rootDirTreeItemView = null;
+			DirTreeContext.Children.Clear();
 		}
 
 		private void WatchDirectory() {
@@ -137,33 +165,52 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			FileItemContext.Children.Clear();
 
 			try {
-				string[] dirs = Directory.GetDirectories(ExploringDir).Where((string dirName) => {
-					return !ExcludeDirNames.Contains(dirName);
-				}).ToArray();
-				string[] files = Directory.GetFiles(ExploringDir).Where((string fileName) => {
-				if(!fileName.Contains('.')) {
+				CreateFileItemViews();
+				OpenTargetDirTree();
+
+				ShowAlertText("");
+			} catch(Exception ex) {
+				ShowAlertText("파일 목록을 불러오는 중 오류가 발생했습니다.");
+			}
+		}
+
+		private void CreateFileItemViews() {
+			string[] dirs = Directory.GetDirectories(ExploringDir).Where((string dirName) => {
+				return !ExcludeDirNames.Contains(dirName);
+			}).ToArray();
+			string[] files = Directory.GetFiles(ExploringDir).Where((string fileName) => {
+				if (!fileName.Contains('.')) {
 					return true;
 				}
 				return !ExcludeFileExtensions.Contains(Path.GetExtension(fileName));
 			}).ToArray();
 
-				foreach (string dir in dirs) {
-					FileItemView itemView = new FileItemView(dir, FileIconType.Directory);
-					itemView.RegisterDoubleClickEvent(() => {
-						ExploreDir(itemView.FullFilename);
-					});
+			foreach (string dir in dirs) {
+				FileItemView itemView = new FileItemView(dir, FileIconType.Directory);
+				itemView.RegisterDoubleClickEvent(() => {
+					ExploreDir(itemView.FullFilename);
+				});
 
-					FileItemContext.Children.Add(itemView);
-				}
-				foreach (string file in files) {
-					FileItemView itemView = new FileItemView(file, FileIconType.File);
+				FileItemContext.Children.Add(itemView);
+			}
+			foreach (string file in files) {
+				FileItemView itemView = new FileItemView(file, FileIconType.File);
 
-					FileItemContext.Children.Add(itemView);
-				}
+				FileItemContext.Children.Add(itemView);
+			}
+		}
+		private void OpenTargetDirTree() {
+			string relativeExploringDir = GetRelativePath(ExploringDir);
 
-				ShowAlertText("");
-			} catch(Exception ex) {
-				ShowAlertText("파일 목록을 불러오는 중 오류가 발생했습니다.");
+			string[] dirTreeNames = relativeExploringDir.Split('\\').Skip(1).ToArray();
+
+			DirTreeItemView treeItem = rootDirTreeItemView;
+			foreach(string dirName in dirTreeNames) {
+				treeItem.SetTreeOpen(true);
+
+				treeItem = treeItem.FindChildDir(dirName);
+				if (treeItem == null)
+					break;
 			}
 		}
 
