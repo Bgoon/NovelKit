@@ -19,7 +19,7 @@ using TaleKit.Datas.UI;
 using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
-	public partial class LayerTab : UserControl {
+	public partial class UiOutlinerTab : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static UiFile UiFile => MainWindow.EditingProject.UiFile;
@@ -45,7 +45,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			}
 		}
 
-		public LayerTab() {
+		public UiOutlinerTab() {
 			InitializeComponent();
 
 			if (this.IsDesignMode())

@@ -16,7 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using TaleKitEditor.UI.Windows;
-using TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs;
+using TaleKitEditor.UI.Workspaces.CommonTabs;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements {
 	/// <summary>

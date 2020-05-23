@@ -153,6 +153,9 @@
     <Compile Include="Resources\VectorImages\FileIcon\DirectoryIcon.xaml.cs">
       <DependentUpon>DirectoryIcon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\VectorImages\FileIcon\GotoParentIcon.xaml.cs">
+      <DependentUpon>GotoParentIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\VectorImages\FileIcon\FileIcon.xaml.cs">
       <DependentUpon>FileIcon.xaml</DependentUpon>
     </Compile>
@@ -169,7 +172,7 @@
       <DependentUpon>TreeRightArrow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Script\Root.cs" />
-    <Compile Include="Script\Workspaces\Tabs\INeedPostInit.cs" />
+    <Compile Include="Script\Workspaces\Tabs\INeedPostInitTab.cs" />
     <Compile Include="Script\Workspaces\Workspace.cs" />
     <Compile Include="UI\Controls\FixedLayoutAnchorable.cs" />
     <Compile Include="UI\Controls\MainHeaderText.xaml.cs">
@@ -213,6 +216,10 @@
       <DependentUpon>FileItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\CommonTabs\AssetElements\FileIconType.cs" />
+    <Compile Include="UI\Workspaces\CommonTabs\DetailPanelElements\DetailPanelType.cs" />
+    <Compile Include="UI\Workspaces\CommonTabs\DetailTab.xaml.cs">
+      <DependentUpon>DetailTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderTypeItemView.xaml.cs">
       <DependentUpon>OrderTypeItemView.xaml</DependentUpon>
     </Compile>
@@ -248,8 +255,8 @@
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\StoryClipTab.xaml.cs">
       <DependentUpon>StoryClipTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\DetailTab.xaml.cs">
-      <DependentUpon>DetailTab.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\DetailPanels\StoryBlockDetailPanel.xaml.cs">
+      <DependentUpon>StoryBlockDetailPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\PreviewTab.xaml.cs">
       <DependentUpon>PreviewTab.xaml</DependentUpon>
@@ -266,14 +273,14 @@
     <Compile Include="UI\Workspaces\CommonTabs\AssetTab.xaml.cs">
       <DependentUpon>AssetTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiWorkspaceTabs\DetailTab.xaml.cs">
-      <DependentUpon>DetailTab.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\UiWorkspaceTabs\DetailPanels\UiItemDetailPanel.xaml.cs">
+      <DependentUpon>UiItemDetailPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiWorkspaceTabs\LayerElements\UiItemView.xaml.cs">
+    <Compile Include="UI\Workspaces\UiWorkspaceTabs\UiOutlinerElements\UiItemView.xaml.cs">
       <DependentUpon>UiItemView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiWorkspaceTabs\LayerTab.xaml.cs">
-      <DependentUpon>LayerTab.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\UiWorkspaceTabs\UiOutlinerTab.xaml.cs">
+      <DependentUpon>UiOutlinerTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\UiWorkspaceTabs\ViewportElements\UiRenderer.xaml.cs">
       <DependentUpon>UiRenderer.xaml</DependentUpon>
@@ -369,6 +376,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\VectorImages\FileIcon\GotoParentIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\VectorImages\FileIcon\FileIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -449,6 +460,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Workspaces\CommonTabs\DetailTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderTypeItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -505,7 +520,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryWorkspaceTabs\DetailTab.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\DetailPanels\StoryBlockDetailPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -529,15 +544,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UiWorkspaceTabs\DetailTab.xaml">
+    <Page Include="UI\Workspaces\UiWorkspaceTabs\DetailPanels\UiItemDetailPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UiWorkspaceTabs\LayerElements\UiItemView.xaml">
+    <Page Include="UI\Workspaces\UiWorkspaceTabs\UiOutlinerElements\UiItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UiWorkspaceTabs\LayerTab.xaml">
+    <Page Include="UI\Workspaces\UiWorkspaceTabs\UiOutlinerTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

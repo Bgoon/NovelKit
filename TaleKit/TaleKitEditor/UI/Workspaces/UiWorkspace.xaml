@@ -10,7 +10,7 @@
 
 			 xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
 			 xmlns:Tabs="clr-namespace:TaleKitEditor.UI.Workspaces.UiWorkspaceTabs"
-			 xmlns:CommonTabs="clr-namespace:TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs"
+			 xmlns:CommonTabs="clr-namespace:TaleKitEditor.UI.Workspaces.CommonTabs"
 			 xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignWidth="1280" d:DesignHeight="720">
@@ -31,8 +31,8 @@
 								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 							<Ad:LayoutAnchorablePane DockHeight="1*">
-								<Controls:FixedLayoutAnchorable Title="Layer">
-									<Tabs:LayerTab x:Name="LayerTab"/>
+								<Controls:FixedLayoutAnchorable Title="UI Outliner">
+									<Tabs:UiOutlinerTab x:Name="UiOutlinerTab"/>
 								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>
@@ -43,17 +43,14 @@
 								<Controls:FixedLayoutAnchorable Title="Viewport" x:Name="ViewportTabContext">
 									<CommonTabs:ViewportTab x:Name="ViewportTab"/>
 								</Controls:FixedLayoutAnchorable>
-								<Controls:FixedLayoutAnchorable Title="Viewport2" x:Name="ViewportTabContext2">
-									<CommonTabs:ViewportTab x:Name="ViewportTab2"/>
-								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>
 
 						<!--Tab 3-->
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
 							<Ad:LayoutAnchorablePane>
-								<Controls:FixedLayoutAnchorable Title="Detail">
-									<Tabs:DetailTab x:Name="DetailTab"/>
+								<Controls:FixedLayoutAnchorable Title="Detail" x:Name="DetailTabContext">
+									<CommonTabs:DetailTab x:Name="DetailTab"/>
 								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>

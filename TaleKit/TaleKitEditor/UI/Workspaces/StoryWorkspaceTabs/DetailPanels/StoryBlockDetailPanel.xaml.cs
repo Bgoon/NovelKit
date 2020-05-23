@@ -22,13 +22,15 @@ using GKit.WPF.UI.Controls;
 using System.Reflection;
 using TaleKit.Datas.Editor;
 using TaleKitEditor.UI.ValueEditors;
+using TaleKitEditor.UI.Workspaces.CommonTabs;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
-	public partial class DetailTab : UserControl {
+	public partial class StoryBlockDetailPanel : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static StoryWorkspace StoryWorkspace => MainWindow.StoryWorkspace;
 		private static StoryBlockTab StoryBlockTab => StoryWorkspace.StoryBlockTab;
+		private static DetailTab DetailTab => MainWindow.DetailTab;
 
 		private Dictionary<OrderBase, OrderItemEditorView> editorViewDict;
 
@@ -36,16 +38,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			get; private set;
 		}
 
-		private bool isInitiliazed;
-
-		public DetailTab() {
+		public StoryBlockDetailPanel() {
 			InitializeComponent();
-		}
-		private void OnLoaded(object sender, RoutedEventArgs e) {
-			if (this.IsDesignMode() || isInitiliazed)
+			if (this.IsDesignMode())
 				return;
-			isInitiliazed = true;
-
 
 			InitMembers();
 			RegisterEvents();
@@ -64,8 +60,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		//그건 바로 Window.Loaded가 두번 호출되는 버그여따.
 		private void SelectedItemSet_SelectionAdded(ITreeItem item) {
 			SelectionChanged();
+			DetailTab.ActiveDetailPanel(DetailPanelType.StoryBlock);
 		}
 		private void SelectedItemSet_SelectionRemoved(ITreeItem item) {
+			DetailTab.DeactiveDetailPanel();
 			SelectionChanged();
 		}
 

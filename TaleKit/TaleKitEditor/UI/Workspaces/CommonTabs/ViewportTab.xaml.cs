@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.UI;
 
-namespace TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs {
+namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 	public partial class ViewportTab : UserControl {
 		public UiFile EditingUiFile {
 			get; private set;

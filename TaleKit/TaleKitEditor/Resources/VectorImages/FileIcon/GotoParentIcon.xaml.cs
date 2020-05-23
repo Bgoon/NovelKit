@@ -12,14 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
 
-namespace TaleKitEditor.UI.Workspaces {
+namespace TaleKitEditor.Resources.VectorImages {
 	/// <summary>
-	/// StoryEditor.xaml에 대한 상호 작용 논리
+	/// FileIcon.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class StoryWorkspace : UserControl {
-		public StoryWorkspace() {
+	public partial class GotoParentIcon : UserControl {
+		public GotoParentIcon() {
 			InitializeComponent();
 		}
 	}

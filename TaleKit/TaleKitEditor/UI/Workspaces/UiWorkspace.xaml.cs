@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
 
 namespace TaleKitEditor.UI.Workspaces {
 	public partial class UiWorkspace : UserControl {

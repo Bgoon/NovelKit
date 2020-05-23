@@ -11,7 +11,7 @@
 
 			 xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
 			 xmlns:Tabs="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs"
-			 xmlns:CommonTabs="clr-namespace:TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs"
+			 xmlns:CommonTabs="clr-namespace:TaleKitEditor.UI.Workspaces.CommonTabs"
 			 xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:TaleKitEditor.UI.Workspaces"
              mc:Ignorable="d" 
@@ -61,8 +61,7 @@
 						<!--Tab 3-->
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
 							<Ad:LayoutAnchorablePane>
-								<Controls:FixedLayoutAnchorable Title="Detail">
-									<Tabs:DetailTab x:Name="DetailTab"/>
+								<Controls:FixedLayoutAnchorable Title="Detail" x:Name="DetailTabContext">
 								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 						</Ad:LayoutAnchorablePaneGroup>

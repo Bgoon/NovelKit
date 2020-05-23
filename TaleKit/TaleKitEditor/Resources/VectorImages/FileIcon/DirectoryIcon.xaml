@@ -8,7 +8,5 @@
 	<UserControl.Resources>
 		<ResourceDictionary Source="FileIconResource.xaml"/>
 	</UserControl.Resources>
-    <Grid>
-		<Polygon Fill = "{StaticResource IconColor}" Points="16.94,13.09 0,13.09 0,0 6.24,0 8.47,1.67 16.94,1.67 " HorizontalAlignment="Center" VerticalAlignment="Center"/>
-	</Grid>
+	<Polygon Fill = "{StaticResource IconColor}" Points="16.94,13.09 0,13.09 0,0 6.24,0 8.47,1.67 16.94,1.67 " HorizontalAlignment="Center" VerticalAlignment="Center"/>
 </UserControl>

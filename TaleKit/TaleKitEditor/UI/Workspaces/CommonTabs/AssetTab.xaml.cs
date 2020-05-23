@@ -18,7 +18,7 @@ using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements;
 using TaleKitEditor.Workspaces.Tabs;
 
-namespace TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs {
+namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 	/// <summary>
 	/// AssetTab.xaml에 대한 상호 작용 논리
 	/// </summary>

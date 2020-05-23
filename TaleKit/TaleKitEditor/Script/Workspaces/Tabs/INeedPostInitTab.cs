@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TaleKitEditor.Workspaces.Tabs {
-	public interface INeedPostInit {
+	public interface INeedPostInitTab {
 		void PostInit();
 	}
 }

@@ -7,10 +7,13 @@
 			 xmlns:VectorIcons="clr-namespace:TaleKitEditor.Resources.VectorImages"
 
              mc:Ignorable="d" 
-             d:DesignWidth="200" Height="26">
+             d:DesignWidth="200" Height="22">
     <Grid Name="RootPanel">
 		<DockPanel>
-			<Grid DockPanel.Dock="Left" Name="IconContext" Width="20" VerticalAlignment="Center" Margin="6, 0">
+			<Grid DockPanel.Dock="Left" Name="IconContext" Width="20" VerticalAlignment="Center" Margin="6, 0" RenderTransformOrigin="0.5,0.5">
+				<Grid.RenderTransform>
+					<ScaleTransform ScaleX="0.85" ScaleY="0.85"/>
+				</Grid.RenderTransform>
 			</Grid>
 			<TextBlock Style="{StaticResource ContentText}" Text="{Binding Filename, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" VerticalAlignment="Center"/>
 		</DockPanel>

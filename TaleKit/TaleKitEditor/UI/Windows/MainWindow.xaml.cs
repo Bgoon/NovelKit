@@ -23,7 +23,10 @@ using Microsoft.Win32;
 using TaleKitEditor.Workspaces;
 using TaleKitEditor.UI.Dialogs;
 using TaleKitEditor.UI.Utility;
-using TaleKitEditor.UI.Workspaces.CommonWorkspaceTabs;
+using TaleKitEditor.UI.Workspaces.CommonTabs;
+using System.Reflection;
+using AvalonDock.Layout;
+using TaleKitEditor.Workspaces.Tabs;
 
 namespace TaleKitEditor.UI.Windows {
 	public partial class MainWindow : Window {
@@ -35,13 +38,21 @@ namespace TaleKitEditor.UI.Windows {
 		}
 
 		//CommonTabs
+		private UserControl[] commonTabs;
 		public ViewportTab ViewportTab {
 			get; private set;
 		}
 		public AssetTab AssetTab {
 			get; private set;
 		}
+		public DetailTab DetailTab {
+			get; private set;
+		}
 
+		//PostInitTabs
+		private INeedPostInitTab[] needPostInitTabs;
+
+		public event Action<Workspace> WorkspaceActived;
 		public event Action<TaleData> ProjectLoaded;
 		public event Action<TaleData> ProjectUnloaded;
 
@@ -69,6 +80,7 @@ namespace TaleKitEditor.UI.Windows {
 		}
 
 		private void InitWorkspaces() {
+			//워크스페이스 생성
 			workspaces = new Workspace[] {
 				new Workspace(UiWorkspace, UiWorkspaceButton),
 				new Workspace(MotionWorkspace, MotionWorkspaceButton),
@@ -83,9 +95,22 @@ namespace TaleKitEditor.UI.Windows {
 
 			WorkspaceContext.Visibility = Visibility.Collapsed;
 
-			//공통 탭 할당
+			//공통 탭 설정
 			AssetTab = UiWorkspace.AssetTab;
 			ViewportTab = UiWorkspace.ViewportTab;
+			DetailTab = UiWorkspace.DetailTab;
+			commonTabs = new UserControl[] {
+				AssetTab,
+				ViewportTab,
+			};
+
+			//Invoke PostInit
+			needPostInitTabs = new INeedPostInitTab[] {
+				DetailTab,
+			};
+			foreach(INeedPostInitTab tab in needPostInitTabs) {
+				tab.PostInit();
+			}
 		}
 		private void RegisterEvents() {
 			FileManagerBar.CreateFileButtonClick += CreateProject;
@@ -165,13 +190,23 @@ namespace TaleKitEditor.UI.Windows {
 			
 			workspace.context.Visibility = Visibility.Visible;
 			workspace.button.IsActiveWorkspace = true;
+
+			for (int i = 0; i < commonTabs.Length; ++i) {
+				AttachTab(commonTabs[i], workspace);
+			}
+
+			WorkspaceActived?.Invoke(workspace);
 		}
 		private void DeactiveWorkspaces() {
 			Workspace workspace;
-			for (int i = 0; i < workspaces.Length; ++i) {
-				workspace = workspaces[i];
+			for (int workspaceI = 0; workspaceI < workspaces.Length; ++workspaceI) {
+				workspace = workspaces[workspaceI];
 				workspace.context.Visibility = Visibility.Collapsed;
 				workspace.button.IsActiveWorkspace = false;
+
+				for(int tabI=0; tabI< commonTabs.Length; ++tabI) {
+					DetachTab(commonTabs[tabI], workspace);
+				}
 			}
 		}
 
@@ -183,6 +218,29 @@ namespace TaleKitEditor.UI.Windows {
 		}
 		private void StoryWorkspaceButton_Click(object sender, RoutedEventArgs e) {
 			ActiveWorkspace(WorkspaceType.Story);
+		}
+
+		private void AttachTab(UserControl tab, Workspace workspace) {
+			string tabName = tab.GetType().Name;
+			string tabContextName = tabName + "Context";
+
+			FieldInfo tabContextMember = workspace.context.GetType().GetField(tabContextName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+			if (tabContextMember != null) {
+				LayoutAnchorable tabContext = (LayoutAnchorable)tabContextMember.GetValue(workspace.context);
+
+				tabContext.Content = tab;
+			}
+		}
+		private void DetachTab(UserControl tab, Workspace workspace) {
+			string tabName = tab.GetType().Name;
+			string tabContextName = tabName + "Context";
+
+			FieldInfo tabContextMember = workspace.context.GetType().GetField(tabContextName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+			if(tabContextMember != null) {
+				LayoutAnchorable tabContext = (LayoutAnchorable)tabContextMember.GetValue(workspace.context);
+
+				tabContext.Content = null;
+			}
 		}
 	}
 }
