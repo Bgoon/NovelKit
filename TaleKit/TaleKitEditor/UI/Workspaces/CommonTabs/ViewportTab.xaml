@@ -15,7 +15,7 @@
 			<Grid/>
 		</DockPanel>
 		<ScrollViewer Name="CanvasScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-			<Grid Name="CanvasContext" Width="500" Height="500" Margin="1000" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White"></Grid>
+			<Grid Name="CanvasContext" Width="500" Height="500" Margin="1000" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black"></Grid>
 		</ScrollViewer>
     </DockPanel>
 </UserControl>

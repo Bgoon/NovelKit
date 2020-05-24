@@ -27,7 +27,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 		public static readonly DependencyProperty NumberFormatProperty = DependencyProperty.RegisterAttached(nameof(NumberFormat), typeof(string), typeof(ValueEditorElement_NumberBox), new PropertyMetadata());
 
 		public event PropertyChangedEventHandler PropertyChanged;
-		public event Action<object> EditableValueChanged;
+		public event EditableValueChangedDelegate EditableValueChanged;
 
 		public string DisplayValue {
 			get {

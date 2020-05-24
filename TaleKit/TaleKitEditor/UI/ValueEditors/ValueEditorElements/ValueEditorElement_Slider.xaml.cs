@@ -25,7 +25,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 		public static readonly DependencyProperty MaxValueProperty = DependencyProperty.RegisterAttached(nameof(MaxValue), typeof(float), typeof(ValueEditorElement_Slider), new PropertyMetadata(1f));
 
 		public event PropertyChangedEventHandler PropertyChanged;
-		public event Action<object> EditableValueChanged;
+		public event EditableValueChangedDelegate EditableValueChanged;
 
 		private const string DisplayFormat = "0.00";
 		public string DisplayValue {

@@ -32,7 +32,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 		}
 
-		public event Action<object> EditableValueChanged;
+		public event EditableValueChangedDelegate EditableValueChanged;
 
 		public ValueEditorElement_Vector2(ValueEditor_Vector2Attribute attr) {
 			InitializeComponent();

@@ -85,6 +85,7 @@
 											<ScrollViewer x:Name="PART_ContentHost"
 											  VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"
 											  HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
+											  Padding="{TemplateBinding Padding}"
 											  FontFamily="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Fixed"/>
 										</Border>
 										<Border x:Name="Cover" IsHitTestVisible="False"/>

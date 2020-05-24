@@ -71,13 +71,13 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 		//Events
 		private void MainWindow_DataLoaded(TaleData obj) {
-			UiFile.ItemCreated += UiFile_ItemCreated;
+			UiFile.ItemCreatedPreview += UiFile_ItemCreated;
 			UiFile.ItemRemoved += UiFile_ItemRemoved;
 
 			UiFile_ItemCreated(UiFile.RootUiItem, null);
 		}
 		private void MainWindow_DataUnloaded(TaleData obj) {
-			UiFile.ItemCreated -= UiFile_ItemCreated;
+			UiFile.ItemCreatedPreview -= UiFile_ItemCreated;
 			UiFile.ItemRemoved -= UiFile_ItemRemoved;
 
 			UiFile_ItemRemoved(UiFile.RootUiItem, null);

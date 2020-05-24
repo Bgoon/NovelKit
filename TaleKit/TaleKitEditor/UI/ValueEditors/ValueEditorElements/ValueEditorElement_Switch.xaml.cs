@@ -24,7 +24,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 		private static SolidColorBrush DeactiveBackBrush = "737373".ToBrush();
 		private static SolidColorBrush ActiveBackBrush = "408DC7".ToBrush();
 
-		public event Action<object> EditableValueChanged;
+		public event EditableValueChangedDelegate EditableValueChanged;
 
 		public object EditableValue {
 			get {

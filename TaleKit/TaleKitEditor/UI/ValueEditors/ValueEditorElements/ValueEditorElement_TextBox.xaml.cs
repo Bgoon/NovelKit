@@ -20,7 +20,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class ValueEditorElement_TextBox : UserControl, IValueEditorElement {
-		public event Action<object> EditableValueChanged;
+		public event EditableValueChangedDelegate EditableValueChanged;
 
 		public ValueEditorElement_TextBox() {
 			InitializeComponent();

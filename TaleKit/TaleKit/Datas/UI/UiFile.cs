@@ -21,6 +21,7 @@ namespace TaleKit.Datas.UI {
 			get; private set;
 		}
 
+		public event NodeItemDelegate<UiItem, UiItem> ItemCreatedPreview;
 		public event NodeItemDelegate<UiItem, UiItem> ItemCreated;
 		public event NodeItemDelegate<UiItem, UiItem> ItemRemoved;
 
@@ -48,10 +49,11 @@ namespace TaleKit.Datas.UI {
 				parentUiItem = RootUiItem;
 
 			UiItem item = new UiItem(null);
-
-			ItemCreated?.Invoke(item, parentUiItem);
+			ItemCreatedPreview?.Invoke(item, parentUiItem);
 
 			parentUiItem.AddChildItem(item);
+
+			ItemCreated?.Invoke(item, parentUiItem);
 
 			return item;
 		}

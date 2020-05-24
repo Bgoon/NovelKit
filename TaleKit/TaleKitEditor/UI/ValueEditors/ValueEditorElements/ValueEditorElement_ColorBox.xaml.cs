@@ -25,7 +25,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 	public partial class ValueEditorElement_ColorBox : UserControl, IValueEditorElement {
 		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(UColor), typeof(ValueEditorElement_ColorBox), new PropertyMetadata(UColor.black));
 
-		public event Action<object> EditableValueChanged;
+		public event EditableValueChangedDelegate EditableValueChanged;
 
 		public object EditableValue {
 			get {
@@ -46,11 +46,11 @@ namespace TaleKitEditor.UI.ValueEditors {
 		}
 
 		public ValueEditorElement_ColorBox() {
-			this.RegisterLoaded(OnLoaded);
 			InitializeComponent();
+			Init();
+			RegisterEvents();
 		}
 		private void Init() {
-			Value = UColor.black;
 			UpdateUI();
 		}
 		private void RegisterEvents() {
@@ -80,7 +80,6 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 		private void UpdateUI() {
 			ColorIndicator.Fill = Value.ToColor().ToBrush();
-			ColorIndicator.UpdateLayout();
 		}
 	}
 }

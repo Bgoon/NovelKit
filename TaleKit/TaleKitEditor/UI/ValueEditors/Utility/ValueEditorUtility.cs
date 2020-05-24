@@ -9,7 +9,7 @@ using TaleKit.Datas.Editor;
 
 namespace TaleKitEditor.UI.ValueEditors {
 	public static class ValueEditorUtility {
-		public static void CreateValueEditorViews(IEditableModel model, StackPanel editorViewContext) {
+		public static void CreateValueEditorViews(IEditableModel model, StackPanel editorViewContext, ModelValueChangedDelegate modelValueChanged = null) {
 			Type modelType = model.GetType();
 			FieldInfo[] fields = modelType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
@@ -19,7 +19,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 				if (editorAttribute == null)
 					continue;
 
-				ValueEditorView valueEditorView = new ValueEditorView(model, field);
+				ValueEditorView valueEditorView = new ValueEditorView(model, field, modelValueChanged);
 				editorViewContext.Children.Add(valueEditorView);
 			}
 		}

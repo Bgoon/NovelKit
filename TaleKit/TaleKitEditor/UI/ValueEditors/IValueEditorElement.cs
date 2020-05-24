@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TaleKitEditor.UI.ValueEditors {
+	public delegate void EditableValueChangedDelegate(object value);
 	public interface IValueEditorElement {
-		event Action<object> EditableValueChanged;
+		event EditableValueChangedDelegate EditableValueChanged;
 
 		object EditableValue {
 			get; set;

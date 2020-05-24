@@ -100,6 +100,7 @@ namespace TaleKitEditor.UI.Windows {
 			commonTabs = new UserControl[] {
 				AssetTab,
 				ViewportTab,
+				DetailTab,
 			};
 
 			//Invoke PostInit

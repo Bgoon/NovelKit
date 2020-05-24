@@ -18,6 +18,8 @@ using TaleKit.Datas.Editor;
 using TaleKitEditor.UI.ValueEditors;
 
 namespace TaleKitEditor.UI.ValueEditors {
+	public delegate void ModelValueChangedDelegate(object model, FieldInfo field);
+
 	[ContentProperty(nameof(Children))]
 	public partial class ValueEditorView : UserControl {
 		public static readonly DependencyPropertyKey ChildrenProperty = DependencyProperty.RegisterReadOnly(nameof(Children), typeof(UIElementCollection), typeof(ValueEditorView), new PropertyMetadata());
@@ -58,7 +60,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 			Children = ValueEditorElementContext.Children;
 		}
-		public ValueEditorView(object model, FieldInfo field) : this() {
+		public ValueEditorView(object model, FieldInfo field, ModelValueChangedDelegate modelValueChanged = null) : this() {
 			this.model = model;
 			this.field = field;
 
@@ -82,7 +84,12 @@ namespace TaleKitEditor.UI.ValueEditors {
 			valueEditorElement.EditableValueChanged += IEditorElement_ElementValueChanged;
 			valueEditorElement.EditableValue = field.GetValue(model);
 
-			if(string.IsNullOrEmpty(element.valueName)) {
+			//Outter event
+			valueEditorElement.EditableValueChanged += (object value) => {
+				modelValueChanged?.Invoke(model, field);
+			};
+
+			if (string.IsNullOrEmpty(element.valueName)) {
 				SetWideEditorElementContext();
 			}
 

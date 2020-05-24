@@ -35,7 +35,7 @@ namespace TaleKit.Datas.UI {
 
 		[ValueEditorComponent_Header("Render")]
 		[ValueEditor_ColorBox("Color")]
-		public Color color;
+		public Color color = Color.white;
 
 		public readonly GameObject GameObject;
 		public readonly RectTransform RectTransform;

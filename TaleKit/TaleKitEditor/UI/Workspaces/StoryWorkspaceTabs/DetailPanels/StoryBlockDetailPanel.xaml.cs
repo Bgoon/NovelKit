@@ -64,8 +64,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			DetailTab.ActiveDetailPanel(DetailPanelType.StoryBlock);
 		}
 		private void SelectedItemSet_SelectionRemoved(ITreeItem item) {
-			DetailTab.DeactiveDetailPanel();
 			SelectionChanged();
+			DetailTab.DeactiveDetailPanel();
 		}
 
 		private void AddOrderButton_Click(object sender, RoutedEventArgs e) {
@@ -107,7 +107,6 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		public void AttachBlock(StoryBlock blockItem) {
 			DetachBlock();
-
 			this.EditingBlock = blockItem;
 
 			if (blockItem == null)

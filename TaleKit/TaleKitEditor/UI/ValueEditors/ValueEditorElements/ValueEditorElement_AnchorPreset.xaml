@@ -6,7 +6,7 @@
 
 			 xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
 
-             mc:Ignorable="d" HorizontalAlignment="Right">
+             mc:Ignorable="d" HorizontalAlignment="Center">
 	<Grid Width="200" Height="200">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="1*"/>

@@ -28,6 +28,12 @@ Doing {
 			-현재 경로 색 변경
 			-상위폴더 탐색버튼 구현
 		}
+		-Viewport 구현 {
+			-RenderAll 구현 v
+			-UI가 변경되면 렌더링하기 v
+			-SolidColor Render 구현 v
+			-Image Render 구현 v
+		}
 	}
 	-Asset폴더 Lock걸기
 }

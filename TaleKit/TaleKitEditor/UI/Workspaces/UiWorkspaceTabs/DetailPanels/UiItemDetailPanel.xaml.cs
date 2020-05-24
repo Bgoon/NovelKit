@@ -28,6 +28,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		private static UiWorkspace UiWorkspace => MainWindow.UiWorkspace;
 		private static UiOutlinerTab UiOutlinerTab => UiWorkspace.UiOutlinerTab;
 		private static DetailTab DetailTab => MainWindow.DetailTab;
+		private static ViewportTab ViewportTab => MainWindow.ViewportTab;
 
 		public UiItem EditingUiItem {
 			get; private set;
@@ -65,11 +66,12 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 		private void AttachUiItem(UiItem uiItem) {
 			DetachUiItem();
+			EditingUiItem = uiItem;
 
 			if (uiItem == null)
 				return;
 
-			ValueEditorUtility.CreateValueEditorViews(uiItem, EditorViewContext);
+			ValueEditorUtility.CreateValueEditorViews(uiItem, EditorViewContext, ViewportTab.UiItemDetailPanel_UiItemValueChanged);
 		}
 		private void DetachUiItem() {
 			if (EditingUiItem == null)
