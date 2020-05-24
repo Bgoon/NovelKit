@@ -15,13 +15,15 @@ using System.Windows.Shapes;
 using GKit;
 using GKit.WPF;
 using TaleKitEditor.UI.Dialogs;
+using TaleKitEditor.Utility;
+using UColor = UnityEngine.Color;
 
 namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
 	/// ValueEditorElement_Color.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class ValueEditorElement_ColorBox : UserControl, IValueEditorElement {
-		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(Color), typeof(ValueEditorElement_ColorBox), new PropertyMetadata(Color.FromArgb(255, 255, 255, 255)));
+		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(UColor), typeof(ValueEditorElement_ColorBox), new PropertyMetadata(UColor.black));
 
 		public event Action<object> EditableValueChanged;
 
@@ -30,12 +32,12 @@ namespace TaleKitEditor.UI.ValueEditors {
 				return Value;
 			}
 			set {
-				Value = (Color)value;
+				Value = (UColor)value;
 			}
 		}
-		public Color Value {
+		public UColor Value {
 			get {
-				return (Color)GetValue(ValueProperty);
+				return (UColor)GetValue(ValueProperty);
 			}
 			set {
 				SetValue(ValueProperty, value);
@@ -44,9 +46,11 @@ namespace TaleKitEditor.UI.ValueEditors {
 		}
 
 		public ValueEditorElement_ColorBox() {
+			this.RegisterLoaded(OnLoaded);
 			InitializeComponent();
-			RegisterEvents();
-
+		}
+		private void Init() {
+			Value = UColor.black;
 			UpdateUI();
 		}
 		private void RegisterEvents() {
@@ -55,6 +59,10 @@ namespace TaleKitEditor.UI.ValueEditors {
 			EditableValueChanged += OnEditableValueChanged;
 		}
 
+		private void OnLoaded(object sender, RoutedEventArgs e) {
+			Init();
+			RegisterEvents();
+		}
 		private void OnEditableValueChanged(object obj) {
 			UpdateUI();
 		}
@@ -66,12 +74,13 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 			dialog.ValueChanged += Dialog_ValueChanged;
 		}
-		private void Dialog_ValueChanged(Color value) {
+		private void Dialog_ValueChanged(UColor value) {
 			Value = value;
 		}
 
 		private void UpdateUI() {
-			ColorIndicator.Fill = Value.ToBrush();
+			ColorIndicator.Fill = Value.ToColor().ToBrush();
+			ColorIndicator.UpdateLayout();
 		}
 	}
 }

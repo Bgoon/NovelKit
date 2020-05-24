@@ -23,6 +23,7 @@ using System.Reflection;
 using TaleKit.Datas.Editor;
 using TaleKitEditor.UI.ValueEditors;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
+using TaleKitEditor.UI.Workspaces.CommonTabs.DetailPanelElements;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	public partial class StoryBlockDetailPanel : UserControl {

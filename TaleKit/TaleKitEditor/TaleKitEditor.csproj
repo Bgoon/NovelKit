@@ -24,7 +24,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;TaleKitEditor</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -78,6 +78,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -172,6 +175,7 @@
       <DependentUpon>TreeRightArrow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Script\Root.cs" />
+    <Compile Include="Script\Utility\GKitToUnityConverter.cs" />
     <Compile Include="Script\Workspaces\Tabs\INeedPostInitTab.cs" />
     <Compile Include="Script\Workspaces\Workspace.cs" />
     <Compile Include="UI\Controls\FixedLayoutAnchorable.cs" />
@@ -282,7 +286,7 @@
     <Compile Include="UI\Workspaces\UiWorkspaceTabs\UiOutlinerTab.xaml.cs">
       <DependentUpon>UiOutlinerTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiWorkspaceTabs\ViewportElements\UiRenderer.xaml.cs">
+    <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UiRenderer.xaml.cs">
       <DependentUpon>UiRenderer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\CommonTabs\ViewportTab.xaml.cs">
@@ -556,7 +560,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UiWorkspaceTabs\ViewportElements\UiRenderer.xaml">
+    <Page Include="UI\Workspaces\CommonTabs\ViewportElements\UiRenderer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

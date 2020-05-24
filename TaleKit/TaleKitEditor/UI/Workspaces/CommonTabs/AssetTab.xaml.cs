@@ -48,10 +48,9 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 		//Selection
 		private List<FileItemView> selectedFileItemList;
-		
-		private bool isInitialized;
 
 		public AssetTab() {
+			this.RegisterLoaded(OnLoaded);
 			InitializeComponent();
 		}
 		private void RegisterEvents() {
@@ -61,12 +60,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			GotoParentButton.RegisterButtonReaction();
 			GotoParentButton.RegisterOnClick(GotoParentButton_Click);
 		}
-
 		private void OnLoaded(object sender, RoutedEventArgs e) {
-			if (isInitialized)
-				return;
-			isInitialized = true;
-
 			RegisterEvents();
 		}
 

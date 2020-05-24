@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs.ViewportElements {
+namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 	/// <summary>
 	/// UiRenderer.xaml에 대한 상호 작용 논리
 	/// </summary>

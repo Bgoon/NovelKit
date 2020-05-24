@@ -74,9 +74,7 @@ namespace TaleKitEditor.UI.Windows {
 
 			ActiveWorkspace(WorkspaceType.Ui);
 
-#if DEBUG
-			CreateProject(@"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectSB\Develop\TaleKitProject");
-#endif
+			ProcessDebugTask();
 		}
 
 		private void InitWorkspaces() {
@@ -117,6 +115,12 @@ namespace TaleKitEditor.UI.Windows {
 			FileManagerBar.OpenFileButtonClick += OpenFile;
 			FileManagerBar.SaveFileButtonClick += SaveFile;
 			FileManagerBar.ExportButtonClick += ExportData;
+		}
+
+		private async void ProcessDebugTask() {
+#if DEBUG
+			CreateProject(@"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectSB\Develop\TaleKitProject");
+#endif
 		}
 
 		public void CreateProject() {

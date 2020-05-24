@@ -7,8 +7,7 @@
 			 xmlns:GBehaviors="clr-namespace:GKit.WPF.UI.Behaviors;assembly=GKitForWPF"
 
              mc:Ignorable="d" 
-             d:DesignWidth="800" d:DesignHeight="450"
-			 Loaded="OnLoaded">
+             d:DesignWidth="800" d:DesignHeight="450" >
 	<DockPanel Background="#FF252525">
 		<DockPanel DockPanel.Dock="Top" Height="28" Background="{StaticResource TabBackground}">
 			<Grid DockPanel.Dock="Left" Width="150"/>

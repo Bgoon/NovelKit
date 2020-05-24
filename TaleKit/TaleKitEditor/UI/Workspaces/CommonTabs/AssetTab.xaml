@@ -9,8 +9,7 @@
 			 xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-			 Loaded="OnLoaded">
+             d:DesignHeight="450" d:DesignWidth="800" >
 	<DockPanel>
 		<DockPanel DockPanel.Dock="Top" Height="30" Background="{StaticResource TabBackground}">
 			<Grid Name="GotoParentButton" Background="Transparent">

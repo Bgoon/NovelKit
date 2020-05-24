@@ -7,6 +7,8 @@ using System.Windows.Media;
 using TaleKitEditor.Resources.Shader;
 using TaleKitEditor.Resources.VectorImages;
 using TaleKitEditor.UI.Utility;
+using TaleKitEditor.Utility;
+using UColor = UnityEngine.Color;
 
 namespace TaleKitEditor.UI.Dialogs {
 	/// <summary>
@@ -26,12 +28,12 @@ namespace TaleKitEditor.UI.Dialogs {
 		[FindByTag] private ValueEditors.ValueEditorElement_TextBox EditText_Hex;
 
 		private HSV selectedHsv;
-		private Color oldColor;
+		private UColor oldColor;
 
 		private bool hueDragging;
 		private bool svDragging;
 
-		public event Action<Color> ValueChanged;
+		public event Action<UColor> ValueChanged;
 
 		private Vector2 windowTalePosition;
 
@@ -43,15 +45,17 @@ namespace TaleKitEditor.UI.Dialogs {
 			InitializeComponent();
 			this.FindControlsByTag();
 		}
-		public ColorSelectDialog(Vector2 windowTalePosition, Color currentColor) : this() {
+		public ColorSelectDialog(Vector2 windowTalePosition, UColor currentColor) : this() {
+			Color currentWColor = currentColor.ToColor();
+
 			this.windowTalePosition = windowTalePosition;
 			this.oldColor = currentColor;
-			this.selectedHsv = currentColor.ToHSV();
+			this.selectedHsv = currentWColor.ToHSV();
 
 			ColorBox_SV.Effect = colorEditor_SV_Shader = new Shader_ColorEditor_SV();
 			ColorBox_Hue.Effect = new Shader_ColorEditor_H();
 
-			CurrentColorIndicator.Fill = currentColor.ToBrush();
+			CurrentColorIndicator.Fill = currentWColor.ToBrush();
 
 			Opacity = 0d;
 		}
@@ -158,7 +162,7 @@ namespace TaleKitEditor.UI.Dialogs {
 
 			NewColorIndicator.Fill = selectedHsv.ToColor().ToBrush();
 
-			ValueChanged?.Invoke(selectedHsv.ToColor());
+			ValueChanged?.Invoke(selectedHsv.ToColor().ToUColor());
 		}
 
 		private void UpdateTextBoxes() {

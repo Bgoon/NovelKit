@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKitEditor.UI.Workspaces.CommonTabs.DetailPanelElements;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
 using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
 using TaleKitEditor.Workspaces.Tabs;

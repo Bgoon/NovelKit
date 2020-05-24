@@ -37,6 +37,7 @@
 					<SolidColorBrush x:Key="ScrollbarForeground" Color="#FF595959"/>
 
 					<SolidColorBrush x:Key="ListBackground" Color="#3B3B3B"/>
+					<SolidColorBrush x:Key="TextBoxBackground" Color="#DEDEDE"/>
 
 					<!--Texts-->
 					<Style x:Key="MainHeaderText" TargetType="TextBlock">
@@ -65,25 +66,26 @@
 
 					<!--TextBox-->
 					<Style x:Key="DefaultTextBox" TargetType="TextBox">
+						<Setter Property="OverridesDefaultStyle" Value="True"/>
 						<Setter Property="BorderThickness" Value="0"/>
 						<Setter Property="Foreground" Value="#4C4C4C"/>
 						<Setter Property="Padding" Value="3"/>
-						<Setter Property="Background" Value="#DEDEDE"/>
+						<Setter Property="Background" Value="{StaticResource TextBoxBackground}"/>
 						<Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
 						<Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
 						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium"/>
 						<Setter Property="FontSize" Value="12"/>
 						<Setter Property="Template">
 							<Setter.Value>
-								<ControlTemplate TargetType="TextBox">
+								<ControlTemplate TargetType="TextBoxBase">
 									<Grid>
 										<Border x:Name="border" 
                                 BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-											<ScrollViewer x:Name="PART_ContentHost" Margin="0"
-                                          HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}" 
-                                          VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"/>
-
+											<ScrollViewer x:Name="PART_ContentHost"
+											  VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"
+											  HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
+											  FontFamily="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Fixed"/>
 										</Border>
 										<Border x:Name="Cover" IsHitTestVisible="False"/>
 									</Grid>
@@ -94,9 +96,9 @@
 										<Trigger Property="IsMouseOver" Value="True" SourceName="Cover">
 											<Setter Property="Background" Value="#16FFFFFF"/>
 										</Trigger>
-										<Trigger Property="IsFocused" Value="False">
+										<!--<Trigger Property="IsFocused" Value="False">
 											<Setter Property="Background" Value="#A3A3A3"/>
-										</Trigger>
+										</Trigger>-->
 									</ControlTemplate.Triggers>
 								</ControlTemplate>
 							</Setter.Value>

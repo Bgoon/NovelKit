@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GKit;
 using TaleKit.Datas.Editor;
+using Vector2 = UnityEngine.Vector2;
 
 namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>

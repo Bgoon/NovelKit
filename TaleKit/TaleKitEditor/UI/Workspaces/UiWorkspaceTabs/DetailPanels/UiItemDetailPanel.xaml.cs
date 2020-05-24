@@ -18,6 +18,7 @@ using TaleKit.Datas.UI;
 using TaleKitEditor.UI.ValueEditors;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
+using TaleKitEditor.UI.Workspaces.CommonTabs.DetailPanelElements;
 
 namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 	
