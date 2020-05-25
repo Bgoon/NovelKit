@@ -40,9 +40,13 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			this.RegisterLoaded(OnLoaded);
 			InitializeComponent();
 		}
+		private void RegisterEvents() {
+			UiOutlinerTab.ItemMoved += UiOutlinerTab_ItemMoved;
+		}
 
 		private void OnLoaded(object sender, RoutedEventArgs e) {
 			MainWindow.ProjectLoaded += MainWindow_ProjectLoaded;
+			RegisterEvents();
 		}
 		private void MainWindow_ProjectLoaded(TaleKit.Datas.TaleData obj) {
 			UiFile.ItemCreated += UiFile_ItemCreated;
@@ -58,6 +62,9 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		}
 		internal void UiItemDetailPanel_UiItemValueChanged(object model, FieldInfo fieldInfo) {
 			RenderAll(true, false);
+		}
+		private void UiOutlinerTab_ItemMoved(UiItem item, UiItem newParentItem, UiItem oldParentItem) {
+			RenderAll(true, true);
 		}
 
 

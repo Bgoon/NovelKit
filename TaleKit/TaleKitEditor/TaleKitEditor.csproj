@@ -174,6 +174,7 @@
     <Compile Include="Resources\VectorImages\Tree\TreeRightArrow.xaml.cs">
       <DependentUpon>TreeRightArrow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Script\Resources\AppResourceUtility.cs" />
     <Compile Include="Script\Root.cs" />
     <Compile Include="Script\Utility\GKitToUnityConverter.cs" />
     <Compile Include="Script\Workspaces\Tabs\INeedPostInitTab.cs" />

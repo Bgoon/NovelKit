@@ -6,6 +6,9 @@ using GKit;
 using GKit.Unity;
 using GKit.Data;
 using TaleKit.Datas.Editor;
+using UAnchorPreset = GKit.AnchorPreset;
+using UVector2 = UnityEngine.Vector2;
+using UColor = UnityEngine.Color;
 
 namespace TaleKit.Datas.UI {
 	public class UiItem : IEditableModel {
@@ -25,17 +28,17 @@ namespace TaleKit.Datas.UI {
 		//Datas
 		[ValueEditorComponent_Header("Anchor")]
 		[ValueEditor_AnchorPreset]
-		public AnchorPreset anchorPreset;
+		public UAnchorPreset anchorPreset = UAnchorPreset.StretchAll;
 
 		[ValueEditorComponent_Header("Transform")]
 		[ValueEditor_Vector2("Size")]
-		public Vector2 size;
+		public UVector2 size;
 		[ValueEditor_NumberBox("Rotation")]
 		public float rotation;
 
 		[ValueEditorComponent_Header("Render")]
 		[ValueEditor_ColorBox("Color")]
-		public Color color = Color.white;
+		public UColor color = Color.white;
 
 		public readonly GameObject GameObject;
 		public readonly RectTransform RectTransform;

@@ -19,6 +19,8 @@ using TaleKit.Datas.UI;
 using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
+	public delegate void ItemMovedDelegate(UiItem item, UiItem newParentItem, UiItem oldParentItem);
+	
 	public partial class UiOutlinerTab : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
@@ -44,6 +46,8 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 				return selectedItemView == null ? null : selectedItemView.Data;
 			}
 		}
+
+		public event ItemMovedDelegate ItemMoved;
 
 		public UiOutlinerTab() {
 			InitializeComponent();
@@ -87,7 +91,8 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			UiFile.CreateUiItem(SelectedUiItemSingle);
 		}
 		private void UiItemListController_RemoveItemButtonClick() {
-			foreach(UiItemView itemView in UiTreeView.SelectedItemSet) {
+			UiItemView[] selectedItems = UiTreeView.SelectedItemSet.Select(item=>(UiItemView)item).ToArray();
+			foreach (UiItemView itemView in selectedItems) {
 				UiItem data = itemView.Data;
 
 				UiFile.RemoveUiItem(data);
@@ -125,7 +130,9 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		}
 		private void UiFile_ItemRemoved(UiItem item, UiItem parentItem) {
 			//Remove view	
-			dataToViewDict[item].DetachParent();
+			UiItemView itemView = dataToViewDict[item];
+			UiTreeView.NotifyItemRemoved(itemView);
+			itemView.DetachParent();
 			dataToViewDict.Remove(item);
 		}
 
@@ -139,6 +146,8 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 				oldParentItemView.Data.RemoveChildItem(item);
 			}
 			newParentItem.InsertChildItem(index, item);
+
+			ItemMoved?.Invoke(item, newParentItem, oldParentItemView.Data);
 		}
 	}
 }

@@ -39,6 +39,8 @@
 					<SolidColorBrush x:Key="ListBackground" Color="#3B3B3B"/>
 					<SolidColorBrush x:Key="TextBoxBackground" Color="#DEDEDE"/>
 
+					<SolidColorBrush x:Key="SelectedBackground" Color="#CC8A5E"/>
+
 					<!--Texts-->
 					<Style x:Key="MainHeaderText" TargetType="TextBlock">
 						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Bold"/>
