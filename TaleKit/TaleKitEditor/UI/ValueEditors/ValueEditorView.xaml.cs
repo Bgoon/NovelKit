@@ -89,8 +89,10 @@ namespace TaleKitEditor.UI.ValueEditors {
 				modelValueChanged?.Invoke(model, field);
 			};
 
-			if (string.IsNullOrEmpty(element.valueName)) {
-				SetWideEditorElementContext();
+			switch (element.layout) {
+				case ValueEditorLayout.Wide:
+					SetWideEditorElementContext();
+					break;
 			}
 
 			Children.Add(editorElement);
@@ -101,14 +103,17 @@ namespace TaleKitEditor.UI.ValueEditors {
 			field.SetValue(model, value);
 		}
 
-		private UserControl CreateEditorComponentView(ValueEditorComponentAttribute componentAttribute) {
+		private UserControl CreateEditorComponentView(ValueEditorComponentAttribute componentAttr) {
 			UserControl view;
-			if(componentAttribute is ValueEditorComponent_HeaderAttribute) {
+			if (componentAttr is ValueEditorComponent_HeaderAttribute) {
 				var header = new ValueEditorComponent_Header();
-				header.Text = ((ValueEditorComponent_HeaderAttribute)componentAttribute).headerText;
+				header.Text = ((ValueEditorComponent_HeaderAttribute)componentAttr).headerText;
 
 				view = header;
-			} else {
+			} else if (componentAttr is ValueEditorComponent_ItemSeparatorAttribute) {
+				view = new ItemSeparator();
+			}
+			else {
 				throw new NotImplementedException();
 			}
 
@@ -154,6 +159,9 @@ namespace TaleKitEditor.UI.ValueEditors {
 		private void SetWideEditorElementContext() {
 			Grid.SetColumn(ValueEditorElementContext, 0);
 			Grid.SetColumnSpan(ValueEditorElementContext, 2);
+			Grid.SetRow(ValueEditorElementContext, 1);
+
+			ValueSeparator.Visibility = Visibility.Visible;
 		}
 	}
 }

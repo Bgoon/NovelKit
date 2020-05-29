@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignWidth="100" d:DesignHeight="30" >
-    <Grid>
+    <Grid Margin="0, 4">
 		<Rectangle Name="ColorIndicator" Fill="Black" Stroke="#FF959595" StrokeThickness="2"/>
 		<Border Name="ButtonContext" Background="Transparent"/>
 	</Grid>

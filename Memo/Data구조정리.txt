@@ -1,0 +1,30 @@
+
+UiData {
+	RootFolder {
+		UiItem {
+			Components {}
+			Childs {}
+		}
+	}
+}
+
+MotionData {
+	RootFolder {
+		Type
+		Items {
+			Motion {
+				Type
+				Data {}
+			}
+		}
+	}
+}
+
+StoryData {
+	Scenes {
+		Clip {} []
+	}
+	Clips {
+		Clip {} []
+	}
+}

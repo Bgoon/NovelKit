@@ -28,7 +28,7 @@ namespace TaleKit.Datas.Story {
 		public float FloatTextBox;
 		[ValueEditor_TextBox("텍스트", allowMultiline:true)]
 		public string Text;
-		[ValueEditor_AnchorPreset]
+		[ValueEditor_AnchorPreset("앵커")]
 		public AnchorPreset anchorPreset;
 
 		[ValueEditorComponent_Header("실제 모델변수")]

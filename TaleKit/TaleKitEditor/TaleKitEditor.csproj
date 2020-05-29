@@ -191,6 +191,9 @@
     <Compile Include="UI\ValueEditors\ItemEditorView.xaml.cs">
       <DependentUpon>ItemEditorView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ValueEditors\ValueSeparator.xaml.cs">
+      <DependentUpon>ValueSeparator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ValueEditors\ItemSeparator.xaml.cs">
       <DependentUpon>ItemSeparator.xaml</DependentUpon>
     </Compile>
@@ -428,6 +431,10 @@
     <Page Include="UI\ValueEditors\ItemEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ValueEditors\ValueSeparator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\ValueEditors\ItemSeparator.xaml">
       <SubType>Designer</SubType>

@@ -2,9 +2,6 @@ TaleKit의 사용 범위는 '인게임씬을 담당하는 엔진'
 엔진에서 관리하는 UI는 인게임만, 메인메뉴와 세이브/로드 메뉴, 옵션, 크레딧 등은 유니티에서 구현한다.
 
 TODO {
-	-DetailTab 통합하기
-	-Viewport 구현 {
-	}
 	-불러오기 구현
 	-리소스 Wrapper 구현
 		//리소스마다 ID 지정할 수 있게 하기 (ID=파일명)
@@ -36,6 +33,7 @@ Doing {
 		}
 	}
 	-Asset폴더 Lock걸기
+	-DetailTab 통합하기
 }
 Done {
 	-ItemTreeView { v

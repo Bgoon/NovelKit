@@ -26,16 +26,16 @@ namespace TaleKit.Datas.UI {
 		}
 
 		//Datas
-		[ValueEditorComponent_Header("Anchor")]
-		[ValueEditor_AnchorPreset]
+		[ValueEditorComponent_Header("Transform")]
+		[ValueEditor_AnchorPreset("Anchor")]
 		public UAnchorPreset anchorPreset = UAnchorPreset.StretchAll;
 
-		[ValueEditorComponent_Header("Transform")]
 		[ValueEditor_Vector2("Size")]
 		public UVector2 size;
 		[ValueEditor_NumberBox("Rotation")]
 		public float rotation;
 
+		[ValueEditorComponent_ItemSeparator]
 		[ValueEditorComponent_Header("Render")]
 		[ValueEditor_ColorBox("Color")]
 		public UColor color = Color.white;
