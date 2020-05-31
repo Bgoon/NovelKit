@@ -9,19 +9,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaleKit", "TaleKit\TaleKit.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTester", "ConsoleTester\ConsoleTester.csproj", "{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PenMotion", "..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\PenMotion\PenMotion\PenMotion.csproj", "{91981F2B-F18B-4F4B-8822-075A572A7CAC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PenMotionEditor", "..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\PenMotion\PenMotionEditor\PenMotionEditor.csproj", "{E155BA23-08FA-4138-8992-0490AAC34012}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GKit.XInput", "..\SubModules\GKit\GKit\GKit.XInput\GKit.XInput.csproj", "{5C947285-0C2F-4722-8290-D09C25B22FA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GKit.XInput", "SubModules\GKit\GKit\GKit.XInput\GKit.XInput.csproj", "{5C947285-0C2F-4722-8290-D09C25B22FA3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SubModules", "SubModules", "{784B89D9-7CC8-4DC3-948E-58604C8ABC4A}"
-	ProjectSection(SolutionItems) = preProject
-		..\SubModules\GKit\GKit\GKitForUnity\GKitForUnity.csproj = ..\SubModules\GKit\GKit\GKitForUnity\GKitForUnity.csproj
-		..\SubModules\GKit\GKit\GKitForWPF\GKitForWPF.csproj = ..\SubModules\GKit\GKit\GKitForWPF\GKitForWPF.csproj
-	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bgoon.AvalonDockThemes", "..\SubModules\Bgoon.AvalonDockTheme\Bgoon.AvalonDockTheme\Bgoon.AvalonDockThemes\Bgoon.AvalonDockThemes.csproj", "{EE497432-AEAF-4099-82C3-3764376171D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bgoon.AvalonDockThemes", "SubModules\Bgoon.AvalonDockThemes\Bgoon.AvalonDockTheme\Bgoon.AvalonDockThemes\Bgoon.AvalonDockThemes.csproj", "{EE497432-AEAF-4099-82C3-3764376171D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GKitForUnity", "SubModules\GKit\GKit\GKitForUnity\GKitForUnity.csproj", "{958F842D-C748-40F0-B0D4-1A2C54CB070B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GKitForWPF", "SubModules\GKit\GKit\GKitForWPF\GKitForWPF.csproj", "{896246BD-905D-4A62-90D2-54664A158656}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PenMotion", "SubModules\PenMotion\PenMotion\PenMotion\PenMotion.csproj", "{91981F2B-F18B-4F4B-8822-075A572A7CAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PenMotionEditor", "SubModules\PenMotion\PenMotion\PenMotionEditor\PenMotionEditor.csproj", "{E155BA23-08FA-4138-8992-0490AAC34012}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9B2EA114-253F-499B-B30F-B202AE726462}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,14 +43,6 @@ Global
 		{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91981F2B-F18B-4F4B-8822-075A572A7CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91981F2B-F18B-4F4B-8822-075A572A7CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91981F2B-F18B-4F4B-8822-075A572A7CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91981F2B-F18B-4F4B-8822-075A572A7CAC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E155BA23-08FA-4138-8992-0490AAC34012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E155BA23-08FA-4138-8992-0490AAC34012}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E155BA23-08FA-4138-8992-0490AAC34012}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E155BA23-08FA-4138-8992-0490AAC34012}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C947285-0C2F-4722-8290-D09C25B22FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C947285-0C2F-4722-8290-D09C25B22FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C947285-0C2F-4722-8290-D09C25B22FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,13 +51,34 @@ Global
 		{EE497432-AEAF-4099-82C3-3764376171D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE497432-AEAF-4099-82C3-3764376171D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE497432-AEAF-4099-82C3-3764376171D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{958F842D-C748-40F0-B0D4-1A2C54CB070B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{958F842D-C748-40F0-B0D4-1A2C54CB070B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{958F842D-C748-40F0-B0D4-1A2C54CB070B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{958F842D-C748-40F0-B0D4-1A2C54CB070B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{896246BD-905D-4A62-90D2-54664A158656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{896246BD-905D-4A62-90D2-54664A158656}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{896246BD-905D-4A62-90D2-54664A158656}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{896246BD-905D-4A62-90D2-54664A158656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91981F2B-F18B-4F4B-8822-075A572A7CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91981F2B-F18B-4F4B-8822-075A572A7CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91981F2B-F18B-4F4B-8822-075A572A7CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91981F2B-F18B-4F4B-8822-075A572A7CAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E155BA23-08FA-4138-8992-0490AAC34012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E155BA23-08FA-4138-8992-0490AAC34012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E155BA23-08FA-4138-8992-0490AAC34012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E155BA23-08FA-4138-8992-0490AAC34012}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{BEBB0ED7-3986-4A11-BF8F-B5A53E0111E1} = {9B2EA114-253F-499B-B30F-B202AE726462}
 		{5C947285-0C2F-4722-8290-D09C25B22FA3} = {784B89D9-7CC8-4DC3-948E-58604C8ABC4A}
 		{EE497432-AEAF-4099-82C3-3764376171D4} = {784B89D9-7CC8-4DC3-948E-58604C8ABC4A}
+		{958F842D-C748-40F0-B0D4-1A2C54CB070B} = {784B89D9-7CC8-4DC3-948E-58604C8ABC4A}
+		{896246BD-905D-4A62-90D2-54664A158656} = {784B89D9-7CC8-4DC3-948E-58604C8ABC4A}
+		{91981F2B-F18B-4F4B-8822-075A572A7CAC} = {784B89D9-7CC8-4DC3-948E-58604C8ABC4A}
+		{E155BA23-08FA-4138-8992-0490AAC34012} = {784B89D9-7CC8-4DC3-948E-58604C8ABC4A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {798CF98C-82BC-4963-A653-4FC99E3B216C}
