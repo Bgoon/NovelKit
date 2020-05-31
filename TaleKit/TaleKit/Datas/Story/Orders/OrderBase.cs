@@ -67,7 +67,16 @@ namespace TaleKit.Datas.Story {
 				if (editorAttribute == null)
 					continue;
 
-				jAttributes.Add(field.Name, field.GetValue(this).ToString());
+				object value = field.GetValue(this);
+				string stringValue;
+
+				if (value == null) {
+					stringValue = string.Empty;
+				} else {
+					stringValue = value.ToString();
+				}
+
+				jAttributes.Add(field.Name, stringValue);
 			}
 
 			return jOrder;
