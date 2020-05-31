@@ -30,6 +30,8 @@ namespace TaleKit.Datas.Story {
 		public string Text;
 		[ValueEditor_AnchorPreset("앵커")]
 		public AnchorPreset anchorPreset;
+		[ValueEditor_Vector3("벡터3")]
+		public Vector3 vector3;
 
 		[ValueEditorComponent_Header("실제 모델변수")]
 		[ValueEditor_Switch("위치 변경")]

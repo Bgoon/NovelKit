@@ -34,8 +34,14 @@ namespace TaleKitEditor.UI.ValueEditors {
 		public object EditableValue {
 			get => ValueTextBox.Text;
 			set {
-				ValueTextBox.Text = (string)value;
-				EditableValueChanged?.Invoke(value);
+				string text = (string)value;
+
+				if (text == null) {
+					text = string.Empty;
+				}
+
+				ValueTextBox.Text = text;
+				EditableValueChanged?.Invoke(text);
 			}
 		}
 

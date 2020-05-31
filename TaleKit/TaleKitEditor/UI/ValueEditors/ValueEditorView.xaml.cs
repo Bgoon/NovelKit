@@ -142,7 +142,11 @@ namespace TaleKitEditor.UI.ValueEditors {
 				var attr = elementAttr as ValueEditor_Vector2Attribute;
 				view = new ValueEditorElement_Vector2(attr);
 
-			}  else if (elementAttr is ValueEditor_ColorBoxAttribute) {
+			} else if (elementAttr is ValueEditor_Vector3Attribute) {
+				var attr = elementAttr as ValueEditor_Vector3Attribute;
+				view = new ValueEditorElement_Vector3(attr);
+
+			} else if (elementAttr is ValueEditor_ColorBoxAttribute) {
 				var attr = elementAttr as ValueEditor_ColorBoxAttribute;
 				view = new ValueEditorElement_ColorBox();
 

@@ -194,6 +194,9 @@
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Margin.xaml.cs">
       <DependentUpon>ValueEditorElement_Margin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Vector3.xaml.cs">
+      <DependentUpon>ValueEditorElement_Vector3.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ValueEditors\ValueSeparator.xaml.cs">
       <DependentUpon>ValueSeparator.xaml</DependentUpon>
     </Compile>
@@ -436,6 +439,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Margin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Vector3.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
