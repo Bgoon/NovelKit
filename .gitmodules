@@ -1,6 +1,9 @@
-[submodule "SubModules/Bgoon.AvalonDockTheme"]
-	path = SubModules/Bgoon.AvalonDockTheme
+[submodule "TaleKit/SubModules/Bgoon.AvalonDockThemes"]
+	path = TaleKit/SubModules/Bgoon.AvalonDockThemes
 	url = https://github.com/Bgoon/Bgoon.AvalonDockTheme.git
-[submodule "SubModules/GKit"]
-	path = SubModules/GKit
+[submodule "TaleKit/SubModules/GKit"]
+	path = TaleKit/SubModules/GKit
 	url = https://github.com/Bgoon/GKit.git
+[submodule "TaleKit/SubModules/PenMotion"]
+	path = TaleKit/SubModules/PenMotion
+	url = https://github.com/Bgoon/PenMotion.git
