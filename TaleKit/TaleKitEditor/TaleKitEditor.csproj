@@ -80,7 +80,7 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\UnityEngine\UnityEngine.dll</HintPath>
+      <HintPath>..\Dependency\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
