@@ -106,14 +106,6 @@
     <Compile Include="Datas\UI\UiManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKit.XInput\GKit.XInput.csproj">
-      <Project>{5c947285-0c2f-4722-8290-d09c25b22fa3}</Project>
-      <Name>GKit.XInput</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKitForUnity\GKitForUnity.csproj">
-      <Project>{958f842d-c748-40f0-b0d4-1a2c54cb070b}</Project>
-      <Name>GKitForUnity</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\PenMotion\PenMotion\PenMotion.csproj">
       <Project>{91981f2b-f18b-4f4b-8822-075a572a7cac}</Project>
       <Name>PenMotion</Name>
@@ -121,6 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Datas\Struct\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

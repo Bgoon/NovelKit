@@ -191,6 +191,9 @@
     <Compile Include="UI\ValueEditors\ItemEditorView.xaml.cs">
       <DependentUpon>ItemEditorView.xaml</DependentUpon>
     </Compile>
+    <None Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Margin.xaml.cs">
+      <DependentUpon>ValueEditorElement_Margin.xaml</DependentUpon>
+    </None>
     <Compile Include="UI\ValueEditors\ValueSeparator.xaml.cs">
       <DependentUpon>ValueSeparator.xaml</DependentUpon>
     </Compile>
@@ -432,6 +435,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <None Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Margin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
     <Page Include="UI\ValueEditors\ValueSeparator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -619,15 +626,6 @@
     <Resource Include="Resources\Cursors\Cursor_Remove.cur" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKitForUnity\GKitForUnity.csproj">
-      <Project>{958f842d-c748-40f0-b0d4-1a2c54cb070b}</Project>
-      <Name>GKitForUnity</Name>
-      <Aliases>GKitForUnity</Aliases>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190217_GKit\GKit\GKitForWPF\GKitForWPF.csproj">
-      <Project>{896246bd-905d-4a62-90d2-54664a158656}</Project>
-      <Name>GKitForWPF</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\PenMotion\PenMotionEditor\PenMotionEditor.csproj">
       <Project>{e155ba23-08fa-4138-8992-0490aac34012}</Project>
       <Name>PenMotionEditor</Name>
@@ -635,10 +633,6 @@
     <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190321_PenMotion\PenMotion\PenMotion\PenMotion.csproj">
       <Project>{91981f2b-f18b-4f4b-8822-075a572a7cac}</Project>
       <Name>PenMotion</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\..\A_Programing\Csharp\2019\20190627_AvalonDockTheme\Bgoon.AvalonDockTheme\Bgoon.AvalonDockThemes\Bgoon.AvalonDockThemes.csproj">
-      <Project>{ee497432-aeaf-4099-82c3-3764376171d4}</Project>
-      <Name>Bgoon.AvalonDockThemes</Name>
     </ProjectReference>
     <ProjectReference Include="..\TaleKit\TaleKit.csproj">
       <Project>{F934A090-FED0-484B-8093-4BCC65908B71}</Project>

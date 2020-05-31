@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GKit;
 using TaleKit.Datas.Editor;
-using Vector2 = UnityEngine.Vector2;
+using UVector2 = UnityEngine.Vector2;
 
 namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
@@ -24,9 +24,9 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 		public object EditableValue { 
 			get {
-				return new Vector2(ValueTextBox_X.Value, ValueTextBox_Y.Value);
+				return new UVector2(ValueTextBox_X.Value, ValueTextBox_Y.Value);
 			} set {
-				Vector2 newValue = (Vector2)value;
+				UVector2 newValue = (UVector2)value;
 				ValueTextBox_X.Value = newValue.x;
 				ValueTextBox_Y.Value = newValue.y;
 			}
@@ -52,10 +52,10 @@ namespace TaleKitEditor.UI.ValueEditors {
 		}
 
 		private void ValueTextBox_X_EditableValueChanged(object value) {
-			EditableValueChanged?.Invoke(new Vector2(ValueTextBox_X.Value, ValueTextBox_Y.Value));
+			EditableValueChanged?.Invoke(new UVector2(ValueTextBox_X.Value, ValueTextBox_Y.Value));
 		}
 		private void ValueTextBox_Y_EditableValueChanged(object value) {
-			EditableValueChanged?.Invoke(new Vector2(ValueTextBox_X.Value, ValueTextBox_Y.Value));
+			EditableValueChanged?.Invoke(new UVector2(ValueTextBox_X.Value, ValueTextBox_Y.Value));
 		}
 	}
 }

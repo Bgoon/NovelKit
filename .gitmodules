@@ -1,0 +1,6 @@
+[submodule "SubModules/Bgoon.AvalonDockTheme"]
+	path = SubModules/Bgoon.AvalonDockTheme
+	url = https://github.com/Bgoon/Bgoon.AvalonDockTheme.git
+[submodule "SubModules/GKit"]
+	path = SubModules/GKit
+	url = https://github.com/Bgoon/GKit.git
