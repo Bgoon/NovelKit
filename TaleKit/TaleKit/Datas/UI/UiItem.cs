@@ -7,6 +7,7 @@ using GKit.Unity;
 using GKit.Data;
 using TaleKit.Datas.Editor;
 using UAnchorPreset = GKit.AnchorPreset;
+using UAxisAnchor = GKit.AxisAnchor;
 using UVector2 = UnityEngine.Vector2;
 using UColor = UnityEngine.Color;
 
@@ -25,10 +26,61 @@ namespace TaleKit.Datas.UI {
 			get; private set;
 		}
 
+		//HelperDatas
+		public UAxisAnchor AnchorX {
+			get {
+				switch(anchorPreset) {
+					case UAnchorPreset.TopLeft:
+					case UAnchorPreset.MidLeft:
+					case UAnchorPreset.BotLeft:
+					case UAnchorPreset.StretchLeft:
+						return UAxisAnchor.Min;
+					case UAnchorPreset.TopMid:
+					case UAnchorPreset.MidMid:
+					case UAnchorPreset.BotMid:
+					case UAnchorPreset.StretchMid:
+						return UAxisAnchor.Mid;
+					case UAnchorPreset.TopRight:
+					case UAnchorPreset.MidRight:
+					case UAnchorPreset.BotRight:
+					case UAnchorPreset.StretchRight:
+						return UAxisAnchor.Max;
+					default:
+						return UAxisAnchor.Stretch;
+				}
+			}
+		}
+		public UAxisAnchor AnchorY {
+			get {
+				switch (anchorPreset) {
+					case UAnchorPreset.BotLeft:
+					case UAnchorPreset.BotMid:
+					case UAnchorPreset.BotRight:
+					case UAnchorPreset.BotStretch:
+						return UAxisAnchor.Min;
+					case UAnchorPreset.MidLeft:
+					case UAnchorPreset.MidMid:
+					case UAnchorPreset.MidRight:
+					case UAnchorPreset.MidStretch:
+						return UAxisAnchor.Mid;
+					case UAnchorPreset.TopLeft:
+					case UAnchorPreset.TopMid:
+					case UAnchorPreset.TopRight:
+					case UAnchorPreset.TopStretch:
+						return UAxisAnchor.Max;
+					default:
+						return UAxisAnchor.Stretch;
+				}
+			}
+		}
+
 		//Datas
 		[ValueEditorComponent_Header("Transform")]
 		[ValueEditor_AnchorPreset("Anchor")]
 		public UAnchorPreset anchorPreset = UAnchorPreset.StretchAll;
+
+		[ValueEditor_Margin("Margin")]
+		public BRect margin;
 
 		[ValueEditor_Vector2("Size")]
 		public UVector2 size;
@@ -81,5 +133,6 @@ namespace TaleKit.Datas.UI {
 		}
 
 
+		
 	}
 }

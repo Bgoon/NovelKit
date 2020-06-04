@@ -1,4 +1,5 @@
-﻿using System;
+﻿extern alias GKitForUnity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,52 +16,49 @@ using System.Windows.Shapes;
 using GKit;
 using TaleKit.Datas.Editor;
 using UnityEngine;
+using UBRect = GKitForUnity.GKit.BRect;
 
 namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
 	/// ValueEditorElement_Vector2.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class ValueEditorElement_Margin : UserControl, IValueEditorElement {
-
-		//public object EditableValue { 
-		//	get {
-		//		return new T(Value, ValueTextBox_Y.Value);
-		//	} set {
-		//		RectOffset newValue = (RectOffset)value;
-		//		ValueTextBox_X.Value = newValue.x;
-		//		ValueTextBox_Y.Value = newValue.y;
-		//	}
-		//}
-
-		//public event EditableValueChangedDelegate EditableValueChanged;
-
-		public ValueEditorElement_Margin(ValueEditor_Vector2Attribute attr) {
-			InitializeComponent();
-			RegisterEvents();
-
-			ValueTextBox_X.MinValue = attr.minValue;
-			ValueTextBox_X.MaxValue = attr.maxValue;
-			ValueTextBox_X.NumberType = attr.numberType;
-
-			ValueTextBox_Y.MinValue = attr.minValue;
-			ValueTextBox_Y.MaxValue = attr.maxValue;
-			ValueTextBox_Y.NumberType = attr.numberType;
+		public UBRect Value {
+			get {
+				return new UBRect(ValueTextBox_Left.Value, ValueTextBox_Bottom.Value, ValueTextBox_Right.Value, ValueTextBox_Top.Value);
+			} set {
+				ValueTextBox_Left.Value = value.xMin;
+				ValueTextBox_Right.Value = value.xMax;
+				ValueTextBox_Top.Value = value.yMax;
+				ValueTextBox_Bottom.Value = value.yMin;
+			}
 		}
-
-		public object EditableValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		public object EditableValue {
+			get {
+				return Value;
+			} set {
+				Value = (UBRect)value;
+			}
+		}
 
 		public event EditableValueChangedDelegate EditableValueChanged;
 
-		private void RegisterEvents() {
-			ValueTextBox_X.EditableValueChanged += ValueTextBox_X_EditableValueChanged;
-			ValueTextBox_Y.EditableValueChanged += ValueTextBox_Y_EditableValueChanged;
+		public ValueEditorElement_Margin() {
+			InitializeComponent();
+
+			ValueEditorElement_NumberBox[] numberBoxes = new ValueEditorElement_NumberBox[] {
+				ValueTextBox_Left,
+				ValueTextBox_Right,
+				ValueTextBox_Top,
+				ValueTextBox_Bottom,
+			};
+			foreach(var numberBox in numberBoxes) {
+				numberBox.EditableValueChanged += ValueTextBox_EditableValueChanged;
+			}
 		}
 
-		private void ValueTextBox_X_EditableValueChanged(object value) {
-			//EditableValueChanged?.Invoke(new Vector2(ValueTextBox_X.Value, ValueTextBox_Y.Value));
-		}
-		private void ValueTextBox_Y_EditableValueChanged(object value) {
-			//EditableValueChanged?.Invoke(new Vector2(ValueTextBox_X.Value, ValueTextBox_Y.Value));
+		private void ValueTextBox_EditableValueChanged(object value) {
+			EditableValueChanged?.Invoke(Value);
 		}
 	}
 }

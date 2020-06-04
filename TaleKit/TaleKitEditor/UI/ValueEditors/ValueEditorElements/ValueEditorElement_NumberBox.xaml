@@ -6,6 +6,7 @@
              mc:Ignorable="d" 
              d:DesignWidth="100" Height="21">
     <Grid Background="{StaticResource TextBoxBackground}" SnapsToDevicePixels="True">
-		<TextBox Name="ValueTextBox" Style="{StaticResource DefaultTextBox}" PreviewTextInput="ValueTextBox_PreviewTextInput" LostFocus="ValueTextBox_LostFocus" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" TextAlignment="Center" VerticalAlignment="Center"/>
+		<TextBox Name="ValueTextBox" Style="{StaticResource DefaultTextBox}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" TextAlignment="Center" VerticalAlignment="Center"
+        PreviewTextInput="ValueTextBox_PreviewTextInput" LostFocus="ValueTextBox_LostFocus" PreviewKeyDown="ValueTextBox_PreviewKeyDown"/>
 	</Grid>
 </UserControl>

@@ -7,17 +7,30 @@
 			 xmlns:ValueEditors="clr-namespace:TaleKitEditor.UI.ValueEditors"
 			 xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
 
-             mc:Ignorable="d" 
-             d:DesignWidth="200">
-    <Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="1*"/>
-			<ColumnDefinition Width="15px"/>
-			<ColumnDefinition Width="1*"/>
-		</Grid.ColumnDefinitions>
+             mc:Ignorable="d" >
+	<UserControl.Resources>
+		<SolidColorBrush x:Key="ShapeColor" Color="#636363"/>
+		<Style x:Key="ShapeLine" TargetType="Line">
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Stroke" Value="{StaticResource ShapeColor}"/>
+		</Style>
+		<Style x:Key="LengthLine" TargetType="Line" BasedOn="{StaticResource ShapeLine}">
+			<Setter Property="StrokeDashArray" Value="2"/>
+		</Style>
+	</UserControl.Resources>
+	<Grid Width="160" Height="95">
+		<Line X1="0" X2="44" Y1="0" Y2="0" Style="{StaticResource LengthLine}"/>
+		<Line X1="0" X2="0" Y1="0" Y2="44" Style="{StaticResource LengthLine}"/>
+		<Line X1="0" X2="8" Y1="0" Y2="0" Style="{StaticResource ShapeLine}" Margin="0,0,0,44"/>
+		<Line X1="0" X2="8" Y1="0" Y2="0" Style="{StaticResource ShapeLine}" Margin="0,44,0,0"/>
+		<Line X1="0" X2="0" Y1="0" Y2="8" Style="{StaticResource ShapeLine}" Margin="0,0,44,0"/>
+		<Line X1="0" X2="0" Y1="0" Y2="8" Style="{StaticResource ShapeLine}" Margin="44,0,0,0"/>
+		<Border Background="{StaticResource ShapeColor}" Width="22" Height="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-		<ValueEditors:ValueEditorElement_NumberBox x:Name="ValueTextBox_X"/>
-		<ValueEditors:ValueEditorElement_NumberBox Grid.Column="2" x:Name="ValueTextBox_Y"/>
-		<VectorImages:Cross Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<ValueEditors:ValueEditorElement_NumberBox x:Name="ValueTextBox_Left" HorizontalAlignment="Left" Width="52"/>
+		<ValueEditors:ValueEditorElement_NumberBox x:Name="ValueTextBox_Right" HorizontalAlignment="Right" Width="52"/>
+		<ValueEditors:ValueEditorElement_NumberBox x:Name="ValueTextBox_Top" VerticalAlignment="Top" Width="52"/>
+		<ValueEditors:ValueEditorElement_NumberBox x:Name="ValueTextBox_Bottom" VerticalAlignment="Bottom" Width="52"/>
 	</Grid>
 </UserControl>

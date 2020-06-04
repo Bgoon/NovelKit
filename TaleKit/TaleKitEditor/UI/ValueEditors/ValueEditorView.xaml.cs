@@ -153,6 +153,8 @@ namespace TaleKitEditor.UI.ValueEditors {
 			} else if (elementAttr is ValueEditor_AnchorPresetAttribute) {
 				view = new ValueEditorElement_AnchorPreset();
 
+			} else if (elementAttr is ValueEditor_MarginAttribute) {
+				view = new ValueEditorElement_Margin();
 			} else {
 				throw new NotImplementedException();
 			}

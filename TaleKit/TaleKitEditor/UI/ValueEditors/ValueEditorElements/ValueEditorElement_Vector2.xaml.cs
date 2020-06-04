@@ -22,13 +22,20 @@ namespace TaleKitEditor.UI.ValueEditors {
 	/// </summary>
 	public partial class ValueEditorElement_Vector2 : UserControl, IValueEditorElement {
 
-		public object EditableValue { 
+		public UVector2 Value {
 			get {
 				return new UVector2(ValueTextBox_X.Value, ValueTextBox_Y.Value);
+			}
+			set {
+				ValueTextBox_X.Value = value.x;
+				ValueTextBox_Y.Value = value.y;
+			}
+		}
+		public object EditableValue { 
+			get {
+				return Value;
 			} set {
-				UVector2 newValue = (UVector2)value;
-				ValueTextBox_X.Value = newValue.x;
-				ValueTextBox_Y.Value = newValue.y;
+				Value = (UVector2)value;
 			}
 		}
 
@@ -36,26 +43,22 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 		public ValueEditorElement_Vector2(ValueEditor_Vector2Attribute attr) {
 			InitializeComponent();
-			RegisterEvents();
 
-			ValueTextBox_X.MinValue = attr.minValue;
-			ValueTextBox_X.MaxValue = attr.maxValue;
-			ValueTextBox_X.NumberType = attr.numberType;
+			ValueEditorElement_NumberBox[] numberBoxes = new ValueEditorElement_NumberBox[] {
+				ValueTextBox_X,
+				ValueTextBox_Y,
+			};
+			foreach (var numberBox in numberBoxes) {
+				numberBox.MinValue = attr.minValue;
+				numberBox.MaxValue = attr.maxValue;
+				numberBox.NumberType = attr.numberType;
 
-			ValueTextBox_Y.MinValue = attr.minValue;
-			ValueTextBox_Y.MaxValue = attr.maxValue;
-			ValueTextBox_Y.NumberType = attr.numberType;
-		}
-		private void RegisterEvents() {
-			ValueTextBox_X.EditableValueChanged += ValueTextBox_X_EditableValueChanged;
-			ValueTextBox_Y.EditableValueChanged += ValueTextBox_Y_EditableValueChanged;
+				numberBox.EditableValueChanged += ValueTextBox_EditableValueChanged;
+			}
 		}
 
-		private void ValueTextBox_X_EditableValueChanged(object value) {
-			EditableValueChanged?.Invoke(new UVector2(ValueTextBox_X.Value, ValueTextBox_Y.Value));
-		}
-		private void ValueTextBox_Y_EditableValueChanged(object value) {
-			EditableValueChanged?.Invoke(new UVector2(ValueTextBox_X.Value, ValueTextBox_Y.Value));
+		private void ValueTextBox_EditableValueChanged(object value) {
+			EditableValueChanged?.Invoke(Value);
 		}
 	}
 }

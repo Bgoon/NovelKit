@@ -138,27 +138,22 @@ namespace TaleKitEditor.UI.ValueEditors {
 		private void ValueTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) {
 			string numPattern;
 			if (NumberType == NumberType.Int) {
-				numPattern = "[^0-9]+";
+				numPattern = "[^0-9\\-]+";
 			} else {
-				numPattern = "[^0-9.]+";
+				numPattern = "[^0-9.\\-]+";
 			}
 
 			Regex regex = new Regex(numPattern);
 			e.Handled = regex.IsMatch(e.Text);
 		}
 		private void ValueTextBox_LostFocus(object sender, RoutedEventArgs e) {
-			if (NumberType == NumberType.Int) {
-				int resultValue;
-				if (!int.TryParse(ValueTextBox.Text, out resultValue)) {
-					resultValue = 0;
-				}
-				EditableValue = resultValue;
-			} else {
-				float resultValue;
-				if (!float.TryParse(ValueTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out resultValue)) {
-					resultValue = 0f;
-				}
-				EditableValue = resultValue;
+			UpdateValue();
+		}
+		private void ValueTextBox_PreviewKeyDown(object sender, KeyEventArgs e) {
+			if (e.Key == Key.Return) {
+				UpdateValue();
+
+				e.Handled = true;
 			}
 		}
 		private void ValueEditorElement_NumberBox_PropertyChanged(object sender, PropertyChangedEventArgs e) {
@@ -179,6 +174,21 @@ namespace TaleKitEditor.UI.ValueEditors {
 		private void UpdateUI() {
 			ValueTextBox.Text = DisplayValue;
 		}
-
+		private void UpdateValue() {
+			if (NumberType == NumberType.Int) {
+				int resultValue;
+				if (!int.TryParse(ValueTextBox.Text, out resultValue)) {
+					resultValue = 0;
+				}
+				EditableValue = resultValue;
+			} else {
+				float resultValue;
+				if (!float.TryParse(ValueTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out resultValue)) {
+					resultValue = 0f;
+				}
+				EditableValue = resultValue;
+			}
+		}
+		
 	}
 }

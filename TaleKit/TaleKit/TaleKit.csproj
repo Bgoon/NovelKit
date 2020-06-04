@@ -62,6 +62,7 @@
     <Compile Include="Datas\Editor\ValueEditorComponent_HeaderAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_ColorBoxAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_AnchorPresetAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditor_MarginAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_Vector3Attribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_Vector2Attribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_SwitchAttribute.cs" />

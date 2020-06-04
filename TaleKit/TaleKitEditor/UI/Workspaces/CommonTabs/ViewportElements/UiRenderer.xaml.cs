@@ -16,7 +16,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.UI;
 using TaleKitEditor.Utility;
+using UnityEngine.UIElements;
 using UAnchorPreset = GKitForUnity.GKit.AnchorPreset;
+using UAxisAnchor = GKitForUnity.GKit.AxisAnchor;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 	/// <summary>
@@ -62,70 +64,28 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 
 		//Alignment
 		private void UpdateAlignment() {
-			//TODO : Remove test code
-			Margin = new Thickness(10);
-			MinWidth = 100;
-			MinHeight = 100;
+			//AnchorPreset
+			UAxisAnchor axisAnchorX = Data.AnchorX;
+			UAxisAnchor axisAnchorY = Data.AnchorY;
+			
+			HorizontalAlignment = axisAnchorX.ToHorizontalAlignment();
+			VerticalAlignment = axisAnchorY.ToVerticalAlignment();
 
-			VerticalAlignment verticalAlign;
-			switch(Data.anchorPreset) {
-				default:
-				case UAnchorPreset.TopLeft:
-				case UAnchorPreset.TopMid:
-				case UAnchorPreset.TopRight:
-				case UAnchorPreset.TopStretch:
-					verticalAlign = VerticalAlignment.Top;
-					break;
-				case UAnchorPreset.MidLeft:
-				case UAnchorPreset.MidMid:
-				case UAnchorPreset.MidRight:
-				case UAnchorPreset.MidStretch:
-					verticalAlign = VerticalAlignment.Center;
-					break;
-				case UAnchorPreset.BotLeft:
-				case UAnchorPreset.BotMid:
-				case UAnchorPreset.BotRight:
-				case UAnchorPreset.BotStretch:
-					verticalAlign = VerticalAlignment.Bottom;
-					break;
-				case UAnchorPreset.StretchLeft:
-				case UAnchorPreset.StretchMid:
-				case UAnchorPreset.StretchRight:
-				case UAnchorPreset.StretchAll:
-					verticalAlign = VerticalAlignment.Stretch;
-					break;
-			}
-			VerticalAlignment = verticalAlign;
+			//Margin
+			Margin = new Thickness(Data.margin.xMin, Data.margin.yMax, Data.margin.xMax, Data.margin.yMin);
 
-			HorizontalAlignment horizontalAlign;
-			switch(Data.anchorPreset) {
-				default:
-				case UAnchorPreset.TopLeft:
-				case UAnchorPreset.MidLeft:
-				case UAnchorPreset.BotLeft:
-				case UAnchorPreset.StretchLeft:
-					horizontalAlign = HorizontalAlignment.Left;
-					break;
-				case UAnchorPreset.TopMid:
-				case UAnchorPreset.MidMid:
-				case UAnchorPreset.BotMid:
-				case UAnchorPreset.StretchMid:
-					horizontalAlign = HorizontalAlignment.Center;
-					break;
-				case UAnchorPreset.TopRight:
-				case UAnchorPreset.MidRight:
-				case UAnchorPreset.BotRight:
-				case UAnchorPreset.StretchRight:
-					horizontalAlign = HorizontalAlignment.Right;
-					break;
-				case UAnchorPreset.TopStretch:
-				case UAnchorPreset.MidStretch:
-				case UAnchorPreset.BotStretch:
-				case UAnchorPreset.StretchAll:
-					horizontalAlign = HorizontalAlignment.Stretch;
-					break;
+			//Size
+			if(axisAnchorX == UAxisAnchor.Stretch) {
+				Width = double.NaN;
+			} else {
+				Width = Data.size.x;
 			}
-			HorizontalAlignment = horizontalAlign;
+
+			if(axisAnchorY == UAxisAnchor.Stretch) {
+				Height = double.NaN;
+			} else {
+				Height = Data.size.y;
+			}
 		}
 	}
 }

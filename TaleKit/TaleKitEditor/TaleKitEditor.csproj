@@ -176,6 +176,7 @@
     </Compile>
     <Compile Include="Script\Resources\AppResourceUtility.cs" />
     <Compile Include="Script\Root.cs" />
+    <Compile Include="Script\Utility\UAnchorUtility.cs" />
     <Compile Include="Script\Utility\GKitToUnityConverter.cs" />
     <Compile Include="Script\Workspaces\Tabs\INeedPostInitTab.cs" />
     <Compile Include="Script\Workspaces\Workspace.cs" />

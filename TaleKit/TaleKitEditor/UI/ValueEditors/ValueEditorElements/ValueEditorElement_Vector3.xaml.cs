@@ -22,14 +22,21 @@ namespace TaleKitEditor.UI.ValueEditors {
 	/// </summary>
 	public partial class ValueEditorElement_Vector3 : UserControl, IValueEditorElement {
 
-		public object EditableValue { 
+		public UVector3 Value {
 			get {
 				return new UVector3(ValueTextBox_X.Value, ValueTextBox_Y.Value, ValueTextBox_Z.Value);
+			}
+			set {
+				ValueTextBox_X.Value = value.x;
+				ValueTextBox_Y.Value = value.y;
+				ValueTextBox_Z.Value = value.z;
+			}
+		}
+		public object EditableValue { 
+			get {
+				return Value;
 			} set {
-				UVector3 newValue = (UVector3)value;
-				ValueTextBox_X.Value = newValue.x;
-				ValueTextBox_Y.Value = newValue.y;
-				ValueTextBox_Z.Value = newValue.z;
+				Value = (UVector3)value;
 			}
 		}
 
@@ -37,34 +44,23 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 		public ValueEditorElement_Vector3(ValueEditor_Vector3Attribute attr) {
 			InitializeComponent();
-			RegisterEvents();
 
-			ValueTextBox_X.MinValue = attr.minValue;
-			ValueTextBox_X.MaxValue = attr.maxValue;
-			ValueTextBox_X.NumberType = attr.numberType;
+			ValueEditorElement_NumberBox[] numberBoxes = new ValueEditorElement_NumberBox[] {
+				ValueTextBox_X,
+				ValueTextBox_Y,
+				ValueTextBox_Z,
+			};
+			foreach (var numberBox in numberBoxes) {
+				numberBox.MinValue = attr.minValue;
+				numberBox.MaxValue = attr.maxValue;
+				numberBox.NumberType = attr.numberType;
 
-			ValueTextBox_Y.MinValue = attr.minValue;
-			ValueTextBox_Y.MaxValue = attr.maxValue;
-			ValueTextBox_Y.NumberType = attr.numberType;
-
-			ValueTextBox_Z.MinValue = attr.minValue;
-			ValueTextBox_Z.MaxValue = attr.maxValue;
-			ValueTextBox_Z.NumberType = attr.numberType;
-		}
-		private void RegisterEvents() {
-			ValueTextBox_X.EditableValueChanged += ValueTextBox_X_EditableValueChanged;
-			ValueTextBox_Y.EditableValueChanged += ValueTextBox_Y_EditableValueChanged;
-			ValueTextBox_Z.EditableValueChanged += ValueTextBox_Z_EditableValueChanged;
+				numberBox.EditableValueChanged += ValueTextBox_EditableValueChanged;
+			}
 		}
 
-		private void ValueTextBox_X_EditableValueChanged(object value) {
-			EditableValueChanged?.Invoke(new UVector3(ValueTextBox_X.Value, ValueTextBox_Y.Value, ValueTextBox_Z.Value));
-		}
-		private void ValueTextBox_Y_EditableValueChanged(object value) {
-			EditableValueChanged?.Invoke(new UVector3(ValueTextBox_X.Value, ValueTextBox_Y.Value, ValueTextBox_Z.Value));
-		}
-		private void ValueTextBox_Z_EditableValueChanged(object value) {
-			EditableValueChanged?.Invoke(new UVector3(ValueTextBox_X.Value, ValueTextBox_Y.Value, ValueTextBox_Z.Value));
+		private void ValueTextBox_EditableValueChanged(object value) {
+			EditableValueChanged?.Invoke(Value);
 		}
 	}
 }

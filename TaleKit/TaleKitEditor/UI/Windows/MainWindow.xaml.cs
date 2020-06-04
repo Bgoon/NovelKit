@@ -120,7 +120,7 @@ namespace TaleKitEditor.UI.Windows {
 
 		private async void ProcessDebugTask() {
 #if DEBUG
-			// CreateProject(@"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectSB\Develop\TaleKitProject");
+			CreateProject(@"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectSB\Develop\TaleKitProject");
 #endif
 		}
 
