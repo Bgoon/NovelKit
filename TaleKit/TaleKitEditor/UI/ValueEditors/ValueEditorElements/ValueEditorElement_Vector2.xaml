@@ -18,6 +18,6 @@
 
 		<ValueEditors:ValueEditorElement_NumberBox x:Name="ValueTextBox_X"/>
 		<ValueEditors:ValueEditorElement_NumberBox Grid.Column="2" x:Name="ValueTextBox_Y"/>
-		<VectorImages:Cross Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<VectorImages:Cross Grid.Column="1" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
 	</Grid>
 </UserControl>

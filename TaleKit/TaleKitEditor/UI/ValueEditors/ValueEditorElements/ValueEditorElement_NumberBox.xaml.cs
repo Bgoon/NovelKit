@@ -1,4 +1,5 @@
 ﻿using GKit;
+using GKit.WPF;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,8 +22,8 @@ using TaleKit.Datas.Editor;
 namespace TaleKitEditor.UI.ValueEditors {
 	public partial class ValueEditorElement_NumberBox : UserControl, IValueEditorElement, INotifyPropertyChanged {
 		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(float), typeof(ValueEditorElement_NumberBox), new PropertyMetadata(0f));
-		public static readonly DependencyProperty MinValueProperty = DependencyProperty.RegisterAttached(nameof(MinValue), typeof(float), typeof(ValueEditorElement_NumberBox), new PropertyMetadata(0f));
-		public static readonly DependencyProperty MaxValueProperty = DependencyProperty.RegisterAttached(nameof(MaxValue), typeof(float), typeof(ValueEditorElement_NumberBox), new PropertyMetadata(1f));
+		public static readonly DependencyProperty MinValueProperty = DependencyProperty.RegisterAttached(nameof(MinValue), typeof(float), typeof(ValueEditorElement_NumberBox), new PropertyMetadata(float.MinValue));
+		public static readonly DependencyProperty MaxValueProperty = DependencyProperty.RegisterAttached(nameof(MaxValue), typeof(float), typeof(ValueEditorElement_NumberBox), new PropertyMetadata(float.MaxValue));
 		public static readonly DependencyProperty NumberTypeProperty = DependencyProperty.RegisterAttached(nameof(NumberType), typeof(NumberType), typeof(ValueEditorElement_NumberBox), new PropertyMetadata(NumberType.Float));
 		public static readonly DependencyProperty NumberFormatProperty = DependencyProperty.RegisterAttached(nameof(NumberFormat), typeof(string), typeof(ValueEditorElement_NumberBox), new PropertyMetadata());
 
@@ -54,7 +55,9 @@ namespace TaleKitEditor.UI.ValueEditors {
 				return (float)GetValue(ValueProperty);
 			}
 			set {
-				SetValue(ValueProperty, value);
+				float newValue = Mathf.Clamp(value, MinValue, MaxValue);
+
+				SetValue(ValueProperty, newValue);
 				RaisePropertyChanged(nameof(Value));
 			}
 		}
@@ -112,12 +115,21 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 		}
 
+		//Cursor drag
+		private bool onDragging;
+		private float dragStartValue;
+		private float dragStartCursorPosX;
 
+		[Obsolete]
 		public ValueEditorElement_NumberBox() {
+			//For designer
 			InitializeComponent();
 			RegisterEvents();
 		}
 		public ValueEditorElement_NumberBox(ValueEditor_NumberBoxAttribute attribute) {
+			InitializeComponent();
+			RegisterEvents();
+
 			this.NumberType = attribute.numberType;
 			this.MinValue = attribute.minValue;
 			this.MaxValue = attribute.maxValue;
@@ -126,10 +138,6 @@ namespace TaleKitEditor.UI.ValueEditors {
 		}
 		private void RegisterEvents() {
 			PropertyChanged += ValueEditorElement_NumberBox_PropertyChanged;
-		}
-
-		private void OnEditableValueChanged(object value) {
-			
 		}
 
 		private void RaisePropertyChanged(string propertyName) {
@@ -189,6 +197,28 @@ namespace TaleKitEditor.UI.ValueEditors {
 				EditableValue = resultValue;
 			}
 		}
-		
+
+		private void AdjustButton_MouseDown(object sender, MouseButtonEventArgs e) {
+			Mouse.Capture(AdjustButton);
+
+			onDragging = true;
+			dragStartValue = Value;
+			dragStartCursorPosX = (float)e.GetPosition(AdjustButton).X;
+		}
+		private void AdjustButton_MouseMove(object sender, MouseEventArgs e) {
+			const float AdjustFactor = 0.3f;
+
+			if (!onDragging)
+				return;
+
+			float cursorPosXDiff = (float)e.GetPosition(AdjustButton).X - dragStartCursorPosX;
+
+			EditableValue = dragStartValue + cursorPosXDiff * AdjustFactor;
+		}
+		private void AdjustButton_MouseUp(object sender, MouseButtonEventArgs e) {
+			Mouse.Capture(null);
+
+			onDragging = false;
+		}
 	}
 }

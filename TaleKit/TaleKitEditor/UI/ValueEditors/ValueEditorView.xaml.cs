@@ -122,7 +122,8 @@ namespace TaleKitEditor.UI.ValueEditors {
 		private UserControl CreateEditorElementView(ValueEditorAttribute elementAttr) {
 			UserControl view;
 			if (elementAttr is ValueEditor_NumberBoxAttribute) {
-				view = new ValueEditorElement_NumberBox();
+				var attr = elementAttr as ValueEditor_NumberBoxAttribute;
+				view = new ValueEditorElement_NumberBox(attr);
 
 			} else if (elementAttr is ValueEditor_SliderAttribute) {
 				view = new ValueEditorElement_Slider();

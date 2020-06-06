@@ -150,6 +150,9 @@
     <Compile Include="Resources\VectorImages\ColorSelectDialog\ColorDiffArrow.xaml.cs">
       <DependentUpon>ColorDiffArrow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\VectorImages\NumberAdjustIcon.xaml.cs">
+      <DependentUpon>NumberAdjustIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\VectorImages\Cross.xaml.cs">
       <DependentUpon>Cross.xaml</DependentUpon>
     </Compile>
@@ -382,6 +385,10 @@
     <Page Include="Resources\VectorImages\ColorSelectDialog\ColorDiffArrow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\VectorImages\NumberAdjustIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\VectorImages\Cross.xaml">
       <SubType>Designer</SubType>
