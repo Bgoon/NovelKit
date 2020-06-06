@@ -55,7 +55,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 				return (float)GetValue(ValueProperty);
 			}
 			set {
-				float newValue = Mathf.Clamp(value, MinValue, MaxValue);
+				float newValue = value;
 
 				SetValue(ValueProperty, newValue);
 				RaisePropertyChanged(nameof(Value));
@@ -107,9 +107,11 @@ namespace TaleKitEditor.UI.ValueEditors {
 				}
 			}
 			set {
-				if(value is int) {
+				if (value is int) {
 					value = (float)(int)value;
 				}
+				value = Mathf.Clamp((float)value, MinValue, MaxValue);
+
 				Value = (float)value;
 				EditableValueChanged?.Invoke(value);
 			}

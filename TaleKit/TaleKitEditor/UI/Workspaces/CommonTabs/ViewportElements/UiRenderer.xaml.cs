@@ -30,13 +30,20 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			get; private set;
 		}
 
+		private RotateTransform rotateTransform;
+
 		[Obsolete]
 		public UiRenderer() {
 			InitializeComponent();
 		}
 		public UiRenderer(UiItem data) {
 			InitializeComponent();
+
 			this.Data = data;
+
+			rotateTransform = new RotateTransform();
+			this.RenderTransform = rotateTransform;
+			this.RenderTransformOrigin = new Point(0.5f, 0.5f);
 		}
 
 		public void Render(bool renderChilds, bool rebuild) {
@@ -86,6 +93,9 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			} else {
 				Height = Data.size.y;
 			}
+
+			//Rotate
+			rotateTransform.Angle = Data.rotation;
 		}
 	}
 }

@@ -84,7 +84,7 @@ namespace TaleKit.Datas.UI {
 
 		[ValueEditor_Vector2("Size")]
 		public UVector2 size;
-		[ValueEditor_NumberBox("Rotation", NumberType.Int, -10, 20)]
+		[ValueEditor_NumberBox("Rotation")]
 		public float rotation;
 
 		[ValueEditorComponent_ItemSeparator]
