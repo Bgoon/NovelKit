@@ -130,7 +130,6 @@ namespace TaleKit.Datas.Story {
 			}
 
 			//Add rootClip
-			JObject jRootClip = new JObject();
 			jFile.Add("RootClip", RootClip.ToJObject());
 
 			return jFile;

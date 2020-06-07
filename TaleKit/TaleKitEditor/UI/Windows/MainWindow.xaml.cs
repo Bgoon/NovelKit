@@ -1,6 +1,8 @@
-﻿using System;
+﻿using AvalonDock.Layout;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,20 +14,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TaleKitEditor.UI.Workspaces;
 using GKit;
 using GKit.WPF;
+using PenMotionEditor.UI.Tabs;
 using TaleKit.Datas;
 using TaleKitEditor.UI.Controls;
-using PenMotionEditor.UI.Tabs;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.Win32;
 using TaleKitEditor.Workspaces;
 using TaleKitEditor.UI.Dialogs;
 using TaleKitEditor.UI.Utility;
+using TaleKitEditor.UI.Workspaces;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
-using System.Reflection;
-using AvalonDock.Layout;
 using TaleKitEditor.Workspaces.Tabs;
 
 namespace TaleKitEditor.UI.Windows {
@@ -33,7 +33,7 @@ namespace TaleKitEditor.UI.Windows {
 		private Workspace[] workspaces;
 
 		//Datas
-		public TaleData EditingProject {
+		public EditTaleData EditingTaleData {
 			get; private set;
 		}
 
@@ -138,24 +138,24 @@ namespace TaleKitEditor.UI.Windows {
 		}
 		public void CreateProject(string projectDir) {
 			try {
-				EditingProject = new TaleData();
-				EditingProject.projectDir = projectDir;
-				EditingProject.MotionFile.SetMotionFileData(MotionWorkspace.EditorContext.EditingFile);
+				EditingTaleData = new EditTaleData(projectDir);
+
+				EditingTaleData.MotionFile.SetMotionFileData(MotionWorkspace.EditorContext.EditingFile);
 			} catch (Exception ex) {
 				MessageBox.Show("파일을 여는 데 실패했습니다.");
 				return;
 			}
 
-			ProjectLoaded?.Invoke(EditingProject);
+			ProjectLoaded?.Invoke(EditingTaleData);
 
-			EditingProject.PostInit();
+			EditingTaleData.PostInit();
 
 			WorkspaceContext.Visibility = Visibility.Visible;
 		}
 		public void CloseFile() {
-			ProjectUnloaded?.Invoke(EditingProject);
+			ProjectUnloaded?.Invoke(EditingTaleData);
 
-			EditingProject = null;
+			EditingTaleData = null;
 		}
 		public void OpenFile() {
 			if (!ShowCheckSaveDialog())
@@ -182,7 +182,7 @@ namespace TaleKitEditor.UI.Windows {
 			if (!dialog.ShowDialog(this).HasTrueValue())
 				return;
 
-			EditingProject.Export(dialog.FileName);
+			EditingTaleData.Export(dialog.FileName);
 		}
 		public bool ShowCheckSaveDialog() {
 			return true;

@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using GKit;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaleKit.Datas.Asset;
 using TaleKit.Datas.Motion;
 using TaleKit.Datas.Story;
 using TaleKit.Datas.UI;
@@ -12,7 +14,11 @@ using TaleKit.Datas.UI;
 namespace TaleKit.Datas {
 	public class TaleData {
 		public const string Version = "2019.9";
-		public const string FileExt = ".taledata";	
+		public const string FileExt = ".taledata";
+
+		public AssetManager AssetManager {
+			get; private set;
+		}
 
 		public MotionFile MotionFile {
 			get; private set;
@@ -27,18 +33,13 @@ namespace TaleKit.Datas {
 		public string projectName;
 		public DateTime exportedTime;
 
-		//EditorData
-		public string projectDir;
-		public string AssetDir => Path.Combine(projectDir, "Assets");
-		public bool savedMark;
 
 
-		public TaleData() {
+		protected TaleData() {
 			MotionFile = new MotionFile();
 			UiFile = new UiFile();
 			StoryFile = new StoryFile();
 		}
-
 		public void PostInit() {
 		}
 
@@ -66,11 +67,6 @@ namespace TaleKit.Datas {
 			jFile.Add("StoryFile", StoryFile.ToJObject());
 
 			File.WriteAllText(fileName, jFile.ToString(), Encoding.UTF8);
-		}
-
-		//EditorFunction
-		public string GetResourcePath(string filename) {
-			return Path.Combine(AssetDir, filename);
 		}
 	}
 }

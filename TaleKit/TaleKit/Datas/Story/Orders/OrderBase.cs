@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TaleKit.Datas.UI;
-using GKit;
+﻿using GKit;
+using GKit.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Reflection;
 using TaleKit.Datas.Editor;
+using TaleKit.Datas.UI;
 
 namespace TaleKit.Datas.Story {
 	/// <summary>
@@ -58,26 +55,7 @@ namespace TaleKit.Datas.Story {
 			JObject jAttributes = new JObject();
 			jOrder.Add("Attributes", jAttributes);
 
-			Type modelType = GetType();
-			FieldInfo[] fields = modelType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-
-			foreach (FieldInfo field in fields) {
-				ValueEditorAttribute editorAttribute = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
-				
-				if (editorAttribute == null)
-					continue;
-
-				object value = field.GetValue(this);
-				string stringValue;
-
-				if (value == null) {
-					stringValue = string.Empty;
-				} else {
-					stringValue = value.ToString();
-				}
-
-				jAttributes.Add(field.Name, stringValue);
-			}
+			jAttributes.AddAttrFields<ValueEditorAttribute>(this);
 
 			return jOrder;
 		}

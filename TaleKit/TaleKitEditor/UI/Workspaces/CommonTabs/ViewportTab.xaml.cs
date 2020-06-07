@@ -28,7 +28,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static UiWorkspace UiWorkspace => MainWindow.UiWorkspace;
 		private static UiOutlinerTab UiOutlinerTab => UiWorkspace.UiOutlinerTab;
-		private static UiFile UiFile => MainWindow.EditingProject.UiFile;
+		private static UiFile UiFile => MainWindow.EditingTaleData.UiFile;
 
 		public UiFile EditingUiFile {
 			get; private set;

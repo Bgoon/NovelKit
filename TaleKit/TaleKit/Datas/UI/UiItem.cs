@@ -10,6 +10,9 @@ using UAnchorPreset = GKit.AnchorPreset;
 using UAxisAnchor = GKit.AxisAnchor;
 using UVector2 = UnityEngine.Vector2;
 using UColor = UnityEngine.Color;
+using Newtonsoft.Json.Linq;
+using JetBrains.Annotations;
+using GKit.Json;
 
 namespace TaleKit.Datas.UI {
 	public class UiItem : IEditableModel {
@@ -132,7 +135,22 @@ namespace TaleKit.Datas.UI {
 			ChildRemoved?.Invoke(item, this);
 		}
 
+		public JObject ToJObject() {
+			JObject jUiItem = new JObject();
 
+			JObject jAttributes = new JObject();
+			jUiItem.Add("Attributes", jAttributes);
+			jAttributes.AddAttrFields<ValueEditorAttribute>(this);
+
+			JArray jChilds = new JArray();
+			jUiItem.Add("Childs", jChilds);
+
+			foreach(UiItem childItem in ChildItemList) {
+				jChilds.Add(childItem.ToJObject());
+			}
+
+			return jUiItem;
+		}
 		
 	}
 }

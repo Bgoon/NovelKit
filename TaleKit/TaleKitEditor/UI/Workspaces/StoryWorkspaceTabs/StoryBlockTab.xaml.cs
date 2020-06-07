@@ -28,7 +28,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	public partial class StoryBlockTab : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
-		private static StoryFile StoryFile => MainWindow.EditingProject.StoryFile;
+		private static StoryFile StoryFile => MainWindow.EditingTaleData.StoryFile;
 
 		private Dictionary<StoryBlockBase, StoryBlockItemView> dataToViewDict;
 		public StoryBlockItemView SelectedBlockViewSingle {

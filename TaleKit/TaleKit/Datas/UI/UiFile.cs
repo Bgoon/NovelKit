@@ -71,6 +71,8 @@ namespace TaleKit.Datas.UI {
 
 		public JObject ToJObject() {
 			JObject jFile = new JObject();
+			//Add rootClip
+			jFile.Add("RootUI", RootUiItem.ToJObject());
 
 			return jFile;
 		}

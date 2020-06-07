@@ -26,7 +26,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 	public partial class AssetTab : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
-		private static TaleData TaleFile => MainWindow.EditingProject;
+		private static EditTaleData EditingTaleFile => MainWindow.EditingTaleData;
 
 		public static string[] ExcludeDirNames = new string[] {
 			".vs",
@@ -37,7 +37,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			".meta",
 		};
 
-		public string AssetDir => TaleFile.AssetDir;
+		public string AssetDir => EditingTaleFile.AssetDir;
 		public string ExploringDir {
 			get; private set;
 		}
@@ -66,7 +66,6 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 		private void MainWindow_ProjectLoaded(TaleData obj) {
 			selectedFileItemList = new List<FileItemView>();
-			Directory.CreateDirectory(AssetDir);
 
 			InitDirTree();
 			ExploreDir(AssetDir);

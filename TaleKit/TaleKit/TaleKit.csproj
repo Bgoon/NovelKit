@@ -53,6 +53,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datas\Asset\AssetManager.cs" />
+    <Compile Include="Datas\Asset\Attributes\AssetMetaAttribute.cs" />
     <Compile Include="Datas\Editor\IEditableModel.cs" />
     <Compile Include="Datas\Editor\ValueEditorComponent_ItemSeparatorAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorLayout.cs" />
@@ -71,7 +73,7 @@
     <Compile Include="Datas\Editor\ValueEditor_SliderAttribute.cs" />
     <Compile Include="Datas\IDataFile.cs" />
     <Compile Include="Datas\Motion\MotionFile.cs" />
-    <Compile Include="Datas\Asset\AssetFile.cs" />
+    <Compile Include="Datas\Asset\AssetItem.cs" />
     <Compile Include="Datas\Story\Orders\ClipOrder.cs" />
     <Compile Include="Datas\Story\Orders\OrderFactory.cs" />
     <Compile Include="Datas\Story\Orders\OrderType.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Datas\Story\StoryBlockBase.cs" />
     <Compile Include="Datas\Story\StoryFile.cs" />
     <Compile Include="Datas\TaleData.cs" />
+    <Compile Include="Datas\EditTaleData.cs" />
     <Compile Include="Debug\TestResources.cs" />
     <Compile Include="Event\EventBase.cs" />
     <Compile Include="Input\PlayerInput.cs" />
@@ -109,6 +112,10 @@
     <Compile Include="Datas\UI\UiManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SubModules\GKit\GKit\GKit.Json\GKit.Json.csproj">
+      <Project>{0c330c44-8224-463a-a572-a962bd01adbf}</Project>
+      <Name>GKit.Json</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SubModules\GKit\GKit\GKit.XInput\GKit.XInput.csproj">
       <Project>{5c947285-0c2f-4722-8290-d09c25b22fa3}</Project>
       <Name>GKit.XInput</Name>
