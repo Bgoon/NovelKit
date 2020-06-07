@@ -50,7 +50,7 @@ namespace TaleKit.Datas.Asset {
 				}
 			}
 
-			//TODO : 누락된 메타파일 정리작업 및 출력하기
+			//TODO : 누락된 메타파일 / 빈 폴더 정리작업 및 출력하기
 		}
 		private void ClearCollections() {
 			assetList.Clear();

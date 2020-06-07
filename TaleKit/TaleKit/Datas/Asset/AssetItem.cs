@@ -40,6 +40,7 @@ namespace TaleKit.Datas.Resource {
 			this.LoadAttrFields<AssetMetaAttribute>(JObject.Parse(jsonString));
 		}
 		public void SaveMeta() {
+			Directory.CreateDirectory(Path.GetDirectoryName(AssetMetaFilename));
 			File.WriteAllText(AssetMetaFilename, ToJObject().ToString(), Encoding.UTF8);
 		}
 
