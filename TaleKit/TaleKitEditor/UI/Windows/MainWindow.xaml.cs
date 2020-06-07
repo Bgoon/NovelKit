@@ -27,6 +27,7 @@ using TaleKitEditor.UI.Utility;
 using TaleKitEditor.UI.Workspaces;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
 using TaleKitEditor.Workspaces.Tabs;
+using System.IO;
 
 namespace TaleKitEditor.UI.Windows {
 	public partial class MainWindow : Window {
@@ -120,9 +121,11 @@ namespace TaleKitEditor.UI.Windows {
 
 		private async void ProcessDebugTask() {
 #if DEBUG
-			CreateProject(@"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectSB\Develop\TaleKit\TestProject");
+			const string ProjectPath = @"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectSB\Develop\TaleKit\TestProject";
+			if (!Directory.Exists(ProjectPath))
+				return;
 
-			EditingTaleData.AssetManager.ReloadAssets();
+			CreateProject(ProjectPath);
 #endif
 		}
 

@@ -53,6 +53,8 @@ namespace TaleKit.Datas {
 			StoryFile = new StoryFile();
 
 			CreateEditorDirectories();
+
+			AssetManager.ReloadAssets();
 		}
 		public void PostInit() {
 		}
