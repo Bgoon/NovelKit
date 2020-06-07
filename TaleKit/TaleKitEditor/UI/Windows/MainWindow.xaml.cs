@@ -33,7 +33,7 @@ namespace TaleKitEditor.UI.Windows {
 		private Workspace[] workspaces;
 
 		//Datas
-		public EditTaleData EditingTaleData {
+		public TaleData EditingTaleData {
 			get; private set;
 		}
 
@@ -120,7 +120,9 @@ namespace TaleKitEditor.UI.Windows {
 
 		private async void ProcessDebugTask() {
 #if DEBUG
-			CreateProject(@"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectSB\Develop\TaleKitProject");
+			CreateProject(@"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectSB\Develop\TaleKit\TestProject");
+
+			EditingTaleData.AssetManager.ReloadAssets();
 #endif
 		}
 
@@ -138,7 +140,7 @@ namespace TaleKitEditor.UI.Windows {
 		}
 		public void CreateProject(string projectDir) {
 			try {
-				EditingTaleData = new EditTaleData(projectDir);
+				EditingTaleData = new TaleData(projectDir);
 
 				EditingTaleData.MotionFile.SetMotionFileData(MotionWorkspace.EditorContext.EditingFile);
 			} catch (Exception ex) {

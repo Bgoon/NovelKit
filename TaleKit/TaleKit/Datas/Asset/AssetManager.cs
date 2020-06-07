@@ -11,7 +11,7 @@ using TaleKit.Datas.Resource;
 
 namespace TaleKit.Datas.Asset {
 	public class AssetManager {
-		public EditTaleData OwnerTaleData {
+		public TaleData OwnerTaleData {
 			get; private set;
 		}
 
@@ -24,7 +24,7 @@ namespace TaleKit.Datas.Asset {
 		public Dictionary<string, AssetItem> pathToAssetMetaDict;
 		public Dictionary<string, AssetItem> keyToAssetDict;
 		
-		public AssetManager(EditTaleData ownerTaleData) {
+		public AssetManager(TaleData ownerTaleData) {
 			OwnerTaleData = ownerTaleData;
 
 			assetList = new List<AssetItem>();
@@ -43,10 +43,14 @@ namespace TaleKit.Datas.Asset {
 				pathToAssetDict.Add(assetRelPath, item);
 				assetList.Add(item);
 
-				//LoadMeta
-				string assetMetaPath = Path.Combine(AssetMetaDir, assetRelPath);
-
+				if(item.IsMetaExists()) {
+					item.LoadMeta();
+				} else {
+					item.SaveMeta();
+				}
 			}
+
+			//TODO : 누락된 메타파일 정리작업 및 출력하기
 		}
 		private void ClearCollections() {
 			assetList.Clear();
@@ -54,9 +58,6 @@ namespace TaleKit.Datas.Asset {
 			pathToAssetMetaDict.Clear();
 			keyToAssetDict.Clear();
 		}
-
-		
-
 
 	}
 }

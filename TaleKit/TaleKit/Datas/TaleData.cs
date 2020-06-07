@@ -33,12 +33,26 @@ namespace TaleKit.Datas {
 		public string projectName;
 		public DateTime exportedTime;
 
+		//EditorData
+		public string ProjectDir {
+			get; private set;
+		}
+		public string AssetDir => Path.Combine(ProjectDir, "Assets");
+		public string AssetMetaDir => Path.Combine(ProjectDir, ".AssetMeta");
+		public bool IsSaved {
+			get; private set;
+		}
 
+		public TaleData(string projectDir) {
+			this.ProjectDir = IOUtility.NormalizePath(projectDir);
 
-		protected TaleData() {
+			AssetManager = new AssetManager(this);
+
 			MotionFile = new MotionFile();
 			UiFile = new UiFile();
 			StoryFile = new StoryFile();
+
+			CreateEditorDirectories();
 		}
 		public void PostInit() {
 		}
@@ -67,6 +81,11 @@ namespace TaleKit.Datas {
 			jFile.Add("StoryFile", StoryFile.ToJObject());
 
 			File.WriteAllText(fileName, jFile.ToString(), Encoding.UTF8);
+		}
+
+		private void CreateEditorDirectories() {
+			Directory.CreateDirectory(AssetDir);
+			Directory.CreateDirectory(AssetMetaDir);
 		}
 	}
 }
