@@ -42,9 +42,12 @@ namespace TaleKit.Datas {
 		public bool IsSaved {
 			get; private set;
 		}
+		
+		public readonly bool IsEditMode;
 
-		public TaleData(string projectDir) {
+		public TaleData(string projectDir, bool isEditMode) {
 			this.ProjectDir = IOUtility.NormalizePath(projectDir);
+			this.IsEditMode = isEditMode;
 
 			AssetManager = new AssetManager(this);
 
@@ -55,6 +58,10 @@ namespace TaleKit.Datas {
 			CreateEditorDirectories();
 
 			AssetManager.ReloadAssets();
+
+			if(isEditMode) {
+				AssetManager.StartWatchAssetDir();
+			}
 		}
 		public void PostInit() {
 		}

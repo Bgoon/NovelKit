@@ -24,6 +24,7 @@ using TaleKit.Datas.Editor;
 using TaleKitEditor.UI.ValueEditors;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
 using TaleKitEditor.UI.Workspaces.CommonTabs.DetailPanelElements;
+using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	public partial class StoryBlockDetailPanel : UserControl {
@@ -33,7 +34,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private static StoryBlockTab StoryBlockTab => StoryWorkspace.StoryBlockTab;
 		private static DetailTab DetailTab => MainWindow.DetailTab;
 
-		private Dictionary<OrderBase, OrderItemEditorView> editorViewDict;
+		private Dictionary<OrderBase, OrderItemEditorView> orderToEditorViewDict;
 
 		public StoryBlock EditingBlock {
 			get; private set;
@@ -50,7 +51,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			SelectionChanged();
 		}
 		private void InitMembers() {
-			editorViewDict = new Dictionary<OrderBase, OrderItemEditorView>();
+			orderToEditorViewDict = new Dictionary<OrderBase, OrderItemEditorView>();
 		}
 		private void RegisterEvents() {
 			StoryBlockTab.StoryBlockTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
@@ -75,12 +76,14 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		private void EditingBlock_OrderAdded(OrderBase order) {
 			OrderItemEditorView editorView = new OrderItemEditorView(order);
-			editorViewDict.Add(order, editorView);
+			orderToEditorViewDict.Add(order, editorView);
 
 			OrderEditorViewContext.Children.Add(editorView);
 		}
 		private void EditingBlock_OrderRemoved(OrderBase order) {
-			OrderEditorViewContext.Children.Remove(editorViewDict[order]);
+			OrderEditorViewContext.Children.Remove(orderToEditorViewDict[order]);
+
+			orderToEditorViewDict.Remove(order);
 		}
 
 		private void SelectionChanged() {
@@ -122,6 +125,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		public void DetachBlock() {
 			if (EditingBlock == null)
 				return;
+
+			foreach(OrderBase order in EditingBlock.OrderList) {
+				EditingBlock_OrderRemoved(order);
+			}
 
 			//Remove events
 			EditingBlock.OrderAdded -= EditingBlock_OrderAdded;

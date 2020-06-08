@@ -143,7 +143,7 @@ namespace TaleKitEditor.UI.Windows {
 		}
 		public void CreateProject(string projectDir) {
 			try {
-				EditingTaleData = new TaleData(projectDir);
+				EditingTaleData = new TaleData(projectDir, true);
 
 				EditingTaleData.MotionFile.SetMotionFileData(MotionWorkspace.EditorContext.EditingFile);
 			} catch (Exception ex) {

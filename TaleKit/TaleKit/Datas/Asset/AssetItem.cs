@@ -13,10 +13,12 @@ namespace TaleKit.Datas.Resource {
 		public readonly AssetManager OwnerAssetManager;
 		public TaleData OwnerTaleData => OwnerAssetManager.OwnerTaleData;
 
-		public string AssetPath {
+		public bool HasKey => !string.IsNullOrEmpty(key);
+
+		public string AssetRelPath {
 			get; private set;
 		}
-		public string AssetMetaFilename => Path.Combine(OwnerTaleData.AssetMetaDir, AssetPath);
+		public string AssetMetaFilename => Path.Combine(OwnerTaleData.AssetMetaDir, AssetRelPath);
 
 
 		[AssetMeta]
@@ -25,23 +27,28 @@ namespace TaleKit.Datas.Resource {
 		public AssetItem(AssetManager ownerAssetManager, string path) {
 			OwnerAssetManager = ownerAssetManager;
 
-			this.AssetPath = path;
+			this.AssetRelPath = path;
 		}
 
 		public bool IsMetaExists() {
 			return File.Exists(AssetMetaFilename);
 		}
 
-		public void LoadMeta() {
+		public bool LoadMeta() {
 			if (!IsMetaExists())
-				return;
+				return false;
 
 			string jsonString = File.ReadAllText(AssetMetaFilename, Encoding.UTF8);
 			this.LoadAttrFields<AssetMetaAttribute>(JObject.Parse(jsonString));
+
+			return true;
 		}
 		public void SaveMeta() {
 			Directory.CreateDirectory(Path.GetDirectoryName(AssetMetaFilename));
 			File.WriteAllText(AssetMetaFilename, ToJObject().ToString(), Encoding.UTF8);
+		}
+		public void Delete() {
+			File.Delete(AssetMetaFilename);
 		}
 
 		public JObject ToJObject() {
