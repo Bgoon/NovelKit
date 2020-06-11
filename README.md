@@ -9,7 +9,13 @@
 - TaleKit DLL
   >비주얼 에디터로 제작된 프로젝트 파일을 유니티에서 로드할 수 있는 모듈
  
+## 개발환경
+- Windows 10 Pro
+- Adobe Illustrator
+- VisualStudio 2019 (C#, WPF)
+ 
 ## 스크린샷
 ![UI Editor](https://i.imgur.com/R99ToBS.png)
 ![Motion Editor](https://i.imgur.com/EfGSD8N.png)
 ![Story editor](https://i.imgur.com/fipv3hv.png)
+
