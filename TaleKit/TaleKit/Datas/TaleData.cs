@@ -78,6 +78,8 @@ namespace TaleKit.Datas {
 
 			//Asset
 			AssetManager.SaveMetas();
+
+			//
 		}
 
 		/// <summary>

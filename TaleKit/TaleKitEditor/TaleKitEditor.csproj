@@ -42,7 +42,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Images\TaleKitIcon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Images\TaleKitIcon_V2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock, Version=4.10.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
@@ -681,6 +681,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Windows Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\TaleKitIcon_V2.ico" />
+    <Resource Include="Resources\Images\TaleKitIcon_V2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -15,7 +15,7 @@
 		xmlns:TWorkspaces="clr-namespace:TaleKitEditor.UI.Workspaces"
 
         mc:Ignorable="d"
-        Title="TaleKit - 비주얼 노벨 에디터" Width="1280" Height="720" Background="{StaticResource MainWindowBackground}" Icon="/TaleKitEditor;component/Resources/Images/TaleKitIcon.png">
+        Title="TaleKit - 비주얼 노벨 에디터" Width="1280" Height="720" Background="{StaticResource MainWindowBackground}" Icon="/TaleKitEditor;component/Resources/Images/TaleKitIcon_V2.png">
 	<DockPanel>
 		<Grid Height="50" DockPanel.Dock="Top">
 			<GControls:FileManagerBar DockPanel.Dock="Top" x:Name="FileManagerBar" Separator1Visible="True" ImportButtonVisible="False" ExportButtonVisible="True"></GControls:FileManagerBar>
