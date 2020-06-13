@@ -38,7 +38,7 @@
 						</Ad:LayoutAnchorablePaneGroup>
 
 						<!--Tab 2-->
-						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="3*">
+						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="2.5*">
 							<Ad:LayoutAnchorablePane>
 								<Controls:FixedLayoutAnchorable Title="Viewport" x:Name="ViewportTabContext">
 									<CommonTabs:ViewportTab x:Name="ViewportTab"/>

@@ -57,7 +57,7 @@ namespace TaleKit.Datas {
 
 			CreateEditorDirectories();
 
-			AssetManager.ReloadAssets();
+			AssetManager.ReloadMetas();
 
 			if(isEditMode) {
 				AssetManager.StartWatchAssetDir();
@@ -69,15 +69,39 @@ namespace TaleKit.Datas {
 		/// <summary>
 		/// 프로젝트 경로에 데이터들을 저장합니다.
 		/// </summary>
-		/// <param name="directoryName"></param>
-		public void Save(string directoryName) {
+		/// <param name="directory"></param>
+		public void Save() {
+			if(string.IsNullOrEmpty(ProjectDir))
+				throw new Exception("ProjectDir이 지정되지 않았습니다.");
 
+			Directory.CreateDirectory(ProjectDir);
+
+			//Asset
+			AssetManager.SaveMetas();
 		}
 
 		/// <summary>
 		/// 클라이언트에서 플레이할 수 있는 데이터 파일로 내보냅니다.
 		/// </summary>
-		public void Export(string fileName) {
+		public void Export(string filename) {
+			string dataString = GetDataString();
+
+			Directory.CreateDirectory(Path.GetDirectoryName(filename));
+			File.WriteAllText(filename, dataString, Encoding.UTF8);
+		}
+
+		public void SetProjectDir(string directory) {
+			ProjectDir = directory;
+
+			CreateEditorDirectories();
+		}
+
+		private void CreateEditorDirectories() {
+			Directory.CreateDirectory(AssetDir);
+			Directory.CreateDirectory(AssetMetaDir);
+		}
+
+		public string GetDataString() {
 			JObject jFile = new JObject();
 
 			exportedTime = DateTime.Now;
@@ -89,12 +113,7 @@ namespace TaleKit.Datas {
 			jFile.Add("UiFile", UiFile.ToJObject());
 			jFile.Add("StoryFile", StoryFile.ToJObject());
 
-			File.WriteAllText(fileName, jFile.ToString(), Encoding.UTF8);
-		}
-
-		private void CreateEditorDirectories() {
-			Directory.CreateDirectory(AssetDir);
-			Directory.CreateDirectory(AssetMetaDir);
+			return jFile.ToString();
 		}
 	}
 }

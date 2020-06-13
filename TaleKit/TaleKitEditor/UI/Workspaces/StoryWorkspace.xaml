@@ -49,7 +49,7 @@
 
 
 						<!--Tab 2-->
-						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="3*">
+						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="2.5*">
 							<Ad:LayoutAnchorablePane DockHeight="0.5*">
 								<Controls:FixedLayoutAnchorable Title="Scene"/>
 							</Ad:LayoutAnchorablePane>

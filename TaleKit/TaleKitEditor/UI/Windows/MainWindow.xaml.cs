@@ -173,10 +173,18 @@ namespace TaleKitEditor.UI.Windows {
 			
 		}
 		public void SaveFile() {
-			SaveFileDialog dialog = new SaveFileDialog();
+			if(string.IsNullOrEmpty(EditingTaleData.ProjectDir)) {
+				CommonOpenFileDialog dialog = new CommonOpenFileDialog() {
+					IsFolderPicker = true,
+				};
 
-			if (!dialog.ShowDialog(this).HasTrueValue())
-				return;
+				if (dialog.ShowDialog(this) != CommonFileDialogResult.Ok)
+					return;
+
+				EditingTaleData.SetProjectDir(dialog.FileName);
+			}
+
+			EditingTaleData.Save();
 		}
 		public void ExportData() {
 			if (!ShowCheckSaveDialog())
@@ -208,6 +216,8 @@ namespace TaleKitEditor.UI.Windows {
 			WorkspaceActived?.Invoke(workspace);
 		}
 		private void DeactiveWorkspaces() {
+			DetailTab.DeactiveDetailPanel();
+
 			Workspace workspace;
 			for (int workspaceI = 0; workspaceI < workspaces.Length; ++workspaceI) {
 				workspace = workspaces[workspaceI];
