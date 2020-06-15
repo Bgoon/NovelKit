@@ -1,12 +1,11 @@
-﻿extern alias GKitForUnity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using UAnchorPreset = GKitForUnity.GKit.AnchorPreset;
-using UAxisAnchor = GKitForUnity.GKit.AxisAnchor;
+using UAnchorPreset = GKitForUnity.AnchorPreset;
+using UAxisAnchor = GKitForUnity.AxisAnchor;
 
 namespace TaleKitEditor {
 	public static class UAnchorUtility {

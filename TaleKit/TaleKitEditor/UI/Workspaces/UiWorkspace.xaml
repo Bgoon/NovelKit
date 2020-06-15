@@ -8,7 +8,7 @@
 			 xmlns:AdThemes="clr-namespace:Bgoon.AvalonDockTheme;assembly=Bgoon.AvalonDockThemes"
 			 xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
 
-			 xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
+			 xmlns:GControls="clr-namespace:GKitForWPF.UI.Controls;assembly=GKitForWPF"
 			 xmlns:Tabs="clr-namespace:TaleKitEditor.UI.Workspaces.UiWorkspaceTabs"
 			 xmlns:CommonTabs="clr-namespace:TaleKitEditor.UI.Workspaces.CommonTabs"
 			 xmlns:System="clr-namespace:System;assembly=mscorlib"

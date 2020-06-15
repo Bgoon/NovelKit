@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GKit;
+using GKitForWPF;
 using TaleKit.Datas.Editor;
 using UVector3 = UnityEngine.Vector3;
 

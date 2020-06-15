@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.UI;
-using GKit;
-using GKit.Unity;
-using TaleKit.Datas.UI;
+﻿using GKitForUnity;
 using TaleKit.Datas.Story.Logic;
+using TaleKit.Datas.UI;
+using UnityEngine;
 
 namespace TaleKit {
 	public class TaleKitClient : MonoBehaviour {
@@ -33,8 +26,8 @@ namespace TaleKit {
 			get; private set;
 		}
 
-		public VariableStorage VariableStorage { 
-			get; private set; 
+		public VariableStorage VariableStorage {
+			get; private set;
 		}
 
 		private void Awake() {

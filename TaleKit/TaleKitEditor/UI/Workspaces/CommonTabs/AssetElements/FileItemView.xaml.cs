@@ -1,5 +1,6 @@
-﻿using GKit;
-using GKit.WPF;
+﻿using GKitForWPF;
+using GKitForWPF;
+using GKitForWPF.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;

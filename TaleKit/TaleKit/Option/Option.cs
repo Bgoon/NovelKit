@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using GKit;
-using GKit.Unity;
+﻿using UnityEngine;
 
 namespace TaleKit {
 	public class Option {
@@ -15,7 +8,8 @@ namespace TaleKit {
 		public int FPS {
 			get {
 				return Application.targetFrameRate;
-			} set {
+			}
+			set {
 				Application.targetFrameRate = value;
 			}
 		}

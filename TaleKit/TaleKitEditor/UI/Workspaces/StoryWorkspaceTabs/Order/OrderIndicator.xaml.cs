@@ -1,5 +1,6 @@
-﻿using GKit;
-using GKit.WPF.UI.Converters;
+﻿using GKitForWPF;
+using GKitForWPF.Graphics;
+using GKitForWPF.UI.Converters;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

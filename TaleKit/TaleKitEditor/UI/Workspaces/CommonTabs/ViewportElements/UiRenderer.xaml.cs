@@ -1,5 +1,5 @@
-﻿extern alias GKitForUnity;
-using GKit;
+﻿using GKitForWPF;
+using GKitForWPF.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +17,8 @@ using System.Windows.Shapes;
 using TaleKit.Datas.UI;
 using TaleKitEditor.Utility;
 using UnityEngine.UIElements;
-using UAnchorPreset = GKitForUnity.GKit.AnchorPreset;
-using UAxisAnchor = GKitForUnity.GKit.AxisAnchor;
+using UAnchorPreset = GKitForUnity.AnchorPreset;
+using UAxisAnchor = GKitForUnity.AxisAnchor;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 	/// <summary>

@@ -1,18 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using GKit;
-using GKit.Unity;
-using GKit.Data;
-using TaleKit.Datas.Editor;
-using UAnchorPreset = GKit.AnchorPreset;
-using UAxisAnchor = GKit.AxisAnchor;
-using UVector2 = UnityEngine.Vector2;
-using UColor = UnityEngine.Color;
+﻿using GKit.Json;
+using GKitForUnity;
+using GKitForUnity.Data;
 using Newtonsoft.Json.Linq;
-using JetBrains.Annotations;
-using GKit.Json;
+using System.Collections.Generic;
+using TaleKit.Datas.Editor;
+using UnityEngine;
+using UAnchorPreset = GKitForUnity.AnchorPreset;
+using UAxisAnchor = GKitForUnity.AxisAnchor;
+using UColor = UnityEngine.Color;
+using UVector2 = UnityEngine.Vector2;
 
 namespace TaleKit.Datas.UI {
 	public class UiItem : IEditableModel {
@@ -32,7 +28,7 @@ namespace TaleKit.Datas.UI {
 		//HelperDatas
 		public UAxisAnchor AnchorX {
 			get {
-				switch(anchorPreset) {
+				switch (anchorPreset) {
 					case UAnchorPreset.TopLeft:
 					case UAnchorPreset.MidLeft:
 					case UAnchorPreset.BotLeft:
@@ -83,7 +79,7 @@ namespace TaleKit.Datas.UI {
 		public UAnchorPreset anchorPreset = UAnchorPreset.StretchAll;
 
 		[ValueEditor_Margin("Margin")]
-		public BRect margin;
+		public GRect margin;
 
 		[ValueEditor_Vector2("Size")]
 		public UVector2 size;
@@ -102,7 +98,8 @@ namespace TaleKit.Datas.UI {
 		public float Alpha {
 			get {
 				return Renderer.GetAlpha();
-			} set {
+			}
+			set {
 				Renderer.SetAlpha(value);
 			}
 		}
@@ -145,12 +142,12 @@ namespace TaleKit.Datas.UI {
 			JArray jChilds = new JArray();
 			jUiItem.Add("Childs", jChilds);
 
-			foreach(UiItem childItem in ChildItemList) {
+			foreach (UiItem childItem in ChildItemList) {
 				jChilds.Add(childItem.ToJObject());
 			}
 
 			return jUiItem;
 		}
-		
+
 	}
 }

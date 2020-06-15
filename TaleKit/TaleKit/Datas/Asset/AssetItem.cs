@@ -1,12 +1,8 @@
-﻿using GKit;
-using GKit.Json;
+﻿using GKit.Json;
+using GKitForUnity.IO;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TaleKit.Datas.Asset;
 
 namespace TaleKit.Datas.Resource {
@@ -69,7 +65,7 @@ namespace TaleKit.Datas.Resource {
 			string oldMetaFilename = AssetMetaFilename;
 			AssetRelPath = assetRelPath;
 
-			if(File.Exists(oldMetaFilename)) {
+			if (File.Exists(oldMetaFilename)) {
 				File.Move(oldMetaFilename, AssetMetaFilename);
 			}
 		}

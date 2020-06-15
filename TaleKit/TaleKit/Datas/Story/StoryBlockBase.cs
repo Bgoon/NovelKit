@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TaleKit.Datas.Story {
 	public abstract class StoryBlockBase {
@@ -13,7 +8,7 @@ namespace TaleKit.Datas.Story {
 		public StoryClip ParentItem {
 			get; internal set;
 		}
-		
+
 		public StoryBlockBase(StoryFile ownerFile) {
 			this.OwnerFile = ownerFile;
 		}

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
-			 xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
+			 xmlns:GControls="clr-namespace:GKitForWPF.UI.Controls;assembly=GKitForWPF"
 			 xmlns:AssetElements ="clr-namespace:TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements"
 			 xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
 

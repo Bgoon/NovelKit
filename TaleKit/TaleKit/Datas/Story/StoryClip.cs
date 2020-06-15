@@ -1,10 +1,6 @@
-﻿using GKit.Data;
+﻿using GKitForUnity.Data;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TaleKit.Datas.Story {
 	public class StoryClip : StoryBlockBase {
@@ -44,7 +40,7 @@ namespace TaleKit.Datas.Story {
 			JArray jItems = new JArray();
 			jClip.Add("Items", jItems);
 
-			foreach(StoryBlockBase block in ChildItemList) {
+			foreach (StoryBlockBase block in ChildItemList) {
 				jItems.Add(block.ToJObject());
 			}
 

@@ -1,11 +1,8 @@
-﻿using GKit;
+﻿using GKitForUnity.IO;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TaleKit.Datas.Asset;
 using TaleKit.Datas.Motion;
 using TaleKit.Datas.Story;
@@ -42,7 +39,7 @@ namespace TaleKit.Datas {
 		public bool IsSaved {
 			get; private set;
 		}
-		
+
 		public readonly bool IsEditMode;
 
 		public TaleData(string projectDir, bool isEditMode) {
@@ -59,7 +56,7 @@ namespace TaleKit.Datas {
 
 			AssetManager.ReloadMetas();
 
-			if(isEditMode) {
+			if (isEditMode) {
 				AssetManager.StartWatchAssetDir();
 			}
 		}
@@ -71,7 +68,7 @@ namespace TaleKit.Datas {
 		/// </summary>
 		/// <param name="directory"></param>
 		public void Save() {
-			if(string.IsNullOrEmpty(ProjectDir))
+			if (string.IsNullOrEmpty(ProjectDir))
 				throw new Exception("ProjectDir이 지정되지 않았습니다.");
 
 			Directory.CreateDirectory(ProjectDir);

@@ -5,9 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using GKit;
-using GKit.WPF;
-using GKit.WPF.Resources;
+using GKitForWPF;
+using GKitForWPF;
+using GKitForWPF.Resources;
 using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor {

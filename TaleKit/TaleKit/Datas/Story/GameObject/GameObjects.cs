@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GKitForUnity;
 using UnityEngine;
-using GKit;
-using GKit.Unity;
 
 namespace TaleKit {
 	public class GameObjects {

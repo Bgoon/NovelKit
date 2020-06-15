@@ -1,5 +1,4 @@
-﻿extern alias GKitForUnity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,19 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GKit;
 using TaleKit.Datas.Editor;
 using UnityEngine;
-using UBRect = GKitForUnity.GKit.BRect;
+using UGRect = GKitForUnity.GRect;
 
 namespace TaleKitEditor.UI.ValueEditors {
 	/// <summary>
 	/// ValueEditorElement_Vector2.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class ValueEditorElement_Margin : UserControl, IValueEditorElement {
-		public UBRect Value {
+		public UGRect Value {
 			get {
-				return new UBRect(ValueTextBox_Left.Value, ValueTextBox_Bottom.Value, ValueTextBox_Right.Value, ValueTextBox_Top.Value);
+				return new UGRect(ValueTextBox_Left.Value, ValueTextBox_Bottom.Value, ValueTextBox_Right.Value, ValueTextBox_Top.Value);
 			} set {
 				ValueTextBox_Left.Value = value.xMin;
 				ValueTextBox_Right.Value = value.xMax;
@@ -37,7 +35,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 			get {
 				return Value;
 			} set {
-				Value = (UBRect)value;
+				Value = (UGRect)value;
 			}
 		}
 

@@ -649,7 +649,7 @@
     <ProjectReference Include="..\SubModules\GKit\GKit\GKitForUnity\GKitForUnity.csproj">
       <Project>{958f842d-c748-40f0-b0d4-1a2c54cb070b}</Project>
       <Name>GKitForUnity</Name>
-      <Aliases>GKitForUnity</Aliases>
+      <Aliases>global</Aliases>
     </ProjectReference>
     <ProjectReference Include="..\SubModules\GKit\GKit\GKitForWPF\GKitForWPF.csproj">
       <Project>{896246bd-905d-4a62-90d2-54664a158656}</Project>

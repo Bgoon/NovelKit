@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
-using GKit;
-using GKit.WPF;
+using GKitForWPF;
+using GKitForWPF;
 
 namespace TaleKitEditor.Resources.Shader {
 	public class Shader_ColorEditor_H : ShaderEffect {

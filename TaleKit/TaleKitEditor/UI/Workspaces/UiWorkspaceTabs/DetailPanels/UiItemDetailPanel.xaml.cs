@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GKit.WPF;
+using GKitForWPF;
 using TaleKit.Datas.UI;
 using TaleKitEditor.UI.ValueEditors;
 using TaleKitEditor.UI.Windows;
@@ -51,11 +51,11 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			UiOutlinerTab.UiTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
 		}
 
-		private void SelectedItemSet_SelectionAdded(GKit.WPF.UI.Controls.ITreeItem item) {
+		private void SelectedItemSet_SelectionAdded(GKitForWPF.UI.Controls.ITreeItem item) {
 			SelectionChanged();
 			DetailTab.ActiveDetailPanel(DetailPanelType.UiItem);
 		}
-		private void SelectedItemSet_SelectionRemoved(GKit.WPF.UI.Controls.ITreeItem item) {
+		private void SelectedItemSet_SelectionRemoved(GKitForWPF.UI.Controls.ITreeItem item) {
 			SelectionChanged();
 			DetailTab.DeactiveDetailPanel();
 		}

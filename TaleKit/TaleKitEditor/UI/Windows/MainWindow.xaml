@@ -8,7 +8,7 @@
 		xmlns:Workspaces="clr-namespace:TaleKitEditor.UI.Workspaces"
 		xmlns:CommonTabs="clr-namespace:TaleKitEditor.UI.Workspaces.CommonTabs"
 		xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
-		xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
+		xmlns:GControls="clr-namespace:GKitForWPF.UI.Controls;assembly=GKitForWPF"
 		xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
 
 		xmlns:PMEditor="clr-namespace:PenMotionEditor.UI.Tabs;assembly=PenMotionEditor"

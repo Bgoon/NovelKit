@@ -1,12 +1,7 @@
-﻿using System;
+﻿using GKit.XInput;
+using GKitForUnity;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using GKit;
-using GKit.Unity;
-using GKit.XInput;
 
 namespace TaleKit {
 	public static class PlayerInput {
@@ -37,27 +32,27 @@ namespace TaleKit {
 
 				bool hold = false;
 				XInput.Update();
-				foreach(WinKey mainKey in MainKeyList) {
-					if(KeyInput.GetKeyHold(mainKey)) {
+				foreach (WinKey mainKey in MainKeyList) {
+					if (KeyInput.GetKeyHold(mainKey)) {
 						hold = true;
 						break;
 					}
 				}
-				if(!hold) {
-					foreach(Func<bool> customKey in CustomKeyList) {
-						if(customKey()) {
+				if (!hold) {
+					foreach (Func<bool> customKey in CustomKeyList) {
+						if (customKey()) {
 							hold = true;
 							break;
 						}
 					}
 				}
 
-				if(this.Hold) {
-					if(!hold) {
+				if (this.Hold) {
+					if (!hold) {
 						Up = true;
 					}
 				} else {
-					if(hold) {
+					if (hold) {
 						Down = true;
 					}
 				}
@@ -145,7 +140,7 @@ namespace TaleKit {
 		}
 
 		public static void UpdateStates() {
-			foreach(InputKey inputSet in AllKeys) {
+			foreach (InputKey inputSet in AllKeys) {
 				inputSet.UpdateState();
 			}
 		}

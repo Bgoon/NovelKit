@@ -1,6 +1,6 @@
-﻿using GKit;
-using GKit.WPF;
-using GKit.WPF.UI.Controls;
+﻿using GKitForWPF;
+using GKitForWPF;
+using GKitForWPF.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

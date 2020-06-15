@@ -14,8 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GKit;
-using GKit.WPF;
 using PenMotionEditor.UI.Tabs;
 using TaleKit.Datas;
 using TaleKitEditor.UI.Controls;
@@ -28,6 +26,7 @@ using TaleKitEditor.UI.Workspaces;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
 using TaleKitEditor.Workspaces.Tabs;
 using System.IO;
+using GKitForWPF;
 
 namespace TaleKitEditor.UI.Windows {
 	public partial class MainWindow : Window {

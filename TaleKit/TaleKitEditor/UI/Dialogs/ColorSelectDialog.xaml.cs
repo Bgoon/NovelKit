@@ -1,5 +1,5 @@
-﻿using GKit;
-using GKit.WPF;
+﻿using GKitForWPF;
+using GKitForWPF.Graphics;
 using System;
 using System.Windows;
 using System.Windows.Input;

@@ -1,13 +1,8 @@
-﻿using GKit;
-using System;
+﻿using GKitForUnity.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using TaleKit;
-using TaleKit.Datas;
 using TaleKit.Datas.Resource;
 
 namespace TaleKit.Datas.Asset {
@@ -34,7 +29,7 @@ namespace TaleKit.Datas.Asset {
 		/// 파일 이동을 감지하기 위해 삭제된 에셋 메타데이터를 {DeletedItemHoldMillisec} 만큼 보관한다.
 		/// </summary>
 		private Dictionary<string, AssetItem> recentlyDeletedItemDict;
-		
+
 		public AssetManager(TaleData ownerTaleData) {
 			OwnerTaleData = ownerTaleData;
 
@@ -67,7 +62,7 @@ namespace TaleKit.Datas.Asset {
 			if (Directory.Exists(metaPath)) {
 				//Directory
 				DeleteMetas(e.FullPath, true);
-			} else if(File.Exists(metaPath)) {
+			} else if (File.Exists(metaPath)) {
 				//File
 				string assetRelPath = IOUtility.GetRelativePath(AssetDir, e.FullPath);
 
@@ -98,8 +93,8 @@ namespace TaleKit.Datas.Asset {
 				}
 			} else {
 				//File
-				if(oldPathInAssetDir) {
-					if(newPathInAssetDir) {
+				if (oldPathInAssetDir) {
+					if (newPathInAssetDir) {
 						RenameMeta(oldAssetRelPath, newAssetRelPath);
 					} else {
 						DeleteMeta(oldAssetRelPath);
@@ -156,7 +151,7 @@ namespace TaleKit.Datas.Asset {
 
 		//Save
 		public void SaveMetas() {
-			foreach(AssetItem item in assetList) {
+			foreach (AssetItem item in assetList) {
 				item.SaveMeta();
 			}
 		}
@@ -167,7 +162,7 @@ namespace TaleKit.Datas.Asset {
 
 			string[] assetFiles = Directory.GetFiles(AssetDir, "*", SearchOption.AllDirectories);
 
-			for(int fileI=0; fileI<assetFiles.Length; ++fileI) {
+			for (int fileI = 0; fileI < assetFiles.Length; ++fileI) {
 				string assetRelPath = IOUtility.GetRelativePath(OwnerTaleData.AssetDir, assetFiles[fileI]);
 
 				LoadOrCreateMeta(assetRelPath);
@@ -178,7 +173,7 @@ namespace TaleKit.Datas.Asset {
 		private void LoadOrCreateMetas(string directory) {
 			string[] filenames = Directory.GetFiles(directory, "*", SearchOption.AllDirectories);
 
-			foreach(string filename in filenames) {
+			foreach (string filename in filenames) {
 				string assetRelPath = IOUtility.GetRelativePath(AssetDir, filename);
 
 				LoadOrCreateMeta(assetRelPath);
@@ -193,7 +188,7 @@ namespace TaleKit.Datas.Asset {
 			string fileHash = AssetItem.GetFileHash(filename);
 
 			AssetItem item;
-			if(recentlyDeletedItemDict.ContainsKey(fileHash)) {
+			if (recentlyDeletedItemDict.ContainsKey(fileHash)) {
 				item = recentlyDeletedItemDict[fileHash];
 				RecycleAsset(item);
 
@@ -206,7 +201,7 @@ namespace TaleKit.Datas.Asset {
 				pathToAssetDict.Add(assetRelPath, item);
 				assetList.Add(item);
 
-				if(!item.LoadMeta()) {
+				if (!item.LoadMeta()) {
 					item.SaveMeta();
 				}
 			}
@@ -217,24 +212,24 @@ namespace TaleKit.Datas.Asset {
 			string relDirName = IOUtility.NormalizePath(IOUtility.GetRelativePath(AssetDir, directory));
 
 			foreach (AssetItem asset in assetList) {
-				if(IOUtility.NormalizePath(asset.AssetRelPath).StartsWith(relDirName)) {
+				if (IOUtility.NormalizePath(asset.AssetRelPath).StartsWith(relDirName)) {
 					DeleteMeta(asset);
 				}
 			}
 		}
 		private void DeleteMeta(string assetRelPath, bool detectRenamed = false) {
-			if(pathToAssetDict.ContainsKey(assetRelPath)) {
+			if (pathToAssetDict.ContainsKey(assetRelPath)) {
 				DeleteMeta(pathToAssetDict[assetRelPath], detectRenamed);
 			}
 		}
 		private void DeleteMeta(AssetItem item, bool detectRenamed = false) {
-			if(pathToAssetDict.ContainsKey(item.AssetRelPath)) {
+			if (pathToAssetDict.ContainsKey(item.AssetRelPath)) {
 				pathToAssetDict.Remove(item.AssetRelPath);
 
-				if(detectRenamed) {
+				if (detectRenamed) {
 					DeleteAssetWithDetectRenameAsync(item);
 				} else {
-					if(item.HasKey && nameKeyToAssetDict.ContainsKey(item.nameKey)) {
+					if (item.HasKey && nameKeyToAssetDict.ContainsKey(item.nameKey)) {
 						nameKeyToAssetDict.Remove(item.nameKey);
 					}
 				}
@@ -261,7 +256,7 @@ namespace TaleKit.Datas.Asset {
 			}
 		}
 		private void RenameMeta(string oldAssetRelPath, string newAssetRelPath) {
-			if(pathToAssetDict.ContainsKey(oldAssetRelPath)) {
+			if (pathToAssetDict.ContainsKey(oldAssetRelPath)) {
 				RenameMeta(pathToAssetDict[oldAssetRelPath], newAssetRelPath);
 			} else {
 				LoadOrCreateMeta(newAssetRelPath);
@@ -289,7 +284,7 @@ namespace TaleKit.Datas.Asset {
 		private void CleanupEmptyMetaDirectories(string directory) {
 			string[] dirNames = Directory.GetDirectories(directory, "*", SearchOption.TopDirectoryOnly);
 
-			foreach(string dirName in dirNames) {
+			foreach (string dirName in dirNames) {
 				CleanupEmptyMetaDirectories(dirName);
 			}
 
@@ -300,10 +295,10 @@ namespace TaleKit.Datas.Asset {
 		private void CleanupUnusedMetaFiles() {
 			string[] assetMetaFiles = Directory.GetFiles(AssetMetaDir, "*", SearchOption.AllDirectories);
 
-			foreach(string assetMetaFile in assetMetaFiles) {
+			foreach (string assetMetaFile in assetMetaFiles) {
 				string assetRelPath = IOUtility.GetRelativePath(AssetMetaDir, assetMetaFile);
 
-				if(!pathToAssetDict.ContainsKey(assetRelPath)) {
+				if (!pathToAssetDict.ContainsKey(assetRelPath)) {
 					File.Delete(assetMetaFile);
 				}
 			}
@@ -315,12 +310,12 @@ namespace TaleKit.Datas.Asset {
 
 			await Task.Delay(DeletedItemHoldMillisec);
 
-			if(recentlyDeletedItemDict.ContainsKey(item.fileHash)) {
+			if (recentlyDeletedItemDict.ContainsKey(item.fileHash)) {
 				recentlyDeletedItemDict.Remove(item.fileHash);
-				
+
 				DeleteMeta(item);
 				Debug.WriteLine("DeletedAsync");
-				
+
 				item.SetFileHashLock(false);
 			}
 		}

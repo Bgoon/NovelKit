@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GKit;
-using GKit.WPF;
-using GKit.WPF.Resources;
+using GKitForWPF;
+using GKitForWPF;
+using GKitForWPF.Resources;
 
 namespace TaleKitEditor.UI.Workspaces {
 	/// <summary>

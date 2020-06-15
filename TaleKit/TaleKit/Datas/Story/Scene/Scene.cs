@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TaleKit.Datas.Story.Scenes {
 	public class Scene {
@@ -32,7 +28,7 @@ namespace TaleKit.Datas.Story.Scenes {
 		}
 
 		public void OnTick() {
-			if(PlayerInput.NextScript.Down) {
+			if (PlayerInput.NextScript.Down) {
 				NextBlock();
 			}
 			CurrentBlock.OnTick();
@@ -42,16 +38,16 @@ namespace TaleKit.Datas.Story.Scenes {
 			CurrentBlockIndex = 0;
 		}
 		private void End() {
-			
+
 		}
 
 		public bool NextBlock() {
-			if(CurrentBlock.IsComplete) {
+			if (CurrentBlock.IsComplete) {
 				StoryBlock prevBlock = CurrentBlock;
 				prevBlock.OnEnd();
 
 				++CurrentBlockIndex;
-				if(CurrentBlockIndex < blockList.Count) {
+				if (CurrentBlockIndex < blockList.Count) {
 					StoryBlock currentBlock = CurrentBlock;
 					currentBlock.OnEnter();
 
@@ -68,8 +64,8 @@ namespace TaleKit.Datas.Story.Scenes {
 		}
 
 		public Scene GetNextScene() {
-			foreach(SceneConnection conn in connectionList) {
-				if(conn.CheckSatisfied()) {
+			foreach (SceneConnection conn in connectionList) {
+				if (conn.CheckSatisfied()) {
 					return conn.scene;
 				}
 			}

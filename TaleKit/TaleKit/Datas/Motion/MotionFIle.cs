@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using GKit;
-using PenMotion;
-using PenMotion.Datas;
+﻿using Newtonsoft.Json.Linq;
+using System;
 
 namespace TaleKit.Datas.Motion {
 	public class MotionFile : ITaleDataFile {

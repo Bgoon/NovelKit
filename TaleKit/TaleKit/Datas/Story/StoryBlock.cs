@@ -1,16 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TaleKit.Datas.Story {
 	public class StoryBlock : StoryBlockBase {
 
 		public event Action<OrderBase> OrderAdded;
 		public event Action<OrderBase> OrderRemoved;
-		
+
 		public string DisplayName {
 			get; set;
 		}
@@ -75,12 +72,12 @@ namespace TaleKit.Datas.Story {
 			JArray jOrders = new JArray();
 			jBlock.Add("Orders", jOrders);
 
-			foreach(OrderBase order in OrderList) {
+			foreach (OrderBase order in OrderList) {
 				jOrders.Add(order.ToJObject());
 			}
 
 			return jBlock;
 		}
 	}
-	
+
 }

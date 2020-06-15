@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GKitForUnity;
+using GKitForUnity.Graphics;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using GKit;
-using GKit.Unity;
 
 namespace TaleKit.Datas.UI {
 	public class MotionChar : IDisposable {
@@ -51,7 +47,8 @@ namespace TaleKit.Datas.UI {
 		public Color FontColor {
 			get {
 				return Text.color;
-			} set {
+			}
+			set {
 				Text.color = value;
 			}
 		}

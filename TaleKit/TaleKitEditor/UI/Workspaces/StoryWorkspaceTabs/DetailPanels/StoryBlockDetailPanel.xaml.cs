@@ -15,16 +15,14 @@ using System.Windows.Shapes;
 using TaleKit.Datas.Story;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
-using GKit;
-using GKit.WPF;
-using GKit.WPF.UI;
-using GKit.WPF.UI.Controls;
 using System.Reflection;
 using TaleKit.Datas.Editor;
 using TaleKitEditor.UI.ValueEditors;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
 using TaleKitEditor.UI.Workspaces.CommonTabs.DetailPanelElements;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements;
+using GKitForWPF.UI.Controls;
+using GKitForWPF;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	public partial class StoryBlockDetailPanel : UserControl {

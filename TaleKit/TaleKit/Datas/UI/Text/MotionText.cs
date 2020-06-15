@@ -1,12 +1,7 @@
-﻿using System;
+﻿using GKitForUnity;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
-using GKit;
-using GKit.Unity;
 
 namespace TaleKit.Datas.UI {
 	public class MotionText : IDisposable {
@@ -18,7 +13,8 @@ namespace TaleKit.Datas.UI {
 		public string Text {
 			get {
 				return text;
-			} set {
+			}
+			set {
 				text = value;
 				UpdateChars();
 			}
@@ -123,7 +119,7 @@ namespace TaleKit.Datas.UI {
 				return;
 
 			elapsedMotionSeconds += LoopEngine.DeltaSeconds;
-			for (int i=0; i<charList.Count; ++i) {
+			for (int i = 0; i < charList.Count; ++i) {
 				MotionChar character = charList[i];
 
 				float indexTime = (elapsedMotionSeconds - i * CharMotionDelaySeconds) / CharMotionSeconds;
@@ -150,7 +146,7 @@ namespace TaleKit.Datas.UI {
 		}
 
 		private void ClearChars() {
-			foreach(MotionChar character in charList) {
+			foreach (MotionChar character in charList) {
 				charPool.ReleaseObject(character);
 			}
 			charList.Clear();
@@ -164,9 +160,9 @@ namespace TaleKit.Datas.UI {
 			sampleChar.Character = 'A';
 
 			Vector2 charPosition = Vector2.zero;
-			for (int i=0; i<text.Length; ++i) {
+			for (int i = 0; i < text.Length; ++i) {
 				char characterSrc = text[i];
-				switch(characterSrc) {
+				switch (characterSrc) {
 					case '\r':
 						break;
 					case '\n':
@@ -184,7 +180,7 @@ namespace TaleKit.Datas.UI {
 						charPosition.x += character.Bounds.x;
 						break;
 				}
-				
+
 			}
 			charPool.ReleaseObject(sampleChar);
 		}

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TaleKit.Datas.Editor {
+﻿namespace TaleKit.Datas.Editor {
 	public class ValueEditor_Vector2Attribute : ValueEditorAttribute {
 		public NumberType numberType;
 		public float minValue;

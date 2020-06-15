@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using TaleKit.Datas.UI;
-using Newtonsoft.Json.Linq;
+﻿using GKitForUnity;
 using TaleKit.Datas.Editor;
-using GKit;
+using TaleKit.Datas.UI;
+using UnityEngine;
 
 namespace TaleKit.Datas.Story {
 	/// <summary>
@@ -26,7 +20,7 @@ namespace TaleKit.Datas.Story {
 		public float Float;
 		[ValueEditor_NumberBox("숫자박스", NumberType.Float)]
 		public float FloatTextBox;
-		[ValueEditor_TextBox("텍스트", allowMultiline:true)]
+		[ValueEditor_TextBox("텍스트", allowMultiline: true)]
 		public string Text;
 		[ValueEditor_AnchorPreset("앵커")]
 		public AnchorPreset anchorPreset;

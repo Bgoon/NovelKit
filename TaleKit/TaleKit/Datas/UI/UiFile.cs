@@ -1,11 +1,7 @@
-﻿using GKit;
+﻿using GKitForUnity.Data;
+using GKitForUnity.IO;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using GKit.Data;
 
 namespace TaleKit.Datas.UI {
 	//UiData {
@@ -26,7 +22,7 @@ namespace TaleKit.Datas.UI {
 		public event NodeItemDelegate<UiItem, UiItem> ItemRemoved;
 
 		public UiFile(bool createRootItem = true) {
-			if(createRootItem) {
+			if (createRootItem) {
 				RootUiItem = new UiItem(this);
 			}
 		}
@@ -45,7 +41,7 @@ namespace TaleKit.Datas.UI {
 		}
 
 		public UiItem CreateUiItem(UiItem parentUiItem) {
-			if(parentUiItem == null)
+			if (parentUiItem == null)
 				parentUiItem = RootUiItem;
 
 			UiItem item = new UiItem(null);

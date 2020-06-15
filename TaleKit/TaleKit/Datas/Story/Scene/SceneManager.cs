@@ -1,9 +1,5 @@
-﻿using System;
+﻿using GKitForUnity;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GKit;
 
 namespace TaleKit.Datas.Story.Scenes {
 	public class SceneManager {

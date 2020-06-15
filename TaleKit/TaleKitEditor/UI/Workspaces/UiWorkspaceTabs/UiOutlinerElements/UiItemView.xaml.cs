@@ -1,4 +1,5 @@
-﻿using GKit.WPF.UI.Controls;
+﻿using GKitForWPF.UI.Controls;
+using GKitForWPF.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;

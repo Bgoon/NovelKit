@@ -1,5 +1,4 @@
-﻿extern alias GKitForUnity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,8 +17,8 @@ using TaleKit.Datas.Story;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements;
 using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
-using GKit.WPF;
-using GKit.WPF.UI.Controls;
+using GKitForWPF;
+using GKitForWPF.UI.Controls;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	/// <summary>

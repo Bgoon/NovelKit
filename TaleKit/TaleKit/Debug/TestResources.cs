@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets.Script.TaleKit.Debug {
+﻿namespace Assets.Script.TaleKit.Debug {
 	public static class TestResources {
 		public static string[] TestScripts = new string[] {
 			"애, 뭐하니! 오늘 집 청소는 했어?\n지금 청소도 안 하고 처 놀고 있는거니? 밥값은 해야지!",

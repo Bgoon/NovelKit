@@ -7,7 +7,7 @@
 			 xmlns:Ad="https://github.com/Dirkster99/AvalonDock"
 			 xmlns:AdThemes="clr-namespace:Bgoon.AvalonDockTheme;assembly=Bgoon.AvalonDockThemes"
 
-			 xmlns:GControls="clr-namespace:GKit.WPF.UI.Controls;assembly=GKitForWPF"
+			 xmlns:GControls="clr-namespace:GKitForWPF.UI.Controls;assembly=GKitForWPF"
 
 			 xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
 			 xmlns:Tabs="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs"

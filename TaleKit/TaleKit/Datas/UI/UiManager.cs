@@ -1,12 +1,6 @@
-﻿using System;
+﻿using GKitForUnity;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
-using GKit;
-using GKit.Unity;
 
 namespace TaleKit.Datas.UI {
 	public class UiManager {
@@ -32,7 +26,7 @@ namespace TaleKit.Datas.UI {
 			UiDict = new Dictionary<string, UiItem>();
 		}
 		private void RegisterEvents() {
-			
+
 		}
 
 		private void CreateTestScene() {
