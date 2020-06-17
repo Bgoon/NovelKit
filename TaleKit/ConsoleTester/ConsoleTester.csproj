@@ -35,7 +35,7 @@
   <ItemGroup>
     <Reference Include="GKit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\A_Programing\Csharp\Library\GKit\GKit\GKit.dll</HintPath>
+      <HintPath>..\SubModules\GKit\GKit\GKit\bin\Debug\GKit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
