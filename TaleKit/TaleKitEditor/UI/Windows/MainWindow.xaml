@@ -68,12 +68,8 @@
 			</StackPanel>
 		</Grid>
 		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="185*"/>
-				<RowDefinition Height="454*"/>
-			</Grid.RowDefinitions>
-			<TextBlock Text="프로젝트를 생성하거나 열어 주세요." HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ContentText}" FontSize="16" Margin="522,126,521,310" Grid.Row="1"/>
-			<Grid Name="WorkspaceContext" Visibility="Collapsed" Grid.RowSpan="2">
+			<TextBlock Text="프로젝트를 생성하거나 열어 주세요." HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ContentText}" FontSize="16"/>
+			<Grid Name="WorkspaceContext" Visibility="Collapsed">
 				<TWorkspaces:UiWorkspace x:Name="UiWorkspace" x:FieldModifier="public"/>
 				<TWorkspaces:MotionWorkspace x:Name="MotionWorkspace" x:FieldModifier="public"/>
 				<TWorkspaces:StoryWorkspace x:Name="StoryWorkspace" x:FieldModifier="public"/>
