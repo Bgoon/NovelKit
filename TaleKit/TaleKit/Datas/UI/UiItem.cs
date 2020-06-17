@@ -24,6 +24,12 @@ namespace TaleKit.Datas.UI {
 		public List<UiItem> ChildItemList {
 			get; private set;
 		}
+		/// <summary>
+		/// For editor field
+		/// </summary>
+		public object View {
+			get; set;
+		}
 
 		//HelperDatas
 		public UAxisAnchor AnchorX {

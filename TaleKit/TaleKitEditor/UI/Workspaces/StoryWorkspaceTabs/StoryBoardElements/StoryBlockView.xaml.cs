@@ -44,7 +44,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements {
 			PreviewTextBlock.Text = name;
 		}
 
-		public void SetDisplaySelected(bool isSelected) {
+		public void SetSelected(bool isSelected) {
 			ItemPanel.Background = (Brush)Application.Current.Resources[isSelected ? "ItemBackground_Selected" : "ItemBackground"];
 		}
 	}

@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TaleKitEditor.UI.Workspaces.CommonTabs.DetailPanelElements;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
 using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
 using TaleKitEditor.Workspaces.Tabs;
@@ -23,29 +22,30 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 	/// </summary>
 	public partial class DetailTab : UserControl, INeedPostInitTab {
 
-		public StoryBlockDetailPanel StoryBlockDetailPanel;
-		public UiItemDetailPanel UiItemDetailPanel;
+		public CommonDetailPanel CommonDetailPanel {
+			get; private set;
+		}
+		public StoryBlockDetailPanel StoryBlockDetailPanel {
+			get; private set;
+		}
 
 		public DetailTab() {
 			InitializeComponent();
 		}
 		public void PostInit() {
+			CommonDetailPanel = new CommonDetailPanel();
 			StoryBlockDetailPanel = new StoryBlockDetailPanel();
-			UiItemDetailPanel = new UiItemDetailPanel();
 		}
+
 		public void ActiveDetailPanel(DetailPanelType type) {
 			UserControl panel = null;
 
 			switch(type) {
-				case DetailPanelType.UiItem:
-					panel = UiItemDetailPanel;
-					break;
-				case DetailPanelType.Scene:
+				default:
+					panel = CommonDetailPanel;
 					break;
 				case DetailPanelType.StoryBlock:
 					panel = StoryBlockDetailPanel;
-					break;
-				case DetailPanelType.StoryClip:
 					break;
 			}
 

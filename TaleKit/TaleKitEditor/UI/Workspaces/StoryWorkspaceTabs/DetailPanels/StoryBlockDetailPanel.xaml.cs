@@ -19,7 +19,6 @@ using System.Reflection;
 using TaleKit.Datas.Editor;
 using TaleKitEditor.UI.ValueEditors;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
-using TaleKitEditor.UI.Workspaces.CommonTabs.DetailPanelElements;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements;
 using GKitForWPF.UI.Controls;
 using GKitForWPF;
@@ -56,13 +55,11 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StoryBlockTab.StoryBlockTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
 		}
 
-		//이게 두번 호출되는 버그가 있다
-		//그건 바로 Window.Loaded가 두번 호출되는 버그여따.
-		private void SelectedItemSet_SelectionAdded(ITreeItem item) {
+		private void SelectedItemSet_SelectionAdded(ISelectable item) {
 			SelectionChanged();
 			DetailTab.ActiveDetailPanel(DetailPanelType.StoryBlock);
 		}
-		private void SelectedItemSet_SelectionRemoved(ITreeItem item) {
+		private void SelectedItemSet_SelectionRemoved(ISelectable item) {
 			SelectionChanged();
 			DetailTab.DeactiveDetailPanel();
 		}
@@ -85,7 +82,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void SelectionChanged() {
-			SelectedListItemSet selectedItemSet = StoryBlockTab.StoryBlockTreeView.SelectedItemSet;
+			SelectedItemSet selectedItemSet = StoryBlockTab.StoryBlockTreeView.SelectedItemSet;
 			bool showEditingContext = selectedItemSet.Count == 1;
 
 			EditingContext.Visibility = showEditingContext ? Visibility.Visible : Visibility.Collapsed;

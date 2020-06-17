@@ -82,9 +82,9 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements {
 		}
 		private void RegisterEvents() {
 			PathContext.RegisterButtonReaction(0.05f);
-			PathContext.RegisterOnClick(OnClick);
+			PathContext.RegisterClickEvent(OnClick);
 			TreeRightArrow.RegisterButtonReaction(0.1f);
-			TreeRightArrow.RegisterOnClick(TreeRightArrow_MouseDown);
+			TreeRightArrow.RegisterClickEvent(TreeRightArrow_MouseDown);
 		}
 		public void Dispose() {
 			if(isChildLoaded) {

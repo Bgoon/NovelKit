@@ -14,9 +14,8 @@ namespace TaleKitEditor.UI.ValueEditors {
 			FieldInfo[] fields = modelType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
 			foreach (FieldInfo field in fields) {
-				ValueEditorAttribute editorAttribute = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
-
-				if (editorAttribute == null)
+				if (field.GetCustomAttributes<ValueEditorAttribute>().Count() == 0 &&
+					field.GetCustomAttributes<ValueEditorComponentAttribute>().Count() == 0)
 					continue;
 
 				ValueEditorView valueEditorView = new ValueEditorView(model, field, modelValueChanged);

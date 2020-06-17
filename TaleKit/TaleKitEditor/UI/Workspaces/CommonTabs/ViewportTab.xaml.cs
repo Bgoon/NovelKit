@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.UI;
+using TaleKitEditor.UI.ValueEditors;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements;
 using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
@@ -37,14 +38,14 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		private UiRenderer rootRenderer;
 
 		public ViewportTab() {
-			this.RegisterLoaded(OnLoaded);
+			this.RegisterLoadedOnce(OnLoadedOnce);
 			InitializeComponent();
 		}
 		private void RegisterEvents() {
 			UiOutlinerTab.ItemMoved += UiOutlinerTab_ItemMoved;
 		}
 
-		private void OnLoaded(object sender, RoutedEventArgs e) {
+		private void OnLoadedOnce(object sender, RoutedEventArgs e) {
 			MainWindow.ProjectLoaded += MainWindow_ProjectLoaded;
 			RegisterEvents();
 		}
@@ -60,7 +61,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		private void UiFile_ItemRemoved(UiItem item, UiItem parentItem) {
 			RenderAll(true, true);
 		}
-		internal void UiItemDetailPanel_UiItemValueChanged(object model, FieldInfo fieldInfo) {
+		internal void UiItemDetailPanel_UiItemValueChanged(object model, FieldInfo fieldInfo, IValueEditorElement valueEditorElement) {
 			RenderAll(true, false);
 		}
 		private void UiOutlinerTab_ItemMoved(UiItem item, UiItem newParentItem, UiItem oldParentItem) {

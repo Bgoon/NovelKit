@@ -4,9 +4,10 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Text;
 using TaleKit.Datas.Asset;
+using TaleKit.Datas.Editor;
 
 namespace TaleKit.Datas.Resource {
-	public class AssetItem {
+	public class AssetItem : IEditableModel {
 		public readonly AssetManager OwnerAssetManager;
 		public TaleData OwnerTaleData => OwnerAssetManager.OwnerTaleData;
 
@@ -23,9 +24,16 @@ namespace TaleKit.Datas.Resource {
 		}
 
 		[AssetMeta]
-		public string nameKey;
-		[AssetMeta]
 		public string fileHash;
+
+		[AssetMeta]
+		[ValueEditorComponent_Header("메타데이터")]
+		[ValueEditor_TextBox("NameKey")]
+		public string nameKey;
+
+		[ValueEditorComponent_Header("미리보기")]
+		[ValueEditorComponent_FilePreview]
+		private string previewImageSource;
 
 		public static string GetFileHash(string filename) {
 			return IOUtility.GetMetadataHash(filename);
@@ -80,6 +88,9 @@ namespace TaleKit.Datas.Resource {
 			fileHash = GetFileHash(AssetFilename);
 		}
 
+		public void UpdatePreviewImageSource() {
+			previewImageSource = AssetFilename;
+		}
 
 		public JObject ToJObject() {
 			JObject jAssetMeta = new JObject();

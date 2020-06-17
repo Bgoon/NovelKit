@@ -1,4 +1,4 @@
-﻿using GKitForWPF.UI.Controls;
+﻿using GKitForWPF;
 using GKitForWPF.UI.Controls;
 using System;
 using System.Collections.Generic;
@@ -37,6 +37,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		}
 		public UiItemView(UiItem data) : this() {
 			this.Data = data;
+			data.View = this;
 		}
 
 		public void SetRootItem() {
@@ -45,8 +46,8 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		public void SetDisplayName(string name) {
 			NameEditText.Text = name;
 		}
-		public void SetDisplaySelected(bool isSelected) {
-			ItemPanel.Background = (Brush)Application.Current.Resources[isSelected ? "ItemBackground_Selected" : "ItemBackground"];
+		public void SetSelected(bool isSelected) {
+			ItemPanel.Background = GResourceUtility.GetAppResource<Brush>(isSelected ? "ItemBackground_Selected" : "ItemBackground");
 		}
 	}
 }

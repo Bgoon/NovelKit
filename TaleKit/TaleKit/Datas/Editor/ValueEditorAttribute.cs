@@ -4,7 +4,6 @@ namespace TaleKit.Datas.Editor {
 
 	[AttributeUsage(AttributeTargets.Field)]
 	public class ValueEditorAttribute : Attribute {
-
 		public string valueName;
 		public ValueEditorLayout layout;
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using TaleKit.Datas.Resource;
 
@@ -149,14 +150,41 @@ namespace TaleKit.Datas.Asset {
 			assetDirWatcher.Dispose();
 		}
 
-		//Save
+		public bool SetAssetNameKey(AssetItem item, string oldNameKey, string newNameKey) {
+			if (oldNameKey == newNameKey)
+				return true;
+
+			bool result = SetAssetNameKey(item, newNameKey);
+
+			if(result) {
+				//변경에 성공하면 이전 이름을 제거
+				if (!string.IsNullOrEmpty(oldNameKey)) {
+					if(nameKeyToAssetDict.ContainsKey(oldNameKey)) {
+						nameKeyToAssetDict.Remove(oldNameKey);
+					}
+				}
+			}
+
+			return result;
+		}
+		public bool SetAssetNameKey(AssetItem item, string newNameKey) {
+			if (string.IsNullOrEmpty(newNameKey))
+				return true;
+
+			if (nameKeyToAssetDict.ContainsKey(newNameKey))
+				return false;
+
+			nameKeyToAssetDict.Add(newNameKey, item);
+			item.nameKey = newNameKey;
+			return true;
+		}
+
+		//Manage meta
 		public void SaveMetas() {
 			foreach (AssetItem item in assetList) {
 				item.SaveMeta();
 			}
 		}
-
-		//Manage meta
 		public void ReloadMetas() {
 			ClearCollections();
 
@@ -196,7 +224,7 @@ namespace TaleKit.Datas.Asset {
 
 				item.SaveMeta();
 				Debug.WriteLine("Recycled");
-			} else {
+			} else if(!pathToAssetDict.TryGetValue(assetRelPath, out item)) {
 				item = new AssetItem(this, assetRelPath);
 				pathToAssetDict.Add(assetRelPath, item);
 				assetList.Add(item);

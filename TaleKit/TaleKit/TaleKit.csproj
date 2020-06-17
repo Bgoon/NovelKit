@@ -56,6 +56,7 @@
     <Compile Include="Datas\Asset\AssetManager.cs" />
     <Compile Include="Datas\Asset\Attributes\AssetMetaAttribute.cs" />
     <Compile Include="Datas\Editor\IEditableModel.cs" />
+    <Compile Include="Datas\Editor\ValueEditorComponent_FilePreviewAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorComponent_ItemSeparatorAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorLayout.cs" />
     <Compile Include="Datas\Editor\NumberType.cs" />

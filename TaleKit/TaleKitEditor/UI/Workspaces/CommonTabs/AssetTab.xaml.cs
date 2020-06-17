@@ -1,9 +1,11 @@
 ﻿using GKitForWPF;
 using GKitForWPF.IO;
+using GKitForWPF.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +17,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using TaleKit.Datas;
+using TaleKit.Datas.Asset;
+using TaleKit.Datas.Resource;
+using TaleKitEditor.UI.ValueEditors;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements;
 using TaleKitEditor.Workspaces.Tabs;
@@ -26,7 +31,10 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 	public partial class AssetTab : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
-		private static TaleData TaleFile => MainWindow.EditingTaleData;
+		private static TaleData EditingTaleData => MainWindow.EditingTaleData;
+		private static AssetManager AssetManager => EditingTaleData.AssetManager;
+		private static DetailTab DetailTab => MainWindow.DetailTab;
+		private static CommonDetailPanel CommonDetailPanel => DetailTab.CommonDetailPanel;
 
 		public static string[] ExcludeDirNames = new string[] {
 			".vs",
@@ -37,7 +45,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			".meta",
 		};
 
-		public string AssetDir => TaleFile.AssetDir;
+		public string AssetDir => EditingTaleData.AssetDir;
 		public string ExploringDir {
 			get; private set;
 		}
@@ -47,32 +55,38 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		private DirTreeItemView rootDirTreeItemView;
 
 		//Selection
-		private List<FileItemView> selectedFileItemList;
+		private SelectedItemSet selectedFileItemSet;
+		private string selectedFileItemKey;
 
 		public AssetTab() {
-			this.RegisterLoaded(OnLoaded);
+			this.RegisterLoadedOnce(OnLoadedOnce);
 			InitializeComponent();
+		}
+		private void InitMembers() {
+			selectedFileItemSet = new SelectedItemSet();
 		}
 		private void RegisterEvents() {
 			MainWindow.ProjectLoaded += MainWindow_ProjectLoaded;
 			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
 
 			GotoParentButton.RegisterButtonReaction();
-			GotoParentButton.RegisterOnClick(GotoParentButton_Click);
+			GotoParentButton.RegisterClickEvent(GotoParentButton_Click);
+
+			selectedFileItemSet.SelectionAdded += SelectedFileItemSet_SelectionAdded;
+			selectedFileItemSet.SelectionRemoved += SelectedFileItemSet_SelectionRemoved;
 		}
-		private void OnLoaded(object sender, RoutedEventArgs e) {
+
+		private void OnLoadedOnce(object sender, RoutedEventArgs e) {
+			InitMembers();
 			RegisterEvents();
 		}
-
 		private void MainWindow_ProjectLoaded(TaleData obj) {
-			selectedFileItemList = new List<FileItemView>();
-
 			InitDirTree();
 			ExploreDir(AssetDir);
 		}
 		private void MainWindow_ProjectUnloaded(TaleData obj) {
 			UnwatchDirectory();
-			ResetDirTree();
+			ClearDirTree();
 		}
 		private void ExplorerContext_Drop(object sender, DragEventArgs e) {
 			string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
@@ -92,6 +106,39 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			Dispatcher.BeginInvoke(new Action(() => {
 				UpdateExplorer();
 			}));
+		}
+
+		private void SelectedFileItemSet_SelectionRemoved(ISelectable item) {
+			OnSelectionChanged(item as FileItemView);
+		}
+		private void SelectedFileItemSet_SelectionAdded(ISelectable item) {
+			OnSelectionChanged(item as FileItemView);
+		}
+		private void OnSelectionChanged(FileItemView itemView) {
+			CommonDetailPanel.DetachModel();
+			DetailTab.DeactiveDetailPanel();
+
+			if (selectedFileItemSet.Count == 1) {
+				AssetItem item = AssetManager.LoadOrCreateMeta(itemView.AssetRelPath);
+				selectedFileItemKey = item.nameKey;
+				item.UpdatePreviewImageSource();
+
+				CommonDetailPanel.AttachModel(item, SelectedAssetItem_ValueChanged);
+				DetailTab.ActiveDetailPanel(DetailPanelType.Common);
+			} else {
+				selectedFileItemKey = null;
+			}
+		}
+
+		private void SelectedAssetItem_ValueChanged(object model, FieldInfo fieldInfo, IValueEditorElement valueEditorElement) {
+			AssetItem item = model as AssetItem;
+			if(fieldInfo.Name == nameof(item.nameKey)) {
+				if(!AssetManager.SetAssetNameKey(item, selectedFileItemKey, item.nameKey)) {
+					Console.WriteLine("중복된 NameKey 가 이미 있습니다.");
+
+					valueEditorElement.EditableValue = selectedFileItemKey;
+				}
+			}
 		}
 
 		public void ExploreDir(string dir) {
@@ -123,9 +170,10 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			rootDirTreeItemView = new DirTreeItemView(AssetDir);
 			DirTreeContext.Children.Add(rootDirTreeItemView);
 		}
-		private void ResetDirTree() {
+		private void ClearDirTree() {
 			rootDirTreeItemView = null;
 			DirTreeContext.Children.Clear();
+			selectedFileItemSet.UnselectItems();
 		}
 
 		private void WatchDirectory() {
@@ -179,7 +227,8 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			}).ToArray();
 
 			foreach (string dir in dirs) {
-				FileItemView itemView = new FileItemView(dir, FileIconType.Directory);
+				string assetRelPath = IOUtility.GetRelativePath(AssetDir, dir);
+				FileItemView itemView = new FileItemView(dir, assetRelPath, FileIconType.Directory);
 				itemView.RegisterDoubleClickEvent(() => {
 					ExploreDir(itemView.FullFilename);
 				});
@@ -187,11 +236,19 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 				FileItemContext.Children.Add(itemView);
 			}
 			foreach (string file in files) {
-				FileItemView itemView = new FileItemView(file, FileIconType.File);
+				string assetRelPath = IOUtility.GetRelativePath(AssetDir, file);
+				FileItemView itemView = new FileItemView(file, assetRelPath, FileIconType.File);
 
 				FileItemContext.Children.Add(itemView);
+
+				itemView.Click += ItemView_Click;
+
+				void ItemView_Click() {
+					selectedFileItemSet.SetSelectedItem(itemView);
+				}
 			}
 		}
+
 		private void OpenTargetDirTree() {
 			string relativeExploringDir = GetRelativePath(ExploringDir);
 

@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaleKitEditor.UI.Workspaces.CommonTabs.DetailPanelElements {
+namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 	public enum DetailPanelType {
-		UiItem,
+		Common,
 		StoryBlock,
-		StoryClip,
-		Scene,
 	}
 }
