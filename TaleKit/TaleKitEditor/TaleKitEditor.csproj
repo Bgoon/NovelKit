@@ -208,6 +208,9 @@
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Margin.xaml.cs">
       <DependentUpon>ValueEditorElement_Margin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_AssetSelector.xaml.cs">
+      <DependentUpon>ValueEditorElement_AssetSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Vector3.xaml.cs">
       <DependentUpon>ValueEditorElement_Vector3.xaml</DependentUpon>
     </Compile>
@@ -466,6 +469,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_Margin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_AssetSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

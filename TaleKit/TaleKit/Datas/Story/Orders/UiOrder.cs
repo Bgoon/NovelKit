@@ -60,10 +60,10 @@ namespace TaleKit.Datas.Story {
 			base.OnStart();
 
 			targetUi = UiManager.UiDict[targetUiName];
-			srcPosition = targetUi.RectTransform.anchoredPosition;
-			srcRotation = targetUi.RectTransform.localRotation.z;
-			srcSizeDelta = targetUi.RectTransform.sizeDelta;
-			srcAlpha = targetUi.Alpha;
+			//srcPosition = targetUi.RectTransform.anchoredPosition;
+			//srcRotation = targetUi.RectTransform.localRotation.z;
+			//srcSizeDelta = targetUi.RectTransform.sizeDelta;
+			//srcAlpha = targetUi.Alpha;
 		}
 		public override void OnTick() {
 			base.OnTick();
@@ -87,15 +87,15 @@ namespace TaleKit.Datas.Story {
 			time = Mathf.Clamp01(time);
 			IsComplete = time > 0.999f;
 
-			targetUi.RectTransform.anchoredPosition = srcPosition + (DstPosition - srcPosition) * time;
+			//targetUi.RectTransform.anchoredPosition = srcPosition + (DstPosition - srcPosition) * time;
 
-			Quaternion rotation = targetUi.RectTransform.localRotation;
-			rotation.z = srcRotation + (DstRotation - srcRotation) * time;
-			targetUi.RectTransform.localRotation = rotation;
+			//Quaternion rotation = targetUi.RectTransform.localRotation;
+			//rotation.z = srcRotation + (DstRotation - srcRotation) * time;
+			//targetUi.RectTransform.localRotation = rotation;
 
-			targetUi.RectTransform.sizeDelta = srcSizeDelta + (DstSizeDelta - srcSizeDelta) * time;
-			targetUi.Alpha = srcAlpha + (DstAlpha - srcAlpha) * time;
-			targetUi.GameObject.SetActive(DstVisible);
+			//targetUi.RectTransform.sizeDelta = srcSizeDelta + (DstSizeDelta - srcSizeDelta) * time;
+			//targetUi.Alpha = srcAlpha + (DstAlpha - srcAlpha) * time;
+			//targetUi.GameObject.SetActive(DstVisible);
 		}
 	}
 }

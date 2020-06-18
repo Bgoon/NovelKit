@@ -49,10 +49,10 @@ namespace TaleKitEditor.UI.ValueEditors {
 			UpdateUI();
 		}
 		private void RegisterEvents() {
-			EditableValueChanged += ValueEditorElement_Switch_EditableValueChanged;
+			EditableValueChanged += OnEditableValueChanged;
 		}
 
-		private void ValueEditorElement_Switch_EditableValueChanged(object obj) {
+		private void OnEditableValueChanged(object obj) {
 			UpdateUI();
 		}
 		private void Button_Click(object sender, RoutedEventArgs e) {

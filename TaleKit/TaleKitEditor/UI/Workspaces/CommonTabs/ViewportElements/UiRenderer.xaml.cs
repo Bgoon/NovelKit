@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKit.Datas.Resource;
 using TaleKit.Datas.UI;
 using TaleKitEditor.Utility;
 using UnityEngine.UIElements;
@@ -25,7 +26,6 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 	/// UiRenderer.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class UiRenderer : UserControl {
-
 		public UiItem Data {
 			get; private set;
 		}
@@ -48,11 +48,19 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 
 		public void Render(bool renderChilds, bool rebuild) {
 			SolidRenderer.Background = Data.color.ToColor().ToBrush();
+			try {
+				AssetItem imageAsset = Data.GetImageAsset();
+				if (imageAsset != null) {
+					ImageRenderer.Source = new BitmapImage(new Uri(Data.GetImageAsset().AssetFilename));
+				} else {
+					ImageRenderer.Source = null;
+				}
+			} catch {
+			}
 
 			UpdateAlignment();
 
 			if (renderChilds) {
-
 				if(rebuild) {
 					ChildItemContext.Children.Clear();
 					foreach(UiItem data in Data.ChildItemList) {

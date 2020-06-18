@@ -16,6 +16,8 @@ namespace TaleKit.Datas.Story {
 	//	}
 	//}
 	public class StoryFile : ITaleDataFile {
+		public readonly TaleData OwnerTaleData;
+
 		public StoryClip RootClip {
 			get; private set;
 		}
@@ -30,7 +32,9 @@ namespace TaleKit.Datas.Story {
 		public event NodeItemDelegate<StoryBlockBase, StoryClip> ItemCreated;
 		public event NodeItemDelegate<StoryBlockBase, StoryClip> ItemRemoved;
 
-		public StoryFile() {
+		public StoryFile(TaleData ownerTaleData) {
+			this.OwnerTaleData = ownerTaleData;
+
 			InitMembers();
 			CreateRootItem();
 		}

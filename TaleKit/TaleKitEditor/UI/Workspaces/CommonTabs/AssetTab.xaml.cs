@@ -120,7 +120,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 			if (selectedFileItemSet.Count == 1) {
 				AssetItem item = AssetManager.LoadOrCreateMeta(itemView.AssetRelPath);
-				selectedFileItemKey = item.nameKey;
+				selectedFileItemKey = item.Key;
 				item.UpdatePreviewImageSource();
 
 				CommonDetailPanel.AttachModel(item, SelectedAssetItem_ValueChanged);
@@ -132,8 +132,8 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 		private void SelectedAssetItem_ValueChanged(object model, FieldInfo fieldInfo, IValueEditorElement valueEditorElement) {
 			AssetItem item = model as AssetItem;
-			if(fieldInfo.Name == nameof(item.nameKey)) {
-				if(!AssetManager.SetAssetNameKey(item, selectedFileItemKey, item.nameKey)) {
+			if(fieldInfo.Name == nameof(item.Key)) {
+				if(!AssetManager.SetAssetKey(item, selectedFileItemKey, item.Key)) {
 					Console.WriteLine("중복된 NameKey 가 이미 있습니다.");
 
 					valueEditorElement.EditableValue = selectedFileItemKey;

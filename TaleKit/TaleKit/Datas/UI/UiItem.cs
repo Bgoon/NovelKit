@@ -3,7 +3,10 @@ using GKitForUnity;
 using GKitForUnity.Data;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Resources;
+using TaleKit.Datas.Asset;
 using TaleKit.Datas.Editor;
+using TaleKit.Datas.Resource;
 using UnityEngine;
 using UAnchorPreset = GKitForUnity.AnchorPreset;
 using UAxisAnchor = GKitForUnity.AxisAnchor;
@@ -14,8 +17,10 @@ namespace TaleKit.Datas.UI {
 	public class UiItem : IEditableModel {
 
 		public event NodeItemInsertedDelegate<UiItem> ChildInserted;
-
 		public event NodeItemDelegate<UiItem, UiItem> ChildRemoved;
+
+		private TaleData OwnerTaleData => OwnerFile.OwnerTaleData;
+		private AssetManager AssetManager => OwnerTaleData.AssetManager;
 
 		public readonly UiFile OwnerFile;
 		public UiItem ParentItem {
@@ -24,9 +29,7 @@ namespace TaleKit.Datas.UI {
 		public List<UiItem> ChildItemList {
 			get; private set;
 		}
-		/// <summary>
-		/// For editor field
-		/// </summary>
+
 		public object View {
 			get; set;
 		}
@@ -88,7 +91,7 @@ namespace TaleKit.Datas.UI {
 		public GRect margin;
 
 		[ValueEditor_Vector2("Size")]
-		public UVector2 size;
+		public UVector2 size = new UVector2(1f, 1f);
 		[ValueEditor_NumberBox("Rotation")]
 		public float rotation;
 
@@ -97,18 +100,16 @@ namespace TaleKit.Datas.UI {
 		[ValueEditor_ColorBox("Color")]
 		public UColor color = Color.white;
 
-		public readonly GameObject GameObject;
-		public readonly RectTransform RectTransform;
-		public readonly UiTransform UiTransform;
-		public readonly CanvasRenderer Renderer;
-		public float Alpha {
-			get {
-				return Renderer.GetAlpha();
-			}
-			set {
-				Renderer.SetAlpha(value);
-			}
-		}
+		[ValueEditor_AssetSelector("Image", Asset.AssetType.Image)]
+		public string imageAssetKey;
+
+		[ValueEditor_Slider("Alpha", NumberType.Float, 0f, 1f)]
+		public float alpha = 1f;
+
+		//public readonly GameObject GameObject;
+		//public readonly RectTransform RectTransform;
+		//public readonly UiTransform UiTransform;
+		//public readonly CanvasRenderer Renderer;
 
 		public UiItem(UiFile ownerFile) {
 			this.OwnerFile = ownerFile;
@@ -120,6 +121,10 @@ namespace TaleKit.Datas.UI {
 			//RectTransform = GameObject.AddComponent<RectTransform>();
 			//UiTransform = GameObject.AddComponent<UiTransform>();
 			//Renderer = GameObject.AddComponent<CanvasRenderer>();
+		}
+
+		public AssetItem GetImageAsset() {
+			return AssetManager.GetAsset(imageAssetKey);
 		}
 
 		public void AddChildItem(UiItem item) {

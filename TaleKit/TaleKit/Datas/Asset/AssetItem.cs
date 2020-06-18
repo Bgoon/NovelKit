@@ -11,7 +11,7 @@ namespace TaleKit.Datas.Resource {
 		public readonly AssetManager OwnerAssetManager;
 		public TaleData OwnerTaleData => OwnerAssetManager.OwnerTaleData;
 
-		public bool HasKey => !string.IsNullOrEmpty(nameKey);
+		public bool HasKey => !string.IsNullOrEmpty(Key);
 
 		public string AssetRelPath {
 			get; private set;
@@ -23,13 +23,22 @@ namespace TaleKit.Datas.Resource {
 			get; private set;
 		}
 
+		public AssetType Type {
+			get {
+				if (string.IsNullOrEmpty(AssetRelPath))
+					return AssetType.Unknown;
+
+				return GetAssetType(Path.GetExtension(AssetFilename));
+			}
+		}
+
 		[AssetMeta]
 		public string fileHash;
 
 		[AssetMeta]
 		[ValueEditorComponent_Header("메타데이터")]
 		[ValueEditor_TextBox("NameKey")]
-		public string nameKey;
+		public string Key;
 
 		[ValueEditorComponent_Header("미리보기")]
 		[ValueEditorComponent_FilePreview]
@@ -37,6 +46,31 @@ namespace TaleKit.Datas.Resource {
 
 		public static string GetFileHash(string filename) {
 			return IOUtility.GetMetadataHash(filename);
+		}
+		public static AssetType GetAssetType(string ext) {
+			ext = ext.Replace(".", "").ToLower();
+
+			switch(ext) {
+				case "bmp":
+				case "jpg":
+				case "jpeg":
+				case "gif":
+				case "tiff":
+				case "png":
+					return AssetType.Image;
+				case "txt":
+				case "md":
+				case "log":
+				case "script":
+				case "html":
+				case "css":
+				case "xml":
+				case "json":
+				case "bson":
+					return AssetType.Text;
+				default:
+					return AssetType.Unknown;
+			}
 		}
 		public AssetItem(AssetManager ownerAssetManager, string path) {
 			OwnerAssetManager = ownerAssetManager;

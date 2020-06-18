@@ -9,7 +9,7 @@
     <Grid>
 		<Grid>
 			<Border Name="SolidRenderer"/>
-			<Image/>
+			<Image Name="ImageRenderer" Stretch="Fill"/>
 		</Grid>
 		<Grid Name="ChildItemContext"/>
 	</Grid>

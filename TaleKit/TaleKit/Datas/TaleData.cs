@@ -48,9 +48,9 @@ namespace TaleKit.Datas {
 
 			AssetManager = new AssetManager(this);
 
-			MotionFile = new MotionFile();
-			UiFile = new UiFile();
-			StoryFile = new StoryFile();
+			MotionFile = new MotionFile(this);
+			UiFile = new UiFile(this);
+			StoryFile = new StoryFile(this);
 
 			CreateEditorDirectories();
 

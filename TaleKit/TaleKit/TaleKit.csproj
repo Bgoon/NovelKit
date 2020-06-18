@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Datas\Asset\AssetManager.cs" />
     <Compile Include="Datas\Asset\Attributes\AssetMetaAttribute.cs" />
+    <Compile Include="Datas\Asset\AssetType.cs" />
     <Compile Include="Datas\Editor\IEditableModel.cs" />
     <Compile Include="Datas\Editor\ValueEditorComponent_FilePreviewAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorComponent_ItemSeparatorAttribute.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Datas\Editor\ValueEditor_ColorBoxAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_AnchorPresetAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_MarginAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditor_AssetSelectorAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_Vector3Attribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_Vector2Attribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_SwitchAttribute.cs" />

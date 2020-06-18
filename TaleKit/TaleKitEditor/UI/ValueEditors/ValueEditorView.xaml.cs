@@ -114,7 +114,6 @@ namespace TaleKitEditor.UI.ValueEditors {
 			if (componentAttr is ValueEditorComponent_HeaderAttribute) {
 				var header = new ValueEditorComponent_Header();
 				header.Text = ((ValueEditorComponent_HeaderAttribute)componentAttr).headerText;
-
 				view = header;
 			} else if (componentAttr is ValueEditorComponent_ItemSeparatorAttribute) {
 				view = new ItemSeparator();
@@ -129,8 +128,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 		private UserControl CreateEditorElementView(ValueEditorAttribute elementAttr) {
 			UserControl view;
 			if (elementAttr is ValueEditor_NumberBoxAttribute) {
-				var attr = elementAttr as ValueEditor_NumberBoxAttribute;
-				view = new ValueEditorElement_NumberBox(attr);
+				view = new ValueEditorElement_NumberBox(elementAttr as ValueEditor_NumberBoxAttribute);
 
 			} else if (elementAttr is ValueEditor_SliderAttribute) {
 				view = new ValueEditorElement_Slider();
@@ -139,23 +137,18 @@ namespace TaleKitEditor.UI.ValueEditors {
 				view = new ValueEditorElement_Switch();
 
 			} else if (elementAttr is ValueEditor_TextBoxAttribute) {
-				var attr = elementAttr as ValueEditor_TextBoxAttribute;
-				view = new ValueEditorElement_TextBox(attr);
+				view = new ValueEditorElement_TextBox(elementAttr as ValueEditor_TextBoxAttribute);
 
 			} else if (elementAttr is ValueEditor_NumberBoxAttribute) {
-				var attr = elementAttr as ValueEditor_NumberBoxAttribute;
-				view = new ValueEditorElement_NumberBox(attr);
+				view = new ValueEditorElement_NumberBox(elementAttr as ValueEditor_NumberBoxAttribute);
 
 			} else if (elementAttr is ValueEditor_Vector2Attribute) {
-				var attr = elementAttr as ValueEditor_Vector2Attribute;
-				view = new ValueEditorElement_Vector2(attr);
+				view = new ValueEditorElement_Vector2(elementAttr as ValueEditor_Vector2Attribute);
 
 			} else if (elementAttr is ValueEditor_Vector3Attribute) {
-				var attr = elementAttr as ValueEditor_Vector3Attribute;
-				view = new ValueEditorElement_Vector3(attr);
+				view = new ValueEditorElement_Vector3(elementAttr as ValueEditor_Vector3Attribute);
 
 			} else if (elementAttr is ValueEditor_ColorBoxAttribute) {
-				var attr = elementAttr as ValueEditor_ColorBoxAttribute;
 				view = new ValueEditorElement_ColorBox();
 
 			} else if (elementAttr is ValueEditor_AnchorPresetAttribute) {
@@ -163,6 +156,8 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 			} else if (elementAttr is ValueEditor_MarginAttribute) {
 				view = new ValueEditorElement_Margin();
+			} else if (elementAttr is ValueEditor_AssetSelectorAttribute) {
+				view = new ValueEditorElement_AssetSelector(elementAttr as ValueEditor_AssetSelectorAttribute);
 			} else {
 				throw new NotImplementedException();
 			}

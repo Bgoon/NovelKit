@@ -13,6 +13,8 @@ namespace TaleKit.Datas.UI {
 	public class UiFile : ITaleDataFile {
 		public delegate void NodeChangedDelegate();
 
+		public readonly TaleData OwnerTaleData;
+
 		public UiItem RootUiItem {
 			get; private set;
 		}
@@ -21,7 +23,9 @@ namespace TaleKit.Datas.UI {
 		public event NodeItemDelegate<UiItem, UiItem> ItemCreated;
 		public event NodeItemDelegate<UiItem, UiItem> ItemRemoved;
 
-		public UiFile(bool createRootItem = true) {
+		public UiFile(TaleData ownerTaleData, bool createRootItem = true) {
+			this.OwnerTaleData = ownerTaleData;
+
 			if (createRootItem) {
 				RootUiItem = new UiItem(this);
 			}
@@ -44,7 +48,7 @@ namespace TaleKit.Datas.UI {
 			if (parentUiItem == null)
 				parentUiItem = RootUiItem;
 
-			UiItem item = new UiItem(null);
+			UiItem item = new UiItem(this);
 			ItemCreatedPreview?.Invoke(item, parentUiItem);
 
 			parentUiItem.AddChildItem(item);
