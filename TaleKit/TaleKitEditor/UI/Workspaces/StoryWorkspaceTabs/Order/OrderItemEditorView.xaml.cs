@@ -29,7 +29,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		public string OrderTypeText => order == null ? null : order.OrderType.ToString();
 
-		public OrderItemEditorView() {
+		[Obsolete]
+		internal OrderItemEditorView() {
 			InitializeComponent();
 		}
 		public OrderItemEditorView(OrderBase order) {

@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.Dialogs.ColorPickerPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+			 xmlns:ValueEditors="clr-namespace:TaleKitEditor.UI.ValueEditors"
+			 xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
+
+             mc:Ignorable="d" 
+             Width="500" Height="300">
+	<Grid>
+		<DockPanel Margin="14">
+			<Grid DockPanel.Dock="Right" Width="140">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="2*"/>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="0.3*"/>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="0.3*"/>
+					<RowDefinition Height="1*"/>
+				</Grid.RowDefinitions>
+
+				<!--Color diff-->
+				<StackPanel Height="40" Margin="0, 0, 0, 8" Orientation="Horizontal" HorizontalAlignment="Center">
+					<Grid Grid.Row="0" Width="70" HorizontalAlignment="Left">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="1*"/>
+							<RowDefinition Height="1*"/>
+						</Grid.RowDefinitions>
+						<Rectangle Name="NewColorIndicator" Grid.Row="0" Fill="#FF5CEEF5"/>
+						<Rectangle Name="CurrentColorIndicator" Grid.Row="1" Fill="#FFE0954A"/>
+					</Grid>
+					<VectorImages:ColorDiffArrow Grid.RowSpan="2" VerticalAlignment="Center" Margin="4,0,0,0"/>
+				</StackPanel>
+				<Separator VerticalAlignment="Bottom" Background="#33FFFFFF"/>
+
+				<!--HSB-->
+				<ValueEditors:ValueEditorView Grid.Row="1" ValueNameText="H">
+					<ValueEditors:ValueEditorElement_NumberBox Tag="EditText_H" MinValue="0" MaxValue="360" NumberType="Float" NumberFormat="0.00"/>
+				</ValueEditors:ValueEditorView>
+				<ValueEditors:ValueEditorView Grid.Row="2" ValueNameText="S">
+					<ValueEditors:ValueEditorElement_NumberBox Tag="EditText_S" MinValue="0" MaxValue="1" NumberType="Float" NumberFormat="0.00"/>
+				</ValueEditors:ValueEditorView>
+				<ValueEditors:ValueEditorView Grid.Row="3" ValueNameText="V">
+					<ValueEditors:ValueEditorElement_NumberBox Tag="EditText_V" MinValue="0" MaxValue="1" NumberType="Float" NumberFormat="0.00"/>
+				</ValueEditors:ValueEditorView>
+
+				<!--RGB-->
+				<ValueEditors:ValueEditorView Grid.Row="5" ValueNameText="R">
+					<ValueEditors:ValueEditorElement_NumberBox Tag="EditText_R" MinValue="0" MaxValue="255" NumberType="Int"/>
+				</ValueEditors:ValueEditorView>
+				<ValueEditors:ValueEditorView Grid.Row="6" ValueNameText="G">
+					<ValueEditors:ValueEditorElement_NumberBox Tag="EditText_G" MinValue="0" MaxValue="255" NumberType="Int"/>
+				</ValueEditors:ValueEditorView>
+				<ValueEditors:ValueEditorView Grid.Row="7" ValueNameText="B">
+					<ValueEditors:ValueEditorElement_NumberBox Tag="EditText_B" MinValue="0" MaxValue="255" NumberType="Int"/>
+				</ValueEditors:ValueEditorView>
+
+				<!--Hex-->
+				<ValueEditors:ValueEditorView Grid.Row="9"  ValueNameText="Hex">
+					<ValueEditors:ValueEditorElement_TextBox Tag="EditText_Hex"/>
+				</ValueEditors:ValueEditorView>
+			</Grid>
+			<Grid DockPanel.Dock="Right" Width="30" Margin="12, 0"
+					MouseDown="HueEditor_MouseDown" MouseMove="HueEditor_MouseMove" MouseUp="HueEditor_MouseUp">
+				<Rectangle Name="ColorBox_Hue" Fill="Black" />
+				<VectorImages:HueIndicator x:Name="HueIndicator" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" Margin="0, 265, 0, 0">
+					<VectorImages:HueIndicator.RenderTransform>
+						<TransformGroup>
+							<ScaleTransform/>
+							<SkewTransform/>
+							<RotateTransform/>
+							<TranslateTransform X="12"/>
+						</TransformGroup>
+					</VectorImages:HueIndicator.RenderTransform>
+				</VectorImages:HueIndicator>
+			</Grid>
+			<Grid ClipToBounds="True"
+					MouseDown="SvEditor_MouseDown" MouseMove="SvEditor_MouseMove" MouseUp="SvEditor_MouseUp">
+				<Rectangle Name="ColorBox_SV" Fill="Black" />
+				<VectorImages:SvIndicator x:Name="SvIndicator" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" RenderTransformOrigin="0.5,0.5"/>
+
+
+			</Grid>
+
+		</DockPanel>
+	</Grid>
+</UserControl>

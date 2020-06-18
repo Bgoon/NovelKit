@@ -189,8 +189,14 @@
       <DependentUpon>MainHeaderText.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\WorkspaceButton.cs" />
-    <Compile Include="UI\Dialogs\ColorSelectDialog.xaml.cs">
-      <DependentUpon>ColorSelectDialog.xaml</DependentUpon>
+    <Compile Include="UI\Dialogs\AddOrderPanel.xaml.cs">
+      <DependentUpon>AddOrderPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\ColorPickerPanel.xaml.cs">
+      <DependentUpon>ColorPickerPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\TaleDialog.xaml.cs">
+      <DependentUpon>TaleDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Utility\WindowUtility.cs" />
     <Compile Include="UI\ValueEditors\ItemEditorView.xaml.cs">
@@ -244,9 +250,6 @@
     </Compile>
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderTypeItemView.xaml.cs">
       <DependentUpon>OrderTypeItemView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\AddOrderWindow.xaml.cs">
-      <DependentUpon>AddOrderWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ValueEditors\ValueEditorElements\ValueEditorElement_TextBox.xaml.cs">
       <DependentUpon>ValueEditorElement_TextBox.xaml</DependentUpon>
@@ -442,7 +445,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Dialogs\ColorSelectDialog.xaml">
+    <Page Include="UI\Dialogs\AddOrderPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialogs\ColorPickerPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialogs\TaleDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -507,10 +518,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderTypeItemView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Order\AddOrderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

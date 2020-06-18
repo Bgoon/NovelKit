@@ -22,21 +22,32 @@ namespace TaleKitEditor.UI.Utility {
 			};
 		}
 
-		public static void PlaySlideInAnim(this Window window, float slideLength = 10f) {
+		public static void PlaySlideInAnim(this Window window, float slideLengthFactor = 1f) {
 			//Slide animation
 			const int SlideDurationMillisec = 300;
+			const float SlideLength = 30f;
 
-			double slideDstTop = window.Top;
-			window.Top = slideDstTop + slideLength;
+			double slideDst = window.Left;
+			double slideFrom = slideDst + SlideLength * slideLengthFactor;
+			window.Left = slideFrom;
 
-			IEasingFunction powerEasing = new PowerEase() { EasingMode = EasingMode.EaseOut };
+			IEasingFunction easeFunction = new PowerEase() { EasingMode = EasingMode.EaseOut };
 			Duration slideDuration = new Duration(new TimeSpan(0, 0, 0, 0, SlideDurationMillisec));
 			DoubleAnimation slideAnim = new DoubleAnimation() {
-				To = slideDstTop,
+				From = slideFrom,
+				To = slideDst,
 				Duration = slideDuration,
-				EasingFunction = powerEasing,
+				EasingFunction = easeFunction,
 			};
-			window.BeginAnimation(Window.TopProperty, slideAnim);
+			window.BeginAnimation(Window.LeftProperty, slideAnim);
+
+			DoubleAnimation opacityAnim = new DoubleAnimation() {
+				From = 0d,
+				To = 1d,
+				Duration = slideDuration,
+				EasingFunction = easeFunction,
+			};
+			window.BeginAnimation(Window.OpacityProperty, opacityAnim);
 		}
 	}
 }

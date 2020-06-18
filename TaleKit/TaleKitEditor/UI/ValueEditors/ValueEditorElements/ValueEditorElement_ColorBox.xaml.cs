@@ -67,12 +67,10 @@ namespace TaleKitEditor.UI.ValueEditors {
 			UpdateUI();
 		}
 		private void ButtonContext_OnClick() {
-			Vector2 windowTailPos = this.GetAbsolutePosition(new Vector2(10f, (float)ActualHeight * 0.5f));
+			Vector2 windowTailPos = this.GetAbsolutePosition(new Vector2(5f, (float)ActualHeight * 0.5f));
 
-			ColorSelectDialog dialog = new ColorSelectDialog(windowTailPos, Value);
-			dialog.Show();
-
-			dialog.ValueChanged += Dialog_ValueChanged;
+			ColorPickerPanel colorPicker = ColorPickerPanel.ShowDialog(Value, windowTailPos);
+			colorPicker.ValueChanged += Dialog_ValueChanged;
 		}
 		private void Dialog_ValueChanged(UColor value) {
 			Value = value;

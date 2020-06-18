@@ -22,6 +22,7 @@ using TaleKitEditor.UI.Workspaces.CommonTabs;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements;
 using GKitForWPF.UI.Controls;
 using GKitForWPF;
+using TaleKitEditor.UI.Dialogs;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	public partial class StoryBlockDetailPanel : UserControl {
@@ -65,8 +66,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void AddOrderButton_Click(object sender, RoutedEventArgs e) {
-			AddOrderWindow window = new AddOrderWindow(EditingBlock, (Vector2)AddOrderButton.PointToScreen(new Point(10f, 0f)));
-			window.Show();
+			AddOrderPanel.Show(EditingBlock, (Vector2)AddOrderButton.PointToScreen(new Point(10f, AddOrderButton.ActualHeight * 0.5d)));
 		}
 
 		private void EditingBlock_OrderAdded(OrderBase order) {
