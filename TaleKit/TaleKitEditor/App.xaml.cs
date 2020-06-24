@@ -22,7 +22,7 @@ namespace TaleKitEditor {
 			new Root();
 		}
 		private void LoadResources() {
-			StyleResource.Apply(Resources, ThemeType.FlatTheme);
+			StyleResource.Apply(Resources, ThemeType.GFlatDark);
 		}
 	}
 }

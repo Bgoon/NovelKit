@@ -60,7 +60,6 @@
     <Compile Include="Datas\Editor\ValueEditorComponent_FilePreviewAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorComponent_ItemSeparatorAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorLayout.cs" />
-    <Compile Include="Datas\Editor\NumberType.cs" />
     <Compile Include="Datas\Editor\ValueEditorComponentAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditorComponent_HeaderAttribute.cs" />

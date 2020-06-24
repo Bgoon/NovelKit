@@ -1,4 +1,6 @@
-﻿namespace TaleKit.Datas.Editor {
+﻿using GKitForUnity;
+
+namespace TaleKit.Datas.Editor {
 	public class ValueEditor_SliderAttribute : ValueEditorAttribute {
 		public NumberType numberType;
 		public float minValue;

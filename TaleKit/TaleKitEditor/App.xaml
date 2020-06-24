@@ -16,10 +16,8 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="pack://application:,,,/GKitForWPF;component/WPF/Resources/Themes/FlatTheme.xaml"/>
+				
 				<ResourceDictionary>
-					
-
 					<SolidColorBrush x:Key="MainWindowBackground" Color="#FF2E2E2E"/>
 					<SolidColorBrush x:Key="PopupWindowBackground" Color="#454545"/>
 					<SolidColorBrush x:Key="PopupWindowStroke" Color="#6B6B6B"/>

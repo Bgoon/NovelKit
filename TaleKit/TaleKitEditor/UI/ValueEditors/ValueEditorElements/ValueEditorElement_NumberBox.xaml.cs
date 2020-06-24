@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.Editor;
+using NumberType = GKitForUnity.NumberType;
 
 namespace TaleKitEditor.UI.ValueEditors {
 	public partial class ValueEditorElement_NumberBox : UserControl, IValueEditorElement, INotifyPropertyChanged {
