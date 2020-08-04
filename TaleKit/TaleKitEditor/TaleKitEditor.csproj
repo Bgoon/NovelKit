@@ -198,6 +198,9 @@
     <Compile Include="UI\Dialogs\ColorPickerPanel.xaml.cs">
       <DependentUpon>ColorPickerPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\MenuPanel.xaml.cs">
+      <DependentUpon>MenuPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\TaleDialog.xaml.cs">
       <DependentUpon>TaleDialog.xaml</DependentUpon>
     </Compile>
@@ -459,6 +462,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Dialogs\MenuPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Dialogs\TaleDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -652,6 +659,8 @@
     </None>
     <Resource Include="Resources\Shader\ColorEditor_H.ps" />
     <Resource Include="Resources\Shader\ColorEditor_SV.ps" />
+    <Resource Include="Resources\Fonts\AppleSDGothicNeoEB.ttf" />
+    <Resource Include="Resources\Fonts\AppleSDGothicNeoR.ttf" />
     <None Include="Resources\Shader\Library\Global.fxlib" />
     <Resource Include="Resources\Fonts\KoPub Dotum_Pro Bold.otf" />
     <Resource Include="Resources\Fonts\KoPub Dotum_Pro Medium.otf" />

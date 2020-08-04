@@ -8,7 +8,7 @@ namespace TaleKit.Datas.Story {
 	/// 대화씬에서의 텍스트대사 설정 명령
 	/// </summary>
 	public class MessageOrder : OrderBase {
-		protected static MotionText ScriptText => UiManager.ScriptText;
+		protected static MotionTextBase ScriptText => UiManager.ScriptText;
 
 		[ValueEditor_TextBox("화자")]
 		public string talker;

@@ -41,16 +41,16 @@
 
 					<!--Texts-->
 					<Style x:Key="MainHeaderText" TargetType="TextBlock">
-						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Bold"/>
+						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoEB00"/>
 						<Setter Property="FontSize" Value="14"/>
 						<Setter Property="Foreground" Value="#ABABAB"/>
 					</Style>
 					<Style x:Key="SubHeaerText" TargetType="TextBlock">
-						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Bold"/>
+						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoEB00"/>
 						<Setter Property="Foreground" Value="#7A7A7A"/>
 					</Style>
 					<Style x:Key="ContentText" TargetType="TextBlock">
-						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium"/>
+						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoR00"/>
 						<Setter Property="Foreground" Value="#BDBDBD"/>
 					</Style>
 
@@ -59,7 +59,7 @@
 						<Setter Property="FontSize" Value="12"/>
 					</Style>
 					<Style x:Key="ValueEditorNameText" TargetType="TextBlock">
-						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Bold"/>
+						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoEB00"/>
 						<Setter Property="Foreground" Value="#7A7A7A"/>
 						<Setter Property="FontSize" Value="12"/>
 					</Style>
@@ -73,7 +73,7 @@
 						<Setter Property="Background" Value="{StaticResource TextBoxBackground}"/>
 						<Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
 						<Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
-						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium"/>
+						<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoR00"/>
 						<Setter Property="FontSize" Value="12"/>
 						<Setter Property="Template">
 							<Setter.Value>
@@ -86,7 +86,7 @@
 											  VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"
 											  HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
 											  Padding="{TemplateBinding Padding}"
-											  FontFamily="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Fixed"/>
+											  FontFamily="/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoR00" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Fixed"/>
 										</Border>
 										<Border x:Name="Cover" IsHitTestVisible="False"/>
 									</Grid>
