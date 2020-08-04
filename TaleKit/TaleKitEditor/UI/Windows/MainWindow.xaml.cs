@@ -120,12 +120,19 @@ namespace TaleKitEditor.UI.Windows {
 
 		private async void ProcessDebugTask() {
 #if DEBUG
-			const string ProjectPath = @"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectSB\Develop\TaleKit\TestProject";
+			const string ProjectPath = @"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectV\Develop\TaleKit\TestProject";
 			if (!Directory.Exists(ProjectPath))
 				return;
 
 			CreateProject(ProjectPath);
 #endif
+
+			await Task.Delay(1000);
+
+			MenuPanel.ShowDialog(
+			new Dialogs.MenuItem("Item 1", null),
+			new Dialogs.MenuItem("Item 2", null),
+			new Dialogs.MenuItem("Item 3", null));
 		}
 
 		public void CreateProject() {

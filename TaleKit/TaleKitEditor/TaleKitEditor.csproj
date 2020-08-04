@@ -201,6 +201,9 @@
     <Compile Include="UI\Dialogs\MenuPanel.xaml.cs">
       <DependentUpon>MenuPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\MenuPanel\MenuItem.xaml.cs">
+      <DependentUpon>MenuItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\TaleDialog.xaml.cs">
       <DependentUpon>TaleDialog.xaml</DependentUpon>
     </Compile>
@@ -463,6 +466,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Dialogs\MenuPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialogs\MenuPanel\MenuItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -25,11 +25,13 @@ namespace TaleKitEditor.UI.Dialogs {
 
 		private bool isClosing;
 
-		public static void Show(FrameworkElement content, Vector2 talePosition) {
+		public static TaleDialog Show(FrameworkElement content, Vector2 talePosition) {
 			TaleDialog dialog = new TaleDialog(talePosition);
 			dialog.ContentContext.Children.Add(content);
 
 			dialog.Show();
+
+			return dialog;
 		}
 
 		[Obsolete]
