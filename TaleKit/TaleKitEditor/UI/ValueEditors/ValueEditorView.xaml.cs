@@ -44,8 +44,9 @@ namespace TaleKitEditor.UI.ValueEditors {
 		}
 		protected IValueEditorElement valueEditorElement;
 
+		protected ValueEditorAttribute attribute;
 		protected FieldInfo field;
-		protected object model;
+		protected IEditableModel model;
 
 		public UIElementCollection Children {
 			get { 
@@ -60,11 +61,11 @@ namespace TaleKitEditor.UI.ValueEditors {
 
 			Children = ValueEditorElementContext.Children;
 		}
-		public ValueEditorView(object model, FieldInfo fieldInfo, ModelValueChangedDelegate modelValueChanged = null) : this() {
+		public ValueEditorView(IEditableModel model, FieldInfo fieldInfo, ModelValueChangedDelegate modelValueChanged = null) : this() {
 			this.model = model;
 			this.field = fieldInfo;
 
-			//Classify components : 헤더 등등 부가적인 정보
+			// Classify components : 헤더 등등 부가적인 정보
 			ValueEditorComponentAttribute[] components = fieldInfo.GetCustomAttributes(typeof(ValueEditorComponentAttribute)).Select(x=>(ValueEditorComponentAttribute)x).ToArray();
 			foreach(ValueEditorComponentAttribute component in components) {
 				UserControl view = CreateEditorComponentView(component, model, fieldInfo);
@@ -72,41 +73,45 @@ namespace TaleKitEditor.UI.ValueEditors {
 				ValueEditorComponentContext.Children.Add(view);
 			}
 
-			//Classify elements : 실제 값
+			// Classify elements : 실제 값
 			int editorAttrCount = fieldInfo.GetCustomAttributes<ValueEditorAttribute>().Count();
 			if (editorAttrCount > 1) {
-				throw new Exception("Field에 ValueEditorAttribute가 2개 이상 있습니다.");
+				throw new Exception("Field contains more than one ValueEditorAttribute.");
 			} else if (editorAttrCount == 0)
 				return;
 
-			//ValueName
-			ValueEditorAttribute element = fieldInfo.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
-			ValueNameText = element.valueName;
+			// ValueName
+			attribute = fieldInfo.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
+			ValueNameText = attribute.valueName;
 
-			//ValueEditor
-			UserControl editorElement = CreateEditorElementView(element);
+			// ValueEditor
+			UserControl editorElement = CreateEditorElementView(attribute);
 			valueEditorElement = (IValueEditorElement)editorElement;
 
 			valueEditorElement.EditableValueChanged += IEditorElement_ElementValueChanged;
 			valueEditorElement.EditableValue = fieldInfo.GetValue(model);
 
-			//Outter event
+			// Outter event
 			valueEditorElement.EditableValueChanged += (object value) => {
 				modelValueChanged?.Invoke(model, fieldInfo, valueEditorElement);
 			};
 
-			switch (element.layout) {
+			switch (attribute.layout) {
 				case ValueEditorLayout.Wide:
 					SetWideEditorElementContext();
 					break;
 			}
 
 			Children.Add(editorElement);
+
+			// Register events
+			model.ModelUpdated += UpdateVisible;
 		}
 
 		private void IEditorElement_ElementValueChanged(object value) {
 			ElementEditorValueChanged?.Invoke(value);
 			field.SetValue(model, value);
+			model.UpdateModel();
 		}
 
 		private UserControl CreateEditorComponentView(ValueEditorComponentAttribute componentAttr, object model, FieldInfo fieldInfo) {
@@ -163,6 +168,14 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 
 			return view;
+		}
+
+		private void UpdateVisible() {
+			if (string.IsNullOrEmpty(attribute.visibleCondition))
+				return;
+
+			bool visible = (bool)model.GetType().GetProperty(attribute.visibleCondition, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(model);
+			Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void SetWideEditorElementContext() {

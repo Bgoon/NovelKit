@@ -2,6 +2,7 @@
 using GKitForUnity;
 using GKitForUnity.Data;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Resources;
 using TaleKit.Datas.Asset;
@@ -15,6 +16,7 @@ using UVector2 = UnityEngine.Vector2;
 
 namespace TaleKit.Datas.UI {
 	public class UiItem : IEditableModel {
+		public event Action ModelUpdated;
 
 		public event NodeItemInsertedDelegate<UiItem> ChildInserted;
 		public event NodeItemDelegate<UiItem, UiItem> ChildRemoved;
@@ -122,6 +124,10 @@ namespace TaleKit.Datas.UI {
 			//RectTransform = GameObject.AddComponent<RectTransform>();
 			//UiTransform = GameObject.AddComponent<UiTransform>();
 			//Renderer = GameObject.AddComponent<CanvasRenderer>();
+		}
+
+		public void UpdateModel() {
+			ModelUpdated?.Invoke();
 		}
 
 		public AssetItem GetImageAsset() {

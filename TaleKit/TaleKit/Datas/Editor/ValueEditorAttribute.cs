@@ -7,12 +7,12 @@ namespace TaleKit.Datas.Editor {
 	public class ValueEditorAttribute : Attribute {
 		public string valueName;
 		public ValueEditorLayout layout;
-		public ReturnDelegate<bool> displayCondition;
+		public string visibleCondition;
 
-		public ValueEditorAttribute(string valueName, ValueEditorLayout layout = ValueEditorLayout.Normal, ReturnDelegate<bool> displayCondition = null) {
+		public ValueEditorAttribute(string valueName, ValueEditorLayout layout = ValueEditorLayout.Normal, string visibleCondition = null) {
 			this.valueName = valueName;
 			this.layout = layout;
-			this.displayCondition = displayCondition;
+			this.visibleCondition = visibleCondition;
 		}
 	}
 }

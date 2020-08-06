@@ -6,7 +6,7 @@ namespace TaleKit.Datas.Editor {
 		public float minValue;
 		public float maxValue;
 
-		public ValueEditor_SliderAttribute(string valueName, NumberType numberType = NumberType.Float, float minValue = 0f, float maxValue = 1f) : base(valueName) {
+		public ValueEditor_SliderAttribute(string valueName, NumberType numberType = NumberType.Float, float minValue = 0f, float maxValue = 1f, string visibleCondition = null) : base(valueName, visibleCondition:visibleCondition) {
 			this.numberType = numberType;
 			this.minValue = minValue;
 			this.maxValue = maxValue;

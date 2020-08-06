@@ -1,10 +1,12 @@
-﻿namespace TaleKit.Datas.Editor {
+﻿using GKitForUnity;
+
+namespace TaleKit.Datas.Editor {
 	public class ValueEditor_TextBoxAttribute : ValueEditorAttribute {
 
 		public int maxLength;
 		public bool allowMultiline;
 
-		public ValueEditor_TextBoxAttribute(string valueName, int maxLength = 100, bool allowMultiline = false) : base(valueName) {
+		public ValueEditor_TextBoxAttribute(string valueName, int maxLength = 100, bool allowMultiline = false, string visibleCondition = null) : base(valueName, visibleCondition:visibleCondition) {
 			this.maxLength = maxLength;
 			this.allowMultiline = allowMultiline;
 		}

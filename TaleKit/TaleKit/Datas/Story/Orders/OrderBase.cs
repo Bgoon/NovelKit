@@ -1,6 +1,7 @@
 ﻿using GKit.Json;
 using GKitForUnity;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using TaleKit.Datas.Editor;
 using TaleKit.Datas.UI;
@@ -28,10 +29,15 @@ namespace TaleKit.Datas.Story {
 			get;
 		}
 
+		public event Action ModelUpdated;
+
+
+		// [ Constructor ]
 		public OrderBase(StoryBlock ownerBlock) {
 			this.OwnerBlock = ownerBlock;
 		}
 
+		// [ Event ]
 		public virtual void OnStart() {
 
 		}
@@ -40,6 +46,10 @@ namespace TaleKit.Datas.Story {
 		}
 		public virtual void OnComplete() {
 
+		}
+
+		public void UpdateModel() {
+			ModelUpdated?.Invoke();
 		}
 
 		public virtual void Skip() {

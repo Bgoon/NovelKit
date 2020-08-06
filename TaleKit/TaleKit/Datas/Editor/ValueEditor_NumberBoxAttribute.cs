@@ -6,7 +6,8 @@ namespace TaleKit.Datas.Editor {
 		public float minValue;
 		public float maxValue;
 
-		public ValueEditor_NumberBoxAttribute(string valueName, NumberType numberType = NumberType.Float, float minValue = float.NegativeInfinity, float maxValue = float.PositiveInfinity) : base(valueName) {
+		public ValueEditor_NumberBoxAttribute(string valueName, NumberType numberType = NumberType.Float, float minValue = float.NegativeInfinity, 
+			float maxValue = float.PositiveInfinity, string visibleCondition = null) : base(valueName, visibleCondition:visibleCondition) {
 			this.numberType = numberType;
 			this.minValue = minValue;
 			this.maxValue = maxValue;
