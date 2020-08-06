@@ -27,9 +27,7 @@ namespace TaleKitEditor.UI.Dialogs {
 		public static MenuPanel ShowDialog(params MenuItem[] items) {
 			MenuPanel panel = new MenuPanel(items);
 			TaleDialog dialog = TaleDialog.Show(panel, MouseInput.AbsolutePosition);
-			panel.ItemClick += () => {
-				dialog.Close();
-			};
+			panel.ItemClick += dialog.Close;
 
 			return panel;
 		}

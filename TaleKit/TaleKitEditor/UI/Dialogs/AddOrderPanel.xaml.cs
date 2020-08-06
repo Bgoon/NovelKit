@@ -15,13 +15,14 @@ namespace TaleKitEditor.UI.Dialogs {
 			get; private set;
 		}
 
-		public event Action Close;
+		public event Action ItemClick;
 
 		private OrderTypeItemView[] itemViews;
 
 		public static AddOrderPanel Show(StoryBlock ownerBlock, Vector2 talePosition) {
 			AddOrderPanel panel = new AddOrderPanel(ownerBlock);
-			TaleDialog.Show(panel, talePosition);
+			TaleDialog dialog = TaleDialog.Show(panel, talePosition);
+			panel.ItemClick += dialog.Close;
 
 			return panel;
 		}
@@ -40,7 +41,7 @@ namespace TaleKitEditor.UI.Dialogs {
 		private void TypeItemView_Click(OrderType obj) {
 			OwnerBlock.AddOrder(obj);
 
-			Close?.Invoke();
+
 		}
 
 		private void CreateTypeItems() {

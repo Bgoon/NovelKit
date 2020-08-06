@@ -30,11 +30,12 @@ namespace TaleKit.Datas.UI {
 			get; private set;
 		}
 
+		// External data
 		public object View {
 			get; set;
 		}
 
-		//HelperDatas
+		// Helper datas
 		public UAxisAnchor AnchorX {
 			get {
 				switch (anchorPreset) {
@@ -82,7 +83,7 @@ namespace TaleKit.Datas.UI {
 			}
 		}
 
-		//Datas
+		// Datas
 		[ValueEditorComponent_Header("Transform")]
 		[ValueEditor_AnchorPreset("Anchor")]
 		public UAnchorPreset anchorPreset = UAnchorPreset.StretchAll;

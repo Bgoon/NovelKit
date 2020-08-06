@@ -84,6 +84,7 @@
     <Compile Include="Datas\Story\StoryBlockBase.cs" />
     <Compile Include="Datas\Story\StoryFile.cs" />
     <Compile Include="Datas\TaleData.cs" />
+    <Compile Include="Datas\UI\UiItemType.cs" />
     <Compile Include="Debug\TestResources.cs" />
     <Compile Include="Event\EventBase.cs" />
     <Compile Include="Input\PlayerInput.cs" />
