@@ -86,6 +86,8 @@ namespace TaleKit.Datas.UI {
 		}
 
 		// Datas
+		public UiItemType itemType;
+
 		[ValueEditorComponent_Header("Transform")]
 		[ValueEditor_AnchorPreset("Anchor")]
 		public UAnchorPreset anchorPreset = UAnchorPreset.StretchAll;
@@ -97,7 +99,7 @@ namespace TaleKit.Datas.UI {
 		public UVector2 size = new UVector2(1f, 1f);
 		[ValueEditor_NumberBox("Rotation")]
 		public float rotation;
-
+		
 		[ValueEditorComponent_ItemSeparator]
 		[ValueEditorComponent_Header("Render")]
 		[ValueEditor_ColorBox("Color")]
@@ -114,9 +116,10 @@ namespace TaleKit.Datas.UI {
 		//public readonly UiTransform UiTransform;
 		//public readonly CanvasRenderer Renderer;
 
-		public UiItem(UiFile ownerFile) {
+		public UiItem(UiFile ownerFile, UiItemType itemType) {
 			this.OwnerFile = ownerFile;
-
+			this.itemType = itemType;
+			System.Diagnostics.Debug.WriteLine($"Created {itemType}");
 			ChildItemList = new List<UiItem>();
 
 			//For unity only (제거할것)
@@ -143,6 +146,7 @@ namespace TaleKit.Datas.UI {
 
 			ChildInserted?.Invoke(index, item);
 		}
+
 		public void RemoveChildItem(UiItem item) {
 			ChildItemList.Remove(item);
 			item.ParentItem = null;

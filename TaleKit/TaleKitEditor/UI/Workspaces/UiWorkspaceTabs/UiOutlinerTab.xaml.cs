@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using TaleKit.Datas;
 using TaleKit.Datas.Editor;
 using TaleKit.Datas.UI;
+using TaleKitEditor.UI.Dialogs;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
 
@@ -94,9 +95,22 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		}
 
 		private void UiItemListController_CreateItemButtonClick() {
-			UiItem item = UiFile.CreateUiItem(SelectedUiItemSingle);
+			Dialogs.MenuItem[] menuItems = ((UiItemType[])Enum.GetValues(typeof(UiItemType))).Select(
+				(UiItemType itemType) => {
+					UiItemType itemTypeInstance = itemType;
+					return new Dialogs.MenuItem(itemType.ToString(), () => {
+						CreateAndSelectUiItem(itemType);
+					});
+				}).ToArray();
 
-			UiTreeView.SelectedItemSet.SetSelectedItem(item.View as ITreeItem);
+			MenuPanel.ShowDialog(menuItems);
+
+			void CreateAndSelectUiItem(UiItemType itemType) {
+				UiItem item = UiFile.CreateUiItem(SelectedUiItemSingle, itemType);
+
+				UiTreeView.SelectedItemSet.SetSelectedItem(item.View as ITreeItem);
+			}
+			
 		}
 		private void UiItemListController_RemoveItemButtonClick() {
 			UiItemView[] selectedItems = UiTreeView.SelectedItemSet.Select(item=>(UiItemView)item).ToArray();

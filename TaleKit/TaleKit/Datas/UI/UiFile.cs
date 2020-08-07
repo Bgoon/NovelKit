@@ -27,7 +27,7 @@ namespace TaleKit.Datas.UI {
 			this.OwnerTaleData = ownerTaleData;
 
 			if (createRootItem) {
-				RootUiItem = new UiItem(this);
+				RootUiItem = new UiItem(this, UiItemType.Panel);
 			}
 		}
 
@@ -44,11 +44,11 @@ namespace TaleKit.Datas.UI {
 			return true;
 		}
 
-		public UiItem CreateUiItem(UiItem parentUiItem) {
+		public UiItem CreateUiItem(UiItem parentUiItem, UiItemType itemType) {
 			if (parentUiItem == null)
 				parentUiItem = RootUiItem;
 
-			UiItem item = new UiItem(this);
+			UiItem item = new UiItem(this, itemType);
 			ItemCreatedPreview?.Invoke(item, parentUiItem);
 
 			parentUiItem.AddChildItem(item);
