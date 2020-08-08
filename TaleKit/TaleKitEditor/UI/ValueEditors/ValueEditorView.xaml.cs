@@ -43,6 +43,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 			{ typeof(ValueEditor_MarginAttribute), typeof(ValueEditor_Margin) },
 			{ typeof(ValueEditor_AssetSelectorAttribute), typeof(ValueEditor_AssetSelector) }, 
 			{ typeof(ValueEditor_TextBlockViewerAttribute), typeof(ValueEditor_TextBlockViewer) }, 
+			{ typeof(ValueEditor_EnumComboBoxAttribute), typeof(ValueEditor_EnumComboBox) }, 
 		};
 
 		public event Action<object> ElementEditorValueChanged;
@@ -94,11 +95,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 				ValueEditorComponentContext.Children.Add(view);
 			}
 
-			// Classify elements : 실제 값
-			int editorAttrCount = fieldInfo.GetCustomAttributes<ValueEditorAttribute>().Count();
-			if (editorAttrCount > 1) {
-				throw new Exception("Field contains more than one ValueEditorAttribute.");
-			} else if (editorAttrCount == 0)
+			if (!IsAvailableValueEditorAttributeCount(fieldInfo))
 				return;
 
 			// Set editor attributes
@@ -112,7 +109,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 
 			// ValueEditor element
-			UserControl editorElement = CreateEditorElementView(attribute);
+			UserControl editorElement = CreateEditorElementView(attribute, model, fieldInfo);
 			valueEditorElement = (IValueEditorElement)editorElement;
 
 			valueEditorElement.EditableValueChanged += IEditorElement_ElementValueChanged;
@@ -130,22 +127,27 @@ namespace TaleKitEditor.UI.ValueEditors {
 		// [ Event ]
 		private void IEditorElement_ElementValueChanged(object value) {
 			ElementEditorValueChanged?.Invoke(value);
-			field.SetValue(model, value);
+			field.SetValue(model, Convert.ChangeType(value, field.FieldType));
 			model.UpdateModel();
 		}
 
-		private UserControl CreateEditorComponentView(ValueEditorComponentAttribute attr, object model, FieldInfo fieldInfo) {
+		private UserControl CreateEditorComponentView(ValueEditorComponentAttribute attr, IEditableModel model, FieldInfo fieldInfo) {
 			UserControl view;
 			if (attr is ValueEditorComponent_FilePreviewAttribute) {
 				view = new ValueEditorComponent_FilePreview(fieldInfo.GetValue(model) as string);
 			} else {
 				view = CreateAttributeView(attr, ComponentAttr_To_ComponentViewDict);
 			}
-
 			return view;
 		}
-		private UserControl CreateEditorElementView(ValueEditorAttribute attr) {
-			return CreateAttributeView(attr, EditorAttr_To_EditorViewDict);
+		private UserControl CreateEditorElementView(ValueEditorAttribute attr, IEditableModel model, FieldInfo fieldInfo) {
+			UserControl view;
+			if(attr is ValueEditor_EnumComboBoxAttribute) {
+				view = new ValueEditor_EnumComboBox(fieldInfo.FieldType);
+			} else {
+				view = CreateAttributeView(attr, EditorAttr_To_EditorViewDict);
+			}
+			return view;
 		}
 
 		private UserControl CreateAttributeView(Attribute attr, Dictionary<Type, Type> attrType_To_ViewTypeDict) {
@@ -186,6 +188,14 @@ namespace TaleKitEditor.UI.ValueEditors {
 			Grid.SetRow(ValueEditorElementContext, 1);
 
 			ValueSeparator.Visibility = Visibility.Visible;
+		}
+
+		private bool IsAvailableValueEditorAttributeCount(FieldInfo fieldInfo) {
+			int editorAttrCount = fieldInfo.GetCustomAttributes<ValueEditorAttribute>().Count();
+			if (editorAttrCount > 1) {
+				throw new Exception("Field contains more than one ValueEditorAttribute.");
+			}
+			return editorAttrCount == 1;
 		}
 	}
 }

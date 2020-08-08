@@ -67,6 +67,7 @@
     <Compile Include="Datas\Editor\ValueEditor_AnchorPresetAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_MarginAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_AssetSelectorAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditor_EnumComboBoxAttribute .cs" />
     <Compile Include="Datas\Editor\ValueEditor_TextBlockViewerAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_Vector3Attribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_Vector2Attribute.cs" />

@@ -18,9 +18,12 @@ using TaleKit.Datas.Resource;
 using TaleKit.Datas.UI;
 using TaleKit.Datas.UI.UiItem;
 using TaleKitEditor.Utility;
+using UnityEngine;
 using UnityEngine.UIElements;
 using UAnchorPreset = GKitForUnity.AnchorPreset;
 using UAxisAnchor = GKitForUnity.AxisAnchor;
+using Grid = System.Windows.Controls.Grid;
+using Mathf = UnityEngine.Mathf;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 	/// <summary>
@@ -103,6 +106,52 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			UiText textData = Data as UiText;
 
 			TextRenderer.Text = textData.text;
+			FontFamily fontFamily;
+			if(!string.IsNullOrEmpty(textData.fontFamily)) {
+				fontFamily = new FontFamily(textData.fontFamily);
+			} else {
+
+				fontFamily = new FontFamily();
+			}
+			TextRenderer.FontFamily = fontFamily;
+			TextRenderer.FontSize = Mathf.Max(1, textData.fontSize);
+			TextRenderer.Foreground = textData.color.ToColor().ToBrush();
+			
+			switch(textData.anchor) {
+				case TextAnchor.UpperLeft:
+				case TextAnchor.MiddleLeft:
+				case TextAnchor.LowerLeft:
+					TextRenderer.TextAlignment = System.Windows.TextAlignment.Left;
+					break;
+				case TextAnchor.UpperCenter:
+				case TextAnchor.MiddleCenter:
+				case TextAnchor.LowerCenter:
+					TextRenderer.TextAlignment = System.Windows.TextAlignment.Center;
+					break;
+				case TextAnchor.UpperRight:
+				case TextAnchor.MiddleRight:
+				case TextAnchor.LowerRight:
+					TextRenderer.TextAlignment = System.Windows.TextAlignment.Right;
+					break;
+			}
+
+			switch(textData.anchor) {
+				case TextAnchor.UpperLeft:
+				case TextAnchor.UpperCenter:
+				case TextAnchor.UpperRight:
+					TextRenderer.VerticalAlignment = VerticalAlignment.Top;
+					break;
+				case TextAnchor.MiddleLeft:
+				case TextAnchor.MiddleCenter:
+				case TextAnchor.MiddleRight:
+					TextRenderer.VerticalAlignment = VerticalAlignment.Center;
+					break;
+				case TextAnchor.LowerLeft:
+				case TextAnchor.LowerCenter:
+				case TextAnchor.LowerRight:
+					TextRenderer.VerticalAlignment = VerticalAlignment.Bottom;
+					break;
+			}
 		}
 
 		//Alignment

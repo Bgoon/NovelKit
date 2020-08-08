@@ -51,6 +51,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 				ValueTextBox_Bottom,
 			};
 			foreach(var numberBox in numberBoxes) {
+				numberBox.MinValue = 0f;
 				numberBox.EditableValueChanged += ValueTextBox_EditableValueChanged;
 			}
 		}

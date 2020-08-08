@@ -53,6 +53,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			UiFile.ItemCreated += UiFile_ItemCreated;
 			UiFile.ItemRemoved += UiFile_ItemRemoved;
 
+			RenderAll(true, true);
 			ScrollToCenter();
 		}
 		private void UiFile_ItemCreated(UiItemBase item, UiItemBase parentItem) {

@@ -223,6 +223,9 @@
     <Compile Include="UI\ValueEditors\ValueEditorView\ValueEditor_AssetSelector.xaml.cs">
       <DependentUpon>ValueEditor_AssetSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ValueEditors\ValueEditorView\ValueEditor_EnumComboBox.xaml.cs">
+      <DependentUpon>ValueEditor_EnumComboBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ValueEditors\ValueEditorView\ValueEditor_TextBlockViewer.xaml.cs">
       <DependentUpon>ValueEditor_TextBlockViewer.xaml</DependentUpon>
     </Compile>
@@ -500,6 +503,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\ValueEditors\ValueEditorView\ValueEditor_AssetSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ValueEditors\ValueEditorView\ValueEditor_EnumComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
