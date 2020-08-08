@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,10 +42,9 @@ namespace TaleKitEditor.UI.Dialogs {
 		public TaleDialog(Vector2 talePosition) {
 			Opacity = 0d;
 			InitializeComponent();
-
+			
 			this.talePosition = talePosition;
 		}
-
 		private void Window_ContentRendered(object sender, EventArgs e) {
 			Vector2 windowPos = talePosition;
 			windowPos += -(Vector2)TailShape.TranslatePoint(new Point((float)TailShape.ActualWidth, (float)TailShape.ActualHeight * 0.5f), this);

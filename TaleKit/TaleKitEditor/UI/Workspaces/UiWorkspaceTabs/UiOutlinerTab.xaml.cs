@@ -22,7 +22,7 @@ using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
 
 namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
-	public delegate void ItemMovedDelegate(UiItem item, UiItem newParentItem, UiItem oldParentItem);
+	public delegate void ItemMovedDelegate(UiItemBase item, UiItemBase newParentItem, UiItemBase oldParentItem);
 	
 	public partial class UiOutlinerTab : UserControl {
 		private static Root Root => Root.Instance;
@@ -36,7 +36,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			get; private set;
 		}
 
-		//Selected
+		// SelectedItem
 		public UiItemView SelectedUiItemViewSingle {
 			get {
 				if (UiTreeView.SelectedItemSet.Count > 0) {
@@ -45,7 +45,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 				return null;
 			}
 		}
-		public UiItem SelectedUiItemSingle {
+		public UiItemBase SelectedUiItemSingle {
 			get {
 				UiItemView selectedItemView = SelectedUiItemViewSingle;
 				return selectedItemView == null ? null : selectedItemView.Data;
@@ -54,6 +54,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 		public event ItemMovedDelegate ItemMoved;
 
+		// [ Constructor ]
 		public UiOutlinerTab() {
 			InitializeComponent();
 
@@ -79,8 +80,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			UiTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
 		}
 
-
-		//Events
+		// [ Event ]
 		private void MainWindow_DataLoaded(TaleData obj) {
 			UiFile.ItemCreatedPreview += UiFile_ItemCreated;
 			UiFile.ItemRemoved += UiFile_ItemRemoved;
@@ -95,6 +95,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		}
 
 		private void UiItemListController_CreateItemButtonClick() {
+			// Show UiItemType menu
 			Dialogs.MenuItem[] menuItems = ((UiItemType[])Enum.GetValues(typeof(UiItemType))).Select(
 				(UiItemType itemType) => {
 					UiItemType itemTypeInstance = itemType;
@@ -106,7 +107,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			MenuPanel.ShowDialog(menuItems);
 
 			void CreateAndSelectUiItem(UiItemType itemType) {
-				UiItem item = UiFile.CreateUiItem(SelectedUiItemSingle, itemType);
+				UiItemBase item = UiFile.CreateUiItem(SelectedUiItemSingle, itemType);
 
 				UiTreeView.SelectedItemSet.SetSelectedItem(item.View as ITreeItem);
 			}
@@ -115,13 +116,13 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		private void UiItemListController_RemoveItemButtonClick() {
 			UiItemView[] selectedItems = UiTreeView.SelectedItemSet.Select(item=>(UiItemView)item).ToArray();
 			foreach (UiItemView itemView in selectedItems) {
-				UiItem data = itemView.Data;
+				UiItemBase data = itemView.Data;
 
 				UiFile.RemoveUiItem(data);
 			}
 		}
 
-		private void UiFile_ItemCreated(UiItem item, UiItem parentItem) {
+		private void UiFile_ItemCreated(UiItemBase item, UiItemBase parentItem) {
 			UiItemView itemView = new UiItemView(item);
 
 			if (parentItem == null) {
@@ -134,21 +135,23 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			} else {
 				itemView.ParentItem = parentItem.View as ITreeFolder;
 			}
+			itemView.DisplayName = item.name;
+			itemView.ItemTypeName = item.itemType.ToString();
 
 			//Register events
 			item.ChildInserted += Data_ChildInserted;
 			item.ChildRemoved += Data_ChildRemoved;
 
-			void Data_ChildInserted(int index, UiItem childItem) {
+			void Data_ChildInserted(int index, UiItemBase childItem) {
 				UiItemView childItemView = childItem.View as UiItemView;
 				itemView.ChildItemCollection.Insert(index, childItemView);
 			}
-			void Data_ChildRemoved(UiItem childItem, UiItem currentItem) {
+			void Data_ChildRemoved(UiItemBase childItem, UiItemBase currentItem) {
 				UiItemView childItemView = childItem.View as UiItemView;
 				itemView.ChildItemCollection.Remove(childItemView);
 			}
 		}
-		private void UiFile_ItemRemoved(UiItem item, UiItem parentItem) {
+		private void UiFile_ItemRemoved(UiItemBase item, UiItemBase parentItem) {
 			//Remove view	
 			UiItemView itemView = item.View as UiItemView;
 			UiTreeView.NotifyItemRemoved(itemView);
@@ -157,8 +160,8 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 		private void UiTreeView_ItemMoved(ITreeItem itemView, ITreeFolder oldParentView, ITreeFolder newParentView, int index) {
 			//Data에 적용하기
-			UiItem item = ((UiItemView)itemView).Data;
-			UiItem newParentItem = ((UiItemView)newParentView).Data;
+			UiItemBase item = ((UiItemView)itemView).Data;
+			UiItemBase newParentItem = ((UiItemView)newParentView).Data;
 			UiItemView oldParentItemView = (oldParentView as UiItemView);
 
 			if(oldParentItemView != null) {

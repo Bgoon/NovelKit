@@ -5,15 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
 			 xmlns:GControls="clr-namespace:GKitForWPF.UI.Controls;assembly=GKitForWPF"
+			 xmlns:Control="clr-namespace:TaleKitEditor.UI.Controls"
             
 			mc:Ignorable="d" 
 			 
              d:DesignWidth="200">
 	<StackPanel>
 		<DockPanel Name="ItemPanel" Background="{StaticResource ItemBackground}" Height="34">
-			<StackPanel DockPanel.Dock="Right" Name="TypeMarkStackPanel"/>
+			<Control:Badge DockPanel.Dock="Right" x:Name="TypeBadge" Margin="0,0,4,0" Text="{Binding ItemTypeName, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
 			<Polygon Fill="#9C9C9C" Points="0,0 6,4, 0,8" VerticalAlignment="Center" Margin="6,0" />
-			<GControls:EditTextBlock Name="NameEditText" Text="ItemName" Foreground="#D6D6D6" EditingBackground="#FF2C2C2C" EditingForeground="#FFC1C1C1"
+			<GControls:EditTextBlock Name="NameEditText" Text="{Binding DisplayName, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Foreground="#D6D6D6" EditingBackground="#FF2C2C2C" EditingForeground="#FFC1C1C1"
 				HorizontalAlignment="Left" VerticalAlignment="Center"/>
 		</DockPanel>
 

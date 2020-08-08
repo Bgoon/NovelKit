@@ -126,13 +126,6 @@ namespace TaleKitEditor.UI.Windows {
 
 			CreateProject(ProjectPath);
 #endif
-
-			await Task.Delay(1000);
-
-			MenuPanel.ShowDialog(
-			new Dialogs.MenuItem("Item 1", null),
-			new Dialogs.MenuItem("Item 2", null),
-			new Dialogs.MenuItem("Item 3", null));
 		}
 
 		public void CreateProject() {

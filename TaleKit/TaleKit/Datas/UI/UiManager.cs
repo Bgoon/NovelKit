@@ -9,7 +9,7 @@ namespace TaleKit.Datas.UI {
 
 		public GameObject Obj_Scenes => Client.GameObjects.Scenes;
 
-		public Dictionary<string, UiItem> UiDict {
+		public Dictionary<string, UiItemBase> UiDict {
 			get; private set;
 		}
 		public MotionTextBase ScriptText {
@@ -23,7 +23,7 @@ namespace TaleKit.Datas.UI {
 			//CreateTestScene();
 		}
 		private void InitMembers() {
-			UiDict = new Dictionary<string, UiItem>();
+			UiDict = new Dictionary<string, UiItemBase>();
 		}
 		private void RegisterEvents() {
 

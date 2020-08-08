@@ -55,16 +55,16 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 			ScrollToCenter();
 		}
-		private void UiFile_ItemCreated(UiItem item, UiItem parentItem) {
+		private void UiFile_ItemCreated(UiItemBase item, UiItemBase parentItem) {
 			RenderAll(true, true);
 		}
-		private void UiFile_ItemRemoved(UiItem item, UiItem parentItem) {
+		private void UiFile_ItemRemoved(UiItemBase item, UiItemBase parentItem) {
 			RenderAll(true, true);
 		}
 		internal void UiItemDetailPanel_UiItemValueChanged(object model, FieldInfo fieldInfo, IValueEditorElement valueEditorElement) {
 			RenderAll(true, false);
 		}
-		private void UiOutlinerTab_ItemMoved(UiItem item, UiItem newParentItem, UiItem oldParentItem) {
+		private void UiOutlinerTab_ItemMoved(UiItemBase item, UiItemBase newParentItem, UiItemBase oldParentItem) {
 			RenderAll(true, true);
 		}
 

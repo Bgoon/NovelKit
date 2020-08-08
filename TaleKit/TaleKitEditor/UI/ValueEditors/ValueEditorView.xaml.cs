@@ -25,6 +25,26 @@ namespace TaleKitEditor.UI.ValueEditors {
 		public static readonly DependencyPropertyKey ChildrenProperty = DependencyProperty.RegisterReadOnly(nameof(Children), typeof(UIElementCollection), typeof(ValueEditorView), new PropertyMetadata());
 		public static readonly DependencyProperty ValueNameTextProperty = DependencyProperty.RegisterAttached(nameof(ValueNameText), typeof(string), typeof(ValueEditorView), new PropertyMetadata(null));
 
+		private static Dictionary<Type, Type> ComponentAttr_To_ComponentViewDict = new Dictionary<Type, Type>() {
+			{ typeof(ValueEditorComponent_FilePreviewAttribute), typeof(ValueEditorComponent_FilePreview) },
+			{ typeof(ValueEditorComponent_HeaderAttribute), typeof(ValueEditorComponent_Header) },
+			{ typeof(ValueEditorComponent_ItemSeparatorAttribute), typeof(ItemSeparator) },
+
+		};
+		private static Dictionary<Type, Type> EditorAttr_To_EditorViewDict = new Dictionary<Type, Type>() {
+			{ typeof(ValueEditor_NumberBoxAttribute), typeof(ValueEditor_NumberBox) },
+			{ typeof(ValueEditor_SliderAttribute), typeof(ValueEditor_Slider) },
+			{ typeof(ValueEditor_SwitchAttribute), typeof(ValueEditor_Switch) },
+			{ typeof(ValueEditor_TextBoxAttribute), typeof(ValueEditor_TextBox) },
+			{ typeof(ValueEditor_Vector2Attribute), typeof(ValueEditor_Vector2) },
+			{ typeof(ValueEditor_Vector3Attribute), typeof(ValueEditor_Vector3) },
+			{ typeof(ValueEditor_ColorBoxAttribute), typeof(ValueEditor_ColorBox) },
+			{ typeof(ValueEditor_AnchorPresetAttribute), typeof(ValueEditor_AnchorPreset) },
+			{ typeof(ValueEditor_MarginAttribute), typeof(ValueEditor_Margin) },
+			{ typeof(ValueEditor_AssetSelectorAttribute), typeof(ValueEditor_AssetSelector) }, 
+			{ typeof(ValueEditor_TextBlockViewerAttribute), typeof(ValueEditor_TextBlockViewer) }, 
+		};
+
 		public event Action<object> ElementEditorValueChanged;
 
 		public string ValueNameText {
@@ -56,6 +76,7 @@ namespace TaleKitEditor.UI.ValueEditors {
 			}
 		}
 
+		// [ Constructor ]
 		public ValueEditorView() {
 			InitializeComponent();
 
@@ -80,21 +101,9 @@ namespace TaleKitEditor.UI.ValueEditors {
 			} else if (editorAttrCount == 0)
 				return;
 
-			// ValueName
+			// Set editor attributes
 			attribute = fieldInfo.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
 			ValueNameText = attribute.valueName;
-
-			// ValueEditor
-			UserControl editorElement = CreateEditorElementView(attribute);
-			valueEditorElement = (IValueEditorElement)editorElement;
-
-			valueEditorElement.EditableValueChanged += IEditorElement_ElementValueChanged;
-			valueEditorElement.EditableValue = fieldInfo.GetValue(model);
-
-			// Outter event
-			valueEditorElement.EditableValueChanged += (object value) => {
-				modelValueChanged?.Invoke(model, fieldInfo, valueEditorElement);
-			};
 
 			switch (attribute.layout) {
 				case ValueEditorLayout.Wide:
@@ -102,71 +111,64 @@ namespace TaleKitEditor.UI.ValueEditors {
 					break;
 			}
 
-			Children.Add(editorElement);
+			// ValueEditor element
+			UserControl editorElement = CreateEditorElementView(attribute);
+			valueEditorElement = (IValueEditorElement)editorElement;
+
+			valueEditorElement.EditableValueChanged += IEditorElement_ElementValueChanged;
+			valueEditorElement.EditableValue = fieldInfo.GetValue(model);
 
 			// Register events
+			valueEditorElement.EditableValueChanged += (object value) => {
+				modelValueChanged?.Invoke(model, fieldInfo, valueEditorElement);
+			};
 			model.ModelUpdated += UpdateVisible;
+
+			Children.Add(editorElement);
 		}
 
+		// [ Event ]
 		private void IEditorElement_ElementValueChanged(object value) {
 			ElementEditorValueChanged?.Invoke(value);
 			field.SetValue(model, value);
 			model.UpdateModel();
 		}
 
-		private UserControl CreateEditorComponentView(ValueEditorComponentAttribute componentAttr, object model, FieldInfo fieldInfo) {
+		private UserControl CreateEditorComponentView(ValueEditorComponentAttribute attr, object model, FieldInfo fieldInfo) {
 			UserControl view;
-			if (componentAttr is ValueEditorComponent_HeaderAttribute) {
-				var header = new ValueEditorComponent_Header();
-				header.Text = ((ValueEditorComponent_HeaderAttribute)componentAttr).headerText;
-				view = header;
-			} else if (componentAttr is ValueEditorComponent_ItemSeparatorAttribute) {
-				view = new ItemSeparator();
-			} else if (componentAttr is ValueEditorComponent_FilePreviewAttribute) {
+			if (attr is ValueEditorComponent_FilePreviewAttribute) {
 				view = new ValueEditorComponent_FilePreview(fieldInfo.GetValue(model) as string);
 			} else {
-				throw new NotImplementedException();
+				view = CreateAttributeView(attr, ComponentAttr_To_ComponentViewDict);
 			}
 
 			return view;
 		}
-		private UserControl CreateEditorElementView(ValueEditorAttribute elementAttr) {
-			UserControl view;
-			if (elementAttr is ValueEditor_NumberBoxAttribute) {
-				view = new ValueEditorElement_NumberBox(elementAttr as ValueEditor_NumberBoxAttribute);
+		private UserControl CreateEditorElementView(ValueEditorAttribute attr) {
+			return CreateAttributeView(attr, EditorAttr_To_EditorViewDict);
+		}
 
-			} else if (elementAttr is ValueEditor_SliderAttribute) {
-				view = new ValueEditorElement_Slider();
-
-			} else if (elementAttr is ValueEditor_SwitchAttribute) {
-				view = new ValueEditorElement_Switch();
-
-			} else if (elementAttr is ValueEditor_TextBoxAttribute) {
-				view = new ValueEditorElement_TextBox(elementAttr as ValueEditor_TextBoxAttribute);
-
-			} else if (elementAttr is ValueEditor_NumberBoxAttribute) {
-				view = new ValueEditorElement_NumberBox(elementAttr as ValueEditor_NumberBoxAttribute);
-
-			} else if (elementAttr is ValueEditor_Vector2Attribute) {
-				view = new ValueEditorElement_Vector2(elementAttr as ValueEditor_Vector2Attribute);
-
-			} else if (elementAttr is ValueEditor_Vector3Attribute) {
-				view = new ValueEditorElement_Vector3(elementAttr as ValueEditor_Vector3Attribute);
-
-			} else if (elementAttr is ValueEditor_ColorBoxAttribute) {
-				view = new ValueEditorElement_ColorBox();
-
-			} else if (elementAttr is ValueEditor_AnchorPresetAttribute) {
-				view = new ValueEditorElement_AnchorPreset();
-
-			} else if (elementAttr is ValueEditor_MarginAttribute) {
-				view = new ValueEditorElement_Margin();
-			} else if (elementAttr is ValueEditor_AssetSelectorAttribute) {
-				view = new ValueEditorElement_AssetSelector(elementAttr as ValueEditor_AssetSelectorAttribute);
-			} else {
-				throw new NotImplementedException();
+		private UserControl CreateAttributeView(Attribute attr, Dictionary<Type, Type> attrType_To_ViewTypeDict) {
+			// Find constructor
+			Type componentViewType = attrType_To_ViewTypeDict[attr.GetType()];
+			ConstructorInfo[] componentViewConstructors = componentViewType.GetConstructors();
+			ConstructorInfo componentViewConstructor = null;
+			foreach (var constructorIterator in componentViewConstructors) {
+				if (componentViewConstructor == null || constructorIterator.GetParameters().Length > componentViewConstructor.GetParameters().Length) {
+					componentViewConstructor = constructorIterator;
+				}
 			}
+			int constructorParamCount = componentViewConstructor.GetParameters().Length;
 
+			// Call constructor
+			UserControl view;
+			if (constructorParamCount == 0) {
+				view = (UserControl)componentViewConstructor.Invoke(null);
+			} else if (constructorParamCount == 1) {
+				view = (UserControl)componentViewConstructor.Invoke(new object[] { attr });
+			} else {
+				throw new Exception("Constructor parameter count is not in (0, 1).");
+			}
 			return view;
 		}
 

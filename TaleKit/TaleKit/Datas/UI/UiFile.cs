@@ -1,7 +1,9 @@
 ﻿using GKitForUnity.Data;
 using GKitForUnity.IO;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Text;
+using TaleKit.Datas.UI.UiItem;
 
 namespace TaleKit.Datas.UI {
 	//UiData {
@@ -15,19 +17,19 @@ namespace TaleKit.Datas.UI {
 
 		public readonly TaleData OwnerTaleData;
 
-		public UiItem RootUiItem {
+		public UiItemBase RootUiItem {
 			get; private set;
 		}
 
-		public event NodeItemDelegate<UiItem, UiItem> ItemCreatedPreview;
-		public event NodeItemDelegate<UiItem, UiItem> ItemCreated;
-		public event NodeItemDelegate<UiItem, UiItem> ItemRemoved;
+		public event NodeItemDelegate<UiItemBase, UiItemBase> ItemCreatedPreview;
+		public event NodeItemDelegate<UiItemBase, UiItemBase> ItemCreated;
+		public event NodeItemDelegate<UiItemBase, UiItemBase> ItemRemoved;
 
 		public UiFile(TaleData ownerTaleData, bool createRootItem = true) {
 			this.OwnerTaleData = ownerTaleData;
 
 			if (createRootItem) {
-				RootUiItem = new UiItem(this, UiItemType.Panel);
+				RootUiItem = new UiItemBase(this, UiItemType.Panel);
 			}
 		}
 
@@ -44,11 +46,21 @@ namespace TaleKit.Datas.UI {
 			return true;
 		}
 
-		public UiItem CreateUiItem(UiItem parentUiItem, UiItemType itemType) {
+		public UiItemBase CreateUiItem(UiItemBase parentUiItem, UiItemType itemType) {
 			if (parentUiItem == null)
 				parentUiItem = RootUiItem;
 
-			UiItem item = new UiItem(this, itemType);
+			UiItemBase item;
+			switch (itemType) {
+				default:
+					throw new Exception($"Failed to create UiItem because itemType '{itemType}' is unknown.");
+				case UiItemType.Panel:
+					item = new UiPanel(this);
+					break;
+				case UiItemType.Text:
+					item = new UiText(this);
+					break;
+			}
 			ItemCreatedPreview?.Invoke(item, parentUiItem);
 
 			parentUiItem.AddChildItem(item);
@@ -57,13 +69,13 @@ namespace TaleKit.Datas.UI {
 
 			return item;
 		}
-		public void RemoveUiItem(UiItem item) {
-			UiItem[] childs = item.ChildItemList.ToArray();
-			foreach (UiItem childItem in childs) {
+		public void RemoveUiItem(UiItemBase item) {
+			UiItemBase[] childs = item.ChildItemList.ToArray();
+			foreach (UiItemBase childItem in childs) {
 				RemoveUiItem(childItem);
 			}
 
-			UiItem parentItem = item.ParentItem;
+			UiItemBase parentItem = item.ParentItem;
 			parentItem.RemoveChildItem(item);
 
 			ItemRemoved?.Invoke(item, parentItem);

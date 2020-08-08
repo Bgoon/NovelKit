@@ -26,7 +26,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 	/// UiRenderer.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class UiRenderer : UserControl {
-		public UiItem Data {
+		public UiItemBase Data {
 			get; private set;
 		}
 
@@ -36,7 +36,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 		public UiRenderer() {
 			InitializeComponent();
 		}
-		public UiRenderer(UiItem data) {
+		public UiRenderer(UiItemBase data) {
 			InitializeComponent();
 
 			this.Data = data;
@@ -63,7 +63,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			if (renderChilds) {
 				if(rebuild) {
 					ChildItemContext.Children.Clear();
-					foreach(UiItem data in Data.ChildItemList) {
+					foreach(UiItemBase data in Data.ChildItemList) {
 						UiRenderer renderer = new UiRenderer(data);
 						ChildItemContext.Children.Add(renderer);
 

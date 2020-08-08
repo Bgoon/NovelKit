@@ -22,17 +22,13 @@ namespace TaleKitEditor.UI.Utility {
 			};
 		}
 
-		public static void PlaySlideInAnim(this Window window, float slideLengthFactor = 1f) {
-			//Slide animation
-			const int SlideDurationMillisec = 300;
-			const float SlideLength = 30f;
-
+		public static void PlaySlideInAnim(this Window window, float slideLength = 50f, float durationSec = 0.2f) {
 			double slideDst = window.Left;
-			double slideFrom = slideDst + SlideLength * slideLengthFactor;
+			double slideFrom = slideDst + slideLength;
 			window.Left = slideFrom;
-
+			
 			IEasingFunction easeFunction = new PowerEase() { EasingMode = EasingMode.EaseOut };
-			Duration slideDuration = new Duration(new TimeSpan(0, 0, 0, 0, SlideDurationMillisec));
+			Duration slideDuration = new Duration(TimeSpan.FromSeconds(durationSec));
 			DoubleAnimation slideAnim = new DoubleAnimation() {
 				From = slideFrom,
 				To = slideDst,

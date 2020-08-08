@@ -67,6 +67,7 @@
     <Compile Include="Datas\Editor\ValueEditor_AnchorPresetAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_MarginAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_AssetSelectorAttribute.cs" />
+    <Compile Include="Datas\Editor\ValueEditor_TextBlockViewerAttribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_Vector3Attribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_Vector2Attribute.cs" />
     <Compile Include="Datas\Editor\ValueEditor_SwitchAttribute.cs" />
@@ -85,6 +86,8 @@
     <Compile Include="Datas\Story\StoryFile.cs" />
     <Compile Include="Datas\TaleData.cs" />
     <Compile Include="Datas\UI\UiItemType.cs" />
+    <Compile Include="Datas\UI\UiItem\UiText.cs" />
+    <Compile Include="Datas\UI\UiItem\UiPanel.cs" />
     <Compile Include="Debug\TestResources.cs" />
     <Compile Include="Event\EventBase.cs" />
     <Compile Include="Input\PlayerInput.cs" />
@@ -110,7 +113,7 @@
     <Compile Include="Datas\UI\Text\MotionCharBase.cs" />
     <Compile Include="Datas\UI\Text\MotionTextBase.cs" />
     <Compile Include="Datas\UI\UiFile.cs" />
-    <Compile Include="Datas\UI\UiItem.cs" />
+    <Compile Include="Datas\UI\UiItem\UiItemBase.cs" />
     <Compile Include="Datas\UI\UiManager.cs" />
   </ItemGroup>
   <ItemGroup>

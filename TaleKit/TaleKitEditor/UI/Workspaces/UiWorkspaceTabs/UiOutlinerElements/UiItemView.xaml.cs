@@ -21,30 +21,64 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 	/// UiItem.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class UiItemView : UserControl, ITreeFolder {
-		public readonly UiItem Data;
+		public static readonly DependencyProperty DisplayNameProperty = DependencyProperty.RegisterAttached(nameof(DisplayName), typeof(string), typeof(UiItemView), new PropertyMetadata("Item"));
+		public static readonly DependencyProperty ItemTypeNameProperty = DependencyProperty.RegisterAttached(nameof(ItemTypeName), typeof(string), typeof(UiItemView), new PropertyMetadata("ItemType"));
 
-		//ITreeFolder interface
-		public string DisplayName => NameEditText.Text;
+		public readonly UiItemBase Data;
+
+		// ITreeFolder interface
 		public ITreeFolder ParentItem {
 			get; set;
 		}
 		public FrameworkElement ItemContext => ItemPanel;
 		public UIElementCollection ChildItemCollection => ChildStackPanel.Children;
 
+		// Item member
+		public string DisplayName {
+			get {
+				return (string)GetValue(DisplayNameProperty);
+			}
+			set {
+				SetValue(DisplayNameProperty, value);
+			}
+		}
+		public string ItemTypeName {
+			get {
+				return (string)GetValue(ItemTypeNameProperty);
+			}
+			set {
+				SetValue(ItemTypeNameProperty, value);
+			}
+		}
 
+		// [ Constructor ]
 		public UiItemView() {
 			InitializeComponent();
 		}
-		public UiItemView(UiItem data) : this() {
+		public UiItemView(UiItemBase data) : this() {
 			this.Data = data;
 			data.View = this;
+
+			// Register events
+			NameEditText.TextEdited += NameEditText_TextEdited;
+			data.ModelUpdated += Data_ModelUpdated;
 		}
 
+
+		// [ Event ]
+		private void Data_ModelUpdated() {
+			DisplayName = Data.name;
+		}
+		private void NameEditText_TextEdited(string oldText, string newText, ref bool cancelEdit) {
+			Data.name = newText;
+		}
+
+		// [ Control ]
 		public void SetRootItem() {
 			ItemPanel.Visibility = Visibility.Collapsed;
 		}
 		public void SetDisplayName(string name) {
-			NameEditText.Text = name;
+			DisplayName = name;
 		}
 		public void SetSelected(bool isSelected) {
 			ItemPanel.Background = GResourceUtility.GetAppResource<Brush>(isSelected ? "ItemBackground_Selected" : "ItemBackground");

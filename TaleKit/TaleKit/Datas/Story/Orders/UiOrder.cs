@@ -9,7 +9,7 @@ namespace TaleKit.Datas.Story {
 	/// </summary>
 	public class UiOrder : OrderBase {
 		public string targetUiName;
-		private UiItem targetUi;
+		private UiItemBase targetUi;
 
 		public float BlendProgress => blendElapsedSeconds / BlendTotalSeconds;
 		public float BlendTotalSeconds;

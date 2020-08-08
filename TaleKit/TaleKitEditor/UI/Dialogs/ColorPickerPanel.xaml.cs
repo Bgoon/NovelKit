@@ -26,15 +26,15 @@ namespace TaleKitEditor.UI.Dialogs {
 
 		private Shader_ColorEditor_SV colorEditor_SV_Shader;
 
-		[FindByTag] private ValueEditors.ValueEditorElement_NumberBox EditText_H;
-		[FindByTag] private ValueEditors.ValueEditorElement_NumberBox EditText_S;
-		[FindByTag] private ValueEditors.ValueEditorElement_NumberBox EditText_V;
+		[FindByTag] private ValueEditors.ValueEditor_NumberBox EditText_H;
+		[FindByTag] private ValueEditors.ValueEditor_NumberBox EditText_S;
+		[FindByTag] private ValueEditors.ValueEditor_NumberBox EditText_V;
 
-		[FindByTag] private ValueEditors.ValueEditorElement_NumberBox EditText_R;
-		[FindByTag] private ValueEditors.ValueEditorElement_NumberBox EditText_G;
-		[FindByTag] private ValueEditors.ValueEditorElement_NumberBox EditText_B;
+		[FindByTag] private ValueEditors.ValueEditor_NumberBox EditText_R;
+		[FindByTag] private ValueEditors.ValueEditor_NumberBox EditText_G;
+		[FindByTag] private ValueEditors.ValueEditor_NumberBox EditText_B;
 
-		[FindByTag] private ValueEditors.ValueEditorElement_TextBox EditText_Hex;
+		[FindByTag] private ValueEditors.ValueEditor_TextBox EditText_Hex;
 
 		private HSV selectedHsv;
 		private UColor oldColor;

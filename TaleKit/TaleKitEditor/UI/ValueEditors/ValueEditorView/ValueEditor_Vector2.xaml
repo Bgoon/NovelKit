@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.ValueEditors.ValueEditor_Vector2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+			 xmlns:ValueEditors="clr-namespace:TaleKitEditor.UI.ValueEditors"
+			 xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
+
+             mc:Ignorable="d" 
+             d:DesignWidth="200">
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="15px"/>
+			<ColumnDefinition Width="1*"/>
+		</Grid.ColumnDefinitions>
+
+		<ValueEditors:ValueEditor_NumberBox x:Name="ValueTextBox_X"/>
+		<ValueEditors:ValueEditor_NumberBox Grid.Column="2" x:Name="ValueTextBox_Y"/>
+		<VectorImages:Cross Grid.Column="1" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
+	</Grid>
+</UserControl>
