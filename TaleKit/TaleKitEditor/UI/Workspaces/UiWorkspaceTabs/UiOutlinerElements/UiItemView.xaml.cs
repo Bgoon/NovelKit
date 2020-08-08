@@ -76,6 +76,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		// [ Control ]
 		public void SetRootItem() {
 			ItemPanel.Visibility = Visibility.Collapsed;
+			ChildStackPanel.Margin = new Thickness(0);
 		}
 		public void SetDisplayName(string name) {
 			DisplayName = name;
