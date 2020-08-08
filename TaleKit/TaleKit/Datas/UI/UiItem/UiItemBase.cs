@@ -106,17 +106,6 @@ namespace TaleKit.Datas.UI {
 		[ValueEditor_NumberBox("Rotation")]
 		public float rotation;
 		
-		[ValueEditorComponent_ItemSeparator]
-		[ValueEditorComponent_Header("Render")]
-		[ValueEditor_ColorBox("Color")]
-		public UColor color = Color.white;
-
-		[ValueEditor_AssetSelector("Image", AssetType.Image)]
-		public string imageAssetKey;
-
-		[ValueEditor_Slider("Alpha", NumberType.Float, 0f, 1f)]
-		public float alpha = 1f;
-
 		//public readonly GameObject GameObject;
 		//public readonly RectTransform RectTransform;
 		//public readonly UiTransform UiTransform;
@@ -137,10 +126,6 @@ namespace TaleKit.Datas.UI {
 
 		public void UpdateModel() {
 			ModelUpdated?.Invoke();
-		}
-
-		public AssetItem GetImageAsset() {
-			return AssetManager.GetAsset(imageAssetKey);
 		}
 
 		public void AddChildItem(UiItemBase item) {

@@ -29,7 +29,7 @@ namespace TaleKit.Datas.UI {
 			this.OwnerTaleData = ownerTaleData;
 
 			if (createRootItem) {
-				RootUiItem = new UiItemBase(this, UiItemType.Panel);
+				RootUiItem = new UiPanel(this);
 			}
 		}
 

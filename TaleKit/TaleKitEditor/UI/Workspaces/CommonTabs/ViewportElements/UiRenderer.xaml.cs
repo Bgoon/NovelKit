@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.Resource;
 using TaleKit.Datas.UI;
+using TaleKit.Datas.UI.UiItem;
 using TaleKitEditor.Utility;
 using UnityEngine.UIElements;
 using UAnchorPreset = GKitForUnity.AnchorPreset;
@@ -44,18 +45,28 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			rotateTransform = new RotateTransform();
 			this.RenderTransform = rotateTransform;
 			this.RenderTransformOrigin = new Point(0.5f, 0.5f);
+
+			List<Grid> dataContextList = new List<Grid>() {
+				PanelContext,
+				TextContext,
+			};
+
+			// Remove unused contexts
+			if(data.itemType == UiItemType.Panel) {
+				dataContextList.Remove(PanelContext);
+			} else if(data.itemType == UiItemType.Text) {
+				dataContextList.Remove(TextContext);
+			}
+			foreach(var dataContext in dataContextList) {
+				dataContext.DetachParent();
+			}
 		}
 
 		public void Render(bool renderChilds, bool rebuild) {
-			SolidRenderer.Background = Data.color.ToColor().ToBrush();
-			try {
-				AssetItem imageAsset = Data.GetImageAsset();
-				if (imageAsset != null) {
-					ImageRenderer.Source = new BitmapImage(new Uri(Data.GetImageAsset().AssetFilename));
-				} else {
-					ImageRenderer.Source = null;
-				}
-			} catch {
+			if(Data.itemType == UiItemType.Panel) {
+				RenderPanel();
+			} else if(Data.itemType == UiItemType.Text) {
+				RenderText();
 			}
 
 			UpdateAlignment();
@@ -75,6 +86,23 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 					}
 				}
 			}
+		}
+		private void RenderPanel() {
+			UiPanel panelData = Data as UiPanel;
+
+			SolidRenderer.Background = panelData.color.ToColor().ToBrush();
+
+			AssetItem imageAsset = panelData.GetImageAsset();
+			if (imageAsset != null) {
+				ImageRenderer.Source = new BitmapImage(new Uri(panelData.GetImageAsset().AssetFilename));
+			} else {
+				ImageRenderer.Source = null;
+			}
+		}
+		private void RenderText() {
+			UiText textData = Data as UiText;
+
+			TextRenderer.Text = textData.text;
 		}
 
 		//Alignment
