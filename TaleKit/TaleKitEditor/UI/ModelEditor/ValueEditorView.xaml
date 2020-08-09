@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.ModelEditor.ValueEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+			 xmlns:ValueEditors="clr-namespace:TaleKitEditor.UI.ModelEditor"
+			 xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
+
+             mc:Ignorable="d" 
+             d:DesignWidth="220" MinHeight="30" Margin="0,0,0,2">
+	<StackPanel Orientation="Vertical">
+		<StackPanel Name="ValueEditorComponentContext" Orientation="Vertical"/>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*" MaxWidth="140"/>
+				<ColumnDefinition Width="2*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="1*"/>
+			</Grid.RowDefinitions>
+			<Grid Grid.Column="0" Height="30" Margin="8,0" VerticalAlignment="Top">
+				<TextBlock Text="{Binding ValueNameText, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" Style="{StaticResource ValueEditorNameText}" 
+					VerticalAlignment="Top" Margin="0, 8"/>
+			</Grid>
+			<DockPanel Grid.Column="1">
+				<Border Name="KeyFrameContext" Width="18" Height="18" Margin="2, 0" Background="Transparent" VerticalAlignment="Center">
+					<VectorImages:KeyFrameIcon x:Name="KeyFrameMarker" DockPanel.Dock="Left"/>
+				</Border>
+				<Grid x:Name="ValueEditorElementContext" Margin="0, 0, 8, 0"/>
+			</DockPanel>
+		</Grid>
+		<ValueEditors:ValueSeparator x:Name="ValueSeparator" Visibility="Collapsed"/>
+	</StackPanel>
+</UserControl>

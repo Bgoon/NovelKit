@@ -15,9 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GKitForWPF;
 using GKitForWPF;
-using TaleKit.Datas.Editor;
+using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.Story;
-using TaleKitEditor.UI.ValueEditors;
+using TaleKitEditor.UI.ModelEditor;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	/// <summary>
@@ -39,7 +39,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			InitializeComponent();
 			Indicator.IsCountVisible = false;
 
-			ValueEditorUtility.CreateValueEditorViews(order, ValueEditorViewContext);
+			ModelEditorUtility.CreateOrderEditorView(order, ValueEditorViewContext);
 		}
 	}
 }

@@ -1,7 +1,6 @@
 ﻿namespace TaleKit.Datas.Story {
 	public enum OrderType {
-		Message,
-		Ui,
+		UI,
 		Logic,
 		Event,
 		Clip,

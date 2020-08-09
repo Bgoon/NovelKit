@@ -8,10 +8,26 @@
 
              mc:Ignorable="d" 
              d:DesignWidth="220">
-	<DockPanel Name="ItemPanel" Background="{StaticResource ItemBackground}" Height="35">
-		<StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Margin="8,0,8,0">
-			<StoryWorkspaceTabs:OrderIndicator></StoryWorkspaceTabs:OrderIndicator>
-		</StackPanel>
-		<TextBlock Name="PreviewTextBlock" Text="스크립트 미리보기" VerticalAlignment="Center" FontFamily="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium" Foreground="#FFB5B5B5" Margin="8,0,0,0"></TextBlock>
-	</DockPanel>
+	<Grid ClipToBounds="True" Height="40">
+		<DockPanel Name="ItemPanel" Background="{StaticResource ItemBackground}">
+			<StackPanel Name="OrderIndicatorContext" DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal" Margin="8,0,8,0">
+			</StackPanel>
+			<TextBlock Name="PreviewTextBlock" Text="스크립트 미리보기" VerticalAlignment="Center" FontFamily="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium" Foreground="#FFB5B5B5" Margin="8,0,0,0"></TextBlock>
+		</DockPanel>
+
+		<!-- Arrow visual -->
+		<Border Height="6" VerticalAlignment="Top">
+			<Border.Background>
+				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+					<GradientStop Color="#33000000" Offset="0"/>
+					<GradientStop Color="#00000000" Offset="1"/>
+				</LinearGradientBrush>
+			</Border.Background>
+		</Border>
+		<Polygon Points="0,0, 16,0, 8,8" Fill="{StaticResource ItemBackground}" HorizontalAlignment="Center" VerticalAlignment="Top">
+			<Polygon.BitmapEffect>
+				<DropShadowBitmapEffect Color="Black" Direction="-90" Opacity="0.6" ShadowDepth="1" Softness="0.2"/>
+			</Polygon.BitmapEffect>
+		</Polygon>
+	</Grid>
 </UserControl>

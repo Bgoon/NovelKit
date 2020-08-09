@@ -1,7 +1,9 @@
-﻿using GKitForUnity.Data;
+﻿using GKitForUnity;
+using GKitForUnity.Data;
 using GKitForUnity.IO;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using TaleKit.Datas.UI.UiItem;
 
@@ -21,16 +23,31 @@ namespace TaleKit.Datas.UI {
 			get; private set;
 		}
 
+		// Event
 		public event NodeItemDelegate<UiItemBase, UiItemBase> ItemCreatedPreview;
 		public event NodeItemDelegate<UiItemBase, UiItemBase> ItemCreated;
 		public event NodeItemDelegate<UiItemBase, UiItemBase> ItemRemoved;
 
+		// UI Collection
+		public readonly List<UiItemBase> UiItemList;
+		public readonly List<UiText> TextList;
+
+		// [ Constructor ]
 		public UiFile(TaleData ownerTaleData, bool createRootItem = true) {
 			this.OwnerTaleData = ownerTaleData;
+
+			UiItemList = new List<UiItemBase>();
+			TextList = new List<UiText>();
 
 			if (createRootItem) {
 				RootUiItem = new UiPanel(this);
 			}
+		}
+		public void Clear() {
+			RootUiItem.ClearChildItem();
+
+			UiItemList.Clear();
+			TextList.Clear();
 		}
 
 		public bool Save(string filename) {
@@ -59,8 +76,12 @@ namespace TaleKit.Datas.UI {
 					break;
 				case UiItemType.Text:
 					item = new UiText(this);
+					TextList.Add(item as UiText);
 					break;
 			}
+			// Add to collection
+			UiItemList.Add(item);
+
 			ItemCreatedPreview?.Invoke(item, parentUiItem);
 
 			parentUiItem.AddChildItem(item);
@@ -77,6 +98,15 @@ namespace TaleKit.Datas.UI {
 
 			UiItemBase parentItem = item.ParentItem;
 			parentItem.RemoveChildItem(item);
+
+			// Remove from collection
+			switch(item.itemType) {
+				case UiItemType.Text:
+					TextList.Remove(item as UiText);
+					break;
+			}
+			UiItemList.Remove(item);
+
 
 			ItemRemoved?.Invoke(item, parentItem);
 		}

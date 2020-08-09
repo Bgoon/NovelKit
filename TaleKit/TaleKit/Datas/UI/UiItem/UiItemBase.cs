@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Resources;
 using TaleKit.Datas.Asset;
-using TaleKit.Datas.Editor;
+using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.Resource;
 using UnityEngine;
 using UAnchorPreset = GKitForUnity.AnchorPreset;
@@ -15,9 +15,7 @@ using UColor = UnityEngine.Color;
 using UVector2 = UnityEngine.Vector2;
 
 namespace TaleKit.Datas.UI {
-	public class UiItemBase : IEditableModel {
-		public event Action ModelUpdated;
-
+	public class UiItemBase : EditableModel {
 		public event NodeItemInsertedDelegate<UiItemBase> ChildInserted;
 		public event NodeItemDelegate<UiItemBase, UiItemBase> ChildRemoved;
 
@@ -86,8 +84,6 @@ namespace TaleKit.Datas.UI {
 		}
 
 		// Datas
-		public int guid;
-
 		[ValueEditorComponent_Header("Common")]
 		[ValueEditor_TextBox("Name")]
 		public string name = "UI Item";
@@ -124,10 +120,6 @@ namespace TaleKit.Datas.UI {
 			//Renderer = GameObject.AddComponent<CanvasRenderer>();
 		}
 
-		public void UpdateModel() {
-			ModelUpdated?.Invoke();
-		}
-
 		public void AddChildItem(UiItemBase item) {
 			InsertChildItem(ChildItemList.Count, item);
 		}
@@ -137,12 +129,16 @@ namespace TaleKit.Datas.UI {
 
 			ChildInserted?.Invoke(index, item);
 		}
-
 		public void RemoveChildItem(UiItemBase item) {
 			ChildItemList.Remove(item);
 			item.ParentItem = null;
 
 			ChildRemoved?.Invoke(item, this);
+		}
+		public void ClearChildItem() {
+			foreach(var childItem in ChildItemList) {
+				RemoveChildItem(childItem);
+			}
 		}
 
 		public JObject ToJObject() {

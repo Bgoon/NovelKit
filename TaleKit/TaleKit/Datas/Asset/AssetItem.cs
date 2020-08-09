@@ -5,10 +5,10 @@ using System;
 using System.IO;
 using System.Text;
 using TaleKit.Datas.Asset;
-using TaleKit.Datas.Editor;
+using TaleKit.Datas.ModelEditor;
 
 namespace TaleKit.Datas.Resource {
-	public class AssetItem : IEditableModel {
+	public class AssetItem : EditableModel {
 		public readonly AssetManager OwnerAssetManager;
 		public TaleData OwnerTaleData => OwnerAssetManager.OwnerTaleData;
 
@@ -44,8 +44,6 @@ namespace TaleKit.Datas.Resource {
 		[ValueEditorComponent_Header("미리보기")]
 		[ValueEditorComponent_FilePreview]
 		private string previewImageSource;
-
-		public event Action ModelUpdated;
 
 		public static string GetFileHash(string filename) {
 			return IOUtility.GetMetadataHash(filename);
@@ -137,10 +135,6 @@ namespace TaleKit.Datas.Resource {
 			jAttributes.AddAttrFields<AssetMetaAttribute>(this);
 
 			return jAssetMeta;
-		}
-
-		public void UpdateModel() {
-			ModelUpdated?.Invoke();
 		}
 	}
 }

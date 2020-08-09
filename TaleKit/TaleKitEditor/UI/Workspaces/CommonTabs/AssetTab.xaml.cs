@@ -19,7 +19,7 @@ using System.Windows.Navigation;
 using TaleKit.Datas;
 using TaleKit.Datas.Asset;
 using TaleKit.Datas.Resource;
-using TaleKitEditor.UI.ValueEditors;
+using TaleKitEditor.UI.ModelEditor;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs.AssetElements;
 using TaleKitEditor.Workspaces.Tabs;

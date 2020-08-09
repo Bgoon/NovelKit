@@ -12,7 +12,7 @@ namespace TaleKit.Datas.Story {
 			get; private set;
 		}
 
-		public StoryClip(StoryFile ownerFile) : base(ownerFile) {
+		public StoryClip(StoryFile ownerFile) : base(ownerFile, StoryBlockType.StoryClip) {
 			ChildItemList = new List<StoryBlockBase>();
 		}
 

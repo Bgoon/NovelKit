@@ -18,7 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.UI;
-using TaleKitEditor.UI.ValueEditors;
+using TaleKitEditor.UI.ModelEditor;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements;
 using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;

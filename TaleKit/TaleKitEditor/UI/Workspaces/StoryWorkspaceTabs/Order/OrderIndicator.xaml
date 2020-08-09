@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Width="9">
+             Width="18" Margin="0, 4, 0, 0">
 	<DockPanel>
-		<TextBlock Name="CountTextBlock" Height="10" DockPanel.Dock="Bottom" Text="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White" FontFamily="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium" FontSize="10" TextOptions.TextHintingMode="Animated"/>
-		<Rectangle Name="IndicatorShape" Width="6" Height="16" RadiusX="2" RadiusY="2" Fill="#FFFF7373" Margin="0,3" HorizontalAlignment="Center"/>
+		<Border DockPanel.Dock="Top" Name="IndicatorShape" Width="8" Height="8" CornerRadius="4" Background="#FFFF7373" Margin="0" HorizontalAlignment="Center" ClipToBounds="False"/>
+		<TextBlock DockPanel.Dock="Bottom" Name="CountTextBlock" Text="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoEB00" TextOptions.TextHintingMode="Animated" Padding="2,0" Margin="0"/>
 	</DockPanel>
 </UserControl>

@@ -22,7 +22,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	public partial class OrderTypeItemView : UserControl {
 		public static readonly DependencyProperty TypeNameTextProperty = DependencyProperty.RegisterAttached(nameof(TypeNameText), typeof(string), typeof(OrderTypeItemView), new PropertyMetadata(null));
 		public static readonly DependencyProperty IsSeparatorVisibleProperty = DependencyProperty.RegisterAttached(nameof(IsSeparatorVisible), typeof(bool), typeof(OrderTypeItemView), new PropertyMetadata(true));
-		public static readonly DependencyProperty OrderTypeProperty = DependencyProperty.RegisterAttached(nameof(OrderType), typeof(OrderType), typeof(OrderTypeItemView), new PropertyMetadata(OrderType.Message));
+		public static readonly DependencyProperty OrderTypeProperty = DependencyProperty.RegisterAttached(nameof(OrderType), typeof(OrderType), typeof(OrderTypeItemView), new PropertyMetadata(OrderType.UI));
 
 		public event Action<OrderType> Click;
 

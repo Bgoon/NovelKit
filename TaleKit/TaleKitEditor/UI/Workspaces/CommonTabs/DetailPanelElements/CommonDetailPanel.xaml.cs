@@ -14,9 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GKitForWPF;
-using TaleKit.Datas.Editor;
+using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
-using TaleKitEditor.UI.ValueEditors;
+using TaleKitEditor.UI.ModelEditor;
 using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs {
@@ -28,7 +28,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		private static DetailTab DetailTab => MainWindow.DetailTab;
 		private static ViewportTab ViewportTab => MainWindow.ViewportTab;
 
-		public IEditableModel EditingModel {
+		public EditableModel EditingModel {
 			get; private set;
 		}
 
@@ -42,14 +42,14 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		private void InitMembers() {
 		}
 
-		public void AttachModel(IEditableModel model, ModelValueChangedDelegate modelValueChangedDelegate = null) {
+		public void AttachModel(EditableModel model, ModelValueChangedDelegate modelValueChangedDelegate = null) {
 			DetachModel();
 			EditingModel = model;
-
+			
 			if (model == null)
 				return;
 
-			ValueEditorUtility.CreateValueEditorViews(EditingModel, EditorViewContext, modelValueChangedDelegate);
+			ModelEditorUtility.CreateModelEditorView(EditingModel, EditorViewContext, ModelEditorType.EditModel, modelValueChangedDelegate);
 		}
 		public void DetachModel() {
 			if (EditingModel == null)

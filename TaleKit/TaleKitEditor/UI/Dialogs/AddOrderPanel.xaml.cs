@@ -41,7 +41,7 @@ namespace TaleKitEditor.UI.Dialogs {
 		private void TypeItemView_Click(OrderType obj) {
 			OwnerBlock.AddOrder(obj);
 
-
+			ItemClick?.Invoke();
 		}
 
 		private void CreateTypeItems() {

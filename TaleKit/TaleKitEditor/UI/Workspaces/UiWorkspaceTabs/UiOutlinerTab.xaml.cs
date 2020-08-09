@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas;
-using TaleKit.Datas.Editor;
+using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
 using TaleKitEditor.UI.Dialogs;
 using TaleKitEditor.UI.Windows;
@@ -82,13 +82,13 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 		// [ Event ]
 		private void MainWindow_DataLoaded(TaleData obj) {
-			UiFile.ItemCreatedPreview += UiFile_ItemCreated;
+			UiFile.ItemCreatedPreview += UiFile_ItemCreatedPreview;
 			UiFile.ItemRemoved += UiFile_ItemRemoved;
 
-			UiFile_ItemCreated(UiFile.RootUiItem, null);
+			UiFile_ItemCreatedPreview(UiFile.RootUiItem, null);
 		}
 		private void MainWindow_DataUnloaded(TaleData obj) {
-			UiFile.ItemCreatedPreview -= UiFile_ItemCreated;
+			UiFile.ItemCreatedPreview -= UiFile_ItemCreatedPreview;
 			UiFile.ItemRemoved -= UiFile_ItemRemoved;
 
 			UiFile_ItemRemoved(UiFile.RootUiItem, null);
@@ -122,7 +122,10 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			}
 		}
 
-		private void UiFile_ItemCreated(UiItemBase item, UiItemBase parentItem) {
+		private void UiFile_ItemCreatedPreview(UiItemBase item, UiItemBase parentItem) {
+			// 생성된 UiItem의 부모관계가 정해지기 전에 먼저 UiItemView 를 생성한다.
+			// (Data_ChildInserted 이벤트에서 UiItemView를 필요로 하기 때문)
+
 			UiItemView itemView = new UiItemView(item);
 
 			if (parentItem == null) {
@@ -185,7 +188,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 			if (UiTreeView.SelectedItemSet.Count == 1) {
 				UiItemView itemView = UiTreeView.SelectedItemSet.First as UiItemView;
-				CommonDetailPanel.AttachModel(itemView.Data as IEditableModel, ViewportTab.UiItemDetailPanel_UiItemValueChanged);
+				CommonDetailPanel.AttachModel(itemView.Data, ViewportTab.UiItemDetailPanel_UiItemValueChanged);
 				DetailTab.ActiveDetailPanel(DetailPanelType.Common);
 			}
 		}

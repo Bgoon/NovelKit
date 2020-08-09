@@ -4,16 +4,14 @@ namespace TaleKit.Datas.Story {
 	public static class OrderFactory {
 		public static OrderBase CreateOrder(StoryBlock ownerBlock, OrderType orderType) {
 			switch (orderType) {
-				case OrderType.Message:
-					return new MessageOrder(ownerBlock);
-				case OrderType.Ui:
-					return new UiOrder(ownerBlock);
+				case OrderType.UI:
+					return new Order_UI(ownerBlock);
 				case OrderType.Logic:
-					return new LogicOrder(ownerBlock);
+					return new Order_Logic(ownerBlock);
 				case OrderType.Event:
-					return new EventOrder(ownerBlock);
+					return new Order_Event(ownerBlock);
 				case OrderType.Clip:
-					return new ClipOrder(ownerBlock);
+					return new Order_Clip(ownerBlock);
 				default:
 					throw new NotImplementedException();
 			}

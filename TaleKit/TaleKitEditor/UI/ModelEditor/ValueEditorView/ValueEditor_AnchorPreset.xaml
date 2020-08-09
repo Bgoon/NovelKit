@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.ModelEditor.ValueEditor_AnchorPreset"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+			 xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
+
+             mc:Ignorable="d" HorizontalAlignment="Center">
+	<Grid Width="170" Height="170">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="1*"/>
+			<RowDefinition Height="1*"/>
+			<RowDefinition Height="1*"/>
+			<RowDefinition Height="0.3*"/>
+			<RowDefinition Height="1*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="0.3*"/>
+			<ColumnDefinition Width="1*"/>
+		</Grid.ColumnDefinitions>
+
+		<Button Name="AnchorTopLeftButton" Grid.Row="0" Grid.Column="0" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_TopLeft/>
+		</Button>
+		<Button Name="AnchorTopMidButton" Grid.Row="0" Grid.Column="1" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_TopMid/>
+		</Button>
+		<Button Name="AnchorTopRightButton" Grid.Row="0" Grid.Column="2" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_TopRight/>
+		</Button>
+
+		<Button Name="AnchorMidLeftButton" Grid.Row="1" Grid.Column="0" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_MidLeft/>
+		</Button>
+		<Button Name="AnchorMidMidButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_MidMid/>
+		</Button>
+		<Button Name="AnchorMidRightButton" Grid.Row="1" Grid.Column="2" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_MidRight/>
+		</Button>
+
+		<Button Name="AnchorBotLeftButton" Grid.Row="2" Grid.Column="0" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_BotLeft/>
+		</Button>
+		<Button Name="AnchorBotMidButton" Grid.Row="2" Grid.Column="1" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_BotMid/>
+		</Button>
+		<Button Name="AnchorBotRightButton" Grid.Row="2" Grid.Column="2" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_BotRight/>
+		</Button>
+
+		<Button Name="AnchorStretchLeftButton" Grid.Row="4" Grid.Column="0" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_StretchLeft/>
+		</Button>
+		<Button Name="AnchorStretchMidButton" Grid.Row="4" Grid.Column="1" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_StretchMid/>
+		</Button>
+		<Button Name="AnchorStretchRightButton" Grid.Row="4" Grid.Column="2" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_StretchRight/>
+		</Button>
+
+		<Button Name="AnchorTopStretchButton" Grid.Row="0" Grid.Column="4" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_TopStretch/>
+		</Button>
+		<Button Name="AnchorMidStretchButton" Grid.Row="1" Grid.Column="4" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_MidStretch/>
+		</Button>
+		<Button Name="AnchorBotStretchButton" Grid.Row="2" Grid.Column="4" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_BotStretch/>
+		</Button>
+
+		<Button Name="AnchorStretchAllButton" Grid.Row="4" Grid.Column="4" Style="{StaticResource FlatButton}">
+			<VectorImages:Anchor_StretchAll/>
+		</Button>
+	</Grid>
+</UserControl>

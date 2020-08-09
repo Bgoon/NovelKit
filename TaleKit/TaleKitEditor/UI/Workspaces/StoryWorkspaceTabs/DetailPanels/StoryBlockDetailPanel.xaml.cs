@@ -16,8 +16,8 @@ using TaleKit.Datas.Story;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
 using System.Reflection;
-using TaleKit.Datas.Editor;
-using TaleKitEditor.UI.ValueEditors;
+using TaleKit.Datas.ModelEditor;
+using TaleKitEditor.UI.ModelEditor;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements;
 using GKitForWPF.UI.Controls;
@@ -38,6 +38,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			get; private set;
 		}
 
+		// [ Constructor ]
 		public StoryBlockDetailPanel() {
 			InitializeComponent();
 			if (this.IsDesignMode())
@@ -56,6 +57,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StoryBlockTab.StoryBlockTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
 		}
 
+		// [ Event ]
 		private void SelectedItemSet_SelectionAdded(ISelectable item) {
 			SelectionChanged();
 			DetailTab.ActiveDetailPanel(DetailPanelType.StoryBlock);

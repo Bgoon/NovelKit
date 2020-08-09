@@ -33,13 +33,30 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements {
 		public FrameworkElement ItemContext => this;
 
 
+		// [ Constructor ]
 		public StoryBlockItemView() {
 			InitializeComponent();
 		}
 		public StoryBlockItemView(StoryBlockBase data) : this() {
 			this.Data = data;
+
+			// Register events
+			if (data.Type == StoryBlockType.StoryBlock) {
+				StoryBlock storyBlockData = data as StoryBlock;
+				storyBlockData.OrderAdded += StoryBlockData_OrderAdded;
+				storyBlockData.OrderRemoved += StoryBlockData_OrderRemoved;
+			}
 		}
 
+		// [ Event ]
+		private void StoryBlockData_OrderAdded(OrderBase obj) {
+			UpdateOrderIndicator();
+		}
+		private void StoryBlockData_OrderRemoved(OrderBase obj) {
+			UpdateOrderIndicator();
+		}
+
+		// [ Control ]
 		public void SetDisplayName(string name) {
 			PreviewTextBlock.Text = name;
 		}
@@ -47,5 +64,29 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements {
 		public void SetSelected(bool isSelected) {
 			ItemPanel.Background = (Brush)Application.Current.Resources[isSelected ? "ItemBackground_Selected" : "ItemBackground"];
 		}
+
+		private void UpdateOrderIndicator() {
+			OrderIndicatorContext.Children.Clear();
+
+			if (Data.Type == StoryBlockType.StoryBlock) {
+				StoryBlock storyBlockData = (StoryBlock)Data;
+
+				Dictionary<OrderType, OrderIndicator> indicatorDict = new Dictionary<OrderType, OrderIndicator>();
+
+				foreach (OrderBase order in storyBlockData.OrderList) {
+					if(indicatorDict.ContainsKey(order.OrderType)) {
+						indicatorDict[order.OrderType].Count++;
+					} else {
+						OrderIndicator indicator = new OrderIndicator();
+						indicator.OrderType = order.OrderType;
+						indicator.Count = 1;
+						OrderIndicatorContext.Children.Add(indicator);
+
+						indicatorDict.Add(order.OrderType, indicator);
+					}
+				}
+			}
+		}
+
 	}
 }

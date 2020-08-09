@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-		xmlns:ValueEditors="clr-namespace:TaleKitEditor.UI.ValueEditors"
+		xmlns:ValueEditors="clr-namespace:TaleKitEditor.UI.ModelEditor"
 		xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
 
         mc:Ignorable="d"

@@ -21,7 +21,8 @@ using TaleKit.Datas.Story;
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	public partial class OrderIndicator : UserControl {
 		public static readonly DependencyProperty IsCountVisibleProperty = DependencyProperty.RegisterAttached(nameof(IsCountVisible), typeof(bool), typeof(OrderIndicator), new PropertyMetadata(true));
-		public static readonly DependencyProperty OrderTypeProperty = DependencyProperty.RegisterAttached(nameof(OrderType), typeof(OrderType), typeof(OrderIndicator), new PropertyMetadata(OrderType.Message));
+		public static readonly DependencyProperty OrderTypeProperty = DependencyProperty.RegisterAttached(nameof(OrderType), typeof(OrderType), typeof(OrderIndicator), new PropertyMetadata(OrderType.UI));
+		public static readonly DependencyProperty CountProperty = DependencyProperty.RegisterAttached(nameof(Count), typeof(int), typeof(OrderIndicator), new PropertyMetadata(0));
 
 		public bool IsCountVisible {
 			get {
@@ -39,6 +40,14 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				SetValue(OrderTypeProperty, value);
 			}
 		}
+		public int Count {
+			get {
+				return (int)GetValue(CountProperty);
+			}
+			set {
+				SetValue(CountProperty, value);
+			}
+		}
 
 		public OrderIndicator() {
 			InitializeComponent();
@@ -46,7 +55,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 		private void InitBindings() {
 			CountTextBlock.SetBinding(TextBlock.VisibilityProperty, new Binding(nameof(IsCountVisible)) { Source = this, Mode = BindingMode.OneWay, Converter=new BoolToVisibilityConverter() });
-			IndicatorShape.SetBinding(Rectangle.FillProperty, new Binding(nameof(OrderType)) { Source = this, Mode = BindingMode.OneWay, Converter = new OrderTypeToBrushConverter() });
+			IndicatorShape.SetBinding(Border.BackgroundProperty, new Binding(nameof(OrderType)) { Source = this, Mode = BindingMode.OneWay, Converter = new OrderTypeToBrushConverter() });
+			CountTextBlock.SetBinding(TextBlock.TextProperty, new Binding(nameof(Count)) { Source = this, Mode = BindingMode.OneWay });
 		}
 	}
 
@@ -57,10 +67,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			string colorCode;
 			switch (orderType) {
 				default:
-				case OrderType.Message:
-					colorCode = "B5B5B5";
-					break;
-				case OrderType.Ui:
+				//case OrderType.Message:
+				//	colorCode = "B5B5B5";
+				//	break;
+				case OrderType.UI:
 					colorCode = "E6BD65";
 					break;
 				case OrderType.Logic:

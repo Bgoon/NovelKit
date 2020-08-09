@@ -33,13 +33,6 @@
 					<Ad:LayoutAnchorablePaneGroup Orientation="Horizontal">
 						<!--Tab 1-->
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
-							<Ad:LayoutAnchorablePane DockHeight="0.5*">
-								<Controls:FixedLayoutAnchorable Title="StoryClip">
-									<Tabs:StoryClipTab x:Name="StoryClipTab"/>
-								</Controls:FixedLayoutAnchorable>
-								<Controls:FixedLayoutAnchorable Title="Asset" x:Name="AssetTabContext">
-								</Controls:FixedLayoutAnchorable>
-							</Ad:LayoutAnchorablePane>
 							<Ad:LayoutAnchorablePane>
 								<Controls:FixedLayoutAnchorable Title="StoryBlock">
 									<Tabs:StoryBlockTab x:Name="StoryBlockTab"/>
@@ -51,7 +44,11 @@
 						<!--Tab 2-->
 						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="2.5*">
 							<Ad:LayoutAnchorablePane DockHeight="0.5*">
-								<Controls:FixedLayoutAnchorable Title="Scene"/>
+								<Controls:FixedLayoutAnchorable Title="StoryClip">
+									<Tabs:StoryClipTab x:Name="StoryClipTab"/>
+								</Controls:FixedLayoutAnchorable>
+								<Controls:FixedLayoutAnchorable Title="Asset" x:Name="AssetTabContext">
+								</Controls:FixedLayoutAnchorable>
 							</Ad:LayoutAnchorablePane>
 							<Ad:LayoutAnchorablePane>
 								<Controls:FixedLayoutAnchorable Title="Viewport" x:Name="ViewportTabContext"/>

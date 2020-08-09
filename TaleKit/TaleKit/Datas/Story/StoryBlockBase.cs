@@ -8,9 +8,11 @@ namespace TaleKit.Datas.Story {
 		public StoryClip ParentItem {
 			get; internal set;
 		}
+		public readonly StoryBlockType Type;
 
-		public StoryBlockBase(StoryFile ownerFile) {
+		public StoryBlockBase(StoryFile ownerFile, StoryBlockType type) {
 			this.OwnerFile = ownerFile;
+			this.Type = type;
 		}
 
 		public abstract JObject ToJObject();

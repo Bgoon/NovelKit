@@ -25,7 +25,7 @@ namespace TaleKit.Datas.Story {
 			}
 		}
 
-		public StoryBlock(StoryFile ownerFile) : base(ownerFile) {
+		public StoryBlock(StoryFile ownerFile) : base(ownerFile, StoryBlockType.StoryBlock) {
 			OrderList = new List<OrderBase>();
 		}
 

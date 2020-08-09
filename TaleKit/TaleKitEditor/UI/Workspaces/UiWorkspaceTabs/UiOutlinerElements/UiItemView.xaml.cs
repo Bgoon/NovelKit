@@ -61,13 +61,14 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 			// Register events
 			NameEditText.TextEdited += NameEditText_TextEdited;
-			data.ModelUpdated += Data_ModelUpdated;
+			data.ModelUpdated += Data_ModelUpdated; ;
 		}
 
-
 		// [ Event ]
-		private void Data_ModelUpdated() {
-			DisplayName = Data.name;
+		private void Data_ModelUpdated(string fieldName) {
+			if(fieldName == nameof(Data.name)) {
+				DisplayName = Data.name;
+			}
 		}
 		private void NameEditText_TextEdited(string oldText, string newText, ref bool cancelEdit) {
 			Data.name = newText;
