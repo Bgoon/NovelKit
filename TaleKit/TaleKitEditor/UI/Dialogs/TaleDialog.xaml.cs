@@ -15,26 +15,35 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TaleKitEditor.UI.Utility;
+using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.Dialogs {
 	/// <summary>
 	/// TaleDialog.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class TaleDialog : Window {
+		private static Root Root => Root.Instance;
+		private static MainWindow MainWindow => Root.MainWindow;
 
 		private Vector2 talePosition;
 
 		private bool isClosing;
 
+		// [ Static function ]
+		public static TaleDialog Show(FrameworkElement content) {
+			return Show(content, MouseInput.GetPositionFromWindow(MainWindow) / DPIUtility.GetDPIScale(MainWindow));
+		}
 		public static TaleDialog Show(FrameworkElement content, Vector2 talePosition) {
 			TaleDialog dialog = new TaleDialog(talePosition);
 			dialog.ContentContext.Children.Add(content);
+			dialog.UpdateWindowPos();
 
 			dialog.Show();
 
 			return dialog;
 		}
 
+		// [ Constructor ]
 		[Obsolete]
 		internal TaleDialog() {
 			InitializeComponent();
@@ -46,15 +55,11 @@ namespace TaleKitEditor.UI.Dialogs {
 			this.talePosition = talePosition;
 		}
 		private void Window_ContentRendered(object sender, EventArgs e) {
-			Vector2 windowPos = talePosition;
-			windowPos += -(Vector2)TailShape.TranslatePoint(new Point((float)TailShape.ActualWidth, (float)TailShape.ActualHeight * 0.5f), this);
-
-			Left = windowPos.x;
-			Top = windowPos.y;
-
-			this.PlaySlideInAnim();
+			UpdateWindowPos();
 
 			Opacity = 1d;
+
+			this.PlayEaseInAnim(OpacityProperty, 0d, 1d, 0.2f);
 		}
 		private void Window_Deactivated(object sender, EventArgs e) {
 			if (!isClosing) {
@@ -71,6 +76,22 @@ namespace TaleKitEditor.UI.Dialogs {
 			if (e.Key == Key.Return) {
 				ResetFocus();
 			}
+		}
+
+		public void UpdateWindowPos() {
+			PresentationSource source = PresentationSource.FromVisual(MainWindow);
+			Vector2 dpiScale = new Vector2(1f, 1f);
+			if(source != null) {
+				dpiScale.x = (float)source.CompositionTarget.TransformToDevice.M11;
+				dpiScale.y = (float)source.CompositionTarget.TransformToDevice.M22;
+			}
+			
+			Vector2 mainWindowPos = new Vector2((float)MainWindow.Left, (float)(MainWindow.Top + SystemParameters.CaptionHeight * dpiScale.y));
+			Vector2 windowPos = mainWindowPos + talePosition;// / dpiScale;
+			windowPos -= (Vector2)TailShape.TranslatePoint(new System.Windows.Point((float)TailShape.ActualWidth, (float)TailShape.ActualHeight * 0.5f), this);
+
+			Left = windowPos.x;
+			Top = windowPos.y;
 		}
 
 		private void ResetFocus() {

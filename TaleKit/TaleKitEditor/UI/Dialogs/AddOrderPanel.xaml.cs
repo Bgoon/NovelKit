@@ -19,7 +19,7 @@ namespace TaleKitEditor.UI.Dialogs {
 
 		private OrderTypeItemView[] itemViews;
 
-		public static AddOrderPanel Show(StoryBlock ownerBlock, Vector2 talePosition) {
+		public static AddOrderPanel ShowDialog(StoryBlock ownerBlock, Vector2 talePosition) {
 			AddOrderPanel panel = new AddOrderPanel(ownerBlock);
 			TaleDialog dialog = TaleDialog.Show(panel, talePosition);
 			panel.ItemClick += dialog.Close;

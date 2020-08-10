@@ -22,28 +22,44 @@ namespace TaleKitEditor.UI.Utility {
 			};
 		}
 
+		public static void PlayEaseInAnim(this FrameworkElement element, DependencyProperty animProperty, double fromValue, double toValue, float durationSec = 0.3f) {
+			IEasingFunction easeFunction = new PowerEase() { EasingMode = EasingMode.EaseOut };
+			DoubleAnimation anim = new DoubleAnimation() {
+				From = fromValue,
+				To = toValue,
+				Duration = TimeSpan.FromSeconds(durationSec),
+				EasingFunction = easeFunction,
+			};
+			Timeline.SetDesiredFrameRate(anim, 144);
+			element.BeginAnimation(animProperty, anim);
+		}
+
+		public static void PlayMaskInAnim(this Window window, float durationSec = 0.3f) {
+			IEasingFunction easeFunction = new PowerEase() { EasingMode = EasingMode.EaseOut };
+			DoubleAnimation anim = new DoubleAnimation() {
+				From = 0d,
+				To = window.ActualWidth,
+				Duration = TimeSpan.FromSeconds(durationSec),
+				EasingFunction = easeFunction,
+			};
+			Timeline.SetDesiredFrameRate(anim, 144);
+			window.BeginAnimation(Window.WidthProperty, anim);
+		}
+
 		public static void PlaySlideInAnim(this Window window, float slideLength = 50f, float durationSec = 0.2f) {
 			double slideDst = window.Left;
 			double slideFrom = slideDst + slideLength;
 			window.Left = slideFrom;
 			
 			IEasingFunction easeFunction = new PowerEase() { EasingMode = EasingMode.EaseOut };
-			Duration slideDuration = new Duration(TimeSpan.FromSeconds(durationSec));
-			DoubleAnimation slideAnim = new DoubleAnimation() {
+			DoubleAnimation anim = new DoubleAnimation() {
 				From = slideFrom,
 				To = slideDst,
-				Duration = slideDuration,
+				Duration = TimeSpan.FromSeconds(durationSec),
 				EasingFunction = easeFunction,
 			};
-			window.BeginAnimation(Window.LeftProperty, slideAnim);
-
-			DoubleAnimation opacityAnim = new DoubleAnimation() {
-				From = 0d,
-				To = 1d,
-				Duration = slideDuration,
-				EasingFunction = easeFunction,
-			};
-			window.BeginAnimation(Window.OpacityProperty, opacityAnim);
+			Timeline.SetDesiredFrameRate(anim, 144);
+			window.BeginAnimation(Window.LeftProperty, anim);
 		}
 	}
 }

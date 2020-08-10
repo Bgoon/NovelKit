@@ -68,7 +68,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void AddOrderButton_Click(object sender, RoutedEventArgs e) {
-			AddOrderPanel.Show(EditingBlock, (Vector2)AddOrderButton.GetAbsolutePosition(new Vector2(10f, (float)AddOrderButton.ActualHeight * 0.5f)));
+			AddOrderPanel.ShowDialog(EditingBlock, (Vector2)AddOrderButton.TranslatePoint(new Point(10f, (float)AddOrderButton.ActualHeight * 0.5f), MainWindow));
 		}
 
 		private void EditingBlock_OrderAdded(OrderBase order) {

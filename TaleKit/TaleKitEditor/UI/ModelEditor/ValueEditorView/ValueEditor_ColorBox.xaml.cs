@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using GKitForWPF;
 using GKitForWPF.Graphics;
 using TaleKitEditor.UI.Dialogs;
+using TaleKitEditor.UI.Windows;
 using TaleKitEditor.Utility;
 using UColor = UnityEngine.Color;
 
@@ -24,6 +25,9 @@ namespace TaleKitEditor.UI.ModelEditor {
 	/// </summary>
 	public partial class ValueEditor_ColorBox : UserControl, IValueEditorElement {
 		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(UColor), typeof(ValueEditor_ColorBox), new PropertyMetadata(UColor.black));
+
+		private static Root Root => Root.Instance;
+		private static MainWindow MainWindow => Root.MainWindow;
 
 		public event EditableValueChangedDelegate EditableValueChanged;
 
@@ -67,7 +71,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 			UpdateUI();
 		}
 		private void ButtonContext_OnClick() {
-			Vector2 windowTailPos = this.GetAbsolutePosition(new Vector2(5f, (float)ActualHeight * 0.5f));
+			Vector2 windowTailPos = (Vector2)this.TranslatePoint(new Point(5f, (float)ActualHeight * 0.5f), MainWindow);
 
 			ColorPickerPanel colorPicker = ColorPickerPanel.ShowDialog(Value, windowTailPos);
 			colorPicker.ValueChanged += Dialog_ValueChanged;

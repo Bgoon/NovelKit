@@ -1,4 +1,5 @@
 ﻿using GKitForWPF;
+using TaleKitEditor.UI.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace TaleKitEditor.UI.Dialogs {
 	/// 선택 가능한 텍스트 메뉴
 	/// </summary>
 	public partial class MenuPanel : UserControl {
+		private static Root Root => Root.Instance;
+		private static MainWindow MainWindow => Root.MainWindow;
 
 		private MenuItem[] items;
 
@@ -26,7 +29,7 @@ namespace TaleKitEditor.UI.Dialogs {
 
 		public static MenuPanel ShowDialog(params MenuItem[] items) {
 			MenuPanel panel = new MenuPanel(items);
-			TaleDialog dialog = TaleDialog.Show(panel, MouseInput.AbsolutePosition);
+			TaleDialog dialog = TaleDialog.Show(panel);
 			panel.ItemClick += dialog.Close;
 
 			return panel;
