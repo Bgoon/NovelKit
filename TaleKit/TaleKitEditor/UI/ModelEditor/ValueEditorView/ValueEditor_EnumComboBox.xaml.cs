@@ -8,7 +8,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 	/// <summary>
 	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ValueEditor_EnumComboBox : UserControl, IValueEditorElement {
+	public partial class ValueEditor_EnumComboBox : UserControl, IValueEditor {
 		public event EditableValueChangedDelegate EditableValueChanged;
 
 		private Type enumType;

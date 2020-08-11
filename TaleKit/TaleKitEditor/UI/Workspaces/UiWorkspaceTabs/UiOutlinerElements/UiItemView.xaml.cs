@@ -3,6 +3,7 @@ using GKitForWPF.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
 
 namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
@@ -61,12 +63,12 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 			// Register events
 			NameEditText.TextEdited += NameEditText_TextEdited;
-			data.ModelUpdated += Data_ModelUpdated; ;
+			data.ModelUpdated += Data_ModelUpdated;
 		}
 
 		// [ Event ]
-		private void Data_ModelUpdated(string fieldName) {
-			if(fieldName == nameof(Data.name)) {
+		private void Data_ModelUpdated(EditableModel updatedModel, FieldInfo fieldInfo, object editorView) {
+			if(fieldInfo.Name == nameof(Data.name)) {
 				DisplayName = Data.name;
 			}
 		}

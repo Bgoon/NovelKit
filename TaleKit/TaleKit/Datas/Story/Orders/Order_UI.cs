@@ -1,25 +1,25 @@
 ﻿using GKitForUnity;
 using System.Collections.Generic;
+using System.Linq;
 using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
+using TaleKit.Datas.UI.UiItem;
 using UnityEngine;
 
 namespace TaleKit.Datas.Story {
 	/// <summary>
 	/// UI를 조작할 수 있는 명령
 	/// </summary>
-	public class Order_UI : OrderBase, IKeyFrameModel {
+	public class Order_UI : OrderBase {
+		private UiFile UiFile => OwnerBlock.OwnerFile.OwnerTaleData.UiFile;
+
 		public override OrderType OrderType => OrderType.UI;
 		
+		[ValueEditor_UiItemSelector("Target UI")]
 		public string targetUiName;
-		public UiItemBase targetUI;
 
-		[ValueEditor_ModelKeyFrame()]
-		public UiItemBase KeyFrameUI;
-
-		public Dictionary<string, bool> FieldName_To_UseKeyDict {
-			get; private set;
-		}
+		[ValueEditor_ModelKeyFrame(nameof(targetUiName), nameof(OnTargetUiUpdated))]
+		public UiItemBase UiKeyData;
 
 		public float BlendProgress => blendElapsedSeconds / BlendTotalSeconds;
 		public float BlendTotalSeconds;
@@ -27,17 +27,11 @@ namespace TaleKit.Datas.Story {
 
 		// [ Constructor ]
 		public Order_UI(StoryBlock ownerBlock) : base(ownerBlock) {
-			FieldName_To_UseKeyDict = new Dictionary<string, bool>();
-
-			// TODO : 원래 targetUI가 선택될 때 생성되야 하지만, 테스트를 위해 전역 멤버 찾아서 전달
-			KeyFrameUI = new UiItemBase(ownerBlock.OwnerFile.OwnerTaleData.UiFile, UiItemType.Panel);
 		}
 
 		// [ Event ]
 		public override void OnStart() {
 			base.OnStart();
-
-			targetUI = UiManager.UiDict[targetUiName];
 			//srcPosition = targetUi.RectTransform.anchoredPosition;
 			//srcRotation = targetUi.RectTransform.localRotation.z;
 			//srcSizeDelta = targetUi.RectTransform.sizeDelta;
@@ -59,6 +53,23 @@ namespace TaleKit.Datas.Story {
 			base.Skip();
 
 			SetBlendProgress(1f);
+		}
+
+		private void OnTargetUiUpdated() {
+			UiItemBase targetUi = UiFile.UiItemList.Where(x => x.name == targetUiName).Single(); // TODO : Unique Key로 찾도록 수정해야 함
+
+			if(targetUi == null) {
+				UiKeyData = null;
+				return;
+			}
+			switch(targetUi.itemType) {
+				case UiItemType.Panel:
+					UiKeyData = new UiPanel(UiFile);
+					break;
+				case UiItemType.Text:
+					UiKeyData = new UiText(UiFile);
+					break;
+			}
 		}
 
 		private void SetBlendProgress(float time) {

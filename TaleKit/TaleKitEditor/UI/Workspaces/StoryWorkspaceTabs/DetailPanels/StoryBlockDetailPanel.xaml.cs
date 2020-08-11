@@ -78,6 +78,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			OrderEditorViewContext.Children.Add(editorView);
 		}
 		private void EditingBlock_OrderRemoved(OrderBase order) {
+			order.ClearEvents();
 			OrderEditorViewContext.Children.Remove(orderToEditorViewDict[order]);
 
 			orderToEditorViewDict.Remove(order);

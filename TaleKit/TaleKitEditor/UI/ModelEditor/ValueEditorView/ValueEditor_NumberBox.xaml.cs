@@ -20,7 +20,7 @@ using TaleKit.Datas.ModelEditor;
 using NumberType = GKitForUnity.NumberType;
 
 namespace TaleKitEditor.UI.ModelEditor {
-	public partial class ValueEditor_NumberBox : UserControl, IValueEditorElement, INotifyPropertyChanged {
+	public partial class ValueEditor_NumberBox : UserControl, IValueEditor, INotifyPropertyChanged {
 		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(float), typeof(ValueEditor_NumberBox), new PropertyMetadata(0f));
 		public static readonly DependencyProperty MinValueProperty = DependencyProperty.RegisterAttached(nameof(MinValue), typeof(float), typeof(ValueEditor_NumberBox), new PropertyMetadata(float.MinValue));
 		public static readonly DependencyProperty MaxValueProperty = DependencyProperty.RegisterAttached(nameof(MaxValue), typeof(float), typeof(ValueEditor_NumberBox), new PropertyMetadata(float.MaxValue));

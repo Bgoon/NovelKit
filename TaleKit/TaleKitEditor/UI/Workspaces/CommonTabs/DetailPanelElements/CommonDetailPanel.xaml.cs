@@ -42,20 +42,21 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		private void InitMembers() {
 		}
 
-		public void AttachModel(EditableModel model, ModelValueChangedDelegate modelValueChangedDelegate = null) {
+		public void AttachModel(EditableModel model) {
 			DetachModel();
 			EditingModel = model;
 			
 			if (model == null)
 				return;
 
-			ModelEditorUtility.CreateModelEditorView(EditingModel, EditorViewContext, ModelEditorType.EditModel, modelValueChangedDelegate);
+			ModelEditorUtility.CreateModelEditorView(EditingModel, EditorViewContext, ModelEditorType.EditModel);
 		}
 		public void DetachModel() {
 			if (EditingModel == null)
 				return;
 
-			this.EditingModel = null;
+			EditingModel.ClearEvents();
+			EditingModel = null;
 
 			EditorViewContext.Children.Clear();
 		}

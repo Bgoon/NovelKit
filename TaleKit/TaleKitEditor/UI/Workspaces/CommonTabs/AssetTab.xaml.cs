@@ -123,20 +123,23 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 				selectedFileItemKey = item.Key;
 				item.UpdatePreviewImageSource();
 
-				CommonDetailPanel.AttachModel(item, SelectedAssetItem_ValueChanged);
+				CommonDetailPanel.AttachModel(item);
 				DetailTab.ActiveDetailPanel(DetailPanelType.Common);
+
+				item.ModelUpdated += SelectedAssetItem_ValueChanged;
 			} else {
 				selectedFileItemKey = null;
 			}
 		}
 
-		private void SelectedAssetItem_ValueChanged(object model, FieldInfo fieldInfo, IValueEditorElement valueEditorElement) {
+		private void SelectedAssetItem_ValueChanged(object model, FieldInfo fieldInfo, object editorView) {
 			AssetItem item = model as AssetItem;
 			if(fieldInfo.Name == nameof(item.Key)) {
 				if(!AssetManager.SetAssetKey(item, selectedFileItemKey, item.Key)) {
 					Console.WriteLine("중복된 NameKey 가 이미 있습니다.");
 
-					valueEditorElement.EditableValue = selectedFileItemKey;
+					IValueEditor valueEditorView = editorView as IValueEditor;
+					valueEditorView.EditableValue = selectedFileItemKey;
 				}
 			}
 		}

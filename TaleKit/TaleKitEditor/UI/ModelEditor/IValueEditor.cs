@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaleKitEditor.UI.ModelEditor {
 	public delegate void EditableValueChangedDelegate(object value);
-	public interface IValueEditorElement {
+	public interface IValueEditor {
 		event EditableValueChangedDelegate EditableValueChanged;
 
 		object EditableValue {

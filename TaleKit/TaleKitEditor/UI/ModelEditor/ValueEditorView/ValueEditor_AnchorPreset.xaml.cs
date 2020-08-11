@@ -21,7 +21,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 	/// <summary>
 	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ValueEditor_AnchorPreset : UserControl, IValueEditorElement {
+	public partial class ValueEditor_AnchorPreset : UserControl, IValueEditor {
 		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(UAnchorPreset), typeof(ValueEditor_AnchorPreset), new PropertyMetadata(UAnchorPreset.StretchAll));
 
 		private static SolidColorBrush DeactiveBackBrush = Colors.Transparent.ToBrush();

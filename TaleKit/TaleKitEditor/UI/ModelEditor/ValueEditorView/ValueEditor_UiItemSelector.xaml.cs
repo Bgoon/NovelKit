@@ -16,19 +16,20 @@ using System.Windows.Shapes;
 using TaleKit.Datas;
 using TaleKit.Datas.Asset;
 using TaleKit.Datas.ModelEditor;
+using TaleKit.Datas.UI;
 using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.ModelEditor {
 	/// <summary>
 	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ValueEditor_AssetSelector : UserControl, IValueEditor {
+	public partial class ValueEditor_UiItemSelector : UserControl, IValueEditor {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static TaleData EditingTaleData => MainWindow.EditingTaleData;
-		private static AssetManager AssetManager => EditingTaleData.AssetManager;
+		private static UiFile UiFile => EditingTaleData.UiFile;
 
-		public static readonly DependencyProperty SelectedAssetKeyProperty = DependencyProperty.RegisterAttached(nameof(SelectedAssetKey), typeof(string), typeof(ValueEditor_AssetSelector), new PropertyMetadata(null));
+		public static readonly DependencyProperty SelectedAssetKeyProperty = DependencyProperty.RegisterAttached(nameof(SelectedAssetKey), typeof(string), typeof(ValueEditor_UiItemSelector), new PropertyMetadata(null));
 
 		private const string UnselectedText = "(None)";
 
@@ -54,21 +55,17 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 		private bool ignoreSelectionChanged;
 
-		[Obsolete]
-		internal ValueEditor_AssetSelector() {
-			InitializeComponent();
-		}
-		public ValueEditor_AssetSelector(ValueEditor_AssetSelectorAttribute attr) {
+		public ValueEditor_UiItemSelector() {
 			InitializeComponent();
 			RegisterEvents();
 
-			AssetComboBox.ItemsSource =
+			UiItemComboBox.ItemsSource =
 				new string[] { UnselectedText }.Concat(
-					AssetManager.GetAssets(attr.assetType, true).Select(x => x.Key)
+					UiFile.UiItemList.Select(x => x.name) // TODO : Unique key를 만들어서 사용하게 하기
 				).ToArray();
 		}
 		private void RegisterEvents() {
-			AssetComboBox.SelectionChanged += AssetComboBox_SelectionChanged;
+			UiItemComboBox.SelectionChanged += AssetComboBox_SelectionChanged;
 			EditableValueChanged += OnEditableValueChanged;
 		}
 
@@ -76,7 +73,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 			if (ignoreSelectionChanged)
 				return;
 
-			string selectedText = AssetComboBox.SelectedValue as string;
+			string selectedText = UiItemComboBox.SelectedValue as string;
 			if (selectedText == UnselectedText) {
 				SelectedAssetKey = null;
 				return;
@@ -92,7 +89,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 		}
 
 		private void UpdateUI() {
-			AssetComboBox.SelectedValue = SelectedAssetKey;
+			UiItemComboBox.SelectedValue = SelectedAssetKey;
 		}
 	}
 }

@@ -62,7 +62,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		private void UiFile_ItemRemoved(UiItemBase item, UiItemBase parentItem) {
 			RenderAll(true, true);
 		}
-		internal void UiItemDetailPanel_UiItemValueChanged(object model, FieldInfo fieldInfo, IValueEditorElement valueEditorElement) {
+		internal void UiItemDetailPanel_UiItemValueChanged(object model, FieldInfo fieldInfo, object editorView) {
 			RenderAll(true, false);
 		}
 		private void UiOutlinerTab_ItemMoved(UiItemBase item, UiItemBase newParentItem, UiItemBase oldParentItem) {

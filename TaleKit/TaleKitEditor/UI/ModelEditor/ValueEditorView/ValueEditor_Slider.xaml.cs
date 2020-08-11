@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 using TaleKit.Datas.ModelEditor;
 
 namespace TaleKitEditor.UI.ModelEditor {
-	public partial class ValueEditor_Slider : UserControl, IValueEditorElement, INotifyPropertyChanged {
+	public partial class ValueEditor_Slider : UserControl, IValueEditor, INotifyPropertyChanged {
 		public static readonly DependencyProperty NumberTypeProperty = DependencyProperty.RegisterAttached(nameof(NumberType), typeof(NumberType), typeof(ValueEditor_Slider), new PropertyMetadata(NumberType.Float));
 		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(float), typeof(ValueEditor_Slider), new PropertyMetadata(0f));
 		public static readonly DependencyProperty DefaultValueProperty = DependencyProperty.RegisterAttached(nameof(DefaultValue), typeof(float), typeof(ValueEditor_Slider), new PropertyMetadata(0f));

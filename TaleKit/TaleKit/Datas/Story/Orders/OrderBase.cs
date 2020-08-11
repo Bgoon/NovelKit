@@ -3,6 +3,7 @@ using GKitForUnity;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
+using TaleKit;
 using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
 
@@ -13,9 +14,7 @@ namespace TaleKit.Datas.Story {
 	/// </summary>
 	public abstract class OrderBase : EditableModel, IComparer {
 		protected static TaleKitClient Client => TaleKitClient.Instance;
-		protected static UiManager UiManager => Client.UiManager;
 		protected static GLoopEngine LoopEngine => Client.LoopEngine;
-
 
 		public StoryBlock OwnerBlock {
 			get; private set;

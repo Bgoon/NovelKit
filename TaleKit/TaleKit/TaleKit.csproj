@@ -56,7 +56,7 @@
     <Compile Include="Datas\Asset\AssetManager.cs" />
     <Compile Include="Datas\Asset\Attributes\AssetMetaAttribute.cs" />
     <Compile Include="Datas\Asset\AssetType.cs" />
-    <Compile Include="Datas\ModelEditor\IEditableModel.cs" />
+    <Compile Include="Datas\ModelEditor\EditableModel.cs" />
     <Compile Include="Datas\ModelEditor\IKeyFrameModel.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditorComponent_FilePreviewAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditorComponent_ItemSeparatorAttribute.cs" />
@@ -64,6 +64,7 @@
     <Compile Include="Datas\ModelEditor\ValueEditorComponentAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditorAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditorComponent_HeaderAttribute.cs" />
+    <Compile Include="Datas\ModelEditor\ValueEditor_UiItemSelectorAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditor_ColorBoxAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditor_AnchorPresetAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditor_MarginAttribute.cs" />

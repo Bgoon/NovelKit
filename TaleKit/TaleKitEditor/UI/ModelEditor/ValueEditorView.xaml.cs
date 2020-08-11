@@ -19,7 +19,7 @@ using TaleKit.Datas.ModelEditor;
 using TaleKitEditor.UI.ModelEditor;
 
 namespace TaleKitEditor.UI.ModelEditor {
-	public delegate void ModelValueChangedDelegate(object model, FieldInfo field, IValueEditorElement valueEditorElement);
+	public delegate void ModelValueChangedDelegate(object model, FieldInfo field, IValueEditor valueEditorElement);
 
 	[ContentProperty(nameof(Children))]
 	public partial class ValueEditorView : UserControl {
@@ -45,6 +45,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 			{ typeof(ValueEditor_AssetSelectorAttribute), typeof(ValueEditor_AssetSelector) }, 
 			{ typeof(ValueEditor_TextBlockViewerAttribute), typeof(ValueEditor_TextBlockViewer) }, 
 			{ typeof(ValueEditor_EnumComboBoxAttribute), typeof(ValueEditor_EnumComboBox) }, 
+			{ typeof(ValueEditor_UiItemSelectorAttribute), typeof(ValueEditor_UiItemSelector) }, 
 		};
 
 		public event Action<object> ElementEditorValueChanged;
@@ -64,7 +65,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 				valueEditorElement.EditableValue = value;
 			}
 		}
-		protected IValueEditorElement valueEditorElement;
+		protected IValueEditor valueEditorElement;
 
 		protected EditableModel model;
 		protected ValueEditorAttribute attribute;
@@ -85,16 +86,29 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 			Children = ValueEditorElementContext.Children;
 		}
-		public ValueEditorView(EditableModel model, FieldInfo field, ModelEditorType editorType, ModelValueChangedDelegate modelValueChanged = null) : this() {
+		public ValueEditorView(EditableModel model, FieldInfo field, ModelEditorType editorType) : this() {
 			this.model = model;
 			this.field = field;
 			this.editorType = editorType;
 
 			InitializeEditorType(editorType);
 
+			BuildEditorContext();
+		}
+		private void InitializeEditorType(ModelEditorType editorType) {
+			KeyFrameContext.Visibility = Visibility.Collapsed;
+
+			if (editorType == ModelEditorType.EditKeyFrameModel) {
+				KeyFrameContext.Visibility = Visibility.Visible;
+
+				KeyFrameContext.RegisterButtonReaction();
+				KeyFrameContext.RegisterClickEvent(OnKeyFrameMarkerClick, true);
+			}
+		}
+		private void BuildEditorContext() {
 			// Classify components : 헤더 등등 부가적인 정보
-			ValueEditorComponentAttribute[] components = field.GetCustomAttributes(typeof(ValueEditorComponentAttribute)).Select(x=>(ValueEditorComponentAttribute)x).ToArray();
-			foreach(ValueEditorComponentAttribute component in components) {
+			ValueEditorComponentAttribute[] components = field.GetCustomAttributes(typeof(ValueEditorComponentAttribute)).Select(x => (ValueEditorComponentAttribute)x).ToArray();
+			foreach (ValueEditorComponentAttribute component in components) {
 				UserControl view = CreateEditorComponentView(component, model, field);
 
 				ValueEditorComponentContext.Children.Add(view);
@@ -115,33 +129,21 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 			// ValueEditor element
 			UserControl editorElement = CreateEditorElementView(attribute, model, field);
-			valueEditorElement = (IValueEditorElement)editorElement;
+			valueEditorElement = (IValueEditor)editorElement;
 
 			valueEditorElement.EditableValueChanged += ElementValueChanged;
 			valueEditorElement.EditableValue = field.GetValue(model);
 
 			// Register events
-			valueEditorElement.EditableValueChanged += (object value) => {
-				modelValueChanged?.Invoke(model, field, valueEditorElement);
-			};
 			model.ModelUpdated += UpdateVisible;
 
+			Children.Clear();
 			Children.Add(editorElement);
 
 			void ElementValueChanged(object value) {
 				ElementEditorValueChanged?.Invoke(value);
 				this.field.SetValue(model, Convert.ChangeType(value, this.field.FieldType));
-				model.NotifyModelUpdated(field.Name);
-			}
-		}
-		private void InitializeEditorType(ModelEditorType editorType) {
-			KeyFrameContext.Visibility = Visibility.Collapsed;
-
-			if (editorType == ModelEditorType.EditKeyFrameModel) {
-				KeyFrameContext.Visibility = Visibility.Visible;
-
-				KeyFrameContext.RegisterButtonReaction();
-				KeyFrameContext.RegisterClickEvent(OnKeyFrameMarkerClick, true);
+				model.NotifyModelUpdated(model, field, valueEditorElement);
 			}
 		}
 
@@ -195,7 +197,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 		}
 
 		// [ Utility ]
-		private void UpdateVisible(string fieldName) {
+		private void UpdateVisible(EditableModel model, FieldInfo fieldInfo, object editorView) {
 			if (string.IsNullOrEmpty(attribute.visibleCondition))
 				return;
 

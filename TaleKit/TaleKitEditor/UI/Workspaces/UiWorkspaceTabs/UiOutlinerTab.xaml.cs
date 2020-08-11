@@ -188,8 +188,10 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 			if (UiTreeView.SelectedItemSet.Count == 1) {
 				UiItemView itemView = UiTreeView.SelectedItemSet.First as UiItemView;
-				CommonDetailPanel.AttachModel(itemView.Data, ViewportTab.UiItemDetailPanel_UiItemValueChanged);
+				CommonDetailPanel.AttachModel(itemView.Data);
 				DetailTab.ActiveDetailPanel(DetailPanelType.Common);
+
+				itemView.Data.ModelUpdated += ViewportTab.UiItemDetailPanel_UiItemValueChanged;
 			}
 		}
 	}

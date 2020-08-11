@@ -23,7 +23,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 	/// <summary>
 	/// ValueEditorElement_Color.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ValueEditor_ColorBox : UserControl, IValueEditorElement {
+	public partial class ValueEditor_ColorBox : UserControl, IValueEditor {
 		public static readonly DependencyProperty ValueProperty = DependencyProperty.RegisterAttached(nameof(Value), typeof(UColor), typeof(ValueEditor_ColorBox), new PropertyMetadata(UColor.black));
 
 		private static Root Root => Root.Instance;

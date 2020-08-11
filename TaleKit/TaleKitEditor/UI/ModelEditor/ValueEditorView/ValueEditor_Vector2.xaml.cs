@@ -19,7 +19,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 	/// <summary>
 	/// ValueEditorElement_Vector2.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ValueEditor_Vector2 : UserControl, IValueEditorElement {
+	public partial class ValueEditor_Vector2 : UserControl, IValueEditor {
 
 		public UVector2 Value {
 			get {

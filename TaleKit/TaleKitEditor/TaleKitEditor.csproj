@@ -215,6 +215,9 @@
     <Compile Include="UI\Dialogs\TaleDialog.xaml.cs">
       <DependentUpon>TaleDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ModelEditor\ValueEditorView\ValueEditor_UiItemSelector.xaml.cs">
+      <DependentUpon>ValueEditor_UiItemSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Utility\WindowUtility.cs" />
     <Compile Include="UI\ModelEditor\ModelEditorView.xaml.cs">
       <DependentUpon>ModelEditorView.xaml</DependentUpon>
@@ -283,7 +286,7 @@
     <Compile Include="UI\ModelEditor\ValueEditorView\ValueEditor_Switch.xaml.cs">
       <DependentUpon>ValueEditor_Switch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ModelEditor\IValueEditorElement.cs" />
+    <Compile Include="UI\ModelEditor\IValueEditor.cs" />
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderItemEditorView.xaml.cs">
       <DependentUpon>OrderItemEditorView.xaml</DependentUpon>
     </Compile>
@@ -501,6 +504,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\ModelEditor\ValueEditorView\ValueEditorComponent_FilePreview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ModelEditor\ValueEditorView\ValueEditor_UiItemSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

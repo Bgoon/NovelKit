@@ -15,24 +15,20 @@ using UColor = UnityEngine.Color;
 using UVector2 = UnityEngine.Vector2;
 
 namespace TaleKit.Datas.UI {
-	public class UiItemBase : EditableModel {
+	public class UiItemBase : EditableModel, IKeyFrameModel {
 		public event NodeItemInsertedDelegate<UiItemBase> ChildInserted;
 		public event NodeItemDelegate<UiItemBase, UiItemBase> ChildRemoved;
 
 		protected TaleData OwnerTaleData => OwnerFile.OwnerTaleData;
 		protected AssetManager AssetManager => OwnerTaleData.AssetManager;
 
+		// Inherit
 		public readonly UiFile OwnerFile;
 		public UiItemBase ParentItem {
 			get; private set;
 		}
 		public List<UiItemBase> ChildItemList {
 			get; private set;
-		}
-
-		// External data
-		public object View {
-			get; set;
 		}
 
 		// Helper datas
@@ -83,6 +79,14 @@ namespace TaleKit.Datas.UI {
 			}
 		}
 
+		// External data
+		public object View {
+			get; set;
+		}
+		public Dictionary<string, bool> FieldName_To_UseKeyDict {
+			get; private set;
+		}
+
 		// Datas
 		[ValueEditorComponent_Header("Common")]
 		[ValueEditor_TextBox("Name")]
@@ -112,6 +116,8 @@ namespace TaleKit.Datas.UI {
 			this.itemType = itemType;
 			System.Diagnostics.Debug.WriteLine($"Created {itemType}");
 			ChildItemList = new List<UiItemBase>();
+
+			FieldName_To_UseKeyDict = new Dictionary<string, bool>();
 
 			//For unity only (제거할것)
 			//GameObject = new GameObject();
