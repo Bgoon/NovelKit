@@ -8,9 +8,9 @@
 	<UserControl.Resources>
 		
 	</UserControl.Resources>
-	<Grid Name="RootContext" Focusable="True" Background="{StaticResource TextBoxBackground}">
+	<Grid Name="RootContext" Focusable="True">
 		<TextBox Name="ValueTextBox" Style="{StaticResource DefaultTextBox}" Text="asdf" VerticalScrollBarVisibility="Auto" MaxHeight="120"
-			Margin="4, 4"
-			LostFocus="ValueTextBox_LostFocus" />
+			Margin="0"
+			LostFocus="ValueTextBox_LostFocus" Padding="4" />
 	</Grid>
 </UserControl>

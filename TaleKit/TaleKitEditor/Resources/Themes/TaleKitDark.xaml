@@ -12,6 +12,8 @@
 	xmlns:GBehavior="clr-namespace:GKitForWPF.UI.Behaviors;assembly=GKitForWPF"
 	xmlns:GConverters="clr-namespace:GKitForWPF.UI.Converters;assembly=GKitForWPF"
 	>
+	<FontFamily x:Key="DefaultFontFamily_Bold">/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoEB00</FontFamily>
+	<FontFamily x:Key="DefaultFontFamily_Regular">/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoR00</FontFamily>
 
 	<SolidColorBrush x:Key="MainWindowBackground" Color="#FF2E2E2E"/>
 	<SolidColorBrush x:Key="PopupWindowBackground" Color="#454545"/>
@@ -25,6 +27,7 @@
 	<SolidColorBrush x:Key="LightSeparator" Color="#26FFFFFF"/>
 
 	<SolidColorBrush x:Key="SubInfoColor" Color="#636363"/>
+	<SolidColorBrush x:Key="ContentTextColor" Color="#BDBDBD"/>
 
 	<SolidColorBrush x:Key="ScrollbarBackground" Color="#FF383838"/>
 	<SolidColorBrush x:Key="ScrollbarForeground" Color="#FF595959"/>
@@ -34,18 +37,19 @@
 
 	<SolidColorBrush x:Key="SelectedBackground" Color="#CC8A5E"/>
 
+
 	<!-- Texts -->
 	<Style x:Key="MainHeaderText" TargetType="TextBlock">
-		<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoEB00"/>
+		<Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily_Bold}"/>
 		<Setter Property="FontSize" Value="14"/>
 		<Setter Property="Foreground" Value="#ABABAB"/>
 	</Style>
 	<Style x:Key="SubHeaerText" TargetType="TextBlock">
-		<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoEB00"/>
+		<Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily_Bold}"/>
 		<Setter Property="Foreground" Value="#7A7A7A"/>
 	</Style>
 	<Style x:Key="ContentText" TargetType="TextBlock">
-		<Setter Property="FontFamily" Value="/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoR00"/>
+		<Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily_Regular}"/>
 		<Setter Property="Foreground" Value="#BDBDBD"/>
 	</Style>
 
@@ -74,13 +78,13 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="TextBoxBase">
 					<Grid>
-						<Border x:Name="border" 
+						<Border x:Name="Border" 
                             BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                             Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
 							<ScrollViewer x:Name="PART_ContentHost"
 											VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}"
 											HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
-											Padding="{TemplateBinding Padding}"
+											Margin="{TemplateBinding Padding}"
 											FontFamily="/TaleKitEditor;component/Resources/Fonts/#AppleSDGothicNeoR00" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Fixed"/>
 						</Border>
 						<Border x:Name="Cover" IsHitTestVisible="False"/>
@@ -90,7 +94,7 @@
 							<Setter Property="Opacity" Value="0.6"/>
 						</Trigger>
 						<Trigger Property="IsMouseOver" Value="True" SourceName="Cover">
-							<Setter Property="Background" Value="#16FFFFFF"/>
+							<Setter TargetName="Border" Property="Background" Value="#16FFFFFF"/>
 						</Trigger>
 						<!--<Trigger Property="IsFocused" Value="False">
 										<Setter Property="Background" Value="#A3A3A3"/>

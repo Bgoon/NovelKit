@@ -83,7 +83,7 @@ namespace TaleKit.Datas.UI {
 		public object View {
 			get; set;
 		}
-		public Dictionary<string, bool> FieldName_To_UseKeyDict {
+		public HashSet<string> KeyFieldNameHashSet {
 			get; private set;
 		}
 
@@ -117,7 +117,7 @@ namespace TaleKit.Datas.UI {
 			System.Diagnostics.Debug.WriteLine($"Created {itemType}");
 			ChildItemList = new List<UiItemBase>();
 
-			FieldName_To_UseKeyDict = new Dictionary<string, bool>();
+			KeyFieldNameHashSet = new HashSet<string>();
 
 			//For unity only (제거할것)
 			//GameObject = new GameObject();

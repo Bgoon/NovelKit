@@ -5,13 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
 			 xmlns:GBehaviors="clr-namespace:GKitForWPF.UI.Behaviors;assembly=GKitForWPF"
+			 xmlns:ViewportElements="clr-namespace:TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements"
 
              mc:Ignorable="d" 
              d:DesignWidth="800" d:DesignHeight="450" >
 	<DockPanel Background="#FF252525">
 		<DockPanel DockPanel.Dock="Top" Height="28" Background="{StaticResource TabBackground}">
-			<Grid DockPanel.Dock="Left" Width="150"/>
-			<Grid DockPanel.Dock="Right" Width="140"/>
+			<ViewportElements:ResolutionSelector/>
+			<Border DockPanel.Dock="Left" Width="2" HorizontalAlignment="Right" Background="{StaticResource LightSeparator}"/>
+			<ViewportElements:PlayStateButton/>
+			<Border Width="2" HorizontalAlignment="Left" Background="{StaticResource LightSeparator}"/>
 			<Grid/>
 		</DockPanel>
 		<ScrollViewer Name="CanvasScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">

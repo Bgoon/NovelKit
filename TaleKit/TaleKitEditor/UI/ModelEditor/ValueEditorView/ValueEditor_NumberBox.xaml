@@ -8,7 +8,7 @@
 
              mc:Ignorable="d" 
              d:DesignWidth="100" Height="21">
-	<DockPanel Background="{StaticResource TextBoxBackground}" SnapsToDevicePixels="True">
+	<DockPanel SnapsToDevicePixels="True">
 		<Border Name="AdjustButton" DockPanel.Dock="Right" Width="22" Background="#545454"
             MouseDown="AdjustButton_MouseDown" MouseMove="AdjustButton_MouseMove" MouseUp="AdjustButton_MouseUp" Cursor="SizeWE">
 			<VectorImages:NumberAdjustIcon HorizontalAlignment="Center" VerticalAlignment="Center"/>

@@ -13,23 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TaleKitEditor.Resources.VectorImages {
+namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 	/// <summary>
-	/// Anchor_TopLeft.xaml에 대한 상호 작용 논리
+	/// ResolutionSelector.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class KeyFrameIcon : UserControl {
-		public bool IsMarkerActive {
-			get; private set;
-		}
-
-		public KeyFrameIcon() {
+	public partial class ResolutionSelector : UserControl {
+		public ResolutionSelector() {
 			InitializeComponent();
-
-			SetMarkerActive(false);
-		}
-		public void SetMarkerActive(bool active) {
-			IsMarkerActive = active;
-			MarkerShape.Visibility = active ? Visibility.Visible : Visibility.Collapsed;
 		}
 	}
 }

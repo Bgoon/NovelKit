@@ -98,16 +98,19 @@ namespace TaleKitEditor.UI.ModelEditor {
 		private void InitializeEditorType(ModelEditorType editorType) {
 			KeyFrameContext.Visibility = Visibility.Collapsed;
 
-			if (editorType == ModelEditorType.EditKeyFrameModel) {
+			bool isReadOnlyValue = field.GetCustomAttribute<ValueEditorAttribute>() is IReadOnlyValue;
+			if (!isReadOnlyValue && editorType == ModelEditorType.EditKeyFrameModel) {
 				KeyFrameContext.Visibility = Visibility.Visible;
 
 				KeyFrameContext.RegisterButtonReaction();
 				KeyFrameContext.RegisterClickEvent(OnKeyFrameMarkerClick, true);
+
+				UpdateKeyFrameMarker();
 			}
 		}
 		private void BuildEditorContext() {
 			// Classify components : 헤더 등등 부가적인 정보
-			ValueEditorComponentAttribute[] components = field.GetCustomAttributes(typeof(ValueEditorComponentAttribute)).Select(x => (ValueEditorComponentAttribute)x).ToArray();
+			ValueEditorComponentAttribute[] components = field.GetCustomAttributes< ValueEditorComponentAttribute>().Select(x => (ValueEditorComponentAttribute)x).ToArray();
 			foreach (ValueEditorComponentAttribute component in components) {
 				UserControl view = CreateEditorComponentView(component, model, field);
 
@@ -118,7 +121,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 				return;
 
 			// Set editor attributes
-			attribute = field.GetCustomAttribute(typeof(ValueEditorAttribute)) as ValueEditorAttribute;
+			attribute = field.GetCustomAttribute<ValueEditorAttribute>() as ValueEditorAttribute;
 			ValueNameText = attribute.valueName;
 
 			switch (attribute.layout) {
@@ -149,7 +152,16 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 		// [ Event ]
 		private void OnKeyFrameMarkerClick() {
-			
+			IKeyFrameModel keyFrameModel = model as IKeyFrameModel;
+			if (keyFrameModel == null)
+				return;
+
+			if(keyFrameModel.KeyFieldNameHashSet.Contains(field.Name)) {
+				keyFrameModel.KeyFieldNameHashSet.Remove(field.Name);
+			} else {
+				keyFrameModel.KeyFieldNameHashSet.Add(field.Name);
+			}
+			UpdateKeyFrameMarker();
 		}
 
 		// [ Create elements ]
@@ -203,6 +215,15 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 			bool visible = (bool)model.GetType().GetProperty(attribute.visibleCondition, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(model);
 			Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+		}
+		private void UpdateKeyFrameMarker() {
+			IKeyFrameModel keyFrameModel = model as IKeyFrameModel;
+			if (keyFrameModel == null)
+				return;
+
+			bool isKeyActive = keyFrameModel.KeyFieldNameHashSet.Contains(field.Name);
+			KeyFrameMarker.SetMarkerActive(isKeyActive);
+			ValueEditorElementContext.IsEnabled = isKeyActive;
 		}
 
 		private void SetWideEditorElementContext() {

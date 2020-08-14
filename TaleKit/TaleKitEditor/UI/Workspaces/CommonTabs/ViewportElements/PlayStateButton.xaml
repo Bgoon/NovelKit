@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements.PlayStateButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+			 xmlns:local="clr-namespace:TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements"
+
+             mc:Ignorable="d"
+             d:DesignHeight="28">
+	<StackPanel DockPanel.Dock="Left" Name="BackPanel" Orientation="Horizontal" Background="Transparent">
+		<Border Width="12"/>
+		<Polygon Points="0,0 10,6 0,12" Fill="{StaticResource ContentTextColor}" VerticalAlignment="Center" Margin="6,0"/>
+		<TextBlock Style="{StaticResource ContentText}" Text="Play" VerticalAlignment="Center"/>
+		<Border Width="12"/>
+	</StackPanel>
+</UserControl>
