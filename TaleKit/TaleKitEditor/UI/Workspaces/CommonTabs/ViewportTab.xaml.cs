@@ -21,6 +21,7 @@ using TaleKit.Datas.UI;
 using TaleKitEditor.UI.ModelEditor;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements;
+using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
 using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs {
@@ -30,21 +31,29 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		private static UiWorkspace UiWorkspace => MainWindow.UiWorkspace;
 		private static UiOutlinerTab UiOutlinerTab => UiWorkspace.UiOutlinerTab;
 		private static UiFile EditingUiFile => MainWindow.EditingTaleData.UiFile;
+		private static StoryBlockTab StoryBlockTab => MainWindow.StoryWorkspace.StoryBlockTab;
 
 		private UiRenderer rootRenderer;
 
+		// [ Constructor ]
 		public ViewportTab() {
 			this.RegisterLoadedOnce(OnLoadedOnce);
 			InitializeComponent();
 		}
-		private void RegisterEvents() {
+
+		// [ Event ]
+		private void OnLoadedOnce(object sender, RoutedEventArgs e) {
+			// Register events
+			MainWindow.ProjectLoaded += MainWindow_ProjectLoaded;
+			
 			UiOutlinerTab.ItemMoved += UiOutlinerTab_ItemMoved;
+			PlayStateButton.ActiveChanged += PlayStateButton_ActiveChanged;
 		}
 
-		private void OnLoadedOnce(object sender, RoutedEventArgs e) {
-			MainWindow.ProjectLoaded += MainWindow_ProjectLoaded;
-			RegisterEvents();
+		private void PlayStateButton_ActiveChanged() {
+			StoryBlockTab.ApplyOrderToSelection();
 		}
+
 		private void MainWindow_ProjectLoaded(TaleKit.Datas.TaleData obj) {
 			EditingUiFile.ItemCreated += UiFile_ItemCreated;
 			EditingUiFile.ItemRemoved += UiFile_ItemRemoved;

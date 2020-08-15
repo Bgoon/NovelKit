@@ -9,5 +9,8 @@ namespace TaleKit.Datas.ModelEditor {
 		HashSet<string> KeyFieldNameHashSet {
 			get;
 		}
+		bool IsKeyFrameModel {
+			get;
+		}
 	}
 }

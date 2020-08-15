@@ -88,13 +88,13 @@ namespace TaleKit.Datas.UI {
 			}
 
 			// Add to collection
-			UiItemList.Add(item);
-
 			ItemCreatedPreview?.Invoke(item, parentUiItem);
 
 			if (parentUiItem == null) {
 				RootUiItem = item;
 			} else {
+				UiItemList.Add(item);
+
 				parentUiItem.AddChildItem(item);
 			}
 

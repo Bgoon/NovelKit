@@ -73,17 +73,25 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		private void EditingBlock_OrderAdded(OrderBase order) {
 			OrderItemEditorView editorView = new OrderItemEditorView(order);
-			orderToEditorViewDict.Add(order, editorView);
 
+			// Add to collection
+			orderToEditorViewDict.Add(order, editorView);
 			OrderEditorViewContext.Children.Add(editorView);
+
+			// Register events
+			order.ModelUpdated += Order_ModelUpdated;
 		}
+
+		private void Order_ModelUpdated(EditableModel model, FieldInfo fieldInfo, object editorView) {
+			StoryBlockTab.ApplyOrderToSelection();
+		}
+
 		private void EditingBlock_OrderRemoved(OrderBase order) {
 			order.ClearEvents();
 			OrderEditorViewContext.Children.Remove(orderToEditorViewDict[order]);
 
 			orderToEditorViewDict.Remove(order);
 		}
-
 		private void SelectionChanged() {
 			SelectedItemSet selectedItemSet = StoryBlockTab.StoryBlockTreeView.SelectedItemSet;
 			bool showEditingContext = selectedItemSet.Count == 1;
@@ -106,6 +114,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			}
 		}
 
+		// [ Control ]
 		public void AttachBlock(StoryBlock blockItem) {
 			DetachBlock();
 			this.EditingBlock = blockItem;

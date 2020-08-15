@@ -17,7 +17,6 @@ namespace TaleKitEditor.UI.ModelEditor {
 		public delegate FrameworkElement CreateSpecificEditorViewDelegate(FieldInfo field);
 
 		public static void CreateOrderEditorView(EditableModel model, StackPanel editorViewContext) {
-			
 			CreateSpecificEditorViewDelegate createKeyFrameEditorView = (FieldInfo fieldInfo) => {
 				// Handle specific attribute
 				ValueEditor_ModelKeyFrameAttribute modelKeyFrameAttr = fieldInfo.GetCustomAttribute<ValueEditor_ModelKeyFrameAttribute>();
@@ -26,14 +25,12 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 				EditableModel keyModel = fieldInfo.GetValue(model) as EditableModel;
 				StackPanel keyFrameModelEditorContext = new StackPanel();
-				if(keyModel != null) {
-					keyFrameModelEditorContext.Orientation = Orientation.Vertical;
-					
-					CreateModelEditorView(keyModel, keyFrameModelEditorContext, ModelEditorType.EditKeyFrameModel);
-				}
+				keyFrameModelEditorContext.Orientation = Orientation.Vertical;
+
+				CreateKeyModelEditorView();
 
 				// Register events
-				if(!string.IsNullOrEmpty(modelKeyFrameAttr.connectedProperty)) {
+				if (!string.IsNullOrEmpty(modelKeyFrameAttr.connectedProperty)) {
 					model.ModelUpdated += (EditableModel updatedModel, FieldInfo updatedFieldInfo, object editorView) => {
 						if(updatedFieldInfo.Name == modelKeyFrameAttr.connectedProperty) {
 							keyFrameModelEditorContext.Children.Clear();
@@ -42,16 +39,28 @@ namespace TaleKitEditor.UI.ModelEditor {
 							onConnectedPropertyUpdated?.Invoke(model, null);
 
 							keyModel = fieldInfo.GetValue(model) as EditableModel;
-							CreateModelEditorView(keyModel, keyFrameModelEditorContext, ModelEditorType.EditKeyFrameModel);
+							CreateKeyModelEditorView();
 						}
 					};
 				}
 
 				return keyFrameModelEditorContext;
+
+				void CreateKeyModelEditorView() {
+					if (keyModel != null) {
+						keyModel.ClearEvents();
+
+						CreateModelEditorView(keyModel, keyFrameModelEditorContext, ModelEditorType.EditKeyFrameModel);
+						keyModel.ModelUpdated += (EditableModel nestedKeyModel, FieldInfo keyFieldInfo, object keyEditorView) => {
+							model.NotifyModelUpdated(nestedKeyModel, keyFieldInfo, keyEditorView);
+						};
+					}
+				}
 			};
 
 			CreateModelEditorView(model, editorViewContext, ModelEditorType.EditModel, createKeyFrameEditorView);
 		}
+
 		public static void CreateModelEditorView(EditableModel model, StackPanel editorViewContext, ModelEditorType editorType = ModelEditorType.EditModel, CreateSpecificEditorViewDelegate createSpecificEditorView = null) {
 			Type modelType = model.GetType();
 			FieldInfo[] fields = modelType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);

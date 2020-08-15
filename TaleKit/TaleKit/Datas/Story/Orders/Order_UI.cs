@@ -56,7 +56,7 @@ namespace TaleKit.Datas.Story {
 		}
 
 		private void OnTargetUiUpdated() {
-			UiItemBase targetUi = UiFile.UiItemList.Where(x => x.name == targetUiName).Single(); // TODO : Unique Key로 찾도록 수정해야 함
+			UiItemBase targetUi = UiFile.UiItemList.Where(x => x.name == targetUiName).FirstOrDefault(); // TODO : Unique Key로 찾도록 수정해야 함
 
 			if(targetUi == null) {
 				UiKeyData = null;
@@ -70,6 +70,7 @@ namespace TaleKit.Datas.Story {
 					UiKeyData = new UiText(UiFile);
 					break;
 			}
+			UiKeyData.IsKeyFrameModel = true;
 		}
 
 		private void SetBlendProgress(float time) {

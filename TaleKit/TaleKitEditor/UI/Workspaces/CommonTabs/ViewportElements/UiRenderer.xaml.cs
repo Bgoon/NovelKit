@@ -24,14 +24,24 @@ using UAnchorPreset = GKitForUnity.AnchorPreset;
 using UAxisAnchor = GKitForUnity.AxisAnchor;
 using Grid = System.Windows.Controls.Grid;
 using Mathf = UnityEngine.Mathf;
+using UColor = UnityEngine.Color;
+using UGRect = GKitForUnity.GRect;
 using TaleKitEditor.UI.Windows;
+using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
+using TaleKit.Datas.Story;
+using System.Reflection;
+using TaleKit.Datas.Asset;
+using TaleKit.Datas;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
-	/// <summary>
-	/// UiRenderer.xaml에 대한 상호 작용 논리
-	/// </summary>
 	public partial class UiRenderer : UserControl {
+		private static Root Root => Root.Instance;
+		private static MainWindow MainWindow => Root.MainWindow;
+		private static StoryBlockTab StoryBlockTab => MainWindow.StoryWorkspace.StoryBlockTab;
 
+		public TaleData EditingTaleData => Data.OwnerFile.OwnerTaleData;
+		public AssetManager AssetManager => EditingTaleData.AssetManager;
+		public StoryFile EditingStoryFile => EditingTaleData.StoryFile;
 		public UiFile EditingUiFile => Data.OwnerFile;
 		public UiItemBase Data {
 			get; private set;
@@ -68,112 +78,138 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			}
 		}
 
-		public void Render(bool renderChilds) {
-			if(Data.itemType == UiItemType.Panel) {
-				RenderPanel();
-			} else if(Data.itemType == UiItemType.Text) {
-				RenderText();
-			}
+		public void Render(bool renderChilds = false) {
+			// Render data
+			RenderFromData(Data);
 
-			UpdateAlignment();
-
+			// Render childs
 			if (renderChilds) {
-				foreach(UiRenderer data in ChildItemContext.Children) {
-					data.Render(renderChilds);
+				foreach (UiRenderer childRenderer in ChildItemContext.Children) {
+					childRenderer.Render(renderChilds);
 				}
 			}
 		}
-		private void RenderPanel() {
-			UiPanel panelData = Data as UiPanel;
-
-			SolidRenderer.Background = panelData.color.ToColor().ToBrush();
-
-			AssetItem imageAsset = panelData.GetImageAsset();
-			if (imageAsset != null) {
-				ImageRenderer.Source = new BitmapImage(new Uri(panelData.GetImageAsset().AssetFilename));
-			} else {
-				ImageRenderer.Source = null;
+		public void RenderFromData(UiItemBase data) {
+			if (data.itemType == UiItemType.Panel) {
+				RenderPanel(data as UiPanel);
+			} else if (data.itemType == UiItemType.Text) {
+				RenderText(data as UiText);
 			}
-		}
-		private void RenderText() {
-			UiText textData = Data as UiText;
-
-			TextRenderer.Text = textData.text;
-			FontFamily fontFamily;
-			if(!string.IsNullOrEmpty(textData.fontFamily)) {
-				fontFamily = new FontFamily(textData.fontFamily);
-			} else {
-
-				fontFamily = new FontFamily();
-			}
-			TextRenderer.FontFamily = fontFamily;
-			TextRenderer.FontSize = Mathf.Max(1, textData.fontSize);
-			TextRenderer.Foreground = textData.color.ToColor().ToBrush();
-			
-			switch(textData.anchor) {
-				case TextAnchor.UpperLeft:
-				case TextAnchor.MiddleLeft:
-				case TextAnchor.LowerLeft:
-					TextRenderer.TextAlignment = System.Windows.TextAlignment.Left;
-					break;
-				case TextAnchor.UpperCenter:
-				case TextAnchor.MiddleCenter:
-				case TextAnchor.LowerCenter:
-					TextRenderer.TextAlignment = System.Windows.TextAlignment.Center;
-					break;
-				case TextAnchor.UpperRight:
-				case TextAnchor.MiddleRight:
-				case TextAnchor.LowerRight:
-					TextRenderer.TextAlignment = System.Windows.TextAlignment.Right;
-					break;
-			}
-
-			switch(textData.anchor) {
-				case TextAnchor.UpperLeft:
-				case TextAnchor.UpperCenter:
-				case TextAnchor.UpperRight:
-					TextRenderer.VerticalAlignment = VerticalAlignment.Top;
-					break;
-				case TextAnchor.MiddleLeft:
-				case TextAnchor.MiddleCenter:
-				case TextAnchor.MiddleRight:
-					TextRenderer.VerticalAlignment = VerticalAlignment.Center;
-					break;
-				case TextAnchor.LowerLeft:
-				case TextAnchor.LowerCenter:
-				case TextAnchor.LowerRight:
-					TextRenderer.VerticalAlignment = VerticalAlignment.Bottom;
-					break;
-			}
+			RenderBase(data);
 		}
 
-		//Alignment
-		private void UpdateAlignment() {
-			//AnchorPreset
-			UAxisAnchor axisAnchorX = Data.AnchorX;
-			UAxisAnchor axisAnchorY = Data.AnchorY;
-			
-			HorizontalAlignment = axisAnchorX.ToHorizontalAlignment();
-			VerticalAlignment = axisAnchorY.ToVerticalAlignment();
+		private void RenderPanel(UiPanel data) {
+			SetProperty(data, nameof(data.color), (object value) => { SolidRenderer.Background = ((UColor)value).ToColor().ToBrush(); });
+			SetProperty(data, nameof(data.imageAssetKey), (object value) => {
+				AssetItem imageAsset = AssetManager.GetAsset((string)value);
+				if (imageAsset != null) {
+					ImageRenderer.Source = new BitmapImage(new Uri(data.GetImageAsset().AssetFilename));
+				} else {
+					ImageRenderer.Source = null;
+				}
+			});
+		}
+		private void RenderText(UiText data) {
+			SetProperty(data, nameof(data.text), (object value) => { TextRenderer.Text = (string)value; });
+			SetProperty(data, nameof(data.fontFamily), (object value) => {
+				string fontFamilyName = (string)value;
+				FontFamily fontFamily;
+				if (!string.IsNullOrEmpty(fontFamilyName)) {
+					fontFamily = new FontFamily(fontFamilyName);
+				} else {
+
+					fontFamily = new FontFamily();
+				}
+				TextRenderer.FontFamily = fontFamily;
+			});
+			SetProperty(data, nameof(data.fontSize), (object value) => { TextRenderer.FontSize = Mathf.Max(1, (int)value); });
+			SetProperty(data, nameof(data.fontColor), (object value) => { TextRenderer.Foreground = ((UColor)value).ToColor().ToBrush(); });
+			SetProperty(data, nameof(data.textAnchor), (object value) => {
+				TextAnchor textAnchor = (TextAnchor)value;
+				switch (textAnchor) {
+					case TextAnchor.UpperLeft:
+					case TextAnchor.MiddleLeft:
+					case TextAnchor.LowerLeft:
+						TextRenderer.TextAlignment = System.Windows.TextAlignment.Left;
+						break;
+					case TextAnchor.UpperCenter:
+					case TextAnchor.MiddleCenter:
+					case TextAnchor.LowerCenter:
+						TextRenderer.TextAlignment = System.Windows.TextAlignment.Center;
+						break;
+					case TextAnchor.UpperRight:
+					case TextAnchor.MiddleRight:
+					case TextAnchor.LowerRight:
+						TextRenderer.TextAlignment = System.Windows.TextAlignment.Right;
+						break;
+				}
+
+				switch (textAnchor) {
+					case TextAnchor.UpperLeft:
+					case TextAnchor.UpperCenter:
+					case TextAnchor.UpperRight:
+						TextRenderer.VerticalAlignment = VerticalAlignment.Top;
+						break;
+					case TextAnchor.MiddleLeft:
+					case TextAnchor.MiddleCenter:
+					case TextAnchor.MiddleRight:
+						TextRenderer.VerticalAlignment = VerticalAlignment.Center;
+						break;
+					case TextAnchor.LowerLeft:
+					case TextAnchor.LowerCenter:
+					case TextAnchor.LowerRight:
+						TextRenderer.VerticalAlignment = VerticalAlignment.Bottom;
+						break;
+				}
+			});
+		}
+		private void RenderBase(UiItemBase data) {
+			//AnchorPreset and Size
+			SetProperty(data, nameof(data.AnchorX), (object value) => {
+				UAxisAnchor axisAnchorX = (UAxisAnchor)value;
+				HorizontalAlignment = axisAnchorX.ToHorizontalAlignment();
+
+				if (axisAnchorX == UAxisAnchor.Stretch) {
+					Width = double.NaN;
+				} else {
+					Width = data.size.x;
+				}
+			});
+			SetProperty(data, nameof(data.AnchorY), (object value) => {
+				UAxisAnchor axisAnchorY = (UAxisAnchor)value;
+				VerticalAlignment = axisAnchorY.ToVerticalAlignment();
+
+				if (axisAnchorY == UAxisAnchor.Stretch) {
+					Height = double.NaN;
+				} else {
+					Height = data.size.y;
+				}
+			});
 
 			//Margin
-			Margin = new Thickness(Data.margin.xMin, Data.margin.yMax, Data.margin.xMax, Data.margin.yMin);
-
-			//Size
-			if(axisAnchorX == UAxisAnchor.Stretch) {
-				Width = double.NaN;
-			} else {
-				Width = Data.size.x;
-			}
-
-			if(axisAnchorY == UAxisAnchor.Stretch) {
-				Height = double.NaN;
-			} else {
-				Height = Data.size.y;
-			}
+			SetProperty(data, nameof(data.margin), (object value) => {
+				UGRect margin = (UGRect)value;
+				Margin = new Thickness(margin.xMin, margin.yMax, margin.xMax, margin.yMin);
+			});
 
 			//Rotate
-			rotateTransform.Angle = Data.rotation;
+			SetProperty(data, nameof(data.rotation), (object value) => { rotateTransform.Angle = (float)value; });
+		}
+
+		private void SetProperty(UiItemBase data, string propertyName, Arg1Delegate<object> applyPropertyDelegate) {
+			if(!data.IsKeyFrameModel || data.KeyFieldNameHashSet.Contains(propertyName)) {
+				object property;
+
+				MemberInfo member = data.GetType().GetMember(propertyName).FirstOrDefault();
+				if(member is FieldInfo) {
+					property = (member as FieldInfo).GetValue(data);
+				} else if(member is PropertyInfo) {
+					property = (member as PropertyInfo).GetValue(data);
+				} else {
+					throw new Exception($"Can't find property '{propertyName}'.");
+				}
+				applyPropertyDelegate(property);
+			}
 		}
 	}
 }

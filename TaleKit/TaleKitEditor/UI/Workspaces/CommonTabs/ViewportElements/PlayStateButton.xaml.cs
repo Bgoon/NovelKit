@@ -43,8 +43,8 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			UpdateUI();
 		}
 		private void OnBackPanelClick() {
-			ActiveChanged?.Invoke();
 			IsActive = !IsActive;
+			ActiveChanged?.Invoke();
 		}
 
 		private void UpdateUI() {

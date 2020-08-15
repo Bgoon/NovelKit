@@ -22,9 +22,6 @@ namespace TaleKit.Datas.Story {
 			get; private set;
 		}
 
-		public Dictionary<string, Scene> SceneDict {
-			get; private set;
-		}
 		public Dictionary<string, StoryClip> ClipDict {
 			get; private set;
 		}
@@ -33,14 +30,12 @@ namespace TaleKit.Datas.Story {
 		public event NodeItemDelegate<StoryBlockBase, StoryClip> ItemRemoved;
 
 		public StoryFile(TaleData ownerTaleData) {
+			// Init members
 			this.OwnerTaleData = ownerTaleData;
 
-			InitMembers();
-			CreateRootItem();
-		}
-		private void InitMembers() {
-			SceneDict = new Dictionary<string, Scene>();
 			ClipDict = new Dictionary<string, StoryClip>();
+
+			CreateRootItem();
 		}
 
 		public bool Save(string filename) {
@@ -105,18 +100,6 @@ namespace TaleKit.Datas.Story {
 
 		public JObject ToJObject() {
 			JObject jFile = new JObject();
-
-			//Add scenes
-			JObject jScenes = new JObject();
-			jFile.Add("Scenes", jScenes);
-
-			foreach (KeyValuePair<string, Scene> scenePair in SceneDict) {
-				JObject jScene = new JObject();
-				jScenes.Add(scenePair.Key, jScene);
-
-				Scene scene = scenePair.Value;
-				jScene.Add(scene.ToJObject());
-			}
 
 			//Add clips
 			JObject jClips = new JObject();

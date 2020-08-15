@@ -134,7 +134,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 			UserControl editorElement = CreateEditorElementView(attribute, model, field);
 			valueEditorElement = (IValueEditor)editorElement;
 
-			valueEditorElement.EditableValueChanged += ElementValueChanged;
+			valueEditorElement.EditableValueChanged += NotifyEditorValueChanged;
 			valueEditorElement.EditableValue = field.GetValue(model);
 
 			// Register events
@@ -142,12 +142,6 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 			Children.Clear();
 			Children.Add(editorElement);
-
-			void ElementValueChanged(object value) {
-				ElementEditorValueChanged?.Invoke(value);
-				this.field.SetValue(model, Convert.ChangeType(value, this.field.FieldType));
-				model.NotifyModelUpdated(model, field, valueEditorElement);
-			}
 		}
 
 		// [ Event ]
@@ -162,6 +156,8 @@ namespace TaleKitEditor.UI.ModelEditor {
 				keyFrameModel.KeyFieldNameHashSet.Add(field.Name);
 			}
 			UpdateKeyFrameMarker();
+
+			NotifyEditorValueChanged(valueEditorElement.EditableValue);
 		}
 
 		// [ Create elements ]
@@ -209,6 +205,12 @@ namespace TaleKitEditor.UI.ModelEditor {
 		}
 
 		// [ Utility ]
+		private void NotifyEditorValueChanged(object value) {
+			ElementEditorValueChanged?.Invoke(value);
+			this.field.SetValue(model, Convert.ChangeType(value, this.field.FieldType));
+			model.NotifyModelUpdated(model, field, valueEditorElement);
+		}
+
 		private void UpdateVisible(EditableModel model, FieldInfo fieldInfo, object editorView) {
 			if (string.IsNullOrEmpty(attribute.visibleCondition))
 				return;

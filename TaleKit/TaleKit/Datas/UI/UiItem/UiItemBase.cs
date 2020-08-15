@@ -86,6 +86,9 @@ namespace TaleKit.Datas.UI {
 		public HashSet<string> KeyFieldNameHashSet {
 			get; private set;
 		}
+		public bool IsKeyFrameModel {
+			get; set;
+		}
 
 		// Datas
 		[ValueEditorComponent_Header("Common")]

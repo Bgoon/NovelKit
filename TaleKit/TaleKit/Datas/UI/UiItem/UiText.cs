@@ -16,7 +16,7 @@ namespace TaleKit.Datas.UI.UiItem {
 		public string text;
 
 		[ValueEditor_ColorBox("Color")]
-		public UColor color = UColor.black;
+		public UColor fontColor = UColor.black;
 
 		[ValueEditor_TextBox("Font Family")]
 		public string fontFamily;
@@ -25,7 +25,7 @@ namespace TaleKit.Datas.UI.UiItem {
 		public int fontSize = 11;
 
 		[ValueEditor_EnumComboBox("Text Anchor")]
-		public TextAnchor anchor;
+		public TextAnchor textAnchor;
 
 
 		public UiText(UiFile ownerFile) : base(ownerFile, UiItemType.Text) {
