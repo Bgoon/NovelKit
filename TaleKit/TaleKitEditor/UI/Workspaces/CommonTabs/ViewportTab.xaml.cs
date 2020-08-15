@@ -29,11 +29,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static UiWorkspace UiWorkspace => MainWindow.UiWorkspace;
 		private static UiOutlinerTab UiOutlinerTab => UiWorkspace.UiOutlinerTab;
-		private static UiFile UiFile => MainWindow.EditingTaleData.UiFile;
-
-		public UiFile EditingUiFile {
-			get; private set;
-		}
+		private static UiFile EditingUiFile => MainWindow.EditingTaleData.UiFile;
 
 		private UiRenderer rootRenderer;
 
@@ -50,45 +46,56 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			RegisterEvents();
 		}
 		private void MainWindow_ProjectLoaded(TaleKit.Datas.TaleData obj) {
-			UiFile.ItemCreated += UiFile_ItemCreated;
-			UiFile.ItemRemoved += UiFile_ItemRemoved;
+			EditingUiFile.ItemCreated += UiFile_ItemCreated;
+			EditingUiFile.ItemRemoved += UiFile_ItemRemoved;
 
-			RenderAll(true, true);
 			ScrollToCenter();
 		}
 		private void UiFile_ItemCreated(UiItemBase item, UiItemBase parentItem) {
-			RenderAll(true, true);
+			UiRenderer renderer = new UiRenderer(item);
+			EditingUiFile.Item_To_ViewDict.Add(item, renderer);
+
+			if (parentItem == null) {
+				rootRenderer = renderer;
+				CanvasContext.Children.Add(rootRenderer);
+			} else {
+				UiRenderer parentView = GetRenderer(parentItem);
+				parentView.ChildItemContext.Children.Add(renderer);
+			}
+
+			renderer.Render(false);
 		}
 		private void UiFile_ItemRemoved(UiItemBase item, UiItemBase parentItem) {
-			RenderAll(true, true);
+			UiRenderer renderer = GetRenderer(item);
+			renderer.DetachParent();
+
+			EditingUiFile.Item_To_ViewDict.Remove(item);
 		}
 		internal void UiItemDetailPanel_UiItemValueChanged(object model, FieldInfo fieldInfo, object editorView) {
-			RenderAll(true, false);
+			UiRenderer renderer = GetRenderer(model as UiItemBase);
+
+			renderer.Render(false);
 		}
 		private void UiOutlinerTab_ItemMoved(UiItemBase item, UiItemBase newParentItem, UiItemBase oldParentItem) {
-			RenderAll(true, true);
+			UiRenderer renderer = GetRenderer(item);
+			UiRenderer parentView = GetRenderer(newParentItem);
+
+			int index = newParentItem.ChildItemList.IndexOf(item);
+			renderer.DetachParent();
+			parentView.ChildItemContext.Children.Insert(index, renderer);
+			renderer.Render(false);
 		}
 
+		// [ Access ]
+		private UiRenderer GetRenderer(UiItemBase item) {
+			return EditingUiFile.Item_To_ViewDict[item] as UiRenderer;
+		}
 
 		public async void ScrollToCenter() {
 			await Task.Delay(10);
 
 			CanvasScrollViewer.ScrollToHorizontalOffset(CanvasScrollViewer.ScrollableWidth / 2d);
 			CanvasScrollViewer.ScrollToVerticalOffset(CanvasScrollViewer.ScrollableHeight / 2d);
-		}
-
-		private void RenderAll(bool renderChilds, bool rebuild) {
-			if (rebuild) {
-				CanvasContext.Children.Clear();
-
-				rootRenderer = new UiRenderer(UiFile.RootUiItem);
-				CanvasContext.Children.Add(rootRenderer);
-				rootRenderer.Render(renderChilds, rebuild);
-			} else {
-				if(rootRenderer != null) {
-					rootRenderer.Render(renderChilds, rebuild);
-				}
-			}
 		}
 	}
 }

@@ -157,8 +157,10 @@ namespace TaleKitEditor.UI.Windows {
 			WorkspaceContext.Visibility = Visibility.Visible;
 		}
 		public void CloseFile() {
+
 			ProjectUnloaded?.Invoke(EditingTaleData);
 
+			EditingTaleData.Dispose();
 			EditingTaleData = null;
 		}
 		public void OpenFile() {

@@ -27,7 +27,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 	public partial class UiOutlinerTab : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
-		private static UiFile UiFile => MainWindow.EditingTaleData.UiFile;
+		private static UiFile EditingUiFile => MainWindow.EditingTaleData.UiFile;
 		private static DetailTab DetailTab => MainWindow.DetailTab;
 		private static ViewportTab ViewportTab => MainWindow.ViewportTab;
 		private static CommonDetailPanel CommonDetailPanel => DetailTab.CommonDetailPanel;
@@ -82,16 +82,12 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 		// [ Event ]
 		private void MainWindow_DataLoaded(TaleData obj) {
-			UiFile.ItemCreatedPreview += UiFile_ItemCreatedPreview;
-			UiFile.ItemRemoved += UiFile_ItemRemoved;
-
-			UiFile_ItemCreatedPreview(UiFile.RootUiItem, null);
+			EditingUiFile.ItemCreatedPreview += UiFile_ItemCreatedPreview;
+			EditingUiFile.ItemRemoved += UiFile_ItemRemoved;
 		}
 		private void MainWindow_DataUnloaded(TaleData obj) {
-			UiFile.ItemCreatedPreview -= UiFile_ItemCreatedPreview;
-			UiFile.ItemRemoved -= UiFile_ItemRemoved;
-
-			UiFile_ItemRemoved(UiFile.RootUiItem, null);
+			EditingUiFile.ItemCreatedPreview -= UiFile_ItemCreatedPreview;
+			EditingUiFile.ItemRemoved -= UiFile_ItemRemoved;
 		}
 
 		private void UiItemListController_CreateItemButtonClick() {
@@ -107,7 +103,8 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			MenuPanel.ShowDialog(menuItems);
 
 			void CreateAndSelectUiItem(UiItemType itemType) {
-				UiItemBase item = UiFile.CreateUiItem(SelectedUiItemSingle, itemType);
+				UiItemBase parentItem = SelectedUiItemSingle ?? EditingUiFile.RootUiItem;
+				UiItemBase item = EditingUiFile.CreateUiItem(parentItem, itemType);
 
 				UiTreeView.SelectedItemSet.SetSelectedItem(item.View as ITreeItem);
 			}
@@ -118,7 +115,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			foreach (UiItemView itemView in selectedItems) {
 				UiItemBase data = itemView.Data;
 
-				UiFile.RemoveUiItem(data);
+				EditingUiFile.RemoveUiItem(data);
 			}
 		}
 

@@ -31,7 +31,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			}
 		}
 
-		public event Action Click;
+		public event Action ActiveChanged;
 
 		public PlayStateButton() {
 			InitializeComponent();
@@ -43,7 +43,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			UpdateUI();
 		}
 		private void OnBackPanelClick() {
-			Click?.Invoke();
+			ActiveChanged?.Invoke();
 			IsActive = !IsActive;
 		}
 

@@ -9,7 +9,7 @@ using TaleKit.Datas.Story;
 using TaleKit.Datas.UI;
 
 namespace TaleKit.Datas {
-	public class TaleData {
+	public class TaleData : IDisposable {
 		public const string Version = "2019.9";
 		public const string FileExt = ".taledata";
 
@@ -60,7 +60,12 @@ namespace TaleKit.Datas {
 				AssetManager.StartWatchAssetDir();
 			}
 		}
+		public void Dispose() {
+			UiFile.Clear();
+			
+		}
 		public void PostInit() {
+			UiFile.Init();
 		}
 
 		/// <summary>

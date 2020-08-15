@@ -14,7 +14,7 @@ namespace TaleKit.Datas.UI {
 	//		Childs {} []
 	//	}
 	//}
-	public class UiFile : ITaleDataFile {
+	public class UiFile : ITaleDataFile, INeedInitialization {
 		public delegate void NodeChangedDelegate();
 
 		public readonly TaleData OwnerTaleData;
@@ -22,6 +22,8 @@ namespace TaleKit.Datas.UI {
 		public UiItemBase RootUiItem {
 			get; private set;
 		}
+
+		private bool createRootUiItem;
 
 		// Event
 		public event NodeItemDelegate<UiItemBase, UiItemBase> ItemCreatedPreview;
@@ -31,23 +33,30 @@ namespace TaleKit.Datas.UI {
 		// UI Collection
 		public readonly List<UiItemBase> UiItemList;
 		public readonly List<UiText> TextList;
+		public readonly Dictionary<UiItemBase, object> Item_To_ViewDict;
 
 		// [ Constructor ]
-		public UiFile(TaleData ownerTaleData, bool createRootItem = true) {
+		public UiFile(TaleData ownerTaleData, bool createRootUiItem = true) {
 			this.OwnerTaleData = ownerTaleData;
+			this.createRootUiItem = createRootUiItem;
 
 			UiItemList = new List<UiItemBase>();
 			TextList = new List<UiText>();
+			Item_To_ViewDict = new Dictionary<UiItemBase, object>();
 
-			if (createRootItem) {
-				RootUiItem = new UiPanel(this);
+		}
+		public void Init() {
+			if(createRootUiItem) {
+				RootUiItem = CreateUiItem(null, UiItemType.Panel);
 			}
 		}
 		public void Clear() {
-			RootUiItem.ClearChildItem();
+			RemoveUiItem(RootUiItem);
+			RootUiItem = null;
 
 			UiItemList.Clear();
 			TextList.Clear();
+			Item_To_ViewDict.Clear();
 		}
 
 		public bool Save(string filename) {
@@ -64,8 +73,6 @@ namespace TaleKit.Datas.UI {
 		}
 
 		public UiItemBase CreateUiItem(UiItemBase parentUiItem, UiItemType itemType) {
-			if (parentUiItem == null)
-				parentUiItem = RootUiItem;
 
 			UiItemBase item;
 			switch (itemType) {
@@ -79,25 +86,32 @@ namespace TaleKit.Datas.UI {
 					TextList.Add(item as UiText);
 					break;
 			}
+
 			// Add to collection
 			UiItemList.Add(item);
 
 			ItemCreatedPreview?.Invoke(item, parentUiItem);
 
-			parentUiItem.AddChildItem(item);
+			if (parentUiItem == null) {
+				RootUiItem = item;
+			} else {
+				parentUiItem.AddChildItem(item);
+			}
 
 			ItemCreated?.Invoke(item, parentUiItem);
 
 			return item;
 		}
 		public void RemoveUiItem(UiItemBase item) {
+			UiItemBase parentItem = item.ParentItem;
 			UiItemBase[] childs = item.ChildItemList.ToArray();
 			foreach (UiItemBase childItem in childs) {
 				RemoveUiItem(childItem);
 			}
 
-			UiItemBase parentItem = item.ParentItem;
-			parentItem.RemoveChildItem(item);
+			if(parentItem != null) {
+				parentItem.RemoveChildItem(item);
+			}
 
 			// Remove from collection
 			switch(item.itemType) {
@@ -106,7 +120,6 @@ namespace TaleKit.Datas.UI {
 					break;
 			}
 			UiItemList.Remove(item);
-
 
 			ItemRemoved?.Invoke(item, parentItem);
 		}

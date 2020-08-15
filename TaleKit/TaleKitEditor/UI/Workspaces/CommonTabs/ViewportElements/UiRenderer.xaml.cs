@@ -24,12 +24,15 @@ using UAnchorPreset = GKitForUnity.AnchorPreset;
 using UAxisAnchor = GKitForUnity.AxisAnchor;
 using Grid = System.Windows.Controls.Grid;
 using Mathf = UnityEngine.Mathf;
+using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 	/// <summary>
 	/// UiRenderer.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class UiRenderer : UserControl {
+
+		public UiFile EditingUiFile => Data.OwnerFile;
 		public UiItemBase Data {
 			get; private set;
 		}
@@ -65,7 +68,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			}
 		}
 
-		public void Render(bool renderChilds, bool rebuild) {
+		public void Render(bool renderChilds) {
 			if(Data.itemType == UiItemType.Panel) {
 				RenderPanel();
 			} else if(Data.itemType == UiItemType.Text) {
@@ -75,18 +78,8 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			UpdateAlignment();
 
 			if (renderChilds) {
-				if(rebuild) {
-					ChildItemContext.Children.Clear();
-					foreach(UiItemBase data in Data.ChildItemList) {
-						UiRenderer renderer = new UiRenderer(data);
-						ChildItemContext.Children.Add(renderer);
-
-						renderer.Render(renderChilds, rebuild);
-					}
-				} else {
-					foreach(UiRenderer data in ChildItemContext.Children) {
-						data.Render(renderChilds, rebuild);
-					}
+				foreach(UiRenderer data in ChildItemContext.Children) {
+					data.Render(renderChilds);
 				}
 			}
 		}

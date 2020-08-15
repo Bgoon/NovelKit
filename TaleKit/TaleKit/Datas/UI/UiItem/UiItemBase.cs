@@ -141,7 +141,7 @@ namespace TaleKit.Datas.UI {
 
 			ChildRemoved?.Invoke(item, this);
 		}
-		public void ClearChildItem() {
+		public void ClearChildItems() {
 			foreach(var childItem in ChildItemList) {
 				RemoveChildItem(childItem);
 			}

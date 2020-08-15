@@ -11,9 +11,9 @@
              d:DesignWidth="800" d:DesignHeight="450" >
 	<DockPanel Background="#FF252525">
 		<DockPanel DockPanel.Dock="Top" Height="28" Background="{StaticResource TabBackground}">
-			<ViewportElements:ResolutionSelector/>
+			<ViewportElements:ResolutionSelector x:Name="ResolutionSelector"/>
 			<Border DockPanel.Dock="Left" Width="2" HorizontalAlignment="Right" Background="{StaticResource LightSeparator}"/>
-			<ViewportElements:PlayStateButton/>
+			<ViewportElements:PlayStateButton x:Name="PlayStateButton"/>
 			<Border Width="2" HorizontalAlignment="Left" Background="{StaticResource LightSeparator}"/>
 			<Grid/>
 		</DockPanel>
