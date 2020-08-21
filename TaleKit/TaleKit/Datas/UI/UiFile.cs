@@ -33,6 +33,7 @@ namespace TaleKit.Datas.UI {
 		// UI Collection
 		public readonly List<UiItemBase> UiItemList;
 		public readonly List<UiText> TextList;
+		public readonly Dictionary<string, UiItemBase> Guid_To_ItemDict;
 		public readonly Dictionary<UiItemBase, object> Item_To_ViewDict;
 
 		// [ Constructor ]
@@ -42,6 +43,7 @@ namespace TaleKit.Datas.UI {
 
 			UiItemList = new List<UiItemBase>();
 			TextList = new List<UiText>();
+			Guid_To_ItemDict = new Dictionary<string, UiItemBase>();
 			Item_To_ViewDict = new Dictionary<UiItemBase, object>();
 
 		}
@@ -56,6 +58,7 @@ namespace TaleKit.Datas.UI {
 
 			UiItemList.Clear();
 			TextList.Clear();
+			Guid_To_ItemDict.Clear();
 			Item_To_ViewDict.Clear();
 		}
 
@@ -86,6 +89,7 @@ namespace TaleKit.Datas.UI {
 					TextList.Add(item as UiText);
 					break;
 			}
+			Guid_To_ItemDict.Add(item.guid, item);
 
 			// Add to collection
 			ItemCreatedPreview?.Invoke(item, parentUiItem);
@@ -103,6 +107,7 @@ namespace TaleKit.Datas.UI {
 			return item;
 		}
 		public void RemoveUiItem(UiItemBase item) {
+			// Recursive
 			UiItemBase parentItem = item.ParentItem;
 			UiItemBase[] childs = item.ChildItemList.ToArray();
 			foreach (UiItemBase childItem in childs) {
@@ -120,6 +125,7 @@ namespace TaleKit.Datas.UI {
 					break;
 			}
 			UiItemList.Remove(item);
+			Guid_To_ItemDict.Remove(item.guid);
 
 			ItemRemoved?.Invoke(item, parentItem);
 		}

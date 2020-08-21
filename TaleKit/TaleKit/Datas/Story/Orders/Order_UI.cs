@@ -16,9 +16,9 @@ namespace TaleKit.Datas.Story {
 		public override OrderType OrderType => OrderType.UI;
 		
 		[ValueEditor_UiItemSelector("Target UI")]
-		public string targetUiName;
+		public string targetUiGuid;
 
-		[ValueEditor_ModelKeyFrame(nameof(targetUiName), nameof(OnTargetUiUpdated))]
+		[ValueEditor_ModelKeyFrame(nameof(targetUiGuid), nameof(OnTargetUiUpdated))]
 		public UiItemBase UiKeyData;
 
 		public float BlendProgress => blendElapsedSeconds / BlendTotalSeconds;
@@ -56,7 +56,10 @@ namespace TaleKit.Datas.Story {
 		}
 
 		private void OnTargetUiUpdated() {
-			UiItemBase targetUi = UiFile.UiItemList.Where(x => x.name == targetUiName).FirstOrDefault(); // TODO : Unique Key로 찾도록 수정해야 함
+			if (string.IsNullOrEmpty(targetUiGuid))
+				return;
+
+			UiItemBase targetUi = UiFile.Guid_To_ItemDict[targetUiGuid];
 
 			if(targetUi == null) {
 				UiKeyData = null;

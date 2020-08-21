@@ -165,7 +165,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 						foreach (OrderBase order in (blockBase as StoryBlock).OrderList) {
 							if (order.OrderType == OrderType.UI) {
 								Order_UI order_UI = order as Order_UI;
-								UiItemBase UiItem = EditingUiFile.UiItemList.Where(x => x.name == order_UI.targetUiName).FirstOrDefault();
+								UiItemBase UiItem = EditingUiFile.Guid_To_ItemDict[order_UI.targetUiGuid];
 								if (UiItem != null) {
 									UiRenderer renderer = EditingUiFile.Item_To_ViewDict[UiItem] as UiRenderer;
 									if(!renderedRendererHashSet.Contains(renderer)) {

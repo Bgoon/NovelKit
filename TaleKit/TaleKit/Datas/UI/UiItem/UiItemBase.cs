@@ -91,8 +91,11 @@ namespace TaleKit.Datas.UI {
 		}
 
 		// Datas
+		[ValueEditor_TextBlockViewer("GUID", isStatic = true)]
+		public string guid;
+
 		[ValueEditorComponent_Header("Common")]
-		[ValueEditor_TextBox("Name")]
+		[ValueEditor_TextBox("Name", isStatic = true)]
 		public string name = "UI Item";
 		[ValueEditor_TextBlockViewer("Type")]
 		public UiItemType itemType;
@@ -115,6 +118,7 @@ namespace TaleKit.Datas.UI {
 		//public readonly CanvasRenderer Renderer;
 
 		public UiItemBase(UiFile ownerFile, UiItemType itemType) {
+			this.guid = Guid.NewGuid().ToString();
 			this.OwnerFile = ownerFile;
 			this.itemType = itemType;
 			System.Diagnostics.Debug.WriteLine($"Created {itemType}");
