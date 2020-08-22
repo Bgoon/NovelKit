@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GKitForWPF.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -26,6 +27,8 @@ namespace TaleKitEditor.UI.ModelEditor {
 				EditableModel keyModel = fieldInfo.GetValue(model) as EditableModel;
 				StackPanel keyFrameModelEditorContext = new StackPanel();
 				keyFrameModelEditorContext.Orientation = Orientation.Vertical;
+				keyFrameModelEditorContext.Background = "#00000016".ToBrush();
+				keyFrameModelEditorContext.Margin = new Thickness(4);
 
 				CreateKeyModelEditorView();
 
@@ -71,7 +74,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 					field.GetCustomAttributes<ValueEditorComponentAttribute>().Count() == 0)
 					continue;
 
-				ValueEditorAttribute editorAttr = field.GetCustomAttributes<ValueEditorAttribute>().First();
+				ValueEditorAttribute editorAttr = field.GetCustomAttributes<ValueEditorAttribute>().FirstOrDefault();
 				if (editorType == ModelEditorType.EditKeyFrameModel && editorAttr.isStatic)
 					continue;
 

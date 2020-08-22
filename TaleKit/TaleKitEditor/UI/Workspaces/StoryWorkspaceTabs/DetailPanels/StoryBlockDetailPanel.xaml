@@ -12,16 +12,21 @@
 			<TextBlock Name="MessageTextBlock" Text="편집할 블럭을 선택하세요" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#33FFFFFF" FontFamily="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium"/>
 		</Grid>
 
-		<!--Editing context-->
-		<ScrollViewer Name="EditingContext">
-			<StackPanel>
-				<StackPanel Name="OrderEditorViewContext">
+		<DockPanel Name="EditorContext">
+			<!--StoryBlock Editor-->
+			<StackPanel DockPanel.Dock="Top"/>
+
+			<!--Order Editor-->
+			<ScrollViewer>
+				<StackPanel>
+					<StackPanel Name="OrderEditorViewContext">
+					</StackPanel>
+					<Button Name="AddOrderButton" Style="{StaticResource FlatButton}" Height="34" Background="#545454"
+						Click="AddOrderButton_Click">
+						<Polygon Fill="#BABABA" Points="16,6 10,6 10,0 6,0 6,6 0,6 0,10 6,10 6,16 10,16 10,10 16,10 "/>
+					</Button>
 				</StackPanel>
-				<Button Name="AddOrderButton" Style="{StaticResource FlatButton}" Height="34" Background="#545454"
-					Click="AddOrderButton_Click">
-					<Polygon Fill="#BABABA" Points="16,6 10,6 10,0 6,0 6,6 0,6 0,10 6,10 6,16 10,16 10,10 16,10 "/>
-				</Button>
-			</StackPanel>
-		</ScrollViewer>
+			</ScrollViewer>
+		</DockPanel>
 	</Grid>
 </UserControl>

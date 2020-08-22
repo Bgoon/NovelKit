@@ -3,6 +3,10 @@ using System;
 using System.Collections.Generic;
 
 namespace TaleKit.Datas.Story {
+	public enum StoryBlockTrigger {
+		Auto,
+		Click,
+	}
 	public class StoryBlock : StoryBlockBase {
 
 		public event Action<OrderBase> OrderAdded;
@@ -24,6 +28,8 @@ namespace TaleKit.Datas.Story {
 				return true;
 			}
 		}
+
+
 
 		public StoryBlock(StoryFile ownerFile) : base(ownerFile, StoryBlockType.StoryBlock) {
 			OrderList = new List<OrderBase>();

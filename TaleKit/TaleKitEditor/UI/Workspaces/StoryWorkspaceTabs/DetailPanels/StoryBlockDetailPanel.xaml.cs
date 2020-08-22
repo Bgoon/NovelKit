@@ -96,7 +96,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			SelectedItemSet selectedItemSet = StoryBlockTab.StoryBlockTreeView.SelectedItemSet;
 			bool showEditingContext = selectedItemSet.Count == 1;
 
-			EditingContext.Visibility = showEditingContext ? Visibility.Visible : Visibility.Collapsed;
+			EditorContext.Visibility = showEditingContext ? Visibility.Visible : Visibility.Collapsed;
 			MessageContext.Visibility = showEditingContext ? Visibility.Collapsed : Visibility.Visible;
 
 			if (showEditingContext) {

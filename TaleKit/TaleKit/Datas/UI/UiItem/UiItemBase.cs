@@ -91,10 +91,10 @@ namespace TaleKit.Datas.UI {
 		}
 
 		// Datas
+		[ValueEditorComponent_Header("Common")]
 		[ValueEditor_TextBlockViewer("GUID", isStatic = true)]
 		public string guid;
 
-		[ValueEditorComponent_Header("Common")]
 		[ValueEditor_TextBox("Name", isStatic = true)]
 		public string name = "UI Item";
 		[ValueEditor_TextBlockViewer("Type")]

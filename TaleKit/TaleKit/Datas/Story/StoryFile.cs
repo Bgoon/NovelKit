@@ -3,7 +3,6 @@ using GKitForUnity.IO;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Text;
-using TaleKit.Datas.Story.Scenes;
 
 namespace TaleKit.Datas.Story {
 
@@ -41,7 +40,7 @@ namespace TaleKit.Datas.Story {
 		public bool Save(string filename) {
 			JObject jFile = ToJObject();
 
-			//Save
+			// Save
 			IOUtility.SaveText(jFile.ToString(), filename);
 			return true;
 		}

@@ -107,12 +107,9 @@
     <Compile Include="Datas\Story\GameObject\GameObjects.cs" />
     <Compile Include="Datas\Story\Logic\CompareOperator.cs" />
     <Compile Include="Datas\Story\Logic\Condition.cs" />
-    <Compile Include="Datas\Story\Scene\SceneConnection.cs" />
     <Compile Include="Datas\Story\Logic\Variable.cs" />
     <Compile Include="Datas\Story\Logic\VariableType.cs" />
     <Compile Include="Datas\Story\Logic\VariableStorage.cs" />
-    <Compile Include="Datas\Story\Scene\SceneManager.cs" />
-    <Compile Include="Datas\Story\Scene\Scene.cs" />
     <Compile Include="TaleKitClient.cs" />
     <Compile Include="Datas\UI\Component\DepthScroller.cs" />
     <Compile Include="Datas\UI\Text\MotionCharBase.cs" />
