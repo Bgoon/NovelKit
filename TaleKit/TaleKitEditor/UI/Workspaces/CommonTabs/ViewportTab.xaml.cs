@@ -93,6 +93,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			renderer.DetachParent();
 			parentView.ChildItemContext.Children.Insert(index, renderer);
 			renderer.Render(false);
+			
 		}
 
 		// [ Access ]

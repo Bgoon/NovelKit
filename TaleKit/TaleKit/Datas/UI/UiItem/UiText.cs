@@ -15,7 +15,7 @@ namespace TaleKit.Datas.UI.UiItem {
 		[ValueEditor_TextBox("Text")]
 		public string text;
 
-		[ValueEditor_ColorBox("Color")]
+		[ValueEditor_ColorBox("Font Color")]
 		public UColor fontColor = UColor.black;
 
 		[ValueEditor_TextBox("Font Family")]
