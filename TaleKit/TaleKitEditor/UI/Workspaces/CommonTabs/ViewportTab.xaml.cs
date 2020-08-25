@@ -51,7 +51,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		}
 
 		private void PlayStateButton_ActiveChanged() {
-			StoryBlockTab.ApplyOrderToSelection();
+			StoryBlockTab.ApplyBlockToSelectionToRenderer();
 		}
 
 		private void MainWindow_ProjectLoaded(TaleKit.Datas.TaleData obj) {

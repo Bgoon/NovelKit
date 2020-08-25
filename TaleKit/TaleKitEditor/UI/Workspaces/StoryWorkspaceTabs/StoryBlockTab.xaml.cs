@@ -155,22 +155,25 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			OnStoryBlockSelectionChanged();
 		}
 		private void OnStoryBlockSelectionChanged() {
-			ApplyOrderToSelection(true);
+			ApplyBlockToSelectionToRenderer(true);
 		}
 
 		// [ Control ]
 		// Apply order
-		public void ApplyOrderToSelection(bool playMotion = false) {
+
+		
+		// Block
+		public void ApplyBlockToSelectionToRenderer(bool playMotion = false) {
 			if(StoryBlockTreeView.SelectedItemSet.Count == 1) {
 				StoryBlockBase selectedBlockBase = (StoryBlockTreeView.SelectedItemSet.First as StoryBlockItemView).Data;
 				int selectedBlockIndex = EditingStoryFile.RootClip.ChildItemList.IndexOf(selectedBlockBase);
 
-				ApplyOrders(selectedBlockIndex, playMotion);
+				ApplyBlocksToRenderer(selectedBlockIndex, playMotion);
 			} else {
-				ApplyOrders(-1, false);
+				ApplyBlocksToRenderer(-1, false);
 			}
 		}
-		public void ApplyOrders(int lastIndex, bool playMotion = false) {
+		public void ApplyBlocksToRenderer(int lastBlockIndex, bool playMotion = false) {
 			StopMotion();
 
 			// Render root renderer
@@ -182,7 +185,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			RenderedRendererHashSet.Clear();
 
-			for (int i = 0; i <= lastIndex; ++i) {
+			for (int i = 0; i <= lastBlockIndex; ++i) {
 				StoryBlockBase blockBase = EditingStoryFile.RootClip.ChildItemList[i];
 				switch (blockBase.Type) {
 					case StoryBlockType.StoryBlock:
@@ -202,10 +205,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 								}
 
 
-								if(playMotion && i == lastIndex) {
-									ApplyOrder(UiItem, renderer, order_UI);
+								if(playMotion && i == lastBlockIndex) {
+									StartMotion(UiItem, renderer, order_UI);
 								} else {
-									ApplyOrderImmediately(renderer, order_UI);
+									ApplyOrderToRendererImmediately(renderer, order_UI);
 								}
 
 							}
@@ -218,30 +221,57 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		// TODO : 관련된 코드들 Order 내부로 이동
-		private void ApplyOrder(UiItemBase UiItem, UiRenderer UiRenderer, Order_UI order_UI) {
-			
-			// TODO : Test usage
-			UiMotionSet.Add(new UiMotion(UiRenderer, order_UI, UiItem, GetOrderAppliedData(UiItem, order_UI)));
+		// Order
+		private void StartMotion(UiItemBase UiItem, UiRenderer UiRenderer, Order_UI order_UI) {
+			UiItemBase prevData = GetOrdersAppliedData(UiItem, GetSelectedBlockIndex() - 1);
+
+			UiMotionSet.Add(new UiMotion(UiRenderer, order_UI, prevData, GetOrderAppliedData(prevData, order_UI)));
 		}
-		private void ApplyOrderImmediately(UiRenderer UiRenderer, Order_UI order_UI) {
+		private void ApplyOrderToRendererImmediately(UiRenderer UiRenderer, Order_UI order_UI) {
 			UiRenderer.RenderFromData(order_UI.UiKeyData);
 		}
 
+		private UiItemBase GetOrdersAppliedData(UiItemBase UiItem, int lastBlockIndex) {
+			UiItemBase newItem = UiItem.Clone() as UiItemBase;
+
+			for(int i=0; i<=lastBlockIndex; ++i) {
+				StoryBlockBase blockBase = EditingStoryFile.RootClip.ChildItemList[i];
+				switch (blockBase.Type) {
+					case StoryBlockType.StoryBlock:
+						foreach (OrderBase order in (blockBase as StoryBlock).OrderList) {
+							if (order.OrderType == OrderType.UI) {
+								Order_UI order_UI = order as Order_UI;
+								if (order_UI.targetUiGuid != newItem.guid)
+									continue;
+
+								ApplyOrder(newItem, order_UI);
+							}
+						}
+						break;
+					case StoryBlockType.StoryClip:
+						break;
+				}
+			}
+			return newItem;
+		}
 		private UiItemBase GetOrderAppliedData(UiItemBase UiItem, Order_UI order_UI) {
 			UiItemBase newData = UiItem.Clone() as UiItemBase;
+			ApplyOrder(newData, order_UI);
+
+			return newData;
+		}
+		private void ApplyOrder(UiItemBase UiItem, Order_UI order_UI) {
 			UiItemBase keyData = order_UI.UiKeyData;
 
-			foreach(FieldInfo keyFieldInfo in keyData.GetType().GetFields()) {
+			foreach (FieldInfo keyFieldInfo in keyData.GetType().GetFields()) {
 				if (keyFieldInfo.GetCustomAttributes<ValueEditorAttribute>().Count() == 0)
 					continue;
 
 				if (!keyData.KeyFieldNameHashSet.Contains(keyFieldInfo.Name))
 					continue;
 
-				keyFieldInfo.SetValue(newData, keyFieldInfo.GetValue(keyData));
+				keyFieldInfo.SetValue(UiItem, keyFieldInfo.GetValue(keyData));
 			}
-
-			return newData;
 		}
 
 		// Motion
@@ -355,5 +385,13 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			UiMotionSet.Clear();
 		}
 
+		// Utility
+		private int GetSelectedBlockIndex() {
+			if (StoryBlockTreeView.SelectedItemSet.Count == 1) {
+				StoryBlockBase selectedBlockBase = (StoryBlockTreeView.SelectedItemSet.First as StoryBlockItemView).Data;
+				return EditingStoryFile.RootClip.ChildItemList.IndexOf(selectedBlockBase);
+			}
+			return -1;
+		}
 	}
 }

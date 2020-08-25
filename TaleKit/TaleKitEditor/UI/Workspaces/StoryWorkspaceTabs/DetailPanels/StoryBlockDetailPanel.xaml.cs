@@ -83,7 +83,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void Order_ModelUpdated(EditableModel model, FieldInfo fieldInfo, object editorView) {
-			StoryBlockTab.ApplyOrderToSelection();
+			StoryBlockTab.ApplyBlockToSelectionToRenderer();
 		}
 
 		private void EditingBlock_OrderRemoved(OrderBase order) {
