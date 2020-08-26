@@ -29,7 +29,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 		private static TaleData EditingTaleData => MainWindow.EditingTaleData;
 		private static UiFile UiFile => EditingTaleData.UiFile;
 
-		public static readonly DependencyProperty SelectedAssetKeyProperty = DependencyProperty.RegisterAttached(nameof(SelectedAssetGuid), typeof(string), typeof(ValueEditor_UiItemSelector), new PropertyMetadata(null));
+		public static readonly DependencyProperty SelectedUiGuidProperty = DependencyProperty.RegisterAttached(nameof(SelectedUiGuid), typeof(string), typeof(ValueEditor_UiItemSelector), new PropertyMetadata(null));
 
 		private const string UnselectedText = "(None)";
 		private readonly Dictionary<string, ComboBoxItem> Guid_To_ItemDict;
@@ -38,18 +38,18 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 		public object EditableValue {
 			get {
-				return SelectedAssetGuid;
+				return SelectedUiGuid;
 			}
 			set {
-				SelectedAssetGuid = (string)value;
+				SelectedUiGuid = (string)value;
 			}
 		}
-		public string SelectedAssetGuid {
+		public string SelectedUiGuid {
 			get {
-				return (string)GetValue(SelectedAssetKeyProperty);
+				return (string)GetValue(SelectedUiGuidProperty);
 			}
 			set {
-				SetValue(SelectedAssetKeyProperty, value);
+				SetValue(SelectedUiGuidProperty, value);
 				EditableValueChanged?.Invoke(value);
 			}
 		}
@@ -58,7 +58,6 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 		public ValueEditor_UiItemSelector() {
 			InitializeComponent();
-			RegisterEvents();
 
 			// Set ItemSource
 			Guid_To_ItemDict = new Dictionary<string, ComboBoxItem>();
@@ -76,23 +75,22 @@ namespace TaleKitEditor.UI.ModelEditor {
 			UiItemComboBox.ItemsSource = new ComboBoxItem[] { new ComboBoxItem() { Content = UnselectedText } }
 				.Concat(items).ToArray();
 
-		}
-		private void RegisterEvents() {
-			UiItemComboBox.SelectionChanged += AssetComboBox_SelectionChanged;
+			// Register events
+			UiItemComboBox.SelectionChanged += UiComboBox_SelectionChanged;
 			EditableValueChanged += OnEditableValueChanged;
 		}
 
-		private void AssetComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+		private void UiComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 			if (ignoreSelectionChanged)
 				return;
 
 			ComboBoxItem selectedItem = UiItemComboBox.SelectedValue as ComboBoxItem;
 			if (selectedItem == null ||selectedItem.Tag == null) {
-				SelectedAssetGuid = null;
+				SelectedUiGuid = null;
 				return;
 			}
 
-			SelectedAssetGuid = selectedItem.Tag as string;
+			SelectedUiGuid = selectedItem.Tag as string;
 		}
 
 		private void OnEditableValueChanged(object value) {
@@ -103,8 +101,8 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 		private void UpdateUI() {
 			ComboBoxItem selectedItem = null;
-			if(!string.IsNullOrEmpty(SelectedAssetGuid)) {
-				Guid_To_ItemDict.TryGetValue(SelectedAssetGuid, out selectedItem);
+			if(!string.IsNullOrEmpty(SelectedUiGuid)) {
+				Guid_To_ItemDict.TryGetValue(SelectedUiGuid, out selectedItem);
 			}
 			UiItemComboBox.SelectedValue = selectedItem;
 		}

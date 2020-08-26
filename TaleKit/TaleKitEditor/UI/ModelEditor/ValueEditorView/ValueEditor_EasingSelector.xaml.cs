@@ -16,19 +16,21 @@ using System.Windows.Shapes;
 using TaleKit.Datas;
 using TaleKit.Datas.Asset;
 using TaleKit.Datas.ModelEditor;
+using TaleKit.Datas.Motion;
+using TaleKit.Datas.UI;
 using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.ModelEditor {
 	/// <summary>
 	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ValueEditor_AssetSelector : UserControl, IValueEditor {
+	public partial class ValueEditor_EasingSelector : UserControl, IValueEditor {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static TaleData EditingTaleData => MainWindow.EditingTaleData;
-		private static AssetManager AssetManager => EditingTaleData.AssetManager;
+		private static MotionFile MotionFile => EditingTaleData.MotionFile;
 
-		public static readonly DependencyProperty SelectedAssetKeyProperty = DependencyProperty.RegisterAttached(nameof(SelectedAssetKey), typeof(string), typeof(ValueEditor_AssetSelector), new PropertyMetadata(null));
+		public static readonly DependencyProperty SelectedEasingKeyProperty = DependencyProperty.RegisterAttached(nameof(SelectedEasingKey), typeof(string), typeof(ValueEditor_EasingSelector), new PropertyMetadata(null));
 
 		private const string UnselectedText = "(None)";
 
@@ -36,38 +38,41 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 		public object EditableValue {
 			get {
-				return SelectedAssetKey;
+				return SelectedEasingKey;
 			}
 			set {
-				SelectedAssetKey = (string)value;
+				SelectedEasingKey = (string)value;
 			}
 		}
-		public string SelectedAssetKey {
+		public string SelectedEasingKey {
 			get {
-				return (string)GetValue(SelectedAssetKeyProperty);
+				return (string)GetValue(SelectedEasingKeyProperty);
 			}
 			set {
-				SetValue(SelectedAssetKeyProperty, value);
+				SetValue(SelectedEasingKeyProperty, value);
 				EditableValueChanged?.Invoke(value);
 			}
 		}
 
 		private bool ignoreSelectionChanged;
 
-		[Obsolete]
-		internal ValueEditor_AssetSelector() {
-			InitializeComponent();
-		}
-		public ValueEditor_AssetSelector(ValueEditor_AssetSelectorAttribute attr) {
+		public ValueEditor_EasingSelector() {
 			InitializeComponent();
 
-			AssetComboBox.ItemsSource =
-				new string[] { UnselectedText }.Concat(
-					AssetManager.GetAssets(attr.assetType, true).Select(x => x.Key)
-				).ToArray();
+			// Set ItemSource
+			List<string> itemList = new List<string>();
+			foreach(var motionPair in MotionFile.motionFileData.itemDict) {
+				if(motionPair.Value.Type == PenMotion.Datas.Items.MotionItemType.Motion) {
+					itemList.Add(motionPair.Key);
+				}
+			}
+			itemList.Sort();
+			itemList.Insert(0, UnselectedText);
+
+			EasingComboBox.ItemsSource = itemList;
 
 			// Register events
-			AssetComboBox.SelectionChanged += AssetComboBox_SelectionChanged;
+			EasingComboBox.SelectionChanged += AssetComboBox_SelectionChanged;
 			EditableValueChanged += OnEditableValueChanged;
 		}
 
@@ -75,13 +80,13 @@ namespace TaleKitEditor.UI.ModelEditor {
 			if (ignoreSelectionChanged)
 				return;
 
-			string selectedText = AssetComboBox.SelectedValue as string;
+			string selectedText = EasingComboBox.SelectedValue as string;
 			if (selectedText == UnselectedText) {
-				SelectedAssetKey = null;
+				SelectedEasingKey = null;
 				return;
 			}
 
-			SelectedAssetKey = selectedText;
+			SelectedEasingKey = selectedText;
 		}
 
 		private void OnEditableValueChanged(object value) {
@@ -91,7 +96,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 		}
 
 		private void UpdateUI() {
-			AssetComboBox.SelectedValue = SelectedAssetKey;
+			EasingComboBox.SelectedValue = SelectedEasingKey;
 		}
 	}
 }

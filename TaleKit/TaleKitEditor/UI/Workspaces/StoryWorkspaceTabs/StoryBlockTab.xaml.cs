@@ -26,6 +26,7 @@ using System.Globalization;
 using TaleKit.Datas.ModelEditor;
 using System.Reflection;
 using System.Diagnostics;
+using TaleKit.Datas.Motion;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	/// <summary>
@@ -159,9 +160,6 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		// [ Control ]
-		// Apply order
-
-		
 		// Block
 		public void ApplyBlockToSelectionToRenderer(bool playMotion = false) {
 			if(StoryBlockTreeView.SelectedItemSet.Count == 1) {
@@ -221,6 +219,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		// TODO : 관련된 코드들 Order 내부로 이동
+		// 파라미터들 Interface화 해서 클라이언트와 같이 쓸 것
 		// Order
 		private void StartMotion(UiItemBase UiItem, UiRenderer UiRenderer, Order_UI order_UI) {
 			UiItemBase prevData = GetOrdersAppliedData(UiItem, GetSelectedBlockIndex() - 1);
@@ -276,6 +275,9 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		// Motion
 		public class UiMotion {
+			private TaleData EditingData => order_UI.OwnerBlock.OwnerFile.OwnerTaleData;
+			private MotionFile EditingMotionFile => EditingData.MotionFile;
+		
 			private readonly static BindingFlags PublicRuntimeBindingFlags = BindingFlags.Public | BindingFlags.Instance;
 
 			public readonly UiRenderer UiRenderer;
@@ -286,6 +288,11 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			public float ActualTimeSec => timeSec - order_UI.delaySec;
 			public float timeSec;
+
+			public bool IsComplete {
+				get; private set;
+			}
+			public bool IsOverTime => ActualTimeSec > order_UI.durationSec;
 
 			public UiMotion(UiRenderer UiRenderer, Order_UI order_UI, UiItemBase prevKeyData, UiItemBase currentKeyData) {
 				this.UiRenderer = UiRenderer;
@@ -299,6 +306,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				this.timeSec += deltaSec;
 
 				Render();
+
+				if(IsOverTime) {
+					IsComplete = true;
+				}
 			}
 			private void Render() {
 				UiItemBase breakDownData = GetBreakDownData();
@@ -310,6 +321,11 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 				if (timeSec > order_UI.delaySec) {
 					float normalTime = Mathf.Clamp01(ActualTimeSec / order_UI.durationSec);
+					if(!string.IsNullOrEmpty(order_UI.easingKey)) {
+						if(EditingMotionFile.motionFileData.itemDict.ContainsKey(order_UI.easingKey)) {
+							normalTime = EditingMotionFile.motionFileData.GetMotionValue(order_UI.easingKey, normalTime);
+						}
+					}
 
 					foreach (var fieldInfo in currentKeyData.GetType().GetFields(PublicRuntimeBindingFlags)) {
 						if (fieldInfo.GetCustomAttributes<ValueEditorAttribute>().Count() == 0)
@@ -377,8 +393,9 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		private void UpdateMotion() {
 			foreach(UiMotion motion in UiMotionSet) {
-				motion.AddTime(LoopEngine.DeltaSeconds);
-				Debug.WriteLine(motion.timeSec);
+				if(!motion.IsComplete) {
+					motion.AddTime(LoopEngine.DeltaSeconds);
+				}
 			}
 		}
 		private void StopMotion() {

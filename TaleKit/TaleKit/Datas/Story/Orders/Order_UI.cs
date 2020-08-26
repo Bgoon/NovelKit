@@ -25,12 +25,15 @@ namespace TaleKit.Datas.Story {
 		public float BlendTotalSeconds;
 		private float blendElapsedSeconds;
 
+
 		// Data
+		public float TotalSec => durationSec + delaySec;
+
 		[ValueEditor_NumberBox("Duration Sec")]
 		public float durationSec = 1f;
 		[ValueEditor_NumberBox("Delay Sec")]
 		public float delaySec = 0f;
-
+		[ValueEditor_EasingSelector("Easing")]
 		public string easingKey;
 
 		// [ Constructor ]

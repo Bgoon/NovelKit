@@ -65,6 +65,7 @@
     <Compile Include="Datas\ModelEditor\ValueEditorComponentAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditorAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditorComponent_HeaderAttribute.cs" />
+    <Compile Include="Datas\ModelEditor\ValueEditor_EasingSelectorAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditor_UiItemSelectorAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditor_ColorBoxAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditor_AnchorPresetAttribute.cs" />
