@@ -86,11 +86,17 @@ namespace TaleKitEditor.UI.ModelEditor {
 			InitializeComponent();
 
 			Children = ValueEditorElementContext.Children;
+
+			InitializeEditorType(ModelEditorType.EditModel);
 		}
-		public ValueEditorView(EditableModel model, FieldInfo field, ModelEditorType editorType) : this() {
+		public ValueEditorView(EditableModel model, FieldInfo field, ModelEditorType editorType) {
 			this.model = model;
 			this.field = field;
 			this.editorType = editorType;
+
+			InitializeComponent();
+
+			Children = ValueEditorElementContext.Children;
 
 			InitializeEditorType(editorType);
 
@@ -98,6 +104,9 @@ namespace TaleKitEditor.UI.ModelEditor {
 		}
 		private void InitializeEditorType(ModelEditorType editorType) {
 			KeyFrameContext.Visibility = Visibility.Collapsed;
+
+			if (field == null)
+				return;
 
 			bool isReadOnlyValue = field.GetCustomAttribute<ValueEditorAttribute>() is IReadOnlyValue;
 			if (!isReadOnlyValue && editorType == ModelEditorType.EditKeyFrameModel) {

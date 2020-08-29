@@ -23,6 +23,8 @@
 					<RowDefinition Height="1*"/>
 					<RowDefinition Height="0.3*"/>
 					<RowDefinition Height="1*"/>
+					<RowDefinition Height="0.3*"/>
+					<RowDefinition Height="1*"/>
 				</Grid.RowDefinitions>
 
 				<!--Color diff-->
@@ -61,8 +63,12 @@
 					<ValueEditors:ValueEditor_NumberBox Tag="EditText_B" MinValue="0" MaxValue="255" NumberType="Int"/>
 				</ValueEditors:ValueEditorView>
 
+				<ValueEditors:ValueEditorView Grid.Row="9" ValueNameText="A">
+					<ValueEditors:ValueEditor_NumberBox Tag="EditText_A" MinValue="0" MaxValue="255" NumberType="Int"/>
+				</ValueEditors:ValueEditorView>
+
 				<!--Hex-->
-				<ValueEditors:ValueEditorView Grid.Row="9"  ValueNameText="Hex">
+				<ValueEditors:ValueEditorView Grid.Row="11"  ValueNameText="Hex">
 					<ValueEditors:ValueEditor_TextBox Tag="EditText_Hex"/>
 				</ValueEditors:ValueEditorView>
 			</Grid>

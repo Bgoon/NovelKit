@@ -34,6 +34,8 @@ namespace TaleKitEditor.UI.Dialogs {
 		[FindByTag] private ModelEditor.ValueEditor_NumberBox EditText_G;
 		[FindByTag] private ModelEditor.ValueEditor_NumberBox EditText_B;
 
+		[FindByTag] private ModelEditor.ValueEditor_NumberBox EditText_A;
+
 		[FindByTag] private ModelEditor.ValueEditor_TextBox EditText_Hex;
 
 		private HSV selectedHsv;
@@ -79,9 +81,10 @@ namespace TaleKitEditor.UI.Dialogs {
 			EditText_H.EditableValueChanged += UpdateColorByHSV;
 			EditText_S.EditableValueChanged += UpdateColorByHSV;
 			EditText_V.EditableValueChanged += UpdateColorByHSV;
-			EditText_R.EditableValueChanged += UpdateColorByRGB;
-			EditText_G.EditableValueChanged += UpdateColorByRGB;
-			EditText_B.EditableValueChanged += UpdateColorByRGB;
+			EditText_R.EditableValueChanged += UpdateColorByRGBA;
+			EditText_G.EditableValueChanged += UpdateColorByRGBA;
+			EditText_B.EditableValueChanged += UpdateColorByRGBA;
+			EditText_A.EditableValueChanged += UpdateColorByRGBA;
 			EditText_Hex.EditableValueChanged += UpdateColorByHex;
 		}
 
@@ -149,7 +152,9 @@ namespace TaleKitEditor.UI.Dialogs {
 
 			NewColorIndicator.Fill = selectedHsv.ToColor().ToBrush();
 
-			ValueChanged?.Invoke(selectedHsv.ToColor().ToUColor());
+			UColor color = selectedHsv.ToColor().ToUColor();
+
+			ValueChanged?.Invoke(color);
 		}
 
 		private void UpdateTextBoxes() {
@@ -163,6 +168,7 @@ namespace TaleKitEditor.UI.Dialogs {
 			EditText_R.EditableValue = (int)color.R;
 			EditText_G.EditableValue = (int)color.G;
 			EditText_B.EditableValue = (int)color.B;
+			EditText_A.EditableValue = (int)color.A;
 
 			EditText_Hex.EditableValue = color.ToHex();
 
@@ -180,12 +186,13 @@ namespace TaleKitEditor.UI.Dialogs {
 			}
 			OnValueChanged_SelectedHsv();
 		}
-		private void UpdateColorByRGB(object value) {
+		private void UpdateColorByRGBA(object value) {
 			if (onEditTextEvent)
 				return;
 
 			try {
-				Color color = Color.FromArgb(255,
+				Color color = Color.FromArgb(
+					(byte)Mathf.Clamp(EditText_A.IntValue, 0, 255),
 					(byte)Mathf.Clamp(EditText_R.IntValue, 0, 255),
 					(byte)Mathf.Clamp(EditText_G.IntValue, 0, 255),
 					(byte)Mathf.Clamp(EditText_B.IntValue, 0, 255));
