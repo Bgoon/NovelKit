@@ -15,5 +15,12 @@
 			<Image Name="ImageRenderer" Stretch="Fill"/>
 		</Grid>
 		<Grid Name="ChildItemContext"/>
+
+		<Grid Name="FocusBox">
+			<Border BorderThickness="1" BorderBrush="#1D4483"/>
+			<Border BorderThickness="1" BorderBrush="White" Margin="1"/>
+			<Line X1="0" X2="0" Y1="0" Y2="10" Stroke="#1D4483" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10"/>
+			<Line X1="0" X2="20" Y1="0" Y2="0" Stroke="#1D4483" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		</Grid>
 	</Grid>
 </UserControl>

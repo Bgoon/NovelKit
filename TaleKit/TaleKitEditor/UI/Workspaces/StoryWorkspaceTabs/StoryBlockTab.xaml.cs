@@ -41,18 +41,18 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private static UiFile EditingUiFile => EditingTaleData.UiFile;
 		private static ViewportTab ViewportTab => MainWindow.ViewportTab;
 
-		private Dictionary<StoryBlockBase, StoryBlockItemView> dataToViewDict;
-		public StoryBlockItemView SelectedBlockViewSingle {
+		private Dictionary<StoryBlockBase, StoryBlockView> dataToViewDict;
+		public StoryBlockView SelectedBlockViewSingle {
 			get {
 				if (StoryBlockTreeView.SelectedItemSet.Count > 0) {
-					return (StoryBlockItemView)StoryBlockTreeView.SelectedItemSet.Last();
+					return (StoryBlockView)StoryBlockTreeView.SelectedItemSet.Last();
 				}
 				return null;
 			}
 		}
 		public StoryBlock SelectedBlockSingle {
 			get {
-				StoryBlockItemView selectedItemView = SelectedBlockViewSingle;
+				StoryBlockView selectedItemView = SelectedBlockViewSingle;
 				return selectedItemView == null ? null : selectedItemView.Data as StoryBlock;
 			}
 		}
@@ -73,7 +73,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				return;
 
 			// Init members
-			dataToViewDict = new Dictionary<StoryBlockBase, StoryBlockItemView>();
+			dataToViewDict = new Dictionary<StoryBlockBase, StoryBlockView>();
 			RenderedRendererHashSet = new HashSet<UiRenderer>();
 			UiMotionSet = new HashSet<UiMotion>();
 
@@ -113,7 +113,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			EditingStoryFile.CreateStoryBlockItem(EditingClip);
 		}
 		private void StoryBlockListController_RemoveItemButtonClick() {
-			foreach (StoryBlockItemView itemView in StoryBlockTreeView.SelectedItemSet) {
+			foreach (StoryBlockView itemView in StoryBlockTreeView.SelectedItemSet) {
 				StoryBlockBase data = itemView.Data;
 
 				EditingStoryFile.RemoveStoryBlockItem(data);
@@ -127,7 +127,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				return;
 
 			//Create view
-			StoryBlockItemView itemView = new StoryBlockItemView(item);
+			StoryBlockView itemView = new StoryBlockView(item);
 			StoryBlockTreeView.ChildItemCollection.Add(itemView);
 			itemView.ParentItem = StoryBlockTreeView;
 
@@ -143,7 +143,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		private void StoryBlockListView_ItemMoved(ITreeItem itemView, ITreeFolder oldParentView, ITreeFolder newParentView, int index) {
 			//Data에 적용하기
-			StoryBlockBase item = ((StoryBlockItemView)itemView).Data;
+			StoryBlockBase item = ((StoryBlockView)itemView).Data;
 
 			EditingClip.RemoveChildItem(item);
 			EditingClip.InsertChildItem(index, item);
@@ -163,7 +163,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		// Block
 		public void ApplyBlockToSelectionToRenderer(bool playMotion = false) {
 			if(StoryBlockTreeView.SelectedItemSet.Count == 1) {
-				StoryBlockBase selectedBlockBase = (StoryBlockTreeView.SelectedItemSet.First as StoryBlockItemView).Data;
+				StoryBlockBase selectedBlockBase = (StoryBlockTreeView.SelectedItemSet.First as StoryBlockView).Data;
 				int selectedBlockIndex = EditingStoryFile.RootClip.ChildItemList.IndexOf(selectedBlockBase);
 
 				ApplyBlocksToRenderer(selectedBlockIndex, playMotion);
@@ -175,7 +175,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StopMotion();
 
 			// Render root renderer
-			UiRenderer rootRenderer = EditingUiFile.Item_To_ViewDict[EditingUiFile.RootUiItem] as UiRenderer;
+			UiRenderer rootRenderer = EditingUiFile.Item_To_RendererDict[EditingUiFile.RootUiItem] as UiRenderer;
 			rootRenderer.Render(true);
 
 			if (!ViewportTab.PlayStateButton.IsActive)
@@ -195,7 +195,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 								if (UiItem == null)
 									continue;
 
-								UiRenderer renderer = EditingUiFile.Item_To_ViewDict[UiItem] as UiRenderer;
+								UiRenderer renderer = EditingUiFile.Item_To_RendererDict[UiItem] as UiRenderer;
 
 								if(!RenderedRendererHashSet.Contains(renderer)) {
 									RenderedRendererHashSet.Add(renderer);
@@ -405,7 +405,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		// Utility
 		private int GetSelectedBlockIndex() {
 			if (StoryBlockTreeView.SelectedItemSet.Count == 1) {
-				StoryBlockBase selectedBlockBase = (StoryBlockTreeView.SelectedItemSet.First as StoryBlockItemView).Data;
+				StoryBlockBase selectedBlockBase = (StoryBlockTreeView.SelectedItemSet.First as StoryBlockView).Data;
 				return EditingStoryFile.RootClip.ChildItemList.IndexOf(selectedBlockBase);
 			}
 			return -1;

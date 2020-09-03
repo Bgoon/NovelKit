@@ -199,6 +199,7 @@
     <Compile Include="UI\Controls\Header\MainHeaderText.xaml.cs">
       <DependentUpon>MainHeaderText.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\NinePatchImage.cs" />
     <Compile Include="UI\Controls\WorkspaceButton.cs" />
     <Compile Include="UI\Dialogs\AddOrderPanel.xaml.cs">
       <DependentUpon>AddOrderPanel.xaml</DependentUpon>
@@ -315,10 +316,13 @@
     <Compile Include="UI\Workspaces\StoryWorkspace.xaml.cs">
       <DependentUpon>StoryWorkspace.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\StoryClipElement\StoryClipView.xaml.cs">
+      <DependentUpon>StoryClipView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\StoryClipTab.xaml.cs">
       <DependentUpon>StoryClipTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\DetailPanels\StoryBlockDetailPanel.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\StoryBlockDetailPanel.xaml.cs">
       <DependentUpon>StoryBlockDetailPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\PreviewTab.xaml.cs">
@@ -644,11 +648,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\StoryClipElement\StoryClipView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Workspaces\StoryWorkspaceTabs\StoryClipTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryWorkspaceTabs\DetailPanels\StoryBlockDetailPanel.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\StoryBlockDetailPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -782,6 +790,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\TransparentChecker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Chat_selfChat.png" />
+    <Resource Include="Resources\Images\Chat_userChat.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

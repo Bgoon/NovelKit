@@ -20,7 +20,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements {
 	/// <summary>
 	/// StoryBlock.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class StoryBlockItemView : UserControl, ITreeItem {
+	public partial class StoryBlockView : UserControl, ITreeItem {
 
 		public string description;
 		public readonly StoryBlockBase Data;
@@ -34,10 +34,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements {
 
 
 		// [ Constructor ]
-		public StoryBlockItemView() {
+		public StoryBlockView() {
 			InitializeComponent();
 		}
-		public StoryBlockItemView(StoryBlockBase data) : this() {
+		public StoryBlockView(StoryBlockBase data) : this() {
 			this.Data = data;
 
 			// Register events

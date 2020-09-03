@@ -62,7 +62,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		}
 		private void UiFile_ItemCreated(UiItemBase item, UiItemBase parentItem) {
 			UiRenderer renderer = new UiRenderer(item);
-			EditingUiFile.Item_To_ViewDict.Add(item, renderer);
+			EditingUiFile.Item_To_RendererDict.Add(item, renderer);
 
 			if (parentItem == null) {
 				rootRenderer = renderer;
@@ -78,7 +78,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			UiRenderer renderer = GetRenderer(item);
 			renderer.DetachParent();
 
-			EditingUiFile.Item_To_ViewDict.Remove(item);
+			EditingUiFile.Item_To_RendererDict.Remove(item);
 		}
 		internal void UiItemDetailPanel_UiItemValueChanged(object model, FieldInfo fieldInfo, object editorView) {
 			UiRenderer renderer = GetRenderer(model as UiItemBase);
@@ -98,7 +98,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 		// [ Access ]
 		private UiRenderer GetRenderer(UiItemBase item) {
-			return EditingUiFile.Item_To_ViewDict[item] as UiRenderer;
+			return EditingUiFile.Item_To_RendererDict[item] as UiRenderer;
 		}
 
 		public async void ScrollToCenter() {

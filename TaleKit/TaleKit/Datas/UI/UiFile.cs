@@ -34,7 +34,7 @@ namespace TaleKit.Datas.UI {
 		public readonly List<UiItemBase> UiItemList;
 		public readonly List<UiText> TextList;
 		public readonly Dictionary<string, UiItemBase> Guid_To_ItemDict;
-		public readonly Dictionary<UiItemBase, object> Item_To_ViewDict;
+		public readonly Dictionary<UiItemBase, object> Item_To_RendererDict;
 
 		// [ Constructor ]
 		public UiFile(TaleData ownerTaleData, bool createRootUiItem = true) {
@@ -44,7 +44,7 @@ namespace TaleKit.Datas.UI {
 			UiItemList = new List<UiItemBase>();
 			TextList = new List<UiText>();
 			Guid_To_ItemDict = new Dictionary<string, UiItemBase>();
-			Item_To_ViewDict = new Dictionary<UiItemBase, object>();
+			Item_To_RendererDict = new Dictionary<UiItemBase, object>();
 
 		}
 		public void Init() {
@@ -59,7 +59,7 @@ namespace TaleKit.Datas.UI {
 			UiItemList.Clear();
 			TextList.Clear();
 			Guid_To_ItemDict.Clear();
-			Item_To_ViewDict.Clear();
+			Item_To_RendererDict.Clear();
 		}
 
 		public bool Save(string filename) {

@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBlockDetailPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs"
+             mc:Ignorable="d" 
+             d:DesignWidth="300" d:DesignHeight="500">
+	<Grid>
+		<!--Message context-->
+		<Grid Name="MessageContext">
+			<TextBlock Name="MessageTextBlock" Text="편집할 블럭을 선택하세요" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#33FFFFFF" FontFamily="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium"/>
+		</Grid>
+
+		<DockPanel Name="EditorContext">
+			<!--StoryBlock Editor-->
+			<StackPanel DockPanel.Dock="Top"/>
+
+			<!--Order Editor-->
+			<ScrollViewer>
+				<StackPanel>
+					<StackPanel Name="OrderEditorViewContext">
+					</StackPanel>
+					<Button Name="AddOrderButton" Style="{StaticResource FlatButton}" Height="34" Background="#545454"
+						Click="AddOrderButton_Click">
+						<Polygon Fill="#BABABA" Points="16,6 10,6 10,0 6,0 6,6 0,6 0,10 6,10 6,16 10,16 10,10 16,10 "/>
+					</Button>
+				</StackPanel>
+			</ScrollViewer>
+		</DockPanel>
+	</Grid>
+</UserControl>

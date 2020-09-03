@@ -20,6 +20,7 @@ using TaleKit.Datas.UI;
 using TaleKitEditor.UI.Dialogs;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
+using TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements;
 
 namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 	public delegate void ItemMovedDelegate(UiItemBase item, UiItemBase newParentItem, UiItemBase oldParentItem);
@@ -54,6 +55,8 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 		public event ItemMovedDelegate ItemMoved;
 
+		private List<UiRenderer> focusedRendererList;
+
 		// [ Constructor ]
 		public UiOutlinerTab() {
 			InitializeComponent();
@@ -61,13 +64,12 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			if (this.IsDesignMode())
 				return;
 
-			InitMembers();
-			RegisterEvents();
-		}
-		private void InitMembers() {
+			// Init member
+			focusedRendererList = new List<UiRenderer>();
+
 			UiTreeView.AutoApplyItemMove = false;
-		}
-		private void RegisterEvents() {
+
+			// Register events
 			UiItemListController.CreateItemButtonClick += UiItemListController_CreateItemButtonClick;
 			UiItemListController.RemoveItemButtonClick += UiItemListController_RemoveItemButtonClick;
 
@@ -79,7 +81,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			UiTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
 			UiTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
 		}
-
+		
 		// [ Event ]
 		private void MainWindow_DataLoaded(TaleData obj) {
 			EditingUiFile.ItemCreatedPreview += UiFile_ItemCreatedPreview;
@@ -183,13 +185,31 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			CommonDetailPanel.DetachModel();
 			DetailTab.DeactiveDetailPanel();
 
-			if (UiTreeView.SelectedItemSet.Count == 1) {
-				UiItemView itemView = UiTreeView.SelectedItemSet.First as UiItemView;
-				CommonDetailPanel.AttachModel(itemView.Data);
-				DetailTab.ActiveDetailPanel(DetailPanelType.Common);
+			UpdateRendererFocusBoxVisible();
 
-				itemView.Data.ModelUpdated += ViewportTab.UiItemDetailPanel_UiItemValueChanged;
+			if (UiTreeView.SelectedItemSet.Count != 1)
+				return;
+
+			UiItemView itemView = UiTreeView.SelectedItemSet.First as UiItemView;
+			CommonDetailPanel.AttachModel(itemView.Data);
+			DetailTab.ActiveDetailPanel(DetailPanelType.Common);
+
+			itemView.Data.ModelUpdated += ViewportTab.UiItemDetailPanel_UiItemValueChanged;
+		}
+		private void UpdateRendererFocusBoxVisible() {
+			foreach(UiRenderer renderer in focusedRendererList) {
+				renderer.SetFocusBoxVisible(false);
 			}
+
+			focusedRendererList.Clear();
+			foreach(var item in UiTreeView.SelectedItemSet) {
+				UiItemView itemView = UiTreeView.SelectedItemSet.First as UiItemView;
+				UiRenderer renderer = EditingUiFile.Item_To_RendererDict[itemView.Data] as UiRenderer;
+
+				renderer.SetFocusBoxVisible(true);
+				focusedRendererList.Add(renderer);
+			}
+			// Guidline
 		}
 	}
 }

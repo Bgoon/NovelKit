@@ -76,6 +76,8 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			foreach(var dataContext in dataContextList) {
 				dataContext.DetachParent();
 			}
+
+			FocusBox.Visibility = System.Windows.Visibility.Collapsed;
 		}
 
 		public void Render(bool renderChilds = false) {
@@ -194,6 +196,10 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 
 			//Rotate
 			SetProperty(data, nameof(data.rotation), (object value) => { rotateTransform.Angle = (float)value; });
+		}
+
+		public void SetFocusBoxVisible(bool visible) {
+			FocusBox.Visibility = visible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
 		}
 
 		private void SetProperty(UiItemBase data, string propertyName, Arg1Delegate<object> applyPropertyDelegate) {
