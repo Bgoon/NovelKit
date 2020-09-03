@@ -48,12 +48,29 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			
 			UiOutlinerTab.ItemMoved += UiOutlinerTab_ItemMoved;
 			PlayStateButton.ActiveChanged += PlayStateButton_ActiveChanged;
+
+			PlayStateButton.IsActive = true;
+
+			ResolutionSelector.ResolutionChanged += ResolutionSelector_ResolutionChanged;
+			ResolutionSelector.ZoomChanged += ResolutionSelector_ZoomChanged;
+
+			ResolutionSelector.RaiseResolutionChanged();
+			ResolutionSelector.RaiseZoomChanged();
 		}
 
+		// Viewport
+		private void ResolutionSelector_ZoomChanged(double zoom) {
+			Viewport.LayoutTransform = new ScaleTransform(zoom, zoom);
+		}
+		private void ResolutionSelector_ResolutionChanged(int width, int height) {
+			Viewport.Width = width;
+			Viewport.Height = height;
+		}
 		private void PlayStateButton_ActiveChanged() {
 			StoryBlockTab.ApplyBlockToSelectionToRenderer();
 		}
 
+		// File event
 		private void MainWindow_ProjectLoaded(TaleKit.Datas.TaleData obj) {
 			EditingUiFile.ItemCreated += UiFile_ItemCreated;
 			EditingUiFile.ItemRemoved += UiFile_ItemRemoved;
@@ -66,7 +83,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 			if (parentItem == null) {
 				rootRenderer = renderer;
-				CanvasContext.Children.Add(rootRenderer);
+				RendererContext.Children.Add(rootRenderer);
 			} else {
 				UiRenderer parentView = GetRenderer(parentItem);
 				parentView.ChildItemContext.Children.Add(renderer);
@@ -104,8 +121,8 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		public async void ScrollToCenter() {
 			await Task.Delay(10);
 
-			CanvasScrollViewer.ScrollToHorizontalOffset(CanvasScrollViewer.ScrollableWidth / 2d);
-			CanvasScrollViewer.ScrollToVerticalOffset(CanvasScrollViewer.ScrollableHeight / 2d);
+			ViewportScrollViewer.ScrollToHorizontalOffset(ViewportScrollViewer.ScrollableWidth / 2d);
+			ViewportScrollViewer.ScrollToVerticalOffset(ViewportScrollViewer.ScrollableHeight / 2d);
 		}
 	}
 }

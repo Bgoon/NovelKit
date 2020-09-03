@@ -77,11 +77,20 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 			MainWindow.ProjectLoaded += MainWindow_DataLoaded;
 			MainWindow.ProjectUnloaded += MainWindow_DataUnloaded;
+			MainWindow.WorkspaceActived += MainWindow_WorkspaceActived;
 
 			UiTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
 			UiTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
 		}
-		
+
+		private void MainWindow_WorkspaceActived(TaleKitEditor.Workspaces.Workspace workspace) {
+			bool onUiWorkspace = workspace.context == MainWindow.UiWorkspace;
+
+			if(!onUiWorkspace) {
+				ClearFocusBoxVisible();
+			}
+		}
+
 		// [ Event ]
 		private void MainWindow_DataLoaded(TaleData obj) {
 			EditingUiFile.ItemCreatedPreview += UiFile_ItemCreatedPreview;
@@ -196,13 +205,11 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 			itemView.Data.ModelUpdated += ViewportTab.UiItemDetailPanel_UiItemValueChanged;
 		}
-		private void UpdateRendererFocusBoxVisible() {
-			foreach(UiRenderer renderer in focusedRendererList) {
-				renderer.SetFocusBoxVisible(false);
-			}
 
-			focusedRendererList.Clear();
-			foreach(var item in UiTreeView.SelectedItemSet) {
+		private void UpdateRendererFocusBoxVisible() {
+			ClearFocusBoxVisible();
+
+			foreach (var item in UiTreeView.SelectedItemSet) {
 				UiItemView itemView = UiTreeView.SelectedItemSet.First as UiItemView;
 				UiRenderer renderer = EditingUiFile.Item_To_RendererDict[itemView.Data] as UiRenderer;
 
@@ -210,6 +217,13 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 				focusedRendererList.Add(renderer);
 			}
 			// Guidline
+		}
+		private void ClearFocusBoxVisible() {
+			foreach (UiRenderer renderer in focusedRendererList) {
+				renderer.SetFocusBoxVisible(false);
+			}
+
+			focusedRendererList.Clear();
 		}
 	}
 }

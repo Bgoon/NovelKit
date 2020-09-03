@@ -17,10 +17,10 @@
 			<Border Width="2" HorizontalAlignment="Left" Background="{StaticResource LightSeparator}"/>
 			<Grid/>
 		</DockPanel>
-		<ScrollViewer Name="CanvasScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-			<Grid Width="500" Height="500" Margin="1000" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black"
+		<ScrollViewer Name="ViewportScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+			<Grid Name="Viewport" Width="500" Height="500" Margin="1000" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black"
 				ClipToBounds="True">
-				<Grid Name="CanvasContext">
+				<Grid Name="RendererContext">
 				</Grid>
 			</Grid>
 		</ScrollViewer>

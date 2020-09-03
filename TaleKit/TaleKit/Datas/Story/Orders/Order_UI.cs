@@ -29,9 +29,9 @@ namespace TaleKit.Datas.Story {
 		// Data
 		public float TotalSec => durationSec + delaySec;
 
-		[ValueEditor_NumberBox("Duration Sec")]
+		[ValueEditor_NumberBox("Duration Sec", minValue = 0)]
 		public float durationSec = 1f;
-		[ValueEditor_NumberBox("Delay Sec")]
+		[ValueEditor_NumberBox("Delay Sec", minValue = 0)]
 		public float delaySec = 0f;
 		[ValueEditor_EasingSelector("Easing")]
 		public string easingKey;

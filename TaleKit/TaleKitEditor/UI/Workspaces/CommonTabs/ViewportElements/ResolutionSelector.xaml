@@ -8,11 +8,18 @@
 
              mc:Ignorable="d" 
              d:DesignHeight="28">
-	<DockPanel DockPanel.Dock="Left">
+	<DockPanel DockPanel.Dock="Left" VerticalAlignment="Center">
 		<Border DockPanel.Dock="Left" Width="12"/>
-		<GControls:EditTextBlock Width="40" Text="1920" Foreground="{StaticResource ContentTextColor}" FontFamily="{StaticResource DefaultFontFamily_Regular}" VerticalContentAlignment="Center"/>
+		<!-- Width -->
+		<GControls:EditTextBlock x:Name="WidthEditText" Width="50" Text="1920" Foreground="{StaticResource ContentTextColor}" FontFamily="{StaticResource DefaultFontFamily_Regular}" VerticalContentAlignment="Center"/>
 		<TextBlock DockPanel.Dock="Left" Style="{StaticResource ContentText}" Text="x" VerticalAlignment="Center"/>
-		<GControls:EditTextBlock Width="40" Text="1080" Foreground="{StaticResource ContentTextColor}" FontFamily="{StaticResource DefaultFontFamily_Regular}" VerticalContentAlignment="Center"/>
+		<!-- Height -->
+		<GControls:EditTextBlock x:Name="HeightEditText" Width="50" Text="1080" Foreground="{StaticResource ContentTextColor}" FontFamily="{StaticResource DefaultFontFamily_Regular}" VerticalContentAlignment="Center"/>
+		<Border DockPanel.Dock="Right" Width="12"/>
+
+		<!-- Zoom -->
+		<GControls:NumberEditor x:Name="ZoomNumberEditor" Width="70"/>
+		<TextBlock Style="{StaticResource ContentText}" Text="%"/>
 		<Border DockPanel.Dock="Right" Width="12"/>
 	</DockPanel>
 </UserControl>

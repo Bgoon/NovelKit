@@ -199,7 +199,6 @@
     <Compile Include="UI\Controls\Header\MainHeaderText.xaml.cs">
       <DependentUpon>MainHeaderText.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controls\NinePatchImage.cs" />
     <Compile Include="UI\Controls\WorkspaceButton.cs" />
     <Compile Include="UI\Dialogs\AddOrderPanel.xaml.cs">
       <DependentUpon>AddOrderPanel.xaml</DependentUpon>
