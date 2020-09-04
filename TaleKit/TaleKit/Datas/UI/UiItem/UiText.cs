@@ -9,6 +9,7 @@ using UColor = UnityEngine.Color;
 using UnityEngine;
 
 namespace TaleKit.Datas.UI.UiItem {
+	[Serializable]
 	public class UiText : UiItemBase {
 
 		[ValueEditorComponent_Header("Text Attributes")]

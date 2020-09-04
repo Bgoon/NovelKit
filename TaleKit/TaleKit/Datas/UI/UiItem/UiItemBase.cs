@@ -15,6 +15,7 @@ using UColor = UnityEngine.Color;
 using UVector2 = UnityEngine.Vector2;
 
 namespace TaleKit.Datas.UI {
+	[Serializable]
 	public class UiItemBase : EditableModel, IKeyFrameModel, ICloneable {
 		public event NodeItemInsertedDelegate<UiItemBase> ChildInserted;
 		public event NodeItemDelegate<UiItemBase, UiItemBase> ChildRemoved;

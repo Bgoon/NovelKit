@@ -66,7 +66,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 		public static void CreateModelEditorView(EditableModel model, StackPanel editorViewContext, ModelEditorType editorType = ModelEditorType.EditModel, CreateSpecificEditorViewDelegate createSpecificEditorView = null) {
 			Type modelType = model.GetType();
-			FieldInfo[] fields = modelType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+			FieldInfo[] fields = modelType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).OrderBy(field => field.MetadataToken).ToArray();
 
 			foreach (FieldInfo field in fields) {
 				// Create ValueEditor

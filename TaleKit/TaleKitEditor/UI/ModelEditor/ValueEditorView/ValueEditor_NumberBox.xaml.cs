@@ -27,8 +27,13 @@ namespace TaleKitEditor.UI.ModelEditor {
 		public static readonly DependencyProperty NumberTypeProperty = DependencyProperty.RegisterAttached(nameof(NumberType), typeof(NumberType), typeof(ValueEditor_NumberBox), new PropertyMetadata(NumberType.Float));
 		public static readonly DependencyProperty NumberFormatProperty = DependencyProperty.RegisterAttached(nameof(NumberFormat), typeof(string), typeof(ValueEditor_NumberBox), new PropertyMetadata());
 
+		public float DragAdjustFactor {
+			get; set;
+		} = 1f;
+
 		public event PropertyChangedEventHandler PropertyChanged;
 		public event EditableValueChangedDelegate EditableValueChanged;
+
 
 		public string DisplayValue {
 			get {
@@ -135,6 +140,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 			this.NumberType = attribute.numberType;
 			this.MinValue = attribute.minValue;
 			this.MaxValue = attribute.maxValue;
+			this.DragAdjustFactor = attribute.dragAdjustFactor;
 
 			UpdateUI();
 		}
@@ -208,14 +214,14 @@ namespace TaleKitEditor.UI.ModelEditor {
 			dragStartCursorPosX = (float)e.GetPosition(AdjustButton).X;
 		}
 		private void AdjustButton_MouseMove(object sender, MouseEventArgs e) {
-			const float AdjustFactor = 0.3f;
+			
 
 			if (!onDragging)
 				return;
 
 			float cursorPosXDiff = (float)e.GetPosition(AdjustButton).X - dragStartCursorPosX;
 
-			EditableValue = dragStartValue + cursorPosXDiff * AdjustFactor;
+			EditableValue = dragStartValue + cursorPosXDiff * 0.3f * DragAdjustFactor;
 		}
 		private void AdjustButton_MouseUp(object sender, MouseButtonEventArgs e) {
 			Mouse.Capture(null);

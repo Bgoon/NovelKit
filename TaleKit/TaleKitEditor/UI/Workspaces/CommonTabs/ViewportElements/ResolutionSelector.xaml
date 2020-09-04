@@ -19,7 +19,7 @@
 
 		<!-- Zoom -->
 		<GControls:NumberEditor x:Name="ZoomNumberEditor" Width="70"/>
-		<TextBlock Style="{StaticResource ContentText}" Text="%"/>
+		<TextBlock Style="{StaticResource ContentText}" Text="%" VerticalAlignment="Center"/>
 		<Border DockPanel.Dock="Right" Width="12"/>
 	</DockPanel>
 </UserControl>

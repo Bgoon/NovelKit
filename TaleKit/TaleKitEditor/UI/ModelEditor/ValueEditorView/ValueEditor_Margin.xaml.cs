@@ -41,7 +41,11 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 		public event EditableValueChangedDelegate EditableValueChanged;
 
+		[Obsolete]
 		public ValueEditor_Margin() {
+			InitializeComponent();
+		}
+		public ValueEditor_Margin(ValueEditor_MarginAttribute attr) {
 			InitializeComponent();
 
 			ValueEditor_NumberBox[] numberBoxes = new ValueEditor_NumberBox[] {
@@ -51,7 +55,9 @@ namespace TaleKitEditor.UI.ModelEditor {
 				ValueTextBox_Bottom,
 			};
 			foreach(var numberBox in numberBoxes) {
-				numberBox.MinValue = 0f;
+				numberBox.MinValue = attr.minValue;
+				numberBox.MaxValue = attr.maxValue;
+				numberBox.DragAdjustFactor = attr.dragAdjustFactor;
 				numberBox.EditableValueChanged += ValueTextBox_EditableValueChanged;
 			}
 		}

@@ -102,13 +102,35 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 
 		private void RenderPanel(UiPanel data) {
 			SetProperty(data, nameof(data.color), (object value) => { SolidRenderer.Background = ((UColor)value).ToColor().ToBrush(); });
-			SetProperty(data, nameof(data.imageAssetKey), (object value) => {
-				AssetItem imageAsset = AssetManager.GetAsset((string)value);
+
+			Arg1Delegate<object> applyImage = (object value) => {
+
+				AssetItem imageAsset = AssetManager.GetAsset(data.imageAssetKey);
 				if (imageAsset != null) {
-					ImageRenderer.Source = new BitmapImage(new Uri(data.GetImageAsset().AssetFilename));
+					BitmapImage image = new BitmapImage(new Uri(data.GetImageAsset().AssetFilename));
+
+					ImageRenderer.Source = image;
+					NinePatchImageRenderer.ImageSource = image;
+
+					if (data.useNinePatch) {
+						ImageRenderer.Visibility = System.Windows.Visibility.Collapsed;
+						NinePatchImageRenderer.Visibility = System.Windows.Visibility.Visible;
+					} else {
+						ImageRenderer.Visibility = System.Windows.Visibility.Visible;
+						NinePatchImageRenderer.Visibility = System.Windows.Visibility.Collapsed;
+					}
 				} else {
+					NinePatchImageRenderer.ImageSource = null;
 					ImageRenderer.Source = null;
 				}
+			};
+
+			SetProperty(data, nameof(data.useNinePatch), applyImage);
+			SetProperty(data, nameof(data.imageAssetKey), applyImage);
+			SetProperty(data, nameof(data.ninePatchSideAspect), (object value)=>{
+				UGRect ninePatchSideAspect = (UGRect)value;
+
+				NinePatchImageRenderer.SideAspect = new Thickness(ninePatchSideAspect.xMin, ninePatchSideAspect.yMax, ninePatchSideAspect.xMax, ninePatchSideAspect.yMin);
 			});
 		}
 		private void RenderText(UiText data) {
@@ -203,6 +225,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 		}
 
 		private void SetProperty(UiItemBase data, string propertyName, Arg1Delegate<object> applyPropertyDelegate) {
+			// UI Editor에서는 모두 적용, StoryBoard에서는 키프레임만 적용
 			if(!data.IsKeyFrameModel || data.KeyFieldNameHashSet.Contains(propertyName)) {
 				object property;
 
