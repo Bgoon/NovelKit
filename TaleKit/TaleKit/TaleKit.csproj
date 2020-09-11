@@ -145,6 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Datas\Struct\" />
+    <Folder Include="NewFolder1\" />
+    <Folder Include="Utility\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

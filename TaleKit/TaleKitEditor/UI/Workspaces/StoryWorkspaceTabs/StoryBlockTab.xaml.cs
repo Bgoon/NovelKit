@@ -190,6 +190,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 						foreach (OrderBase order in (blockBase as StoryBlock).OrderList) {
 							if (order.OrderType == OrderType.UI) {
 								Order_UI order_UI = order as Order_UI;
+
+								if (string.IsNullOrEmpty(order_UI.targetUiGuid))
+									continue;
+
 								UiItemBase UiItem = EditingUiFile.Guid_To_ItemDict[order_UI.targetUiGuid];
 
 								if (UiItem == null)

@@ -54,7 +54,7 @@ namespace TaleKit.Datas.Story {
 			jOrder.Add("Type", OrderType.ToString());
 
 			JObject jAttributes = new JObject();
-			jOrder.Add("Attributes", jAttributes);
+			jOrder.Add("Fields", jAttributes);
 
 			jAttributes.AddAttrFields<ValueEditorAttribute>(this);
 

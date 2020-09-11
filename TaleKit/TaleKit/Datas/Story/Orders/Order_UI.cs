@@ -1,6 +1,9 @@
-﻿using GKitForUnity;
+﻿using GKit.Json;
+using GKitForUnity;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
 using TaleKit.Datas.UI.UiItem;
@@ -15,19 +18,19 @@ namespace TaleKit.Datas.Story {
 
 		public override OrderType OrderType => OrderType.UI;
 		
+		// HelperData
+		public float BlendProgress => blendElapsedSeconds / BlendTotalSeconds;
+		public float BlendTotalSeconds;
+		private float blendElapsedSeconds;
+
+		public float TotalSec => durationSec + delaySec;
+
+		// Data
 		[ValueEditor_UiItemSelector("Target UI")]
 		public string targetUiGuid;
 
 		[ValueEditor_ModelKeyFrame(nameof(targetUiGuid), nameof(OnTargetUiUpdated))]
 		public UiItemBase UiKeyData;
-
-		public float BlendProgress => blendElapsedSeconds / BlendTotalSeconds;
-		public float BlendTotalSeconds;
-		private float blendElapsedSeconds;
-
-
-		// Data
-		public float TotalSec => durationSec + delaySec;
 
 		[ValueEditor_NumberBox("Duration Sec", minValue = 0)]
 		public float durationSec = 1f;
@@ -100,6 +103,35 @@ namespace TaleKit.Datas.Story {
 			//targetUi.RectTransform.sizeDelta = srcSizeDelta + (DstSizeDelta - srcSizeDelta) * time;
 			//targetUi.Alpha = srcAlpha + (DstAlpha - srcAlpha) * time;
 			//targetUi.GameObject.SetActive(DstVisible);
+		}
+
+		public override JObject ToJObject() {
+			JObject jOrder = new JObject();
+			jOrder.Add("Type", OrderType.ToString());
+
+			JObject jAttributes = new JObject();
+			jOrder.Add("Fields", jAttributes);
+
+			SerializeUtility.FieldToJTokenDelegate classHandler = (object model, FieldInfo fieldInfo, out JObject jField) => {
+				jField = null;
+				 
+				if(fieldInfo.GetValue(model) is IKeyFrameModel) {
+					jField = new JObject();
+
+					IKeyFrameModel keyFrameModel = fieldInfo.GetValue(model) as IKeyFrameModel;
+
+					SerializeUtility.FieldHandlerDelegate keyPreHandler = (object keyModel, FieldInfo keyFieldInfo, ref bool skip) => {
+						skip = !keyFrameModel.KeyFieldNameHashSet.Contains(keyFieldInfo.Name);
+					};
+
+					jField.AddAttrFields(keyFrameModel, keyPreHandler, null, null);
+				}
+			};
+
+			jAttributes.AddAttrFields<ValueEditorAttribute>(this, null, classHandler);
+
+
+			return jOrder;
 		}
 	}
 }
