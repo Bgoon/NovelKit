@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 using TaleKit.Datas.ModelEditor;
 
 namespace TaleKit.Datas {
-	public class ProjectSetting {
+	public class ProjectSetting : EditableModel {
 
 		public readonly TaleData OwnerData;
 

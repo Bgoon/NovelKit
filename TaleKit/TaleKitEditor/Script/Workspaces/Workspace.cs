@@ -7,11 +7,13 @@ using System.Windows.Controls;
 using TaleKitEditor.UI.Controls;
 
 namespace TaleKitEditor.Workspaces {
-	public class Workspace {
+	public class WorkspaceComponent {
+		public WorkspaceType type;
 		public UserControl context;
 		public WorkspaceButton button;
 
-		public Workspace(UserControl context, WorkspaceButton button) {
+		public WorkspaceComponent(WorkspaceType type, UserControl context, WorkspaceButton button) {
+			this.type = type;
 			this.context = context;
 			this.button = button;
 		}

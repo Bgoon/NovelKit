@@ -30,7 +30,7 @@ using GKitForWPF;
 
 namespace TaleKitEditor.UI.Windows {
 	public partial class MainWindow : Window {
-		private Workspace[] workspaces;
+		private WorkspaceComponent[] workspaces;
 
 		//Datas
 		public TaleData EditingTaleData {
@@ -52,7 +52,7 @@ namespace TaleKitEditor.UI.Windows {
 		//PostInitTabs
 		private INeedPostInitTab[] needPostInitTabs;
 
-		public event Action<Workspace> WorkspaceActived;
+		public event Action<WorkspaceComponent> WorkspaceActived;
 		public event Action<TaleData> ProjectLoaded;
 		public event Action<TaleData> ProjectUnloaded;
 
@@ -79,14 +79,14 @@ namespace TaleKitEditor.UI.Windows {
 
 		private void InitWorkspaces() {
 			//워크스페이스 생성
-			workspaces = new Workspace[] {
-				new Workspace(UiWorkspace, UiWorkspaceButton),
-				new Workspace(MotionWorkspace, MotionWorkspaceButton),
-				new Workspace(StoryWorkspace, StoryWorkspaceButton),
-				new Workspace(SettingWorkspace, SettingWorkspaceButton),
+			workspaces = new WorkspaceComponent[] {
+				new WorkspaceComponent(WorkspaceType.Ui, UiWorkspace, UiWorkspaceButton),
+				new WorkspaceComponent(WorkspaceType.Motion, MotionWorkspace, MotionWorkspaceButton),
+				new WorkspaceComponent(WorkspaceType.Story, StoryWorkspace, StoryWorkspaceButton),
+				new WorkspaceComponent(WorkspaceType.ProjectSetting, SettingWorkspace, SettingWorkspaceButton),
 			};
 
-			foreach(Workspace workspace in workspaces) {
+			foreach(WorkspaceComponent workspace in workspaces) {
 				if (workspace.context.Parent == null) {
 					WorkspaceContext.Children.Add(workspace.context);
 				}
@@ -206,7 +206,7 @@ namespace TaleKitEditor.UI.Windows {
 		public void ActiveWorkspace(WorkspaceType type) {
 			DeactiveWorkspaces();
 
-			Workspace workspace = workspaces[(int)type];
+			WorkspaceComponent workspace = workspaces[(int)type];
 			
 			workspace.context.Visibility = Visibility.Visible;
 			workspace.button.IsActiveWorkspace = true;
@@ -220,7 +220,7 @@ namespace TaleKitEditor.UI.Windows {
 		private void DeactiveWorkspaces() {
 			DetailTab.DeactiveDetailPanel();
 
-			Workspace workspace;
+			WorkspaceComponent workspace;
 			for (int workspaceI = 0; workspaceI < workspaces.Length; ++workspaceI) {
 				workspace = workspaces[workspaceI];
 				workspace.context.Visibility = Visibility.Collapsed;
@@ -245,7 +245,7 @@ namespace TaleKitEditor.UI.Windows {
 			ActiveWorkspace(WorkspaceType.ProjectSetting);
 		}
 
-		private void AttachTab(UserControl tab, Workspace workspace) {
+		private void AttachTab(UserControl tab, WorkspaceComponent workspace) {
 			// Workspace에 {Name}Context Panel이 존재하면 Reflection을 사용해 붙인다.
 
 			string tabName = tab.GetType().Name;
@@ -258,7 +258,7 @@ namespace TaleKitEditor.UI.Windows {
 				tabContext.Content = tab;
 			}
 		}
-		private void DetachTab(UserControl tab, Workspace workspace) {
+		private void DetachTab(UserControl tab, WorkspaceComponent workspace) {
 			string tabName = tab.GetType().Name;
 			string tabContextName = tabName + "Context";
 

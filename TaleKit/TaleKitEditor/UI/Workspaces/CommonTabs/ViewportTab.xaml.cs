@@ -54,7 +54,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			ResolutionSelector.ResolutionChanged += ResolutionSelector_ResolutionChanged;
 			ResolutionSelector.ZoomChanged += ResolutionSelector_ZoomChanged;
 
-			ResolutionSelector.RaiseResolutionChanged();
+			ResolutionSelector.OnResolutionChanged();
 			ResolutionSelector.RaiseZoomChanged();
 		}
 

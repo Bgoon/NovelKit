@@ -15,7 +15,7 @@
              mc:Ignorable="d" 
              d:DesignWidth="1280" d:DesignHeight="720">
 	<Grid>
-		<Ad:DockingManager>
+		<Ad:DockingManager Width="500" HorizontalAlignment="Center">
 			<Ad:DockingManager.Theme>
 				<AdThemes:FlatDarkTheme/>
 			</Ad:DockingManager.Theme>
@@ -23,14 +23,10 @@
 			<Ad:LayoutRoot>
 				<Ad:LayoutPanel>
 					<!--Tab 1-->
-					<Ad:LayoutAnchorablePaneGroup Orientation="Horizontal">
-						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
-							<Ad:LayoutAnchorablePane DockHeight="1*">
-								<Controls:FixedLayoutAnchorable Title="ProjectSetting" x:Name="DetailTabContext">
-								</Controls:FixedLayoutAnchorable>
-							</Ad:LayoutAnchorablePane>
-						</Ad:LayoutAnchorablePaneGroup>
-					</Ad:LayoutAnchorablePaneGroup>
+					<Ad:LayoutAnchorablePane DockHeight="1*">
+						<Controls:FixedLayoutAnchorable Title="ProjectSetting" x:Name="DetailTabContext" CanFloat="False">
+						</Controls:FixedLayoutAnchorable>
+					</Ad:LayoutAnchorablePane>
 				</Ad:LayoutPanel>
 			</Ad:LayoutRoot>
 		</Ad:DockingManager>

@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements.ResolutionEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+             xmlns:GControls="clr-namespace:GKitForWPF.UI.Controls;assembly=GKitForWPF"
+			 xmlns:ModelEditors="clr-namespace:TaleKitEditor.UI.ModelEditor"
+
+             mc:Ignorable="d" 
+             d:DesignHeight="28">
+	<StackPanel Orientation="Horizontal">
+		<!-- Width -->
+		<ModelEditors:ValueEditor_Vector2 x:Name="ResolutionNumberEditor" Width="180"/>
+		<Border Width="12"/>
+
+		<!-- Zoom -->
+		<GControls:NumberEditor x:Name="ZoomNumberEditor" Width="70"/>
+		<TextBlock Style="{StaticResource ContentText}" Text="%" VerticalAlignment="Center"/>
+		<Border Width="12"/>
+	</StackPanel>
+</UserControl>

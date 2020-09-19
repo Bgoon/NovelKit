@@ -12,52 +12,49 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UnityEngine;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 	public delegate void ResolutionChangedDelegate(int width, int height);
 	public delegate void ZoomChangedDelegate(double zoom);
-	public partial class ResolutionSelector : UserControl {
+	public partial class ResolutionEditor : UserControl {
 		public event ResolutionChangedDelegate ResolutionChanged;
 		public event ZoomChangedDelegate ZoomChanged;
 
-		public ResolutionSelector() {
+		public ResolutionEditor() {
 			InitializeComponent();
 
 			// Init members
-			WidthEditText.Text = "1920";
-			HeightEditText.Text = "1080";
-			ZoomNumberEditor.MinValue = 0;
+			foreach(var numberBox in ResolutionNumberEditor.NumberBoxes) {
+				numberBox.MinValue = 1;
+				numberBox.MaxValue = 70000;
+				numberBox.NumberType = GKitForUnity.NumberType.Int;
+			}
+			ResolutionNumberEditor.ValueTextBox_X.Value = 1920;
+			ResolutionNumberEditor.ValueTextBox_Y.Value= 1080;
+
+			ZoomNumberEditor.MinValue = 1;
 			ZoomNumberEditor.MaxValue = 100;
 			ZoomNumberEditor.Value = 50;
 
 			// Register events
-			WidthEditText.TextEdited += OnResolutionEditTextEdited;
-			HeightEditText.TextEdited += OnResolutionEditTextEdited;
+			ResolutionNumberEditor.EditableValueChanged += ResolutionNumberEditor_EditableValueChanged;
 			ZoomNumberEditor.ValueChanged += RaiseZoomChanged;
 		}
+
 
 
 		// [ Event ]
 		public void RaiseZoomChanged() {
 			ZoomChanged?.Invoke(ZoomNumberEditor.Value * 0.01f);
 		}
-		public void RaiseResolutionChanged() {
-			int width, height;
 
-			if (!int.TryParse(WidthEditText.Text, out width) || !int.TryParse(HeightEditText.Text, out height))
-				return;
-
-			ResolutionChanged?.Invoke(width, height);
+		public void OnResolutionChanged() {
+			Vector2 resolution = ResolutionNumberEditor.Value;
+			ResolutionChanged?.Invoke((int)resolution.x, (int)resolution.y);
 		}
-
-		private void OnResolutionEditTextEdited(string oldText, string newText, ref bool cancelEdit) {
-			int value;
-			if(!int.TryParse(newText, out value)) {
-				cancelEdit = true;
-				return;
-			}
-
-			RaiseResolutionChanged();
+		private void ResolutionNumberEditor_EditableValueChanged(object value) {
+			OnResolutionChanged();
 		}
 
 	}

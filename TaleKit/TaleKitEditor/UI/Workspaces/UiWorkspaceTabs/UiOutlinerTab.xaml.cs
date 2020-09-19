@@ -21,6 +21,7 @@ using TaleKitEditor.UI.Dialogs;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
 using TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements;
+using TaleKitEditor.Workspaces;
 
 namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 	public delegate void ItemMovedDelegate(UiItemBase item, UiItemBase newParentItem, UiItemBase oldParentItem);
@@ -83,10 +84,8 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			UiTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
 		}
 
-		private void MainWindow_WorkspaceActived(TaleKitEditor.Workspaces.Workspace workspace) {
-			bool onUiWorkspace = workspace.context == MainWindow.UiWorkspace;
-
-			if(!onUiWorkspace) {
+		private void MainWindow_WorkspaceActived(WorkspaceComponent workspace) {
+			if(workspace.type != WorkspaceType.Ui) {
 				ClearFocusBoxVisible();
 			}
 		}

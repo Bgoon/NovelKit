@@ -21,6 +21,8 @@ namespace TaleKitEditor.UI.ModelEditor {
 	/// </summary>
 	public partial class ValueEditor_Vector2 : UserControl, IValueEditor {
 
+		public readonly ValueEditor_NumberBox[] NumberBoxes;
+
 		public UVector2 Value {
 			get {
 				return new UVector2(ValueTextBox_X.Value, ValueTextBox_Y.Value);
@@ -40,14 +42,25 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 		public event EditableValueChangedDelegate EditableValueChanged;
 
-		public ValueEditor_Vector2(ValueEditor_Vector2Attribute attr) {
+		public ValueEditor_Vector2() {
 			InitializeComponent();
 
-			ValueEditor_NumberBox[] numberBoxes = new ValueEditor_NumberBox[] {
+			NumberBoxes = new ValueEditor_NumberBox[] {
 				ValueTextBox_X,
 				ValueTextBox_Y,
 			};
-			foreach (var numberBox in numberBoxes) {
+			foreach (var numberBox in NumberBoxes) {
+				numberBox.EditableValueChanged += ValueTextBox_EditableValueChanged;
+			}
+		}
+		public ValueEditor_Vector2(ValueEditor_Vector2Attribute attr) {
+			InitializeComponent();
+
+			NumberBoxes = new ValueEditor_NumberBox[] {
+				ValueTextBox_X,
+				ValueTextBox_Y,
+			};
+			foreach (var numberBox in NumberBoxes) {
 				numberBox.MinValue = attr.minValue;
 				numberBox.MaxValue = attr.maxValue;
 				numberBox.NumberType = attr.numberType;

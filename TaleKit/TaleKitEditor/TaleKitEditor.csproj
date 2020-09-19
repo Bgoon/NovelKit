@@ -286,8 +286,8 @@
     <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\PlayStateButton.xaml.cs">
       <DependentUpon>PlayStateButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\ResolutionSelector.xaml.cs">
-      <DependentUpon>ResolutionSelector.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\ResolutionEditor.xaml.cs">
+      <DependentUpon>ResolutionEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderTypeItemView.xaml.cs">
       <DependentUpon>OrderTypeItemView.xaml</DependentUpon>
@@ -605,7 +605,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\CommonTabs\ViewportElements\ResolutionSelector.xaml">
+    <Page Include="UI\Workspaces\CommonTabs\ViewportElements\ResolutionEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
