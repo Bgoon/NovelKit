@@ -65,6 +65,10 @@
 					Click="StoryWorkspaceButton_Click">
 					<VectorImages:LayoutIcon_Story/>
 				</Controls:WorkspaceButton>
+				<Controls:WorkspaceButton x:Name="SettingWorkspaceButton" Width="50" Margin="8, 0, 0, 0" Height="{StaticResource LayoutButtonHeight}"
+					Click="SettingWorkspaceButton_Click">
+					<VectorImages:LayoutIcon_Setting/>
+				</Controls:WorkspaceButton>
 			</StackPanel>
 		</Grid>
 		<Grid>
@@ -73,6 +77,7 @@
 				<TWorkspaces:UiWorkspace x:Name="UiWorkspace" x:FieldModifier="public"/>
 				<TWorkspaces:MotionWorkspace x:Name="MotionWorkspace" x:FieldModifier="public"/>
 				<TWorkspaces:StoryWorkspace x:Name="StoryWorkspace" x:FieldModifier="public"/>
+				<TWorkspaces:SettingWorkspace x:Name="SettingWorkspace" x:FieldModifier="public"/>
 			</Grid>
 		</Grid>
 	</DockPanel>

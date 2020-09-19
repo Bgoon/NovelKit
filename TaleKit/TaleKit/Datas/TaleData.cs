@@ -28,6 +28,9 @@ namespace TaleKit.Datas {
 		public StoryFile StoryFile {
 			get; private set;
 		}
+		public ProjectSetting ProjectSetting {
+			get; private set;
+		}
 
 		public string projectName;
 		public DateTime exportedTime;
@@ -71,6 +74,7 @@ namespace TaleKit.Datas {
 			MotionFile = new MotionFile(this);
 			UiFile = new UiFile(this);
 			StoryFile = new StoryFile(this);
+			ProjectSetting = new ProjectSetting(this);
 
 			CreateEditorDirectories();
 
@@ -147,6 +151,7 @@ namespace TaleKit.Datas {
 			jFile.Add("MotionFile", MotionFile.ToJObject());
 			jFile.Add("UiFile", UiFile.ToJObject());
 			jFile.Add("StoryFile", StoryFile.ToJObject());
+			jFile.Add("ProjectSetting", ProjectSetting.ToJObject());
 
 			return jFile.ToString();
 		}

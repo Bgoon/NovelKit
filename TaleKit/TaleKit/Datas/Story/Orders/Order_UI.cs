@@ -124,7 +124,7 @@ namespace TaleKit.Datas.Story {
 						skip = !keyFrameModel.KeyFieldNameHashSet.Contains(keyFieldInfo.Name);
 					};
 
-					jField.AddAttrFields(keyFrameModel, keyPreHandler, null, null);
+					jField.AddFields(keyFrameModel, keyPreHandler, null, null);
 				}
 			};
 

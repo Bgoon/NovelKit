@@ -3,5 +3,6 @@
 		Ui,
 		Motion,
 		Story,
+		ProjectSetting,
 	}
 }

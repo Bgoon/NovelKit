@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.SettingWorkspace"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			
+			 xmlns:Ad="https://github.com/Dirkster99/AvalonDock"
+			 xmlns:AdThemes="clr-namespace:Bgoon.AvalonDockTheme;assembly=Bgoon.AvalonDockThemes"
+			 xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
+
+			 xmlns:GControls="clr-namespace:GKitForWPF.UI.Controls;assembly=GKitForWPF"
+			 xmlns:Tabs="clr-namespace:TaleKitEditor.UI.Workspaces.UiWorkspaceTabs"
+			 xmlns:CommonTabs="clr-namespace:TaleKitEditor.UI.Workspaces.CommonTabs"
+			 xmlns:System="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignWidth="1280" d:DesignHeight="720">
+	<Grid>
+		<Ad:DockingManager>
+			<Ad:DockingManager.Theme>
+				<AdThemes:FlatDarkTheme/>
+			</Ad:DockingManager.Theme>
+
+			<Ad:LayoutRoot>
+				<Ad:LayoutPanel>
+					<!--Tab 1-->
+					<Ad:LayoutAnchorablePaneGroup Orientation="Horizontal">
+						<Ad:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="1*">
+							<Ad:LayoutAnchorablePane DockHeight="1*">
+								<Controls:FixedLayoutAnchorable Title="ProjectSetting" x:Name="DetailTabContext">
+								</Controls:FixedLayoutAnchorable>
+							</Ad:LayoutAnchorablePane>
+						</Ad:LayoutAnchorablePaneGroup>
+					</Ad:LayoutAnchorablePaneGroup>
+				</Ad:LayoutPanel>
+			</Ad:LayoutRoot>
+		</Ad:DockingManager>
+	</Grid>
+</UserControl>

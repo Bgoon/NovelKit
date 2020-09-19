@@ -83,6 +83,7 @@ namespace TaleKitEditor.UI.Windows {
 				new Workspace(UiWorkspace, UiWorkspaceButton),
 				new Workspace(MotionWorkspace, MotionWorkspaceButton),
 				new Workspace(StoryWorkspace, StoryWorkspaceButton),
+				new Workspace(SettingWorkspace, SettingWorkspaceButton),
 			};
 
 			foreach(Workspace workspace in workspaces) {
@@ -240,8 +241,13 @@ namespace TaleKitEditor.UI.Windows {
 		private void StoryWorkspaceButton_Click(object sender, RoutedEventArgs e) {
 			ActiveWorkspace(WorkspaceType.Story);
 		}
+		private void SettingWorkspaceButton_Click(object sender, RoutedEventArgs e) {
+			ActiveWorkspace(WorkspaceType.ProjectSetting);
+		}
 
 		private void AttachTab(UserControl tab, Workspace workspace) {
+			// Workspace에 {Name}Context Panel이 존재하면 Reflection을 사용해 붙인다.
+
 			string tabName = tab.GetType().Name;
 			string tabContextName = tabName + "Context";
 
