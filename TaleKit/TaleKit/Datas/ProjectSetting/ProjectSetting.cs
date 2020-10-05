@@ -13,6 +13,8 @@ namespace TaleKit.Datas {
 
 		public readonly TaleData OwnerData;
 
+		[ValueEditor_TextBox("Game Name", 100)]
+		public string gameName;
 		[ValueEditor_NumberBox("FPS", GKitForUnity.NumberType.Int)]
 		public int defaultFps = 60;
 		[ValueEditor_Vector2("Resolution", GKitForUnity.NumberType.Int, 0, 20000)]

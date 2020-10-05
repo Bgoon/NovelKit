@@ -73,7 +73,7 @@ namespace TaleKit.Datas.Story {
 			if (string.IsNullOrEmpty(targetUiGuid))
 				return;
 
-			UiItemBase targetUi = UiFile.Guid_To_ItemDict[targetUiGuid];
+			UiItemBase targetUi = UiFile.UiSnapshot.GetUiItem(targetUiGuid);
 
 			if(targetUi == null) {
 				UiKeyData = null;

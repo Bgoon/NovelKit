@@ -19,10 +19,6 @@ namespace TaleKit.Datas.UI {
 
 		public readonly TaleData OwnerTaleData;
 
-		public UiItemBase RootUiItem {
-			get; private set;
-		}
-
 		private bool createRootUiItem;
 
 		// Event
@@ -33,8 +29,8 @@ namespace TaleKit.Datas.UI {
 		// UI Collection
 		public readonly List<UiItemBase> UiItemList;
 		public readonly List<UiText> TextList;
-		public readonly Dictionary<string, UiItemBase> Guid_To_ItemDict;
-		public readonly Dictionary<UiItemBase, object> Item_To_RendererDict;
+		public readonly UiSnapshot UiSnapshot;
+		public readonly Dictionary<string, object> Guid_To_RendererDict;
 
 		// [ Constructor ]
 		public UiFile(TaleData ownerTaleData, bool createRootUiItem = true) {
@@ -43,23 +39,22 @@ namespace TaleKit.Datas.UI {
 
 			UiItemList = new List<UiItemBase>();
 			TextList = new List<UiText>();
-			Guid_To_ItemDict = new Dictionary<string, UiItemBase>();
-			Item_To_RendererDict = new Dictionary<UiItemBase, object>();
+			UiSnapshot = new UiSnapshot();
+			Guid_To_RendererDict = new Dictionary<string, object>();
 
 		}
 		public void Init() {
 			if(createRootUiItem) {
-				RootUiItem = CreateUiItem(null, UiItemType.Panel);
+				UiSnapshot.rootUiItem = CreateUiItem(null, UiItemType.Panel);
 			}
 		}
 		public void Clear() {
-			RemoveUiItem(RootUiItem);
-			RootUiItem = null;
+			RemoveUiItem(UiSnapshot.rootUiItem);
 
 			UiItemList.Clear();
 			TextList.Clear();
-			Guid_To_ItemDict.Clear();
-			Item_To_RendererDict.Clear();
+			UiSnapshot.Clear();
+			Guid_To_RendererDict.Clear();
 		}
 
 		public bool Save(string filename) {
@@ -89,13 +84,13 @@ namespace TaleKit.Datas.UI {
 					TextList.Add(item as UiText);
 					break;
 			}
-			Guid_To_ItemDict.Add(item.guid, item);
+			UiSnapshot.RegisterUiItem(item.guid, item);
 
 			// Add to collection
 			ItemCreatedPreview?.Invoke(item, parentUiItem);
 
 			if (parentUiItem == null) {
-				RootUiItem = item;
+				UiSnapshot.rootUiItem = item;
 			} else {
 				UiItemList.Add(item);
 
@@ -125,7 +120,7 @@ namespace TaleKit.Datas.UI {
 					break;
 			}
 			UiItemList.Remove(item);
-			Guid_To_ItemDict.Remove(item.guid);
+			UiSnapshot.RemoveUiItem(item.guid);
 
 			ItemRemoved?.Invoke(item, parentItem);
 		}
@@ -133,7 +128,7 @@ namespace TaleKit.Datas.UI {
 		public JObject ToJObject() {
 			JObject jFile = new JObject();
 			//Add rootClip
-			jFile.Add("RootUI", RootUiItem.ToJObject());
+			jFile.Add("RootUI", UiSnapshot.ToJObject());
 
 			return jFile;
 		}

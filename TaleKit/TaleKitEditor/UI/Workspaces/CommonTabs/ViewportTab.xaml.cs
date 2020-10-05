@@ -23,6 +23,7 @@ using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
 using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
+using TaleKitEditor.Workspaces;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 	public partial class ViewportTab : UserControl {
@@ -35,11 +36,21 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 		private UiRenderer rootRenderer;
 
+		private UiSnapshot renderUiSnapshot;
+		// TODO : 재생용 UiRoot를 Viewport가 하나 소지하고 있고, 이 데이터를 기반으로 화면에 보여주게 할 것
+
 		// [ Constructor ]
 		public ViewportTab() {
 			this.RegisterLoadedOnce(OnLoadedOnce);
 			InitializeComponent();
+
+			// Initialize members
+			renderUiSnapshot = new UiSnapshot();
+
+			// Register events
+			MainWindow.WorkspaceActived += MainWindow_WorkspaceActived;
 		}
+
 
 		// [ Event ]
 		private void OnLoadedOnce(object sender, RoutedEventArgs e) {
@@ -56,6 +67,13 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 			ResolutionSelector.OnResolutionChanged();
 			ResolutionSelector.RaiseZoomChanged();
+		}
+
+		private void MainWindow_WorkspaceActived(WorkspaceComponent workspace) {
+			// Viewport 데이터를 UI에디터로 초기화
+
+			renderUiSnapshot.CopyDataFrom(EditingUiFile.UiSnapshot);
+			RenderAll();
 		}
 
 		// Viewport
@@ -78,8 +96,23 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			ScrollToCenter();
 		}
 		private void UiFile_ItemCreated(UiItemBase item, UiItemBase parentItem) {
-			UiRenderer renderer = new UiRenderer(item);
-			EditingUiFile.Item_To_RendererDict.Add(item, renderer);
+			// Manage renderUi
+			UiItemBase renderUi;
+			if (parentItem == null) {
+				renderUi = renderUiSnapshot.rootUiItem = item.Clone() as UiItemBase;
+			} else {
+				UiItemBase parentRenderUi = renderUiSnapshot.GetUiItem(parentItem.guid);
+				renderUi = item.Clone() as UiItemBase;
+
+				parentRenderUi.AddChildItem(renderUi);
+			}
+			renderUi.InitializeClone();
+			renderUiSnapshot.RegisterUiItem(renderUi.guid, renderUi);
+
+
+			// Manage renderer
+			UiRenderer renderer = new UiRenderer(renderUi);
+			EditingUiFile.Guid_To_RendererDict.Add(item.guid, renderer);
 
 			if (parentItem == null) {
 				rootRenderer = renderer;
@@ -92,30 +125,56 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			renderer.Render(false);
 		}
 		private void UiFile_ItemRemoved(UiItemBase item, UiItemBase parentItem) {
+			// Manage renderUi
+			UiItemBase renderUi = renderUiSnapshot.GetUiItem(item.guid);
+			if(renderUi.ParentItem != null) {
+				renderUi.ParentItem.RemoveChildItem(renderUi);
+			}
+			renderUiSnapshot.RemoveUiItem(renderUi.guid);
+
+			// Manage renderer
 			UiRenderer renderer = GetRenderer(item);
 			renderer.DetachParent();
 
-			EditingUiFile.Item_To_RendererDict.Remove(item);
+			EditingUiFile.Guid_To_RendererDict.Remove(item.guid);
 		}
 		internal void UiItemDetailPanel_UiItemValueChanged(object model, FieldInfo fieldInfo, object editorView) {
-			UiRenderer renderer = GetRenderer(model as UiItemBase);
+			UiItemBase UiItem = model as UiItemBase;
+
+			// Manage renderUi
+			UiItemBase renderUi = renderUiSnapshot.GetUiItem(UiItem.guid);
+			fieldInfo.SetValue(renderUi, fieldInfo.GetValue(UiItem));
+
+			// Manage renderer
+			UiRenderer renderer = GetRenderer(UiItem);
 
 			renderer.Render(false);
 		}
-		private void UiOutlinerTab_ItemMoved(UiItemBase item, UiItemBase newParentItem, UiItemBase oldParentItem) {
+		private void UiOutlinerTab_ItemMoved(UiItemBase item, UiItemBase newParentItem, UiItemBase oldParentItem, int index) {
+			// Manage renderUi
+			UiItemBase renderUi = renderUiSnapshot.GetUiItem(item.guid);
+			renderUiSnapshot.GetUiItem(oldParentItem.guid).RemoveChildItem(renderUi);
+			renderUiSnapshot.GetUiItem(newParentItem.guid).InsertChildItem(index, renderUi);
+			
+			// Manage renderer
 			UiRenderer renderer = GetRenderer(item);
 			UiRenderer parentView = GetRenderer(newParentItem);
 
-			int index = newParentItem.ChildItemList.IndexOf(item);
 			renderer.DetachParent();
 			parentView.ChildItemContext.Children.Insert(index, renderer);
 			renderer.Render(false);
-			
+		} 
+
+		// [ Render ]
+		public void RenderAll() {
+			UiRenderer renderer = GetRenderer(renderUiSnapshot.rootUiItem);
+
+			renderer.Render(true);
 		}
 
 		// [ Access ]
 		private UiRenderer GetRenderer(UiItemBase item) {
-			return EditingUiFile.Item_To_RendererDict[item] as UiRenderer;
+			return EditingUiFile.Guid_To_RendererDict[item.guid] as UiRenderer;
 		}
 
 		public async void ScrollToCenter() {

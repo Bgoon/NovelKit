@@ -253,7 +253,7 @@
       <DependentUpon>ItemSeparator.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ModelEditor\IValueEditorComponent.cs" />
-    <Compile Include="UI\ModelEditor\Utility\ModelEditorUtility.cs" />
+    <Compile Include="UI\ModelEditor\ModelEditorUtility.cs" />
     <Compile Include="UI\ModelEditor\ValueEditorView\ValueEditorComponent_Header.xaml.cs">
       <DependentUpon>ValueEditorComponent_Header.xaml</DependentUpon>
     </Compile>

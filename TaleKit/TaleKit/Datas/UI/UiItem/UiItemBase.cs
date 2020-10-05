@@ -26,7 +26,7 @@ namespace TaleKit.Datas.UI {
 		// Inherit
 		public readonly UiFile OwnerFile;
 		public UiItemBase ParentItem {
-			get; private set;
+			get; set;
 		}
 		public List<UiItemBase> ChildItemList {
 			get; private set;
@@ -132,6 +132,10 @@ namespace TaleKit.Datas.UI {
 			//RectTransform = GameObject.AddComponent<RectTransform>();
 			//UiTransform = GameObject.AddComponent<UiTransform>();
 			//Renderer = GameObject.AddComponent<CanvasRenderer>();
+		}
+		public void InitializeClone() {
+			ChildInserted = null;
+			ChildRemoved = null;
 		}
 
 		public void AddChildItem(UiItemBase item) {

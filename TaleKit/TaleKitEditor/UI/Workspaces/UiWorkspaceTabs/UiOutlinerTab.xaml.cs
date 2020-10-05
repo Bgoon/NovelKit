@@ -24,9 +24,11 @@ using TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements;
 using TaleKitEditor.Workspaces;
 
 namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
-	public delegate void ItemMovedDelegate(UiItemBase item, UiItemBase newParentItem, UiItemBase oldParentItem);
+	
 	
 	public partial class UiOutlinerTab : UserControl {
+		public delegate void ItemMovedDelegate(UiItemBase item, UiItemBase newParentItem, UiItemBase oldParentItem, int index);
+
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static UiFile EditingUiFile => MainWindow.EditingTaleData.UiFile;
@@ -85,8 +87,14 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		}
 
 		private void MainWindow_WorkspaceActived(WorkspaceComponent workspace) {
-			if(workspace.type != WorkspaceType.Ui) {
-				ClearFocusBoxVisible();
+			switch(workspace.type) {
+				case WorkspaceType.Ui:
+					
+
+					break;
+				default:
+					ClearFocusBoxVisible();
+					break;
 			}
 		}
 
@@ -113,7 +121,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			MenuPanel.ShowDialog(menuItems);
 
 			void CreateAndSelectUiItem(UiItemType itemType) {
-				UiItemBase parentItem = SelectedUiItemSingle ?? EditingUiFile.RootUiItem;
+				UiItemBase parentItem = SelectedUiItemSingle ?? EditingUiFile.UiSnapshot.rootUiItem;
 				UiItemBase item = EditingUiFile.CreateUiItem(parentItem, itemType);
 
 				UiTreeView.SelectedItemSet.SetSelectedItem(item.View as ITreeItem);
@@ -179,7 +187,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			}
 			newParentItem.InsertChildItem(index, item);
 
-			ItemMoved?.Invoke(item, newParentItem, oldParentItemView.Data);
+			ItemMoved?.Invoke(item, newParentItem, oldParentItemView.Data, index);
 		}
 
 		private void SelectedItemSet_SelectionAdded(ISelectable item) {
@@ -210,7 +218,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 			foreach (var item in UiTreeView.SelectedItemSet) {
 				UiItemView itemView = UiTreeView.SelectedItemSet.First as UiItemView;
-				UiRenderer renderer = EditingUiFile.Item_To_RendererDict[itemView.Data] as UiRenderer;
+				UiRenderer renderer = EditingUiFile.Guid_To_RendererDict[itemView.Data.guid] as UiRenderer;
 
 				renderer.SetFocusBoxVisible(true);
 				focusedRendererList.Add(renderer);

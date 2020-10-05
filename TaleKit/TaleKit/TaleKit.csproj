@@ -95,10 +95,12 @@
     <Compile Include="Datas\Story\StoryBlock.cs" />
     <Compile Include="Datas\Story\StoryBlockBase.cs" />
     <Compile Include="Datas\Story\StoryFile.cs" />
+    <Compile Include="Datas\Story\UiCache\UiCacheManager.cs" />
     <Compile Include="Datas\TaleData.cs" />
     <Compile Include="Datas\UI\UiItemType.cs" />
     <Compile Include="Datas\UI\UiItem\UiText.cs" />
     <Compile Include="Datas\UI\UiItem\UiPanel.cs" />
+    <Compile Include="Datas\UI\UiSnapshot.cs" />
     <Compile Include="Debug\TestResources.cs" />
     <Compile Include="Event\EventBase.cs" />
     <Compile Include="Input\PlayerInput.cs" />

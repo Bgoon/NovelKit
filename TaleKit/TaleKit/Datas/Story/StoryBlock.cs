@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using TaleKit.Datas.UI;
 
 namespace TaleKit.Datas.Story {
 	public enum StoryBlockTrigger {
@@ -8,7 +9,6 @@ namespace TaleKit.Datas.Story {
 		Click,
 	}
 	public class StoryBlock : StoryBlockBase {
-
 		public event Action<OrderBase> OrderAdded;
 		public event Action<OrderBase> OrderRemoved;
 
@@ -29,12 +29,12 @@ namespace TaleKit.Datas.Story {
 			}
 		}
 
-
-
+		// [ Constructor ]
 		public StoryBlock(StoryFile ownerFile) : base(ownerFile, StoryBlockType.StoryBlock) {
 			OrderList = new List<OrderBase>();
 		}
 
+		// [ Event ]
 		public void OnEnter() {
 			foreach (OrderBase job in OrderList) {
 				job.OnStart();
@@ -51,6 +51,7 @@ namespace TaleKit.Datas.Story {
 			}
 		}
 
+		// [ Control ]
 		public void Skip() {
 			for (int i = 0; i < OrderList.Count; ++i) {
 				OrderList[i].Skip();
@@ -71,6 +72,7 @@ namespace TaleKit.Datas.Story {
 			OrderRemoved?.Invoke(order);
 		}
 
+		// [ Serialize ]
 		public override JObject ToJObject() {
 			JObject jBlock = new JObject();
 

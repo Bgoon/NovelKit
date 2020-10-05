@@ -175,7 +175,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StopMotion();
 
 			// Render root renderer
-			UiRenderer rootRenderer = EditingUiFile.Item_To_RendererDict[EditingUiFile.RootUiItem] as UiRenderer;
+			UiRenderer rootRenderer = EditingUiFile.Guid_To_RendererDict[EditingUiFile.UiSnapshot.rootUiItem.guid] as UiRenderer;
 			rootRenderer.Render(true);
 
 			if (!ViewportTab.PlayStateButton.IsActive)
@@ -194,12 +194,12 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 								if (string.IsNullOrEmpty(order_UI.targetUiGuid))
 									continue;
 
-								UiItemBase UiItem = EditingUiFile.Guid_To_ItemDict[order_UI.targetUiGuid];
+								UiItemBase UiItem = EditingUiFile.UiSnapshot.GetUiItem(order_UI.targetUiGuid);
 
 								if (UiItem == null)
 									continue;
 
-								UiRenderer renderer = EditingUiFile.Item_To_RendererDict[UiItem] as UiRenderer;
+								UiRenderer renderer = EditingUiFile.Guid_To_RendererDict[UiItem.guid] as UiRenderer;
 
 								if(!RenderedRendererHashSet.Contains(renderer)) {
 									RenderedRendererHashSet.Add(renderer);
