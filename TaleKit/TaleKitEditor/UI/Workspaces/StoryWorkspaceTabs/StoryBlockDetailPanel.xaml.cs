@@ -84,6 +84,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		private void Order_ModelUpdated(EditableModel model, FieldInfo fieldInfo, object editorView) {
 			StoryBlockTab.ApplyBlockToSelectionToRenderer();
+
+			EditingBlock.OwnerFile.UiCacheManager.ClearCacheAfterBlock(EditingBlock);
 		}
 
 		private void EditingBlock_OrderRemoved(OrderBase order) {
@@ -100,6 +102,9 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			MessageContext.Visibility = showEditingContext ? Visibility.Collapsed : Visibility.Visible;
 
 			if (showEditingContext) {
+				if (KeyInput.GetKeyHold(WinKey.X))
+					return;
+
 				AttachBlock(StoryBlockTab.SelectedBlockSingle);
 			} else {
 				string message;

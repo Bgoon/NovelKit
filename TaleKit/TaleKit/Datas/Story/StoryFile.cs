@@ -25,6 +25,8 @@ namespace TaleKit.Datas.Story {
 			get; private set;
 		}
 
+		public readonly UiCacheManager UiCacheManager;
+
 		public event NodeItemDelegate<StoryBlockBase, StoryClip> ItemCreated;
 		public event NodeItemDelegate<StoryBlockBase, StoryClip> ItemRemoved;
 
@@ -33,8 +35,12 @@ namespace TaleKit.Datas.Story {
 			this.OwnerTaleData = ownerTaleData;
 
 			ClipDict = new Dictionary<string, StoryClip>();
+			UiCacheManager = new UiCacheManager(ownerTaleData);
 
 			CreateRootItem();
+
+			// Register events
+			ownerTaleData.Tick += UiCacheManager.OnTick;
 		}
 
 		public bool Save(string filename) {

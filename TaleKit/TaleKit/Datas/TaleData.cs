@@ -35,7 +35,9 @@ namespace TaleKit.Datas {
 		public string projectName;
 		public DateTime exportedTime;
 
-		//EditorData
+		public event Action Tick;
+
+		// EditorData
 		public string ProjectDir {
 			get; private set;
 		}
@@ -65,6 +67,7 @@ namespace TaleKit.Datas {
 		public static TaleData FromProjectDir(string projectDir) {
 			return null;
 		}
+		// [ Constructor ]
 		public TaleData(string projectDir, bool isEditMode) {
 			this.ProjectDir = IOUtility.NormalizePath(projectDir);
 			this.IsEditMode = isEditMode;
@@ -90,6 +93,14 @@ namespace TaleKit.Datas {
 		}
 		public void PostInit() {
 			UiFile.Init();
+		}
+
+		// [ Loop ]
+		/// <summary>
+		/// API 사용자가 게임 루프에서 호출해 주어야 합니다.
+		/// </summary>
+		public void OnTick() {
+			Tick?.Invoke();
 		}
 
 		// [ Save / Load ]

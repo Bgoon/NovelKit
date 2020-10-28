@@ -66,6 +66,10 @@ namespace TaleKit.Datas.UI {
 		}
 
 		// Control Collection
+		public UiItemBase[] GetUiItems() {
+			return guid_To_UiItemDict.Values.ToArray();
+		}
+
 		public void RegisterUiItem(string guid, UiItemBase UiItem) {
 			guid_To_UiItemDict.Add(guid, UiItem);
 		}
@@ -76,20 +80,25 @@ namespace TaleKit.Datas.UI {
 			return guid_To_UiItemDict[guid];
 		}
 
-		public void ApplyStoryBlock(StoryBlock storyBlock) {
-			foreach (OrderBase order in storyBlock.OrderList) {
-				Order_UI UiOrder = order as Order_UI;
+		public void ApplyStoryBlockBase(StoryBlockBase storyBlockBase) {
+			if(storyBlockBase is StoryBlock) {
+				StoryBlock storyBlock = storyBlockBase as StoryBlock;
+				foreach (OrderBase order in storyBlock.OrderList) {
+					Order_UI UiOrder = order as Order_UI;
 
-				if (UiOrder == null || string.IsNullOrEmpty(UiOrder.targetUiGuid) || !guid_To_UiItemDict.ContainsKey(UiOrder.targetUiGuid))
-					continue;
+					if (UiOrder == null || string.IsNullOrEmpty(UiOrder.targetUiGuid) || !guid_To_UiItemDict.ContainsKey(UiOrder.targetUiGuid))
+						continue;
 
-				UiItemBase targetUiItem = guid_To_UiItemDict[UiOrder.targetUiGuid];
+					UiItemBase targetUiItem = guid_To_UiItemDict[UiOrder.targetUiGuid];
 
-				foreach(FieldInfo fieldInfo in targetUiItem.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance)) {
-					if(UiOrder.UiKeyData.KeyFieldNameHashSet.Contains(fieldInfo.Name)) {
-						fieldInfo.SetValue(targetUiItem, fieldInfo.GetValue(UiOrder.UiKeyData));
+					foreach(FieldInfo fieldInfo in targetUiItem.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance)) {
+						if(UiOrder.UiKeyData.KeyFieldNameHashSet.Contains(fieldInfo.Name)) {
+							fieldInfo.SetValue(targetUiItem, fieldInfo.GetValue(UiOrder.UiKeyData));
+						}
 					}
 				}
+			} else {
+				// TODO : StoryClip 적용 구현
 			}
 		}
 

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaleKit.Datas.UI;
+using GKitForUnity;
 
 namespace TaleKit.Datas.Story {
 	public class UiCacheManager {
@@ -13,9 +15,20 @@ namespace TaleKit.Datas.Story {
 
 		public int CacheInterval {
 			get; private set;
-		} = 10;
+		} = 3;
 
-		public StoryClip ActivatedClip {
+		public StoryClip TargetClipAuto {
+			get {
+				StoryClip targetClip;
+				if (TargetClip == null) {
+					targetClip = OwnerData.StoryFile.RootClip;
+				} else {
+					targetClip = TargetClip;
+				}
+				return targetClip;
+			}
+		}
+		public StoryClip TargetClip {
 			get; private set;
 		}
 
@@ -24,75 +37,66 @@ namespace TaleKit.Datas.Story {
 			this.OwnerData = ownerData;
 		}
 
-		// [ State ]
-		public void SetActivatedClip(StoryClip clip) {
-			ActivatedClip = clip;
+		// [ Loop ]
+		internal void OnTick() {
+			CreateCache(1);
 		}
 
 		// [ Control ]
-		public void CreateCache() {
-			if (ActivatedClip == null)
-				return;
+		public void SetActivatedClip(StoryClip clip) {
+			TargetClip = clip;
+		}
 
-			UiSnapshot cacheSnapshot = UiFile.UiSnapshot.Clone();	
+		public void CreateCache(int cacheCount) {
+			UiSnapshot cacheSnapshot = null;
+			UiSnapshot lastBlockCache = null;
 
-			for(int blockI = 0; blockI < ActivatedClip.ChildItemList.Count; ++blockI) {
-				StoryBlockBase block = ActivatedClip.ChildItemList[blockI];
+			StoryClip targetClip = TargetClipAuto;
+
+			for (int blockI = 0; blockI < targetClip.ChildItemList.Count; ++blockI) {
+				StoryBlockBase block = targetClip.ChildItemList[blockI];
+
+				// Skip block exists cache
+				if(block.HasUiCache) {
+					lastBlockCache = block.UiCacheSnapshot;
+					continue;
+				}
+
+				if(cacheSnapshot == null) {
+					if(lastBlockCache == null) {
+						cacheSnapshot = UiFile.UiSnapshot.Clone();
+					} else {
+						cacheSnapshot = lastBlockCache.Clone();
+					}
+				}
 
 				// Apply orders
-				if(block.Type == StoryBlockType.StoryBlock) {
-
-					cacheSnapshot.ApplyStoryBlock(block as StoryBlock);
-
-				} else if(block.Type == StoryBlockType.StoryClip) {
-					// TODO : StoryClip 적용 구현하기
-				}
+				cacheSnapshot.ApplyStoryBlockBase(block);
 
 				// Save cache
-				if(blockI % CacheInterval == 0) {
+				if (blockI % CacheInterval == 0) {
 					block.SaveCache(cacheSnapshot.Clone());
+
+					Console.WriteLine("CacheSaved");
+
+					if(--cacheCount <= 0) {
+						return;
+					}
 				}
+			}
+		}
+		public void ClearCacheAfterBlock(StoryBlockBase targetBlock) {
+			StoryClip targetClip = TargetClipAuto;
+			int index = TargetClipAuto.ChildItemList.IndexOf(targetBlock);
+			if (index < 0)
+				return;
+
+			Console.WriteLine($"CacheCleared index : {index}");
+			for (int i = index; i < targetClip.ChildItemList.Count; ++i) {
+				StoryBlockBase block = targetClip.ChildItemList[i];
+
+				block.DeleteCache();
 			}
 		}
 	}
 }
-
-
-//
-for (int i = 0; i <= lastBlockIndex; ++i) {
-				StoryBlockBase blockBase = EditingStoryFile.RootClip.ChildItemList[i];
-				switch (blockBase.Type) {
-					case StoryBlockType.StoryBlock:
-						foreach (OrderBase order in (blockBase as StoryBlock).OrderList) {
-							if (order.OrderType == OrderType.UI) {
-								Order_UI order_UI = order as Order_UI;
-
-								if (string.IsNullOrEmpty(order_UI.targetUiGuid))
-									continue;
-
-								UiItemBase UiItem = EditingUiFile.UiSnapshot.GetUiItem(order_UI.targetUiGuid);
-
-								if (UiItem == null)
-									continue;
-
-								UiRenderer renderer = EditingUiFile.Guid_To_RendererDict[UiItem.guid] as UiRenderer;
-
-								if(!RenderedRendererHashSet.Contains(renderer)) {
-									RenderedRendererHashSet.Add(renderer);
-									renderer.Render();
-								}
-
-
-								if(playMotion && i == lastBlockIndex) {
-									StartMotion(UiItem, renderer, order_UI);
-								} else {
-									ApplyOrderToRendererImmediately(renderer, order_UI);
-								}
-
-							}
-						}
-						break;
-					case StoryBlockType.StoryClip:
-						break;
-				}
-			}

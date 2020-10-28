@@ -30,6 +30,9 @@ using GKitForWPF;
 
 namespace TaleKitEditor.UI.Windows {
 	public partial class MainWindow : Window {
+		private static Root Root => Root.Instance;
+		private static GLoopEngine LoopEngine => Root.LoopEngine;
+
 		private WorkspaceComponent[] workspaces;
 
 		//Datas
@@ -62,19 +65,12 @@ namespace TaleKitEditor.UI.Windows {
 			}
 		}
 		public void Initialize() {
-			InitializeComponent();
 			ContentRendered += MainWindow_ContentRendered;
+			InitializeComponent();
 
 			this.SetFocusableWindow();
-		}
 
-		private void MainWindow_ContentRendered(object sender, EventArgs e) {
-			InitWorkspaces();
-			RegisterEvents();
-
-			ActiveWorkspace(WorkspaceType.Ui);
-
-			ProcessDebugTask();
+			LoopEngine.AddLoopAction(OnTick);
 		}
 
 		private void InitWorkspaces() {
@@ -119,6 +115,29 @@ namespace TaleKitEditor.UI.Windows {
 			FileManagerBar.ExportButtonClick += ExportData;
 		}
 
+		// [ Event ]
+		private void MainWindow_ContentRendered(object sender, EventArgs e) {
+			InitWorkspaces();
+			RegisterEvents();
+
+			ActiveWorkspace(WorkspaceType.Ui);
+
+			ProcessDebugTask();
+		}
+		private void UiWorkspaceButton_Click(object sender, RoutedEventArgs e) {
+			ActiveWorkspace(WorkspaceType.Ui);
+		}
+		private void MotionWorkspaceButton_Click(object sender, RoutedEventArgs e) {
+			ActiveWorkspace(WorkspaceType.Motion);
+		}
+		private void StoryWorkspaceButton_Click(object sender, RoutedEventArgs e) {
+			ActiveWorkspace(WorkspaceType.Story);
+		}
+		private void SettingWorkspaceButton_Click(object sender, RoutedEventArgs e) {
+			ActiveWorkspace(WorkspaceType.ProjectSetting);
+		}
+
+		// [ Debug ]
 		private async void ProcessDebugTask() {
 #if DEBUG
 			const string ProjectPath = @"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectV\Develop\TaleKit\TestProject";
@@ -129,6 +148,15 @@ namespace TaleKitEditor.UI.Windows {
 #endif
 		}
 
+		// [ Loop ]
+		private void OnTick() {
+			if (EditingTaleData == null)
+				return;
+
+			EditingTaleData.OnTick();
+		}
+
+		// [ Manage project ]
 		public void CreateProject() {
 			if (!ShowCheckSaveDialog())
 				return;
@@ -203,6 +231,7 @@ namespace TaleKitEditor.UI.Windows {
 			return true;
 		}
 
+		// [ Manage Workspace ]
 		public void ActiveWorkspace(WorkspaceType type) {
 			DeactiveWorkspaces();
 
@@ -214,6 +243,9 @@ namespace TaleKitEditor.UI.Windows {
 			for (int i = 0; i < commonTabs.Length; ++i) {
 				AttachTab(commonTabs[i], workspace);
 			}
+
+			if (EditingTaleData == null)
+				return;
 
 			WorkspaceActived?.Invoke(workspace);
 		}
@@ -232,19 +264,8 @@ namespace TaleKitEditor.UI.Windows {
 			}
 		}
 
-		private void UiWorkspaceButton_Click(object sender, RoutedEventArgs e) {
-			ActiveWorkspace(WorkspaceType.Ui);
-		}
-		private void MotionWorkspaceButton_Click(object sender, RoutedEventArgs e) {
-			ActiveWorkspace(WorkspaceType.Motion);
-		}
-		private void StoryWorkspaceButton_Click(object sender, RoutedEventArgs e) {
-			ActiveWorkspace(WorkspaceType.Story);
-		}
-		private void SettingWorkspaceButton_Click(object sender, RoutedEventArgs e) {
-			ActiveWorkspace(WorkspaceType.ProjectSetting);
-		}
 
+		// [ Tab ]
 		private void AttachTab(UserControl tab, WorkspaceComponent workspace) {
 			// Workspace에 {Name}Context Panel이 존재하면 Reflection을 사용해 붙인다.
 

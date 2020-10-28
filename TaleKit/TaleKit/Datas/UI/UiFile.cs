@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TaleKit.Datas.Story;
 using TaleKit.Datas.UI.UiItem;
 
 namespace TaleKit.Datas.UI {
