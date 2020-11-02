@@ -108,7 +108,7 @@ namespace TaleKit.Datas.UI {
 		[ValueEditor_Margin("Margin")]
 		public GRect margin;
 
-		[ValueEditor_Vector2("Size")]
+		[ValueEditor_Vector2("Size", minValue = 0f)]
 		public UVector2 size = new UVector2(1f, 1f);
 		[ValueEditor_NumberBox("Rotation")]
 		public float rotation;
