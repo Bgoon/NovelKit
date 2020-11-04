@@ -43,16 +43,27 @@ namespace TaleKit.Datas.Story {
 			ownerTaleData.Tick += UiCacheManager.OnTick;
 		}
 
-		public bool Save(string filename) {
-			JObject jFile = ToJObject();
+		public JObject ToJObject() {
+			JObject jFile = new JObject();
 
-			// Save
-			IOUtility.SaveText(jFile.ToString(), filename);
-			return true;
+			//Add clips
+			JObject jClips = new JObject();
+			jFile.Add("Clips", jClips);
+
+			foreach (KeyValuePair<string, StoryClip> clipPair in ClipDict) {
+				JObject jClip = new JObject();
+				jClips.Add(clipPair.Key, jClip);
+
+				StoryClip clip = clipPair.Value;
+				jClip.Add(clip.ToJObject());
+			}
+
+			//Add rootClip
+			jFile.Add("RootClip", RootClip.ToJObject());
+
+			return jFile;
 		}
-		public bool Load(string filename) {
-			string jFileString = IOUtility.LoadText(filename, Encoding.UTF8);
-			JObject jFile = JObject.Parse(jFileString);
+		public bool LoadFromJson(JObject jStoryFile) {
 
 			return true;
 		}
@@ -103,25 +114,5 @@ namespace TaleKit.Datas.Story {
 			return "New object";
 		}
 
-		public JObject ToJObject() {
-			JObject jFile = new JObject();
-
-			//Add clips
-			JObject jClips = new JObject();
-			jFile.Add("Clips", jClips);
-
-			foreach (KeyValuePair<string, StoryClip> clipPair in ClipDict) {
-				JObject jClip = new JObject();
-				jClips.Add(clipPair.Key, jClip);
-
-				StoryClip clip = clipPair.Value;
-				jClip.Add(clip.ToJObject());
-			}
-
-			//Add rootClip
-			jFile.Add("RootClip", RootClip.ToJObject());
-
-			return jFile;
-		}
 	}
 }

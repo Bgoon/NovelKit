@@ -27,6 +27,7 @@ using TaleKitEditor.UI.Workspaces.CommonTabs;
 using TaleKitEditor.Workspaces.Tabs;
 using System.IO;
 using GKitForWPF;
+using GKitForWPF.UI.Windows;
 
 namespace TaleKitEditor.UI.Windows {
 	public partial class MainWindow : Window {
@@ -215,6 +216,8 @@ namespace TaleKitEditor.UI.Windows {
 			}
 
 			EditingTaleData.Save();
+
+			ToastMessage.Show("저장되었습니다.");
 		}
 		public void ExportData() {
 			if (!ShowCheckSaveDialog())

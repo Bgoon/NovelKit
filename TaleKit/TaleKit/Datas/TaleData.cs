@@ -51,7 +51,7 @@ namespace TaleKit.Datas {
 
 		public readonly bool IsEditMode;
 
-		public static TaleData FromTaleFile(string filename) {
+		public static TaleData FromTaleFile(string filename, bool isEditMode) {
 			string projectDir = Path.Combine(Path.GetDirectoryName(filename), "TaleData");
 			Directory.CreateDirectory(projectDir);
 
@@ -62,10 +62,18 @@ namespace TaleKit.Datas {
 				zip.ExtractAll(projectDir);
 			}
 
-			return FromProjectDir(projectDir);
+			return FromProjectDir(projectDir, isEditMode);
 		}
-		public static TaleData FromProjectDir(string projectDir) {
-			return null;
+		public static TaleData FromProjectDir(string projectDir, bool isEditMode) {
+			TaleData taleData = new TaleData(projectDir, isEditMode);
+			JObject jDataRoot = JObject.Parse(File.ReadAllText(taleData.DataFilename, Encoding.UTF8));
+
+			taleData.ProjectSetting.LoadFromJson((JObject)jDataRoot["ProjectSetting"]);
+			taleData.UiFile.LoadFromJson((JObject)jDataRoot["UiFile"]);
+			taleData.MotionFile.LoadFromJson((JObject)jDataRoot["MotionFile"]);
+			taleData.StoryFile.LoadFromJson((JObject)jDataRoot["StoryFile"]);
+
+			return taleData;
 		}
 		// [ Constructor ]
 		public TaleData(string projectDir, bool isEditMode) {

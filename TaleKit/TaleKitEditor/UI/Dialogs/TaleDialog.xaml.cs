@@ -31,7 +31,7 @@ namespace TaleKitEditor.UI.Dialogs {
 
 		// [ Static function ]
 		public static TaleDialog Show(FrameworkElement content) {
-			return Show(content, MouseInput.GetPositionFromWindow(MainWindow) / DPIUtility.GetDPIScale(MainWindow));
+			return Show(content, MouseInput.AbsolutePosition);
 		}
 		public static TaleDialog Show(FrameworkElement content, Vector2 talePosition) {
 			TaleDialog dialog = new TaleDialog(talePosition);
@@ -79,16 +79,9 @@ namespace TaleKitEditor.UI.Dialogs {
 		}
 
 		public void UpdateWindowPos() {
-			PresentationSource source = PresentationSource.FromVisual(MainWindow);
-			Vector2 dpiScale = new Vector2(1f, 1f);
-			if(source != null) {
-				dpiScale.x = (float)source.CompositionTarget.TransformToDevice.M11;
-				dpiScale.y = (float)source.CompositionTarget.TransformToDevice.M22;
-			}
-			
-			Vector2 mainWindowPos = new Vector2((float)MainWindow.Left, (float)(MainWindow.Top + SystemParameters.CaptionHeight * dpiScale.y));
-			Vector2 windowPos = mainWindowPos + talePosition;// / dpiScale;
-			windowPos -= (Vector2)TailShape.TranslatePoint(new System.Windows.Point((float)TailShape.ActualWidth, (float)TailShape.ActualHeight * 0.5f), this);
+			Vector2 windowPos = talePosition;
+			windowPos -= (Vector2)TailShape.TranslatePoint(
+				new Point((float)TailShape.ActualWidth, (float)TailShape.ActualHeight * 0.5f), this);
 
 			Left = windowPos.x;
 			Top = windowPos.y;

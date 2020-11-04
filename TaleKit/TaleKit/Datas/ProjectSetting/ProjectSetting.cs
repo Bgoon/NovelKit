@@ -32,5 +32,11 @@ namespace TaleKit.Datas {
 
 			return jFile;
 		}
+		public bool LoadFromJson(JObject jProjectSetting) {
+
+			this.LoadAttrFields<ValueEditorAttribute>(jProjectSetting);
+
+			return true;
+		}
 	}
 }

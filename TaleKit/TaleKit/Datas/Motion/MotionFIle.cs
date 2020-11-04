@@ -17,17 +17,13 @@ namespace TaleKit.Datas.Motion {
 			this.motionFileData = motionFile;
 		}
 
-		public bool Save(string filename) {
-			motionFileData.Save(filename);
-			return true;
-		}
-		public bool Load(string filename) {
-			motionFileData.Load(filename);
-			return true;
-		}
-
 		public JObject ToJObject() {
 			return motionFileData.ToJObject();
 		}
+		public bool LoadFromJson(JObject jMotionFile) {
+			motionFileData.LoadFromJson(jMotionFile);
+			return true;
+		}
+
 	}
 }

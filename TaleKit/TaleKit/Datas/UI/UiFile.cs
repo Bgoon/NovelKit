@@ -58,15 +58,14 @@ namespace TaleKit.Datas.UI {
 			Guid_To_RendererDict.Clear();
 		}
 
-		public bool Save(string filename) {
+		public JObject ToJObject() {
 			JObject jFile = new JObject();
+			//Add rootClip
+			jFile.Add("RootUI", UiSnapshot.ToJObject());
 
-			IOUtility.SaveText(jFile.ToString(), filename);
-			return true;
+			return jFile;
 		}
-		public bool Load(string filename) {
-			string jMotionFileString = IOUtility.LoadText(filename, Encoding.UTF8);
-			JObject jFile = JObject.Parse(jMotionFileString);
+		public bool LoadFromJson(JObject jUiFile) {
 
 			return true;
 		}
@@ -126,12 +125,5 @@ namespace TaleKit.Datas.UI {
 			ItemRemoved?.Invoke(item, parentItem);
 		}
 
-		public JObject ToJObject() {
-			JObject jFile = new JObject();
-			//Add rootClip
-			jFile.Add("RootUI", UiSnapshot.ToJObject());
-
-			return jFile;
-		}
 	}
 }
