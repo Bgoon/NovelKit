@@ -7,21 +7,19 @@ namespace TaleKit.Datas.Motion {
 
 		public DateTime exportedTime;
 
-		public PenMotion.Datas.MotionFile motionFileData;
+		public PenMotion.Datas.MotionFile motionData;
 
-		public MotionFile(TaleData ownerTaleData) {
+		public MotionFile(TaleData ownerTaleData, PenMotion.Datas.MotionFile motionData) {
 			this.OwnerTaleData = ownerTaleData;
-		}
 
-		public void SetMotionFileData(PenMotion.Datas.MotionFile motionFile) {
-			this.motionFileData = motionFile;
+			this.motionData = motionData;
 		}
 
 		public JObject ToJObject() {
-			return motionFileData.ToJObject();
+			return motionData.ToJObject();
 		}
 		public bool LoadFromJson(JObject jMotionFile) {
-			motionFileData.LoadFromJson(jMotionFile);
+			motionData.LoadFromJson(jMotionFile);
 			return true;
 		}
 

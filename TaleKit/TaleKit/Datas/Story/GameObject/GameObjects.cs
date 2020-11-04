@@ -39,8 +39,8 @@ namespace TaleKit {
 			GameObject gameObject = new GameObject(name);
 
 			RectTransform rectTransform = gameObject.AddComponent<RectTransform>();
-			rectTransform.SetHorizontalAlignment(HorizontalAlignment.Stretch);
-			rectTransform.SetVerticalAlignment(VerticalAlignment.Stretch);
+			//rectTransform.SetHorizontalAlignment(HorizontalAlignment.Stretch);
+			//rectTransform.SetVerticalAlignment(VerticalAlignment.Stretch);
 			rectTransform.sizeDelta = Vector2.zero;
 
 			return gameObject;

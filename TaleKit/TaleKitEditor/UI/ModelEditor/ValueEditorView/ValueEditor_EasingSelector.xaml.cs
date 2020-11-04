@@ -61,7 +61,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 			// Set ItemSource
 			List<string> itemList = new List<string>();
-			foreach(var motionPair in MotionFile.motionFileData.itemDict) {
+			foreach(var motionPair in MotionFile.motionData.itemDict) {
 				if(motionPair.Value.Type == PenMotion.Datas.Items.MotionItemType.Motion) {
 					itemList.Add(motionPair.Key);
 				}

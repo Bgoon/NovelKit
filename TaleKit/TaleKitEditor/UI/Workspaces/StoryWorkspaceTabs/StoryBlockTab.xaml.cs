@@ -350,8 +350,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				if (timeSec > order_UI.delaySec) {
 					float normalTime = Mathf.Clamp01(ActualTimeSec / order_UI.durationSec);
 					if(!string.IsNullOrEmpty(order_UI.easingKey)) {
-						if(EditingMotionFile.motionFileData.itemDict.ContainsKey(order_UI.easingKey)) {
-							normalTime = EditingMotionFile.motionFileData.GetMotionValue(order_UI.easingKey, normalTime);
+						if(EditingMotionFile.motionData.itemDict.ContainsKey(order_UI.easingKey)) {
+							normalTime = EditingMotionFile.motionData.GetMotionValue(order_UI.easingKey, normalTime);
 						}
 					}
 
