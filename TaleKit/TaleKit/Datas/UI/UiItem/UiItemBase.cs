@@ -134,6 +134,7 @@ namespace TaleKit.Datas.UI {
 			//Renderer = GameObject.AddComponent<CanvasRenderer>();
 		}
 		public void InitializeClone() {
+			ChildItemList = new List<UiItemBase>();
 			ChildInserted = null;
 			ChildRemoved = null;
 		}

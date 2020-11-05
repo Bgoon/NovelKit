@@ -49,8 +49,8 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 			// Register events
 			MainWindow.WorkspaceActived += MainWindow_WorkspaceActived;
+			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
 		}
-
 
 		// [ Event ]
 		private void OnLoadedOnce(object sender, RoutedEventArgs e) {
@@ -71,9 +71,11 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 		private void MainWindow_WorkspaceActived(WorkspaceComponent workspace) {
 			// Viewport 데이터를 UI에디터로 초기화
-
-			renderUiSnapshot.CopyDataFrom(EditingUiFile.UiSnapshot);
+			ResetSnapshot();
 			RenderAll();
+		}
+		private void MainWindow_ProjectUnloaded(TaleKit.Datas.TaleData taleData) {
+			RendererContext.Children.Remove(rootRenderer);
 		}
 
 		// Viewport
@@ -96,7 +98,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			ScrollToCenter();
 		}
 		private void UiFile_ItemCreated(UiItemBase item, UiItemBase parentItem) {
-			// Manage renderUi
+			// Manage renderUI
 			UiItemBase renderUi;
 			if (parentItem == null) {
 				renderUi = renderUiSnapshot.rootUiItem = item.Clone() as UiItemBase;
@@ -166,6 +168,9 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		} 
 
 		// [ Render ]
+		public void ResetSnapshot() {
+			renderUiSnapshot.CopyDataFrom(EditingUiFile.UiSnapshot);
+		}
 		public void RenderAll() {
 			UiRenderer renderer = GetRenderer(renderUiSnapshot.rootUiItem);
 

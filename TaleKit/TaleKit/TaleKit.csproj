@@ -97,6 +97,7 @@
     <Compile Include="Datas\Story\StoryFile.cs" />
     <Compile Include="Datas\Story\UiCache\UiCacheManager.cs" />
     <Compile Include="Datas\TaleData.cs" />
+    <Compile Include="Datas\TaleDataInitArgs.cs" />
     <Compile Include="Datas\UI\UiItemType.cs" />
     <Compile Include="Datas\UI\UiItem\UiText.cs" />
     <Compile Include="Datas\UI\UiItem\UiPanel.cs" />

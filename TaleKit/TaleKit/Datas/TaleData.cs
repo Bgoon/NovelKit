@@ -51,7 +51,7 @@ namespace TaleKit.Datas {
 
 		public readonly bool IsEditMode;
 
-		public static TaleData FromTaleFile(string filename, bool isEditMode, PenMotion.Datas.MotionFile motionData) {
+		public static TaleData FromTaleFile(string filename, TaleDataInitArgs initArgs) {
 			string projectDir = Path.Combine(Path.GetDirectoryName(filename), "TaleData");
 			Directory.CreateDirectory(projectDir);
 
@@ -62,10 +62,16 @@ namespace TaleKit.Datas {
 				zip.ExtractAll(projectDir);
 			}
 
-			return FromProjectDir(projectDir, isEditMode, motionData);
+			return FromProjectDir(projectDir, initArgs);
 		}
-		public static TaleData FromProjectDir(string projectDir, bool isEditMode, PenMotion.Datas.MotionFile motionData) {
-			TaleData taleData = new TaleData(projectDir, isEditMode, motionData);
+		public static TaleData FromProjectDir(string projectDir, TaleDataInitArgs initArgs) {
+			initArgs.createRootUIItem = false;
+			initArgs.isEditMode = true;
+
+			TaleData taleData = new TaleData(projectDir, initArgs);
+
+			initArgs.projectLoadedTask?.Invoke(taleData);
+
 			JObject jDataRoot = JObject.Parse(File.ReadAllText(taleData.DataFilename, Encoding.UTF8));
 
 			taleData.ProjectSetting.LoadFromJson((JObject)jDataRoot["ProjectSetting"]);
@@ -75,15 +81,16 @@ namespace TaleKit.Datas {
 
 			return taleData;
 		}
+
 		// [ Constructor ]
-		public TaleData(string projectDir, bool isEditMode, PenMotion.Datas.MotionFile motionData) {
+		public TaleData(string projectDir, TaleDataInitArgs initArgs) {
 			this.ProjectDir = IOUtility.NormalizePath(projectDir);
-			this.IsEditMode = isEditMode;
+			this.IsEditMode = initArgs.isEditMode;
 
 			AssetManager = new AssetManager(this);
 
-			MotionFile = new MotionFile(this, motionData);
-			UiFile = new UiFile(this);
+			MotionFile = new MotionFile(this, initArgs.targetMotionData);
+			UiFile = new UiFile(this, initArgs.createRootUIItem);
 			StoryFile = new StoryFile(this);
 			ProjectSetting = new ProjectSetting(this);
 
@@ -91,7 +98,7 @@ namespace TaleKit.Datas {
 
 			AssetManager.ReloadMetas();
 
-			if (isEditMode) {
+			if (initArgs.isEditMode) {
 				AssetManager.StartWatchAssetDir();
 			}
 		}

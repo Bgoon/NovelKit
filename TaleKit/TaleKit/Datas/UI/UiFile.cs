@@ -1,10 +1,12 @@
-﻿using GKitForUnity;
+﻿using GKit.Json;
+using GKitForUnity;
 using GKitForUnity.Data;
 using GKitForUnity.IO;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.Story;
 using TaleKit.Datas.UI.UiItem;
 
@@ -65,12 +67,30 @@ namespace TaleKit.Datas.UI {
 
 			return jFile;
 		}
-		public bool LoadFromJson(JObject jUiFile) {
+		public bool LoadFromJson(JToken jUIFile) {
+			LoadUIItem(jUIFile["RootUI"], null);
+			
+			void LoadUIItem(JToken jUIItem, UiItemBase parentUIItem) {
+				JToken jUIItemAttr = jUIItem["Attributes"];
+				UiItemType itemType = jUIItemAttr["itemType"].ToObject<UiItemType>();
+				string guid = jUIItemAttr["guid"].ToObject<string>();
+
+				UiItemBase UIItem = CreateUiItem(parentUIItem, itemType, guid);
+				UIItem.LoadAttrFields<ValueEditorAttribute>(jUIItemAttr.ToObject<JObject>());
+
+				JArray jChildUIItems = jUIItem["Childs"] as JArray;
+				foreach (JObject jChildUIItem in jChildUIItems) {
+					LoadUIItem(jChildUIItem, UIItem);
+				}
+			}
 
 			return true;
 		}
 
-		public UiItemBase CreateUiItem(UiItemBase parentUiItem, UiItemType itemType) {
+		/// <summary>
+		/// If parentUiItem is null, create root
+		/// </summary>
+		public UiItemBase CreateUiItem(UiItemBase parentUIItem, UiItemType itemType, string guid = null) {
 
 			UiItemBase item;
 			switch (itemType) {
@@ -84,20 +104,24 @@ namespace TaleKit.Datas.UI {
 					TextList.Add(item as UiText);
 					break;
 			}
+			if(!string.IsNullOrEmpty(guid)) {
+				item.guid = guid;
+			}
+
 			UiSnapshot.RegisterUiItem(item.guid, item);
 
 			// Add to collection
-			ItemCreatedPreview?.Invoke(item, parentUiItem);
+			ItemCreatedPreview?.Invoke(item, parentUIItem);
 
-			if (parentUiItem == null) {
+			if (parentUIItem == null) {
 				UiSnapshot.rootUiItem = item;
 			} else {
 				UiItemList.Add(item);
 
-				parentUiItem.AddChildItem(item);
+				parentUIItem.AddChildItem(item);
 			}
 
-			ItemCreated?.Invoke(item, parentUiItem);
+			ItemCreated?.Invoke(item, parentUIItem);
 
 			return item;
 		}

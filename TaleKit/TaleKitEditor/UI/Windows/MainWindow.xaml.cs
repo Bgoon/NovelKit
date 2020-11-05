@@ -171,18 +171,26 @@ namespace TaleKitEditor.UI.Windows {
 			CreateProject(dialog.FileName);
 		}
 		public void CreateProject(string projectDir) {
+			CloseFile();
+
 			try {
-				EditingTaleData = new TaleData(projectDir, true, MotionWorkspace.EditorContext.EditingFile);
+				TaleDataInitArgs initArgs = new TaleDataInitArgs() {
+					targetMotionData = MotionWorkspace.EditorContext.EditingFile,
+					isEditMode = true,
+				};
+				EditingTaleData = new TaleData(projectDir, initArgs);
 			} catch (Exception ex) {
 				ToastMessage.Show(
-					$"파일을 여는 데 실패했습니다.{Environment.NewLine}" +
+					$"파일을 생성하는 데 실패했습니다.{Environment.NewLine}" +
 					$"{ex}");
 				return;
 			}
 
-			ProjectLoadedTask();
+			ProjectLoadedTask(EditingTaleData);
 		}
 		public void CloseFile() {
+			if (EditingTaleData == null)
+				return;
 
 			ProjectUnloaded?.Invoke(EditingTaleData);
 
@@ -199,9 +207,17 @@ namespace TaleKitEditor.UI.Windows {
 			if (dialog.ShowDialog(this) != CommonFileDialogResult.Ok)
 				return;
 
-			EditingTaleData = TaleData.FromProjectDir(dialog.FileName, true, MotionWorkspace.EditorContext.EditingFile);
+			CloseFile();
 
-			ProjectLoadedTask();
+			TaleDataInitArgs initArgs = new TaleDataInitArgs() {
+				targetMotionData = MotionWorkspace.EditorContext.EditingFile,
+				isEditMode = true,
+				projectLoadedTask = ProjectLoadedTask,
+			};
+			EditingTaleData = TaleData.FromProjectDir(dialog.FileName, initArgs);
+
+			ViewportTab.ResetSnapshot();
+			ViewportTab.RenderAll();
 		}
 		public void SaveFile() {
 			if(string.IsNullOrEmpty(EditingTaleData.ProjectDir)) {
@@ -234,8 +250,10 @@ namespace TaleKitEditor.UI.Windows {
 			return true;
 		}
 
-		private void ProjectLoadedTask() {
-			ProjectLoaded?.Invoke(EditingTaleData);
+		private void ProjectLoadedTask(TaleData taleData) {
+			EditingTaleData = taleData;
+
+			ProjectLoaded?.Invoke(taleData);
 
 			EditingTaleData.PostInit();
 
