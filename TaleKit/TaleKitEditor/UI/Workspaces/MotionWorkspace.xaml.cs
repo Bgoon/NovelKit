@@ -15,20 +15,26 @@ using System.Windows.Shapes;
 using GKitForWPF;
 using GKitForWPF;
 using GKitForWPF.Resources;
+using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.Workspaces {
 	/// <summary>
 	/// MotionEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class MotionWorkspace : UserControl {
+		private static Root Root => Root.Instance;
+		private static MainWindow MainWindow => Root.MainWindow;
+
 		public MotionWorkspace() {
 			InitializeComponent();
 			if (this.IsDesignMode())
 				return;
 
-			Init();
+			MainWindow.BeforeProjectLoad += MainWindow_BeforeProjectLoad;
 		}
-		private void Init() {
+
+		private void MainWindow_BeforeProjectLoad() {
+			EditorContext.CloseFile(false);
 			EditorContext.CreateFile();
 		}
 	}

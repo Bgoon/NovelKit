@@ -57,6 +57,7 @@ namespace TaleKitEditor.UI.Windows {
 		private INeedPostInitTab[] needPostInitTabs;
 
 		public event Action<WorkspaceComponent> WorkspaceActived;
+		public event Action BeforeProjectLoad;
 		public event Action<TaleData> ProjectLoaded;
 		public event Action<TaleData> ProjectUnloaded;
 
@@ -174,11 +175,15 @@ namespace TaleKitEditor.UI.Windows {
 			CloseFile();
 
 			try {
+				BeforeProjectLoad?.Invoke();
+
 				TaleDataInitArgs initArgs = new TaleDataInitArgs() {
 					targetMotionData = MotionWorkspace.EditorContext.EditingFile,
 					isEditMode = true,
 				};
 				EditingTaleData = new TaleData(projectDir, initArgs);
+				
+				ProjectLoadedTask(EditingTaleData);
 			} catch (Exception ex) {
 				ToastMessage.Show(
 					$"파일을 생성하는 데 실패했습니다.{Environment.NewLine}" +
@@ -186,13 +191,13 @@ namespace TaleKitEditor.UI.Windows {
 				return;
 			}
 
-			ProjectLoadedTask(EditingTaleData);
 		}
 		public void CloseFile() {
 			if (EditingTaleData == null)
 				return;
 
 			ProjectUnloaded?.Invoke(EditingTaleData);
+			MotionWorkspace.EditorContext.CloseFile(false);
 
 			EditingTaleData.Dispose();
 			EditingTaleData = null;
@@ -209,6 +214,8 @@ namespace TaleKitEditor.UI.Windows {
 
 			CloseFile();
 
+			BeforeProjectLoad?.Invoke();
+
 			TaleDataInitArgs initArgs = new TaleDataInitArgs() {
 				targetMotionData = MotionWorkspace.EditorContext.EditingFile,
 				isEditMode = true,
@@ -216,6 +223,8 @@ namespace TaleKitEditor.UI.Windows {
 			};
 			EditingTaleData = TaleData.FromProjectDir(dialog.FileName, initArgs);
 
+			// Render all elements
+			MotionWorkspace.EditorContext.MotionTab.UpdateItemPreviews();
 			ViewportTab.ResetSnapshot();
 			ViewportTab.RenderAll();
 		}
