@@ -44,17 +44,14 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			if (this.IsDesignMode())
 				return;
 
-			InitMembers();
-			RegisterEvents();
-
-			SelectionChanged();
-		}
-		private void InitMembers() {
+			// Init
 			orderToEditorViewDict = new Dictionary<OrderBase, OrderItemEditorView>();
-		}
-		private void RegisterEvents() {
+			
+			// Register events
 			StoryBlockTab.StoryBlockTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
 			StoryBlockTab.StoryBlockTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
+
+			SelectionChanged();
 		}
 
 		// [ Event ]
@@ -68,7 +65,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void AddOrderButton_Click(object sender, RoutedEventArgs e) {
-			AddOrderPanel.ShowDialog(EditingBlock, (Vector2)AddOrderButton.TranslatePoint(new Point(10f, (float)AddOrderButton.ActualHeight * 0.5f), MainWindow));
+			AddOrderPanel.ShowDialog(EditingBlock, (Vector2)AddOrderButton.GetAbsolutePosition(new Point(10f, (float)AddOrderButton.ActualHeight * 0.5f)));
 		}
 
 		private void EditingBlock_OrderAdded(OrderBase order) {
@@ -127,6 +124,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			if (blockItem == null)
 				return;
 
+
+			ModelEditorUtility.CreateOrderEditorView(blockItem, StoryBlockEditorViewContext);
 			foreach (OrderBase order in blockItem.OrderList) {
 				EditingBlock_OrderAdded(order);
 			}
@@ -138,7 +137,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			if (EditingBlock == null)
 				return;
 
-			foreach(OrderBase order in EditingBlock.OrderList) {
+			foreach (OrderBase order in EditingBlock.OrderList) {
 				EditingBlock_OrderRemoved(order);
 			}
 
@@ -148,6 +147,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			this.EditingBlock = null;
 
+			StoryBlockEditorViewContext.Children.Clear();
 			OrderEditorViewContext.Children.Clear();
 		}
 

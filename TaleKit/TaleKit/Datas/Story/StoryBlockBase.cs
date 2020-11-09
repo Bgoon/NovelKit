@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
+using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
 
 namespace TaleKit.Datas.Story {
-	public abstract class StoryBlockBase {
+	public abstract class StoryBlockBase : EditableModel {
 		public readonly StoryFile OwnerFile;
 
 		public bool IsRoot => ParentItem == null;

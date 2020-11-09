@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs"
+			 xmlns:ModelEditors="clr-namespace:TaleKitEditor.UI.ModelEditor"
              mc:Ignorable="d" 
              d:DesignWidth="300" d:DesignHeight="500">
 	<Grid>
@@ -19,8 +19,9 @@
 			<!--Order Editor-->
 			<ScrollViewer>
 				<StackPanel>
-					<StackPanel Name="OrderEditorViewContext">
-					</StackPanel>
+					<StackPanel Name="StoryBlockEditorViewContext"></StackPanel>
+					<ModelEditors:ItemSeparator/>
+					<StackPanel Name="OrderEditorViewContext"></StackPanel>
 					<Button Name="AddOrderButton" Style="{StaticResource FlatButton}" Height="34" Background="#545454"
 						Click="AddOrderButton_Click">
 						<Polygon Fill="#BABABA" Points="16,6 10,6 10,0 6,0 6,6 0,6 0,10 6,10 6,16 10,16 10,10 16,10 "/>

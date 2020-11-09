@@ -64,6 +64,9 @@ namespace TaleKit.Datas.Story {
 			return jFile;
 		}
 		public bool LoadFromJson(JObject jStoryFile) {
+			
+			//RootClip.LoadFromJson()
+
 
 			return true;
 		}

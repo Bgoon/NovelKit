@@ -1,17 +1,16 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
+using GKit.Json;
 
 namespace TaleKit.Datas.Story {
-	public enum StoryBlockTrigger {
-		Auto,
-		Click,
-	}
 	public class StoryBlock : StoryBlockBase {
 		public event Action<OrderBase> OrderAdded;
 		public event Action<OrderBase> OrderRemoved;
 
+		// Status
 		public string DisplayName {
 			get; set;
 		}
@@ -29,9 +28,15 @@ namespace TaleKit.Datas.Story {
 			}
 		}
 
+		// Data
+		[ValueEditor_EnumComboBox("트리거")]
+		public StoryBlockTrigger passTrigger;
+
 		// [ Constructor ]
 		public StoryBlock(StoryFile ownerFile) : base(ownerFile, StoryBlockType.StoryBlock) {
 			OrderList = new List<OrderBase>();
+
+			passTrigger = StoryBlockTrigger.Click;
 		}
 
 		// [ Event ]
@@ -75,6 +80,10 @@ namespace TaleKit.Datas.Story {
 		// [ Serialize ]
 		public override JObject ToJObject() {
 			JObject jBlock = new JObject();
+
+			JObject jAttributes = new JObject();
+			jBlock.Add("Attributes", jAttributes);
+			jAttributes.AddAttrFields<ValueEditorAttribute>(this);
 
 			//Add components
 			JArray jOrders = new JArray();
