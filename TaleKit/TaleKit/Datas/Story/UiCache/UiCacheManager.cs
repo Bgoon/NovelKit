@@ -49,29 +49,33 @@ namespace TaleKit.Datas.Story {
 
 		public void CreateCache(int cacheCount) {
 			UiSnapshot cacheSnapshot = null;
-			UiSnapshot lastBlockCache = null;
+			int lastCacheBlockIndex = 0;
 
 			StoryClip targetClip = TargetClipAuto;
 
-			for (int blockI = 0; blockI < targetClip.ChildItemList.Count; ++blockI) {
+
+			// Find last cache
+			for(int blockI = targetClip.ChildItemList.Count-1; blockI>=0; --blockI) {
 				StoryBlockBase block = targetClip.ChildItemList[blockI];
 
-				// Skip block exists cache
-				if(block.HasUiCache) {
-					lastBlockCache = block.UiCacheSnapshot;
-					continue;
+				if (block.HasUiCache) {
+					cacheSnapshot = block.UiCacheSnapshot.Clone();
+					lastCacheBlockIndex = blockI;
+					return;
 				}
+			}
+			if(cacheSnapshot == null) {
+				cacheSnapshot = UiFile.UiSnapshot.Clone();
+			}
 
-				if(cacheSnapshot == null) {
-					if(lastBlockCache == null) {
-						cacheSnapshot = UiFile.UiSnapshot.Clone();
-					} else {
-						cacheSnapshot = lastBlockCache.Clone();
-					}
-				}
+			// Simulate blocks and save cache
+			for (int blockI = lastCacheBlockIndex; blockI < targetClip.ChildItemList.Count; ++blockI) {
+				StoryBlockBase block = targetClip.ChildItemList[blockI];
 
 				// Apply orders
-				cacheSnapshot.ApplyStoryBlockBase(block);
+				if(block.isVisible) {
+					cacheSnapshot.ApplyStoryBlockBase(block);
+				}
 
 				// Save cache
 				if (blockI % CacheInterval == 0) {
@@ -85,14 +89,27 @@ namespace TaleKit.Datas.Story {
 				}
 			}
 		}
+		public void ClearCacheAll() {
+			StoryClip targetClip = TargetClipAuto;
+			for (int i = 0; i < targetClip.ChildItemList.Count; ++i) {
+				StoryBlockBase block = targetClip.ChildItemList[i];
+
+				block.DeleteCache();
+			}
+		}
 		public void ClearCacheAfterBlock(StoryBlockBase targetBlock) {
 			StoryClip targetClip = TargetClipAuto;
-			int index = TargetClipAuto.ChildItemList.IndexOf(targetBlock);
+			int index = targetClip.ChildItemList.IndexOf(targetBlock);
 			if (index < 0)
 				return;
 
-			Console.WriteLine($"CacheCleared index : {index}");
-			for (int i = index; i < targetClip.ChildItemList.Count; ++i) {
+			ClearCacheAfterBlock(index);
+		}
+		public void ClearCacheAfterBlock(int targetBlockIndex) {
+			StoryClip targetClip = TargetClipAuto;
+
+			Console.WriteLine($"CacheCleared index : {targetBlockIndex}");
+			for (int i = targetBlockIndex; i < targetClip.ChildItemList.Count; ++i) {
 				StoryBlockBase block = targetClip.ChildItemList[i];
 
 				block.DeleteCache();

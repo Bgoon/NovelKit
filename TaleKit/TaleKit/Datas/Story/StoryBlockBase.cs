@@ -6,12 +6,12 @@ namespace TaleKit.Datas.Story {
 	public abstract class StoryBlockBase : EditableModel {
 		public readonly StoryFile OwnerFile;
 
-		public bool IsRoot => ParentItem == null;
-		public StoryClip ParentItem {
+		public bool IsRoot => ParentClip == null;
+		public StoryClip ParentClip {
 			get; internal set;
 		}
 		public readonly StoryBlockType Type;
-		
+
 		// Ui Cache
 		public bool HasUiCache => UiCacheSnapshot != null;
 		public UiSnapshot UiCacheSnapshot {
@@ -22,6 +22,7 @@ namespace TaleKit.Datas.Story {
 		public StoryBlockBase(StoryFile ownerFile, StoryBlockType type) {
 			this.OwnerFile = ownerFile;
 			this.Type = type;
+			this.isVisible = true;
 		}
 
 		// Cache
@@ -33,7 +34,9 @@ namespace TaleKit.Datas.Story {
 		}
 
 		// Serialize
-		public abstract JObject ToJObject();
+		public virtual JObject ToJObject() {
+			
+		}
 
 	}
 }

@@ -71,7 +71,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 			UpdateUI();
 		}
 		private void ButtonContext_OnClick() {
-			Vector2 windowTailPos = (Vector2)this.TranslatePoint(new Point(5f, (float)ActualHeight * 0.5f), MainWindow);
+			Vector2 windowTailPos = (Vector2)this.GetAbsolutePosition(new Point(5f, (float)ActualHeight * 0.5f));
 
 			ColorPickerPanel colorPicker = ColorPickerPanel.ShowDialog(Value, windowTailPos);
 			colorPicker.ValueChanged += Dialog_ValueChanged;

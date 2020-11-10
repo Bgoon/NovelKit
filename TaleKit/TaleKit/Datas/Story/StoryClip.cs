@@ -22,13 +22,13 @@ namespace TaleKit.Datas.Story {
 		}
 		public void InsertChildItem(int index, StoryBlockBase item) {
 			ChildItemList.Insert(index, item);
-			item.ParentItem = this;
+			item.ParentClip = this;
 
 			ChildInserted?.Invoke(index, item);
 		}
 		public void RemoveChildItem(StoryBlockBase item) {
 			ChildItemList.Remove(item);
-			item.ParentItem = null;
+			item.ParentClip = null;
 
 			ChildRemoved?.Invoke(item, this);
 		}

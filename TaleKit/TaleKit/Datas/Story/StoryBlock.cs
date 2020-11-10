@@ -29,6 +29,8 @@ namespace TaleKit.Datas.Story {
 		}
 
 		// Data
+		[SavableField]
+		public bool isVisible;
 		[ValueEditor_EnumComboBox("트리거")]
 		public StoryBlockTrigger passTrigger;
 

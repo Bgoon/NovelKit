@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="TaleKitEditor.Resources.VectorImages.VisibleIcon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Width="24" Height="24" Background="Transparent">
+	<UserControl.Resources>
+		<SolidColorBrush x:Key="IconColor" Color="#CCFFFFFF"></SolidColorBrush>
+	</UserControl.Resources>
+	<Grid>
+		<Ellipse Fill="{StaticResource IconColor}" Margin="0" Width="4.2" Height="4.2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<Path Fill="{StaticResource IconColor}" Data="M8.2,0C3.1,0,0,5,0,5s2.4,5,8.2,5s8.2-5,8.2-5S13.3,0,8.2,0z M8.2,8.6C6.2,8.6,4.6,7,4.6,5s1.6-3.6,3.6-3.6
+  s3.6,1.6,3.6,3.6S10.1,8.6,8.2,8.6z" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	</Grid>
+</UserControl>

@@ -62,6 +62,7 @@
     <Compile Include="Datas\ModelEditor\EditableModel.cs" />
     <Compile Include="Datas\ModelEditor\IKeyFrameModel.cs" />
     <Compile Include="Datas\ModelEditor\IReadOnlyValue.cs" />
+    <Compile Include="Datas\ModelEditor\SavableFieldAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditorComponent_FilePreviewAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditorComponent_ItemSeparatorAttribute.cs" />
     <Compile Include="Datas\ModelEditor\ValueEditorLayout.cs" />
@@ -150,7 +151,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Datas\Struct\" />
-    <Folder Include="NewFolder1\" />
     <Folder Include="Utility\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

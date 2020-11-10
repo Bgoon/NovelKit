@@ -168,12 +168,16 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 				UiItemView childItemView = childItem.View as UiItemView;
 				itemView.ChildItemCollection.Remove(childItemView);
 			}
+
+			UITreeChanged();
 		}
 		private void UiFile_ItemRemoved(UiItemBase item, UiItemBase parentItem) {
 			//Remove view	
 			UiItemView itemView = item.View as UiItemView;
 			UiTreeView.NotifyItemRemoved(itemView);
 			itemView.DetachParent();
+
+			UITreeChanged();
 		}
 
 		private void UiTreeView_ItemMoved(ITreeItem itemView, ITreeFolder oldParentView, ITreeFolder newParentView, int index) {
@@ -188,6 +192,8 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			newParentItem.InsertChildItem(index, item);
 
 			ItemMoved?.Invoke(item, newParentItem, oldParentItemView.Data, index);
+
+			UITreeChanged();
 		}
 
 		private void SelectedItemSet_SelectionAdded(ISelectable item) {
@@ -212,6 +218,11 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 			itemView.Data.ModelUpdated += ViewportTab.UiItemDetailPanel_UiItemValueChanged;
 		}
+
+		private void UITreeChanged() {
+			EditingUiFile.OwnerTaleData.StoryFile.UiCacheManager.ClearCacheAll();
+		}
+
 
 		private void UpdateRendererFocusBoxVisible() {
 			ClearFocusBoxVisible();

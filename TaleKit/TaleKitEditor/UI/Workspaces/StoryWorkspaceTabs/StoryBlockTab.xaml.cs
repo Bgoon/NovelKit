@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using TaleKit.Datas;
 using TaleKit.Datas.Story;
 using TaleKitEditor.UI.Windows;
-using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBoardElements;
+using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBlocks;
 using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
 using GKitForWPF;
 using GKitForWPF.UI.Controls;
@@ -194,6 +194,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				int cacheIndex = -1;
 				for(int blockI=lastBlockIndex-1; blockI>=0; --blockI) {
 					StoryBlockBase block = editingClip.ChildItemList[blockI];
+
 					if(block.HasUiCache) {
 						snapshot = block.UiCacheSnapshot.Clone();
 						cacheIndex = blockI;
@@ -206,6 +207,9 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				// Apply orders
 				for (int blockI = cacheIndex + 1; blockI <= lastBlockIndex; ++blockI) {
 					StoryBlockBase block = editingClip.ChildItemList[blockI];
+					if (!block.isVisible)
+						continue;
+
 					snapshot.ApplyStoryBlockBase(block);
 				}
 				foreach(UiItemBase UiItem in snapshot.GetUiItems()) {
@@ -214,33 +218,36 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				}
 				// Play the motion
 				{
-					StoryBlockBase blockBase = EditingStoryFile.RootClip.ChildItemList[lastBlockIndex];
-					switch (blockBase.Type) {
-						case StoryBlockType.StoryBlock:
-							foreach (OrderBase order in (blockBase as StoryBlock).OrderList) {
-								if (order.OrderType == OrderType.UI) {
-									Order_UI order_UI = order as Order_UI;
+					StoryBlockBase lastBlock = EditingStoryFile.RootClip.ChildItemList[lastBlockIndex];
 
-									if (string.IsNullOrEmpty(order_UI.targetUiGuid))
-										continue;
+					if (lastBlock.isVisible) {
+						switch (lastBlock.Type) {
+							case StoryBlockType.StoryBlock:
+								foreach (OrderBase order in (lastBlock as StoryBlock).OrderList) {
+									if (order.OrderType == OrderType.UI) {
+										Order_UI order_UI = order as Order_UI;
 
-									UiItemBase UiItem = EditingUiFile.UiSnapshot.GetUiItem(order_UI.targetUiGuid);
+										if (string.IsNullOrEmpty(order_UI.targetUiGuid))
+											continue;
 
-									if (UiItem == null)
-										continue;
+										UiItemBase UiItem = EditingUiFile.UiSnapshot.GetUiItem(order_UI.targetUiGuid);
 
-									UiRenderer renderer = EditingUiFile.Guid_To_RendererDict[UiItem.guid] as UiRenderer;
+										if (UiItem == null)
+											continue;
 
-									if (playMotion) {
-										StartMotion(UiItem, renderer, order_UI);
-									} else {
-										ApplyOrderToRendererImmediately(renderer, order_UI);
+										UiRenderer renderer = EditingUiFile.Guid_To_RendererDict[UiItem.guid] as UiRenderer;
+
+										if (playMotion) {
+											StartMotion(UiItem, renderer, order_UI);
+										} else {
+											ApplyOrderToRendererImmediately(renderer, order_UI);
+										}
 									}
 								}
-							}
-							break;
-						case StoryBlockType.StoryClip:
-							break;
+								break;
+							case StoryBlockType.StoryClip:
+								break;
+						}
 					}
 				}
 			}

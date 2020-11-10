@@ -107,7 +107,7 @@ namespace TaleKit.Datas.Story {
 				}
 			}
 
-			StoryClip parentItem = item.ParentItem;
+			StoryClip parentItem = item.ParentClip;
 			parentItem.ChildItemList.Remove(item);
 
 			ItemRemoved?.Invoke(item, parentItem);

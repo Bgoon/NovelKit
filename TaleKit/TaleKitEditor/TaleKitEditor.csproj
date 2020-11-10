@@ -156,6 +156,9 @@
     <Compile Include="Resources\VectorImages\ColorSelectDialog\ColorDiffArrow.xaml.cs">
       <DependentUpon>ColorDiffArrow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\VectorImages\VisibleIcon.xaml.cs">
+      <DependentUpon>VisibleIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\VectorImages\LayoutIcon\LayoutIcon_Setting.xaml.cs">
       <DependentUpon>LayoutIcon_Setting.xaml</DependentUpon>
     </Compile>
@@ -309,7 +312,7 @@
     <Compile Include="UI\ModelEditor\ValueEditorView.xaml.cs">
       <DependentUpon>ValueEditorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\StoryBoardElements\StoryBlockView.xaml.cs">
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\StoryBlocks\StoryBlockView.xaml.cs">
       <DependentUpon>StoryBlockView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\MotionWorkspace.xaml.cs">
@@ -436,6 +439,10 @@
     <Page Include="Resources\VectorImages\ColorSelectDialog\ColorDiffArrow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\VectorImages\VisibleIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\VectorImages\LayoutIcon\LayoutIcon_Setting.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -633,7 +640,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryWorkspaceTabs\StoryBoardElements\StoryBlockView.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\StoryBlocks\StoryBlockView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
