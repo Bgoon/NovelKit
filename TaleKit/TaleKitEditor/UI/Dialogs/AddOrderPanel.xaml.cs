@@ -11,7 +11,7 @@ using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
 
 namespace TaleKitEditor.UI.Dialogs {
 	public partial class AddOrderPanel : UserControl {
-		public StoryBlock OwnerBlock {
+		public StoryBlock_Item OwnerBlock {
 			get; private set;
 		}
 
@@ -19,7 +19,7 @@ namespace TaleKitEditor.UI.Dialogs {
 
 		private OrderTypeItemView[] itemViews;
 
-		public static AddOrderPanel ShowDialog(StoryBlock ownerBlock, Vector2 talePosition) {
+		public static AddOrderPanel ShowDialog(StoryBlock_Item ownerBlock, Vector2 talePosition) {
 			AddOrderPanel panel = new AddOrderPanel(ownerBlock);
 			TaleDialog dialog = TaleDialog.Show(panel, talePosition);
 			panel.ItemClick += dialog.Close;
@@ -31,7 +31,7 @@ namespace TaleKitEditor.UI.Dialogs {
 		internal AddOrderPanel() {
 			InitializeComponent();
 		}
-		public AddOrderPanel(StoryBlock ownerBlock) {
+		public AddOrderPanel(StoryBlock_Item ownerBlock) {
 			InitializeComponent();
 			this.OwnerBlock = ownerBlock;
 

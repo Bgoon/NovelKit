@@ -94,7 +94,8 @@
     <Compile Include="Datas\Story\StoryBlockTrigger.cs" />
     <Compile Include="Datas\Story\StoryBlockType.cs" />
     <Compile Include="Datas\Story\StoryClip.cs" />
-    <Compile Include="Datas\Story\StoryBlock.cs" />
+    <Compile Include="Datas\Story\StoryBlock_Clip.cs" />
+    <Compile Include="Datas\Story\StoryBlock_Item.cs" />
     <Compile Include="Datas\Story\StoryBlockBase.cs" />
     <Compile Include="Datas\Story\StoryFile.cs" />
     <Compile Include="Datas\Story\UiCache\UiCacheManager.cs" />

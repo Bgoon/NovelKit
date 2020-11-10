@@ -16,7 +16,7 @@ namespace TaleKit.Datas.Story {
 		protected static TaleKitClient Client => TaleKitClient.Instance;
 		protected static GLoopEngine LoopEngine => Client.LoopEngine;
 
-		public StoryBlock OwnerBlock {
+		public StoryBlock_Item OwnerBlock {
 			get; private set;
 		}
 
@@ -30,7 +30,7 @@ namespace TaleKit.Datas.Story {
 
 
 		// [ Constructor ]
-		public OrderBase(StoryBlock ownerBlock) {
+		public OrderBase(StoryBlock_Item ownerBlock) {
 			this.OwnerBlock = ownerBlock;
 		}
 

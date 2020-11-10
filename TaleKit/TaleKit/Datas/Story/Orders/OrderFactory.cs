@@ -2,7 +2,7 @@
 
 namespace TaleKit.Datas.Story {
 	public static class OrderFactory {
-		public static OrderBase CreateOrder(StoryBlock ownerBlock, OrderType orderType) {
+		public static OrderBase CreateOrder(StoryBlock_Item ownerBlock, OrderType orderType) {
 			switch (orderType) {
 				case OrderType.UI:
 					return new Order_UI(ownerBlock);

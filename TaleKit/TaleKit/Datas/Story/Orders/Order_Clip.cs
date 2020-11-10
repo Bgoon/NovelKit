@@ -9,7 +9,7 @@ namespace TaleKit.Datas.Story {
 
 		public override OrderType OrderType => OrderType.Clip;
 
-		public Order_Clip(StoryBlock ownerBlock) : base(ownerBlock) {
+		public Order_Clip(StoryBlock_Item ownerBlock) : base(ownerBlock) {
 
 		}
 

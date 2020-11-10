@@ -34,7 +34,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		private Dictionary<OrderBase, OrderItemEditorView> orderToEditorViewDict;
 
-		public StoryBlock EditingBlock {
+		public StoryBlock_Item EditingBlock {
 			get; private set;
 		}
 
@@ -117,7 +117,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		// [ Control ]
-		public void AttachBlock(StoryBlock blockItem) {
+		public void AttachBlock(StoryBlock_Item blockItem) {
 			DetachBlock();
 			this.EditingBlock = blockItem;
 

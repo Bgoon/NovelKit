@@ -55,8 +55,8 @@ namespace TaleKit.Datas.Story {
 
 
 			// Find last cache
-			for(int blockI = targetClip.ChildItemList.Count-1; blockI>=0; --blockI) {
-				StoryBlockBase block = targetClip.ChildItemList[blockI];
+			for(int blockI = targetClip.BlockItemList.Count-1; blockI>=0; --blockI) {
+				StoryBlockBase block = targetClip.BlockItemList[blockI];
 
 				if (block.HasUiCache) {
 					cacheSnapshot = block.UiCacheSnapshot.Clone();
@@ -69,8 +69,8 @@ namespace TaleKit.Datas.Story {
 			}
 
 			// Simulate blocks and save cache
-			for (int blockI = lastCacheBlockIndex; blockI < targetClip.ChildItemList.Count; ++blockI) {
-				StoryBlockBase block = targetClip.ChildItemList[blockI];
+			for (int blockI = lastCacheBlockIndex; blockI < targetClip.BlockItemList.Count; ++blockI) {
+				StoryBlockBase block = targetClip.BlockItemList[blockI];
 
 				// Apply orders
 				if(block.isVisible) {
@@ -91,15 +91,15 @@ namespace TaleKit.Datas.Story {
 		}
 		public void ClearCacheAll() {
 			StoryClip targetClip = TargetClipAuto;
-			for (int i = 0; i < targetClip.ChildItemList.Count; ++i) {
-				StoryBlockBase block = targetClip.ChildItemList[i];
+			for (int i = 0; i < targetClip.BlockItemList.Count; ++i) {
+				StoryBlockBase block = targetClip.BlockItemList[i];
 
 				block.DeleteCache();
 			}
 		}
 		public void ClearCacheAfterBlock(StoryBlockBase targetBlock) {
 			StoryClip targetClip = TargetClipAuto;
-			int index = targetClip.ChildItemList.IndexOf(targetBlock);
+			int index = targetClip.BlockItemList.IndexOf(targetBlock);
 			if (index < 0)
 				return;
 
@@ -109,8 +109,8 @@ namespace TaleKit.Datas.Story {
 			StoryClip targetClip = TargetClipAuto;
 
 			Console.WriteLine($"CacheCleared index : {targetBlockIndex}");
-			for (int i = targetBlockIndex; i < targetClip.ChildItemList.Count; ++i) {
-				StoryBlockBase block = targetClip.ChildItemList[i];
+			for (int i = targetBlockIndex; i < targetClip.BlockItemList.Count; ++i) {
+				StoryBlockBase block = targetClip.BlockItemList[i];
 
 				block.DeleteCache();
 			}

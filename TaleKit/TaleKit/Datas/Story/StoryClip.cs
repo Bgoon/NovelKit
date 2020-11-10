@@ -1,47 +1,60 @@
 ﻿using GKitForUnity.Data;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TaleKit.Datas.ModelEditor;
 
 namespace TaleKit.Datas.Story {
-	public class StoryClip : StoryBlockBase {
+	public class StoryClip {
 		public event NodeItemInsertedDelegate<StoryBlockBase> ChildInserted;
-
 		public event NodeItemDelegate<StoryBlockBase, StoryClip> ChildRemoved;
 
-		public List<StoryBlockBase> ChildItemList {
-			get; private set;
+		public readonly StoryFile OwnerFile;
+
+		public readonly List<StoryBlockBase> BlockItemList;
+		[SavableField]
+		public string guid;
+
+		// [ Constructor ]
+		public StoryClip(StoryFile ownerFile) {
+			this.OwnerFile = ownerFile;
+
+			BlockItemList = new List<StoryBlockBase>();
+
+			guid = Guid.NewGuid().ToString();
 		}
 
-		public StoryClip(StoryFile ownerFile) : base(ownerFile, StoryBlockType.StoryClip) {
-			ChildItemList = new List<StoryBlockBase>();
-		}
-
+		// [ Tree ]
 		public void AddChildItem(StoryBlockBase item) {
-			InsertChildItem(ChildItemList.Count, item);
+			InsertChildItem(BlockItemList.Count, item);
 
 		}
 		public void InsertChildItem(int index, StoryBlockBase item) {
-			ChildItemList.Insert(index, item);
+			BlockItemList.Insert(index, item);
 			item.ParentClip = this;
 
 			ChildInserted?.Invoke(index, item);
 		}
 		public void RemoveChildItem(StoryBlockBase item) {
-			ChildItemList.Remove(item);
+			BlockItemList.Remove(item);
 			item.ParentClip = null;
 
 			ChildRemoved?.Invoke(item, this);
 		}
 
-		public override JObject ToJObject() {
+		// [ Data ]
+		public JObject ToJObject() {
 			JObject jClip = new JObject();
 
 			//Add items
-			JArray jItems = new JArray();
-			jClip.Add("Items", jItems);
+			JArray jBlocks = new JArray();
+			jClip.Add("Blocks", jBlocks);
 
-			foreach (StoryBlockBase block in ChildItemList) {
-				jItems.Add(block.ToJObject());
+			foreach (StoryBlockBase block in BlockItemList) {
+				jBlocks.Add(block.ToJObject());
 			}
 
 			return jClip;

@@ -42,7 +42,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryClipElements {
 
 			// Register events
 			if (data.Type == StoryBlockType.StoryBlock) {
-				StoryBlock storyBlockData = data as StoryBlock;
+				StoryBlock_Item storyBlockData = data as StoryBlock_Item;
 				storyBlockData.OrderAdded += StoryBlockData_OrderAdded;
 				storyBlockData.OrderRemoved += StoryBlockData_OrderRemoved;
 			}

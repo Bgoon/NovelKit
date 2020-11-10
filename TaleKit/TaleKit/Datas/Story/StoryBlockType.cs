@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace TaleKit.Datas.Story {
 	public enum StoryBlockType {
 		StoryBlock,
-		StoryClip,
+		StoryClipBlock,
 	}
 }

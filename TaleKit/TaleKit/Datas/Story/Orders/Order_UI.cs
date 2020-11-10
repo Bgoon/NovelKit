@@ -40,7 +40,7 @@ namespace TaleKit.Datas.Story {
 		public string easingKey;
 
 		// [ Constructor ]
-		public Order_UI(StoryBlock ownerBlock) : base(ownerBlock) {
+		public Order_UI(StoryBlock_Item ownerBlock) : base(ownerBlock) {
 		}
 
 		// [ Event ]

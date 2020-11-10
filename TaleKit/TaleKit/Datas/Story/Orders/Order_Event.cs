@@ -9,7 +9,7 @@ namespace TaleKit.Datas.Story {
 
 		public override OrderType OrderType => OrderType.Event;
 
-		public Order_Event(StoryBlock ownerBlock) : base(ownerBlock) {
+		public Order_Event(StoryBlock_Item ownerBlock) : base(ownerBlock) {
 
 		}
 

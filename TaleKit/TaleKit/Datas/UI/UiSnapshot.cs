@@ -81,8 +81,8 @@ namespace TaleKit.Datas.UI {
 		}
 
 		public void ApplyStoryBlockBase(StoryBlockBase storyBlockBase) {
-			if(storyBlockBase is StoryBlock) {
-				StoryBlock storyBlock = storyBlockBase as StoryBlock;
+			if(storyBlockBase is StoryBlock_Item) {
+				StoryBlock_Item storyBlock = storyBlockBase as StoryBlock_Item;
 				foreach (OrderBase order in storyBlock.OrderList) {
 					Order_UI UiOrder = order as Order_UI;
 

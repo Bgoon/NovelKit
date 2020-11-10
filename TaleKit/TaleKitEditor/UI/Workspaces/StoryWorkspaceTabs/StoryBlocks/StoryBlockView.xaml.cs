@@ -15,12 +15,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.Story;
+using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBlocks {
 	/// <summary>
 	/// StoryBlock.xaml에 대한 상호 작용 논리
 	/// </summary>
 	public partial class StoryBlockView : UserControl, ITreeItem {
+		private static Root Root => Root.Instance;
+		private static MainWindow MainWindow => Root.MainWindow;
+		private static StoryBlockTab StoryBlockTab => MainWindow.StoryWorkspace.StoryBlockTab;
 
 		public string description;
 		public readonly StoryBlockBase Data;
@@ -42,11 +46,11 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBlocks {
 
 			// Register events
 			if (data.Type == StoryBlockType.StoryBlock) {
-				StoryBlock storyBlockData = data as StoryBlock;
+				StoryBlock_Item storyBlockData = data as StoryBlock_Item;
 				storyBlockData.OrderAdded += StoryBlockData_OrderAdded;
 				storyBlockData.OrderRemoved += StoryBlockData_OrderRemoved;
 			}
-			VisibleButton.RegisterClickEvent(VisibleButton_Click);
+			VisibleButton.RegisterClickEvent(VisibleButton_Click, true);
 		}
 
 		// [ Event ]
@@ -61,6 +65,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBlocks {
 			
 			UpdateVisibleButton();
 			Data.OwnerFile.UiCacheManager.ClearCacheAfterBlock(Data);
+			StoryBlockTab.ApplyBlockToSelectionToRenderer();
 		}
 
 		// [ Control ]
@@ -81,7 +86,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBlocks {
 			OrderIndicatorContext.Children.Clear();
 
 			if (Data.Type == StoryBlockType.StoryBlock) {
-				StoryBlock storyBlockData = (StoryBlock)Data;
+				StoryBlock_Item storyBlockData = (StoryBlock_Item)Data;
 
 				Dictionary<OrderType, OrderIndicator> indicatorDict = new Dictionary<OrderType, OrderIndicator>();
 

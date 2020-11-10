@@ -9,7 +9,7 @@ namespace TaleKit.Datas.Story {
 
 		public override OrderType OrderType => OrderType.Logic;
 
-		public Order_Logic(StoryBlock ownerBlock) : base(ownerBlock) {
+		public Order_Logic(StoryBlock_Item ownerBlock) : base(ownerBlock) {
 
 		}
 

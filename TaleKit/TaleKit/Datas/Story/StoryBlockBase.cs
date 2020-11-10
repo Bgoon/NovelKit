@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using GKit.Json;
+using Newtonsoft.Json.Linq;
 using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
 
@@ -10,7 +11,12 @@ namespace TaleKit.Datas.Story {
 		public StoryClip ParentClip {
 			get; internal set;
 		}
+
+		// Data
+		[SavableField]
 		public readonly StoryBlockType Type;
+		[SavableField]
+		public bool isVisible;
 
 		// Ui Cache
 		public bool HasUiCache => UiCacheSnapshot != null;
@@ -35,8 +41,11 @@ namespace TaleKit.Datas.Story {
 
 		// Serialize
 		public virtual JObject ToJObject() {
-			
-		}
+			JObject jBlock = new JObject();
 
+			jBlock.AddAttrFields<SavableFieldAttribute>(this);
+
+			return jBlock;
+		}
 	}
 }
