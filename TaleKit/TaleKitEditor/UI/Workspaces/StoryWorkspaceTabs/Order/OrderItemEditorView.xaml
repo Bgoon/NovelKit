@@ -7,14 +7,16 @@
 			 xmlns:StoryWorkspaceTabs="clr-namespace:TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs"
 			 xmlns:ValueEditors="clr-namespace:TaleKitEditor.UI.ModelEditor"
 			 xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
+			 xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
 
              mc:Ignorable="d" 
              d:DesignWidth="220">
 	<StackPanel>
-		<Grid Height="30">
-			<Controls:MainHeaderText Text="{Binding OrderTypeText, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"/>
-			<StoryWorkspaceTabs:OrderIndicator x:Name="Indicator" Margin="0,0,8,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-		</Grid>
+		<DockPanel Height="30">
+			<VectorImages:DeleteShape x:Name="DeleteButton" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,4,0"/>
+			<StoryWorkspaceTabs:OrderIndicator x:Name="Indicator" DockPanel.Dock="Left" Margin="4,0,-4,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+			<Controls:MainHeaderText DockPanel.Dock="Left" Text="{Binding OrderTypeText, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"/>
+		</DockPanel>
 		<StackPanel Name="ValueEditorViewContext" Orientation="Vertical">
 			
 		</StackPanel>

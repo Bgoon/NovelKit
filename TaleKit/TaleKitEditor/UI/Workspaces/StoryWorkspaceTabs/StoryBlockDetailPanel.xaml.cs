@@ -77,20 +77,26 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			// Register events
 			order.ModelUpdated += Order_ModelUpdated;
+
+			ClearCurrentBlockCache();
 		}
-
-		private void Order_ModelUpdated(EditableModel model, FieldInfo fieldInfo, object editorView) {
-			StoryBlockTab.ApplyBlockToSelectionToRenderer();
-
-			EditingBlock.OwnerFile.UiCacheManager.ClearCacheAfterBlock(EditingBlock);
-		}
-
 		private void EditingBlock_OrderRemoved(OrderBase order) {
 			order.ClearEvents();
 			OrderEditorViewContext.Children.Remove(orderToEditorViewDict[order]);
 
 			orderToEditorViewDict.Remove(order);
+
+			StoryBlockTab.ApplyBlockToSelectionToRenderer();
+
+			ClearCurrentBlockCache();
 		}
+
+		private void Order_ModelUpdated(EditableModel model, FieldInfo fieldInfo, object editorView) {
+			StoryBlockTab.ApplyBlockToSelectionToRenderer();
+
+			ClearCurrentBlockCache();
+		}
+
 		private void SelectionChanged() {
 			SelectedItemSet selectedItemSet = StoryBlockTab.StoryBlockTreeView.SelectedItemSet;
 			bool showEditingContext = selectedItemSet.Count == 1;
@@ -116,7 +122,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			}
 		}
 
-		// [ Control ]
+		// [ Tree ]
 		public void AttachBlock(StoryBlock_Item blockItem) {
 			DetachBlock();
 			this.EditingBlock = blockItem;
@@ -151,5 +157,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			OrderEditorViewContext.Children.Clear();
 		}
 
+		private void ClearCurrentBlockCache() {
+			EditingBlock.OwnerFile.UiCacheManager.ClearCacheAfterBlock(EditingBlock);
+		}
 	}
 }

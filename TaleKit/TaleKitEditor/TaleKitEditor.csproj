@@ -156,6 +156,9 @@
     <Compile Include="Resources\VectorImages\ColorSelectDialog\ColorDiffArrow.xaml.cs">
       <DependentUpon>ColorDiffArrow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\VectorImages\DeleteShape.xaml.cs">
+      <DependentUpon>DeleteShape.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\VectorImages\VisibleIcon.xaml.cs">
       <DependentUpon>VisibleIcon.xaml</DependentUpon>
     </Compile>
@@ -437,6 +440,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\VectorImages\ColorSelectDialog\ColorDiffArrow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\VectorImages\DeleteShape.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

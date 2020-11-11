@@ -14,7 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GKitForWPF;
-using GKitForWPF;
 using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.Story;
 using TaleKitEditor.UI.ModelEditor;
@@ -38,8 +37,16 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			InitializeComponent();
 			Indicator.IsCountVisible = false;
+			Indicator.OrderType = order.OrderType;
 
 			ModelEditorUtility.CreateOrderEditorView(order, ValueEditorViewContext);
+
+			// Register events
+			DeleteButton.RegisterClickEvent(DeleteButton_Click, true);
+		}
+
+		private void DeleteButton_Click() {
+			order.OwnerBlock.RemoveOrder(order);
 		}
 	}
 }

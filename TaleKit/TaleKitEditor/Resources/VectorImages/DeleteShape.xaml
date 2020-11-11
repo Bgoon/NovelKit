@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="TaleKitEditor.Resources.VectorImages.DeleteShape"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Width="20" Height="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent">
+	<UserControl.Resources>
+		<SolidColorBrush x:Key="LineColor" Color="#787878"/>
+	</UserControl.Resources>
+    <Grid>
+		<Line X1="10.1" Y1="0.7" X2="0.7" Y2="10.1" Stroke="{StaticResource LineColor}" StrokeThickness="2"/>
+		<Line X1="10.1" Y1="10.1" X2="0.7" Y2="0.7" Stroke="{StaticResource LineColor}" StrokeThickness="2"/>
+	</Grid>
+</UserControl>
