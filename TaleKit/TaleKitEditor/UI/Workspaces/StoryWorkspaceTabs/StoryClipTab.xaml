@@ -9,8 +9,8 @@
 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-	<DockPanel>
-		<GControls:ListManagerBar Name="StoryBlockClipListController" DockPanel.Dock="Top" CreateFolderButtonVisible="False"/>
-		<GControls:EditTreeView Name="StoryBlockClipListView" DockPanel.Dock="Top" ItemShadowVisible="True"/>
+	<DockPanel Name="ItemPanel">
+		<GControls:ListManagerBar Name="StoryClipListController" DockPanel.Dock="Top" CreateFolderButtonVisible="False"/>
+		<GControls:EditTreeView Name="StoryClipListView" DockPanel.Dock="Top" ItemShadowVisible="True"/>
 	</DockPanel>
 </UserControl>

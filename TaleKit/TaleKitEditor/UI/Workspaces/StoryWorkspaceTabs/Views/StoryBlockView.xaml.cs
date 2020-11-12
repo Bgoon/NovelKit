@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 using TaleKit.Datas.Story;
 using TaleKitEditor.UI.Windows;
 
-namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBlocks {
+namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 	/// <summary>
 	/// StoryBlock.xaml에 대한 상호 작용 논리
 	/// </summary>

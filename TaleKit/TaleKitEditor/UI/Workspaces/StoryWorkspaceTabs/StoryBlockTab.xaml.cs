@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using TaleKit.Datas;
 using TaleKit.Datas.Story;
 using TaleKitEditor.UI.Windows;
-using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBlocks;
+using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views;
 using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
 using GKitForWPF;
 using GKitForWPF.UI.Controls;
@@ -41,7 +41,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private static UiFile EditingUiFile => EditingTaleData.UiFile;
 		private static ViewportTab ViewportTab => MainWindow.ViewportTab;
 
-		private Dictionary<StoryBlockBase, StoryBlockView> dataToViewDict;
+		private readonly Dictionary<StoryBlockBase, StoryBlockView> dataToViewDict;
 		public StoryBlockView SelectedBlockViewSingle {
 			get {
 				if (StoryBlockTreeView.SelectedItemSet.Count > 0) {
@@ -100,26 +100,24 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			MainWindow.ProjectUnloaded += MainWindow_DataUnloaded;
 		}
 
-
-
 		// [ Event ]
 		private void OnTick() {
 			UpdateMotion();
 		}
 
 		private void MainWindow_DataLoaded(TaleData obj) {
-			EditingStoryFile.ItemCreated += StoryFile_ItemCreated;
-			EditingStoryFile.ItemRemoved += StoryFile_ItemRemoved;
-
-			EditingClip = EditingStoryFile.RootClip;
+			EditingStoryFile.BlockItemCreated += StoryFile_ItemCreated;
+			EditingStoryFile.BlockItemRemoved += StoryFile_ItemRemoved;
 		}
 		private void MainWindow_DataUnloaded(TaleData obj) {
-			EditingStoryFile.ItemCreated -= StoryFile_ItemCreated;
-			EditingStoryFile.ItemRemoved -= StoryFile_ItemRemoved;
+			EditingStoryFile.BlockItemCreated -= StoryFile_ItemCreated;
+			EditingStoryFile.BlockItemRemoved -= StoryFile_ItemRemoved;
+
+			DetachClip();
 		}
 
 		private void StoryBlockListController_CreateItemButtonClick() {
-			EditingStoryFile.CreateStoryBlock_Item(EditingClip);
+			EditingStoryFile.CreateStoryBlock_Item(EditingClipAuto);
 		}
 		private void StoryBlockListController_RemoveItemButtonClick() {
 			foreach (StoryBlockView itemView in StoryBlockTreeView.SelectedItemSet) {
@@ -132,7 +130,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private void StoryFile_ItemCreated(StoryBlockBase item, StoryClip parentItem) {
 			if (parentItem == null)
 				return;
-			if (parentItem != EditingClip)
+			if (parentItem != EditingClipAuto)
 				return;
 
 			//Create view
@@ -154,8 +152,9 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			//Data에 적용하기
 			StoryBlockBase item = ((StoryBlockView)itemView).Data;
 
-			EditingClip.RemoveChildItem(item);
-			EditingClip.InsertChildItem(index, item);
+			StoryClip editingClip = EditingClipAuto;
+			editingClip.RemoveChildItem(item);
+			editingClip.InsertChildItem(index, item);
 		}
 
 		private void SelectedItemSet_SelectionAdded(ISelectable item) {
@@ -434,6 +433,14 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 		private void StopMotion() {
 			UiMotionSet.Clear();
+		}
+
+		// Attach
+		public void AttachClip(StoryClip clip) {
+			EditingClip = clip;
+		}
+		public void DetachClip() {
+			EditingClip = null;
 		}
 
 		// Utility

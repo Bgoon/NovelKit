@@ -28,8 +28,8 @@ namespace TaleKit.Datas.Story {
 
 		public readonly UiCacheManager UiCacheManager;
 
-		public event NodeItemDelegate<StoryBlockBase, StoryClip> ItemCreated;
-		public event NodeItemDelegate<StoryBlockBase, StoryClip> ItemRemoved;
+		public event NodeItemDelegate<StoryBlockBase, StoryClip> BlockItemCreated;
+		public event NodeItemDelegate<StoryBlockBase, StoryClip> BlockItemRemoved;
 
 		public event Action<StoryClip> ClipCreated;
 		public event Action<StoryClip> ClipRemoved;
@@ -81,7 +81,7 @@ namespace TaleKit.Datas.Story {
 
 			StoryBlock_Item item = new StoryBlock_Item(this);
 
-			ItemCreated?.Invoke(item, parentClip);
+			BlockItemCreated?.Invoke(item, parentClip);
 
 			parentClip.AddChildItem(item);
 
@@ -93,7 +93,7 @@ namespace TaleKit.Datas.Story {
 
 			StoryBlock_Clip item = new StoryBlock_Clip(this);
 
-			ItemCreated?.Invoke(item, parentClip);
+			BlockItemCreated?.Invoke(item, parentClip);
 
 			parentClip.AddChildItem(item);
 
@@ -103,7 +103,7 @@ namespace TaleKit.Datas.Story {
 			StoryClip clip = item.ParentClip;
 			clip.BlockItemList.Remove(item);
 
-			ItemRemoved?.Invoke(item, clip);
+			BlockItemRemoved?.Invoke(item, clip);
 		}
 
 		public StoryClip CreateStoryClip() {

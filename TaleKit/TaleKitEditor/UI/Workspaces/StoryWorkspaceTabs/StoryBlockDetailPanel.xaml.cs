@@ -19,7 +19,7 @@ using System.Reflection;
 using TaleKit.Datas.ModelEditor;
 using TaleKitEditor.UI.ModelEditor;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
-using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.StoryBlocks;
+using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views;
 using GKitForWPF.UI.Controls;
 using GKitForWPF;
 using TaleKitEditor.UI.Dialogs;
