@@ -289,11 +289,17 @@
     <Compile Include="UI\Workspaces\CommonTabs\DetailTab.xaml.cs">
       <DependentUpon>DetailTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\MotionTextRenderer.xaml.cs">
+      <DependentUpon>MotionTextRenderer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\PlayStateButton.xaml.cs">
       <DependentUpon>PlayStateButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\ResolutionEditor.xaml.cs">
       <DependentUpon>ResolutionEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_Panel.xaml.cs">
+      <DependentUpon>UIContent_Panel.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderTypeItemView.xaml.cs">
       <DependentUpon>OrderTypeItemView.xaml</DependentUpon>
@@ -615,11 +621,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Workspaces\CommonTabs\ViewportElements\MotionTextRenderer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Workspaces\CommonTabs\ViewportElements\PlayStateButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Workspaces\CommonTabs\ViewportElements\ResolutionEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_Panel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

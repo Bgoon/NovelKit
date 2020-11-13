@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKit.Datas.Story;
 using TaleKit.Datas.UI;
 using TaleKitEditor.UI.ModelEditor;
 using TaleKitEditor.UI.Windows;
@@ -50,6 +51,8 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			// Register events
 			MainWindow.WorkspaceActived += MainWindow_WorkspaceActived;
 			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
+
+			Viewport.RegisterClickEvent(Viewport_Click, true);
 		}
 
 		// [ Event ]
@@ -166,6 +169,19 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			parentView.ChildItemContext.Children.Insert(index, renderer);
 			renderer.Render(false);
 		} 
+
+		// Input
+		private void Viewport_Click() {
+			if (StoryBlockTab.StoryBlockTreeView.SelectedItemSet.Count != 1)
+				return;
+
+			switch (StoryBlockTab.SelectedBlockSingle.passTrigger) {
+				case StoryBlockTrigger.Click:
+				case StoryBlockTrigger.Auto:
+					StoryBlockTab.SelectAroundBlock(1);
+					break;
+			}
+		}
 
 		// [ Render ]
 		public void ResetSnapshot() {

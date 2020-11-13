@@ -57,16 +57,16 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			}
 		}
 
-		public StoryClip EditingClipAuto {
+		public StoryClip EditingClip {
 			get {
-				if (EditingClip == null) {
+				if (TargetEditingClip == null) {
 					return EditingStoryFile.RootClip;
 				} else {
-					return EditingClip;
+					return TargetEditingClip;
 				}
 			}
 		}
-		public StoryClip EditingClip {
+		public StoryClip TargetEditingClip {
 			get; private set;
 		}
 
@@ -117,7 +117,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void StoryBlockListController_CreateItemButtonClick() {
-			EditingStoryFile.CreateStoryBlock_Item(EditingClipAuto);
+			EditingStoryFile.CreateStoryBlock_Item(EditingClip);
 		}
 		private void StoryBlockListController_RemoveItemButtonClick() {
 			foreach (StoryBlockView itemView in StoryBlockTreeView.SelectedItemSet) {
@@ -130,7 +130,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private void StoryFile_ItemCreated(StoryBlockBase item, StoryClip parentItem) {
 			if (parentItem == null)
 				return;
-			if (parentItem != EditingClipAuto)
+			if (parentItem != EditingClip)
 				return;
 
 			//Create view
@@ -152,7 +152,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			//Data에 적용하기
 			StoryBlockBase item = ((StoryBlockView)itemView).Data;
 
-			StoryClip editingClip = EditingClipAuto;
+			StoryClip editingClip = EditingClip;
 			editingClip.RemoveChildItem(item);
 			editingClip.InsertChildItem(index, item);
 		}
@@ -168,7 +168,21 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		// [ Control ]
-		// Block
+		// Block selection
+		public void SelectAroundBlock(int indexOffset) {
+			if (StoryBlockTreeView.SelectedItemSet.Count != 1)
+				return;
+
+			StoryClip editingClip = EditingClip;
+			int index = editingClip.BlockItemList.IndexOf(SelectedBlockSingle);
+			
+			if (index + indexOffset < 0 || index + indexOffset >= editingClip.BlockItemList.Count)
+				return;
+
+			StoryBlockTreeView.SelectedItemSet.SetSelectedItem(dataToViewDict[editingClip.BlockItemList[index + indexOffset]]);
+		}
+
+		// Block applying
 		public void ApplyBlockToSelectionToRenderer(bool playMotion = false) {
 			if(StoryBlockTreeView.SelectedItemSet.Count == 1) {
 				StoryBlockBase selectedBlockBase = (StoryBlockTreeView.SelectedItemSet.First as StoryBlockView).Data;
@@ -187,7 +201,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				UiRenderer rootRenderer = EditingUiFile.Guid_To_RendererDict[EditingUiFile.UiSnapshot.rootUiItem.guid] as UiRenderer;
 				rootRenderer.Render(true);
 			} else {
-				StoryClip editingClip = EditingClipAuto;
+				StoryClip editingClip = EditingClip;
 
 				// Find last cache
 				UiSnapshot snapshot = null;
@@ -437,10 +451,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		// Attach
 		public void AttachClip(StoryClip clip) {
-			EditingClip = clip;
+			TargetEditingClip = clip;
 		}
 		public void DetachClip() {
-			EditingClip = null;
+			TargetEditingClip = null;
 		}
 
 		// Utility
