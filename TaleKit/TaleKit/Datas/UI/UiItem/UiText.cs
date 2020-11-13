@@ -8,9 +8,9 @@ using GKitForUnity;
 using UColor = UnityEngine.Color;
 using UnityEngine;
 
-namespace TaleKit.Datas.UI.UiItem {
+namespace TaleKit.Datas.UI.UIItem {
 	[Serializable]
-	public class UiText : UiItemBase {
+	public class UIText : UIItemBase {
 
 		[ValueEditorComponent_Header("Text Attributes")]
 		[ValueEditor_TextBox("Text")]
@@ -29,7 +29,7 @@ namespace TaleKit.Datas.UI.UiItem {
 		public TextAnchor textAnchor;
 
 
-		public UiText(UiFile ownerFile) : base(ownerFile, UiItemType.Text) {
+		public UIText(UIFile ownerFile) : base(ownerFile, UIItemType.Text) {
 
 		}
 	}

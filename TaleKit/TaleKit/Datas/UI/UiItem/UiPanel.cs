@@ -10,9 +10,9 @@ using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.Resource;
 using UColor = UnityEngine.Color;
 
-namespace TaleKit.Datas.UI.UiItem {
+namespace TaleKit.Datas.UI.UIItem {
 	[Serializable]
-	public class UiPanel : UiItemBase {
+	public class UIPanel : UIItemBase {
 		[ValueEditorComponent_Header("Panel Attributes")]
 		[ValueEditor_ColorBox("Color")]
 		public UColor color = UColor.white;
@@ -26,7 +26,7 @@ namespace TaleKit.Datas.UI.UiItem {
 		[ValueEditor_Margin("NinePatch Side Aspect", 0, 1, 0.1f, visibleCondition = nameof(UseNinePatch))]
 		public GRect ninePatchSideAspect;
 
-		public UiPanel(UiFile ownerFile) : base(ownerFile, UiItemType.Panel) {
+		public UIPanel(UIFile ownerFile) : base(ownerFile, UIItemType.Panel) {
 
 		}
 

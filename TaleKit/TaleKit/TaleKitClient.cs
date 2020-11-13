@@ -19,7 +19,7 @@ namespace TaleKit {
 		public Option Option {
 			get; private set;
 		}
-		public UiManager UiManager {
+		public UIManager UiManager {
 			get; private set;
 		}
 		public GameObjects GameObjects {
@@ -38,7 +38,7 @@ namespace TaleKit {
 		}
 		private void CreateTKModules() {
 			Option = new Option();
-			UiManager = new UiManager();
+			UiManager = new UIManager();
 			GameObjects = new GameObjects();
 		}
 		private void RegisterEvents() {

@@ -1,15 +1,16 @@
 ﻿using GKitForUnity;
 using System.Collections.Generic;
+using TaleKit.Datas.UI.UIItem;
 using UnityEngine;
 
 namespace TaleKit.Datas.UI {
-	public class UiManager {
+	public class UIManager {
 		protected static TaleKitClient Client => TaleKitClient.Instance;
 		protected static GLoopEngine LoopEngine => Client.LoopEngine;
 
 		public GameObject Obj_Scenes => Client.GameObjects.Scenes;
 
-		public Dictionary<string, UiItemBase> UiDict {
+		public Dictionary<string, UIItemBase> UiDict {
 			get; private set;
 		}
 		public MotionTextBase ScriptText {
@@ -17,13 +18,13 @@ namespace TaleKit.Datas.UI {
 		}
 
 
-		public UiManager() {
+		public UIManager() {
 			InitMembers();
 			RegisterEvents();
 			//CreateTestScene();
 		}
 		private void InitMembers() {
-			UiDict = new Dictionary<string, UiItemBase>();
+			UiDict = new Dictionary<string, UIItemBase>();
 		}
 		private void RegisterEvents() {
 

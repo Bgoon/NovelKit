@@ -14,21 +14,21 @@ using UAxisAnchor = GKitForUnity.AxisAnchor;
 using UColor = UnityEngine.Color;
 using UVector2 = UnityEngine.Vector2;
 
-namespace TaleKit.Datas.UI {
+namespace TaleKit.Datas.UI.UIItem {
 	[Serializable]
-	public class UiItemBase : EditableModel, IKeyFrameModel, ICloneable {
-		public event NodeItemInsertedDelegate<UiItemBase> ChildInserted;
-		public event NodeItemDelegate<UiItemBase, UiItemBase> ChildRemoved;
+	public class UIItemBase : EditableModel, IKeyFrameModel, ICloneable {
+		public event NodeItemInsertedDelegate<UIItemBase> ChildInserted;
+		public event NodeItemDelegate<UIItemBase, UIItemBase> ChildRemoved;
 
 		protected TaleData OwnerTaleData => OwnerFile.OwnerTaleData;
 		protected AssetManager AssetManager => OwnerTaleData.AssetManager;
 
 		// Inherit
-		public readonly UiFile OwnerFile;
-		public UiItemBase ParentItem {
+		public readonly UIFile OwnerFile;
+		public UIItemBase ParentItem {
 			get; set;
 		}
-		public List<UiItemBase> ChildItemList {
+		public List<UIItemBase> ChildItemList {
 			get; private set;
 		}
 
@@ -99,7 +99,7 @@ namespace TaleKit.Datas.UI {
 		[ValueEditor_TextBox("Name", isStatic = true)]
 		public string name = "UI Item";
 		[ValueEditor_TextBlockViewer("Type")]
-		public UiItemType itemType;
+		public UIItemType itemType;
 
 		[ValueEditorComponent_Header("Transform")]
 		[ValueEditor_AnchorPreset("Anchor")]
@@ -109,7 +109,7 @@ namespace TaleKit.Datas.UI {
 		public GRect margin;
 
 		[ValueEditor_Vector2("Size", minValue = 0f)]
-		public UVector2 size = new UVector2(1f, 1f);
+		public UVector2 size = new UVector2(100f, 100f);
 		[ValueEditor_NumberBox("Rotation")]
 		public float rotation;
 		
@@ -118,12 +118,12 @@ namespace TaleKit.Datas.UI {
 		//public readonly UiTransform UiTransform;
 		//public readonly CanvasRenderer Renderer;
 
-		public UiItemBase(UiFile ownerFile, UiItemType itemType) {
+		public UIItemBase(UIFile ownerFile, UIItemType itemType) {
 			this.guid = Guid.NewGuid().ToString();
 			this.OwnerFile = ownerFile;
 			this.itemType = itemType;
 			System.Diagnostics.Debug.WriteLine($"Created {itemType}");
-			ChildItemList = new List<UiItemBase>();
+			ChildItemList = new List<UIItemBase>();
 
 			KeyFieldNameHashSet = new HashSet<string>();
 
@@ -134,21 +134,21 @@ namespace TaleKit.Datas.UI {
 			//Renderer = GameObject.AddComponent<CanvasRenderer>();
 		}
 		public void InitializeClone() {
-			ChildItemList = new List<UiItemBase>();
+			ChildItemList = new List<UIItemBase>();
 			ChildInserted = null;
 			ChildRemoved = null;
 		}
 
-		public void AddChildItem(UiItemBase item) {
+		public void AddChildItem(UIItemBase item) {
 			InsertChildItem(ChildItemList.Count, item);
 		}
-		public void InsertChildItem(int index, UiItemBase item) {
+		public void InsertChildItem(int index, UIItemBase item) {
 			ChildItemList.Insert(index, item);
 			item.ParentItem = this;
 
 			ChildInserted?.Invoke(index, item);
 		}
-		public void RemoveChildItem(UiItemBase item) {
+		public void RemoveChildItem(UIItemBase item) {
 			ChildItemList.Remove(item);
 			item.ParentItem = null;
 
@@ -170,7 +170,7 @@ namespace TaleKit.Datas.UI {
 			JArray jChilds = new JArray();
 			jUiItem.Add("Childs", jChilds);
 
-			foreach (UiItemBase childItem in ChildItemList) {
+			foreach (UIItemBase childItem in ChildItemList) {
 				jChilds.Add(childItem.ToJObject());
 			}
 

@@ -11,7 +11,7 @@ namespace TaleKit.Datas.Story {
 	public class UiCacheManager {
 		public readonly TaleData OwnerData;
 		private StoryFile StoryFile => OwnerData.StoryFile;
-		private UiFile UiFile => OwnerData.UiFile;
+		private UIFile UiFile => OwnerData.UiFile;
 
 		public int CacheInterval {
 			get; private set;
@@ -48,7 +48,7 @@ namespace TaleKit.Datas.Story {
 		}
 
 		public void CreateCache(int cacheCount) {
-			UiSnapshot cacheSnapshot = null;
+			UISnapshot cacheSnapshot = null;
 			int lastCacheBlockIndex = 0;
 
 			StoryClip targetClip = TargetClipAuto;

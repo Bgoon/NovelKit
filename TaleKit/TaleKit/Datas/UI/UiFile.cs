@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.Story;
-using TaleKit.Datas.UI.UiItem;
+using TaleKit.Datas.UI.UIItem;
 
 namespace TaleKit.Datas.UI {
 	//UiData {
@@ -17,7 +17,7 @@ namespace TaleKit.Datas.UI {
 	//		Childs {} []
 	//	}
 	//}
-	public class UiFile : ITaleDataFile, INeedInitialization {
+	public class UIFile : ITaleDataFile, INeedInitialization {
 		public delegate void NodeChangedDelegate();
 
 		public readonly TaleData OwnerTaleData;
@@ -25,30 +25,30 @@ namespace TaleKit.Datas.UI {
 		private bool createRootUiItem;
 
 		// Event
-		public event NodeItemDelegate<UiItemBase, UiItemBase> ItemCreatedPreview;
-		public event NodeItemDelegate<UiItemBase, UiItemBase> ItemCreated;
-		public event NodeItemDelegate<UiItemBase, UiItemBase> ItemRemoved;
+		public event NodeItemDelegate<UIItemBase, UIItemBase> ItemCreatedPreview;
+		public event NodeItemDelegate<UIItemBase, UIItemBase> ItemCreated;
+		public event NodeItemDelegate<UIItemBase, UIItemBase> ItemRemoved;
 
 		// UI Collection
-		public readonly List<UiItemBase> UiItemList;
-		public readonly List<UiText> TextList;
-		public readonly UiSnapshot UiSnapshot;
+		public readonly List<UIItemBase> UiItemList;
+		public readonly List<UIText> TextList;
+		public readonly UISnapshot UiSnapshot;
 		public readonly Dictionary<string, object> Guid_To_RendererDict;
 
 		// [ Constructor ]
-		public UiFile(TaleData ownerTaleData, bool createRootUiItem = true) {
+		public UIFile(TaleData ownerTaleData, bool createRootUiItem = true) {
 			this.OwnerTaleData = ownerTaleData;
 			this.createRootUiItem = createRootUiItem;
 
-			UiItemList = new List<UiItemBase>();
-			TextList = new List<UiText>();
-			UiSnapshot = new UiSnapshot();
+			UiItemList = new List<UIItemBase>();
+			TextList = new List<UIText>();
+			UiSnapshot = new UISnapshot();
 			Guid_To_RendererDict = new Dictionary<string, object>();
 
 		}
 		public void Init() {
 			if(createRootUiItem) {
-				UiSnapshot.rootUiItem = CreateUiItem(null, UiItemType.Panel);
+				UiSnapshot.rootUiItem = CreateUiItem(null, UIItemType.Panel);
 			}
 		}
 		public void Clear() {
@@ -70,12 +70,12 @@ namespace TaleKit.Datas.UI {
 		public bool LoadFromJson(JToken jUIFile) {
 			LoadUIItem(jUIFile["RootUI"], null);
 			
-			void LoadUIItem(JToken jUIItem, UiItemBase parentUIItem) {
+			void LoadUIItem(JToken jUIItem, UIItemBase parentUIItem) {
 				JToken jUIItemAttr = jUIItem["Attributes"];
-				UiItemType itemType = jUIItemAttr["itemType"].ToObject<UiItemType>();
+				UIItemType itemType = jUIItemAttr["itemType"].ToObject<UIItemType>();
 				string guid = jUIItemAttr["guid"].ToObject<string>();
 
-				UiItemBase UIItem = CreateUiItem(parentUIItem, itemType, guid);
+				UIItemBase UIItem = CreateUiItem(parentUIItem, itemType, guid);
 				UIItem.LoadAttrFields<ValueEditorAttribute>(jUIItemAttr.ToObject<JObject>());
 
 				JArray jChildUIItems = jUIItem["Childs"] as JArray;
@@ -90,18 +90,18 @@ namespace TaleKit.Datas.UI {
 		/// <summary>
 		/// If parentUiItem is null, create root
 		/// </summary>
-		public UiItemBase CreateUiItem(UiItemBase parentUIItem, UiItemType itemType, string guid = null) {
+		public UIItemBase CreateUiItem(UIItemBase parentUIItem, UIItemType itemType, string guid = null) {
 
-			UiItemBase item;
+			UIItemBase item;
 			switch (itemType) {
 				default:
 					throw new Exception($"Failed to create UiItem because itemType '{itemType}' is unknown.");
-				case UiItemType.Panel:
-					item = new UiPanel(this);
+				case UIItemType.Panel:
+					item = new UIPanel(this);
 					break;
-				case UiItemType.Text:
-					item = new UiText(this);
-					TextList.Add(item as UiText);
+				case UIItemType.Text:
+					item = new UIText(this);
+					TextList.Add(item as UIText);
 					break;
 			}
 			if(!string.IsNullOrEmpty(guid)) {
@@ -125,11 +125,11 @@ namespace TaleKit.Datas.UI {
 
 			return item;
 		}
-		public void RemoveUiItem(UiItemBase item) {
+		public void RemoveUiItem(UIItemBase item) {
 			// Recursive
-			UiItemBase parentItem = item.ParentItem;
-			UiItemBase[] childs = item.ChildItemList.ToArray();
-			foreach (UiItemBase childItem in childs) {
+			UIItemBase parentItem = item.ParentItem;
+			UIItemBase[] childs = item.ChildItemList.ToArray();
+			foreach (UIItemBase childItem in childs) {
 				RemoveUiItem(childItem);
 			}
 
@@ -139,8 +139,8 @@ namespace TaleKit.Datas.UI {
 
 			// Remove from collection
 			switch(item.itemType) {
-				case UiItemType.Text:
-					TextList.Remove(item as UiText);
+				case UIItemType.Text:
+					TextList.Remove(item as UIText);
 					break;
 			}
 			UiItemList.Remove(item);

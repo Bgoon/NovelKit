@@ -7,15 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using GKit;
 using TaleKit.Datas.Story;
+using TaleKit.Datas.UI.UIItem;
 
 namespace TaleKit.Datas.UI {
-	public class UiSnapshot {
-		public UiItemBase rootUiItem;
-		private Dictionary<string, UiItemBase> guid_To_UiItemDict;
+	public class UISnapshot {
+		public UIItemBase rootUiItem;
+		private Dictionary<string, UIItemBase> guid_To_UiItemDict;
 
 		// [ Constructor ]
-		public UiSnapshot() {
-			guid_To_UiItemDict = new Dictionary<string, UiItemBase>();
+		public UISnapshot() {
+			guid_To_UiItemDict = new Dictionary<string, UIItemBase>();
 		}
 
 		// [ Data Managing ]
@@ -23,12 +24,12 @@ namespace TaleKit.Datas.UI {
 			rootUiItem = null;
 			guid_To_UiItemDict.Clear();
 		}
-		public UiSnapshot Clone() {
-			UiSnapshot cloneSnapshot = new UiSnapshot();
+		public UISnapshot Clone() {
+			UISnapshot cloneSnapshot = new UISnapshot();
 
 			foreach (var srcUiItemPair in guid_To_UiItemDict) {
-				UiItemBase srcItem = srcUiItemPair.Value;
-				UiItemBase cloneItem = srcItem.Clone() as UiItemBase;
+				UIItemBase srcItem = srcUiItemPair.Value;
+				UIItemBase cloneItem = srcItem.Clone() as UIItemBase;
 
 				if (srcItem.ParentItem == null) {
 					cloneSnapshot.rootUiItem = cloneItem;
@@ -36,7 +37,7 @@ namespace TaleKit.Datas.UI {
 				cloneSnapshot.guid_To_UiItemDict.Add(cloneItem.guid, cloneItem);
 			}
 			foreach (var cloneUiItemPair in cloneSnapshot.guid_To_UiItemDict) {
-				UiItemBase cloneItem = cloneUiItemPair.Value;
+				UIItemBase cloneItem = cloneUiItemPair.Value;
 
 				if (cloneItem.ParentItem != null) {
 					cloneItem.ParentItem = guid_To_UiItemDict[cloneItem.ParentItem.guid];
@@ -49,10 +50,10 @@ namespace TaleKit.Datas.UI {
 
 			return cloneSnapshot;
 		}
-		public void CopyDataFrom(UiSnapshot srcSnapshot) {
+		public void CopyDataFrom(UISnapshot srcSnapshot) {
 			foreach(var srcUiItemPair in srcSnapshot.guid_To_UiItemDict) {
-				UiItemBase srcItem = srcUiItemPair.Value;
-				UiItemBase dstItem = guid_To_UiItemDict[srcItem.guid];
+				UIItemBase srcItem = srcUiItemPair.Value;
+				UIItemBase dstItem = guid_To_UiItemDict[srcItem.guid];
 
 				// Class 제외하고 Struct만 복사
 				FieldInfo[] fieldInfos = srcItem.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
@@ -66,17 +67,17 @@ namespace TaleKit.Datas.UI {
 		}
 
 		// Control Collection
-		public UiItemBase[] GetUiItems() {
+		public UIItemBase[] GetUiItems() {
 			return guid_To_UiItemDict.Values.ToArray();
 		}
 
-		public void RegisterUiItem(string guid, UiItemBase UiItem) {
+		public void RegisterUiItem(string guid, UIItemBase UiItem) {
 			guid_To_UiItemDict.Add(guid, UiItem);
 		}
 		public void RemoveUiItem(string guid) {
 			guid_To_UiItemDict.Remove(guid);
 		}
-		public UiItemBase GetUiItem(string guid) {
+		public UIItemBase GetUiItem(string guid) {
 			return guid_To_UiItemDict[guid];
 		}
 
@@ -89,7 +90,7 @@ namespace TaleKit.Datas.UI {
 					if (UiOrder == null || string.IsNullOrEmpty(UiOrder.targetUiGuid) || !guid_To_UiItemDict.ContainsKey(UiOrder.targetUiGuid))
 						continue;
 
-					UiItemBase targetUiItem = guid_To_UiItemDict[UiOrder.targetUiGuid];
+					UIItemBase targetUiItem = guid_To_UiItemDict[UiOrder.targetUiGuid];
 
 					foreach(FieldInfo fieldInfo in targetUiItem.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance)) {
 						if(UiOrder.UiKeyData.KeyFieldNameHashSet.Contains(fieldInfo.Name)) {

@@ -20,7 +20,7 @@ namespace TaleKit.Datas.Story {
 
 		// Ui Cache
 		public bool HasUiCache => UiCacheSnapshot != null;
-		public UiSnapshot UiCacheSnapshot {
+		public UISnapshot UiCacheSnapshot {
 			get; private set;
 		}
 
@@ -32,7 +32,7 @@ namespace TaleKit.Datas.Story {
 		}
 
 		// Cache
-		public void SaveCache(UiSnapshot srcSnapshot) {
+		public void SaveCache(UISnapshot srcSnapshot) {
 			UiCacheSnapshot = srcSnapshot.Clone();
 		}
 		public void DeleteCache() {

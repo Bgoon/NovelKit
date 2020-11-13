@@ -298,8 +298,15 @@
     <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\ResolutionEditor.xaml.cs">
       <DependentUpon>ResolutionEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\IUIContent.cs" />
+    <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_MotionText.xaml.cs">
+      <DependentUpon>UIContent_MotionText.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_Panel.xaml.cs">
       <DependentUpon>UIContent_Panel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_Text.xaml.cs">
+      <DependentUpon>UIContent_Text.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Order\OrderTypeItemView.xaml.cs">
       <DependentUpon>OrderTypeItemView.xaml</DependentUpon>
@@ -363,8 +370,8 @@
     <Compile Include="UI\Workspaces\UiWorkspaceTabs\UiOutlinerTab.xaml.cs">
       <DependentUpon>UiOutlinerTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UiRenderer.xaml.cs">
-      <DependentUpon>UiRenderer.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UIRenderer.xaml.cs">
+      <DependentUpon>UIRenderer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\CommonTabs\ViewportTab.xaml.cs">
       <DependentUpon>ViewportTab.xaml</DependentUpon>
@@ -633,7 +640,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_MotionText.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_Panel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_Text.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -729,7 +744,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\CommonTabs\ViewportElements\UiRenderer.xaml">
+    <Page Include="UI\Workspaces\CommonTabs\ViewportElements\UIRenderer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

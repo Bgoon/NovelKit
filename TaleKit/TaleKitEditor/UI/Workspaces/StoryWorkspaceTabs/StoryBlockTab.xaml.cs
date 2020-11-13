@@ -27,6 +27,7 @@ using TaleKit.Datas.ModelEditor;
 using System.Reflection;
 using System.Diagnostics;
 using TaleKit.Datas.Motion;
+using TaleKit.Datas.UI.UIItem;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	/// <summary>
@@ -38,7 +39,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static TaleData EditingTaleData => MainWindow.EditingTaleData;
 		private static StoryFile EditingStoryFile => EditingTaleData.StoryFile;
-		private static UiFile EditingUiFile => EditingTaleData.UiFile;
+		private static UIFile EditingUiFile => EditingTaleData.UiFile;
 		private static ViewportTab ViewportTab => MainWindow.ViewportTab;
 
 		private readonly Dictionary<StoryBlockBase, StoryBlockView> dataToViewDict;
@@ -71,7 +72,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		// Collection
-		private readonly HashSet<UiRenderer> RenderedRendererHashSet;
+		private readonly HashSet<UIRenderer> RenderedRendererHashSet;
 		private readonly HashSet<UiMotion> UiMotionSet;
 
 		// [ Constructor ]
@@ -83,7 +84,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			// Init members
 			dataToViewDict = new Dictionary<StoryBlockBase, StoryBlockView>();
-			RenderedRendererHashSet = new HashSet<UiRenderer>();
+			RenderedRendererHashSet = new HashSet<UIRenderer>();
 			UiMotionSet = new HashSet<UiMotion>();
 
 			// Register events
@@ -198,13 +199,13 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			// TODO : Cache 사용하도록 수정
 			if (!ViewportTab.PlayStateButton.IsActive || lastBlockIndex < 0) {
-				UiRenderer rootRenderer = EditingUiFile.Guid_To_RendererDict[EditingUiFile.UiSnapshot.rootUiItem.guid] as UiRenderer;
+				UIRenderer rootRenderer = EditingUiFile.Guid_To_RendererDict[EditingUiFile.UiSnapshot.rootUiItem.guid] as UIRenderer;
 				rootRenderer.Render(true);
 			} else {
 				StoryClip editingClip = EditingClip;
 
 				// Find last cache
-				UiSnapshot snapshot = null;
+				UISnapshot snapshot = null;
 				int cacheIndex = -1;
 				for(int blockI=lastBlockIndex-1; blockI>=0; --blockI) {
 					StoryBlockBase block = editingClip.BlockItemList[blockI];
@@ -227,8 +228,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 					snapshot.ApplyStoryBlockBase(block);
 				}
-				foreach(UiItemBase UiItem in snapshot.GetUiItems()) {
-					UiRenderer renderer = EditingUiFile.Guid_To_RendererDict[UiItem.guid] as UiRenderer;
+				foreach(UIItemBase UiItem in snapshot.GetUiItems()) {
+					UIRenderer renderer = EditingUiFile.Guid_To_RendererDict[UiItem.guid] as UIRenderer;
 					renderer.RenderFromData(UiItem);
 				}
 
@@ -246,12 +247,12 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 										if (string.IsNullOrEmpty(order_UI.targetUiGuid))
 											continue;
 
-										UiItemBase UiItem = EditingUiFile.UiSnapshot.GetUiItem(order_UI.targetUiGuid);
+										UIItemBase UiItem = EditingUiFile.UiSnapshot.GetUiItem(order_UI.targetUiGuid);
 
 										if (UiItem == null)
 											continue;
 
-										UiRenderer renderer = EditingUiFile.Guid_To_RendererDict[UiItem.guid] as UiRenderer;
+										UIRenderer renderer = EditingUiFile.Guid_To_RendererDict[UiItem.guid] as UIRenderer;
 
 										StartMotion(UiItem, renderer, order_UI);
 									}
@@ -268,17 +269,17 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		// TODO : 관련된 코드들 Order 내부로 이동
 		// 파라미터들 Interface화 해서 클라이언트와 같이 쓸 것
 		// Order
-		private void StartMotion(UiItemBase UiItem, UiRenderer UiRenderer, Order_UI order_UI) {
-			UiItemBase prevData = GetOrdersAppliedData(UiItem, GetSelectedBlockIndex() - 1);
+		private void StartMotion(UIItemBase UiItem, UIRenderer UiRenderer, Order_UI order_UI) {
+			UIItemBase prevData = GetOrdersAppliedData(UiItem, GetSelectedBlockIndex() - 1);
 
 			UiMotionSet.Add(new UiMotion(UiRenderer, order_UI, prevData, GetOrderAppliedData(prevData, order_UI)));
 		}
-		private void ApplyOrderToRendererImmediately(UiRenderer UiRenderer, Order_UI order_UI) {
+		private void ApplyOrderToRendererImmediately(UIRenderer UiRenderer, Order_UI order_UI) {
 			UiRenderer.RenderFromData(order_UI.UiKeyData);
 		}
 
-		private UiItemBase GetOrdersAppliedData(UiItemBase UiItem, int lastBlockIndex) {
-			UiItemBase newItem = UiItem.Clone() as UiItemBase;
+		private UIItemBase GetOrdersAppliedData(UIItemBase UiItem, int lastBlockIndex) {
+			UIItemBase newItem = UiItem.Clone() as UIItemBase;
 
 			for(int i=0; i<=lastBlockIndex; ++i) {
 				StoryBlockBase blockBase = EditingStoryFile.RootClip.BlockItemList[i];
@@ -300,14 +301,14 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			}
 			return newItem;
 		}
-		private UiItemBase GetOrderAppliedData(UiItemBase UiItem, Order_UI order_UI) {
-			UiItemBase newData = UiItem.Clone() as UiItemBase;
+		private UIItemBase GetOrderAppliedData(UIItemBase UiItem, Order_UI order_UI) {
+			UIItemBase newData = UiItem.Clone() as UIItemBase;
 			ApplyOrder(newData, order_UI);
 
 			return newData;
 		}
-		private void ApplyOrder(UiItemBase UiItem, Order_UI order_UI) {
-			UiItemBase keyData = order_UI.UiKeyData;
+		private void ApplyOrder(UIItemBase UiItem, Order_UI order_UI) {
+			UIItemBase keyData = order_UI.UiKeyData;
 
 			foreach (FieldInfo keyFieldInfo in keyData.GetType().GetFields()) {
 				if (keyFieldInfo.GetCustomAttributes<ValueEditorAttribute>().Count() == 0)
@@ -327,11 +328,11 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		
 			private readonly static BindingFlags PublicRuntimeBindingFlags = BindingFlags.Public | BindingFlags.Instance;
 
-			public readonly UiRenderer UiRenderer;
+			public readonly UIRenderer UiRenderer;
 			public readonly Order_UI order_UI;
 
-			public readonly UiItemBase prevKeyData;
-			public readonly UiItemBase currentKeyData;
+			public readonly UIItemBase prevKeyData;
+			public readonly UIItemBase currentKeyData;
 
 			public float ActualTimeSec => timeSec - order_UI.delaySec;
 			public float timeSec;
@@ -341,7 +342,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			}
 			public bool IsOverTime => ActualTimeSec > order_UI.durationSec;
 
-			public UiMotion(UiRenderer UiRenderer, Order_UI order_UI, UiItemBase prevKeyData, UiItemBase currentKeyData) {
+			public UiMotion(UIRenderer UiRenderer, Order_UI order_UI, UIItemBase prevKeyData, UIItemBase currentKeyData) {
 				this.UiRenderer = UiRenderer;
 				this.order_UI = order_UI;
 
@@ -359,12 +360,12 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				}
 			}
 			private void Render() {
-				UiItemBase breakDownData = GetBreakDownData();
+				UIItemBase breakDownData = GetBreakDownData();
 
 				UiRenderer.RenderFromData(breakDownData);
 			}
-			private UiItemBase GetBreakDownData() {
-				UiItemBase breakDownData = prevKeyData.Clone() as UiItemBase;
+			private UIItemBase GetBreakDownData() {
+				UIItemBase breakDownData = prevKeyData.Clone() as UIItemBase;
 
 				if (timeSec > order_UI.delaySec) {
 					float normalTime = Mathf.Clamp01(ActualTimeSec / order_UI.durationSec);

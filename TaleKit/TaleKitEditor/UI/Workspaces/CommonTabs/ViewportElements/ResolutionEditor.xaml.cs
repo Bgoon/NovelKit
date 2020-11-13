@@ -16,10 +16,13 @@ using UnityEngine;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 	public delegate void ResolutionChangedDelegate(int width, int height);
-	public delegate void ZoomChangedDelegate(double zoom);
+	public delegate void ZoomChangedDelegate(double newZoomScale, double oldZoomScale);
+
 	public partial class ResolutionEditor : UserControl {
 		public event ResolutionChangedDelegate ResolutionChanged;
 		public event ZoomChangedDelegate ZoomChanged;
+
+		private double prevZoomScale = -1d;
 
 		public ResolutionEditor() {
 			InitializeComponent();
@@ -46,7 +49,15 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 
 		// [ Event ]
 		public void RaiseZoomChanged() {
-			ZoomChanged?.Invoke(ZoomNumberEditor.Value * 0.01f);
+			double newZoomScale = ZoomNumberEditor.Value * 0.01f;
+
+			if (prevZoomScale < 0d) {
+				prevZoomScale = newZoomScale;
+			}
+
+			ZoomChanged?.Invoke(newZoomScale, prevZoomScale);
+
+			prevZoomScale = newZoomScale;
 		}
 
 		public void OnResolutionChanged() {

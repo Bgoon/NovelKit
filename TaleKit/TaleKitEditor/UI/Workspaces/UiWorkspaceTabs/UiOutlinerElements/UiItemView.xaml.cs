@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
+using TaleKit.Datas.UI.UIItem;
 
 namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 	/// <summary>
@@ -26,7 +27,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		public static readonly DependencyProperty DisplayNameProperty = DependencyProperty.RegisterAttached(nameof(DisplayName), typeof(string), typeof(UiItemView), new PropertyMetadata("Item"));
 		public static readonly DependencyProperty ItemTypeNameProperty = DependencyProperty.RegisterAttached(nameof(ItemTypeName), typeof(string), typeof(UiItemView), new PropertyMetadata("ItemType"));
 
-		public readonly UiItemBase Data;
+		public readonly UIItemBase Data;
 
 		// ITreeFolder interface
 		public ITreeFolder ParentItem {
@@ -57,7 +58,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		public UiItemView() {
 			InitializeComponent();
 		}
-		public UiItemView(UiItemBase data) : this() {
+		public UiItemView(UIItemBase data) : this() {
 			this.Data = data;
 			data.View = this;
 

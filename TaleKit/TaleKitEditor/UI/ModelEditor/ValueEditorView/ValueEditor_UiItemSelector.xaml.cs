@@ -17,6 +17,7 @@ using TaleKit.Datas;
 using TaleKit.Datas.Asset;
 using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
+using TaleKit.Datas.UI.UIItem;
 using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.ModelEditor {
@@ -27,7 +28,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static TaleData EditingTaleData => MainWindow.EditingTaleData;
-		private static UiFile UiFile => EditingTaleData.UiFile;
+		private static UIFile UiFile => EditingTaleData.UiFile;
 
 		public static readonly DependencyProperty SelectedUiGuidProperty = DependencyProperty.RegisterAttached(nameof(SelectedUiGuid), typeof(string), typeof(ValueEditor_UiItemSelector), new PropertyMetadata(null));
 
@@ -62,7 +63,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 			// Set ItemSource
 			Guid_To_ItemDict = new Dictionary<string, ComboBoxItem>();
 			IEnumerable<ComboBoxItem> items = UiFile.UiItemList.Select(
-				(UiItemBase itemSrc) => {
+				(UIItemBase itemSrc) => {
 					ComboBoxItem item = new ComboBoxItem() {
 						Content = itemSrc.name,
 						Tag = itemSrc.guid

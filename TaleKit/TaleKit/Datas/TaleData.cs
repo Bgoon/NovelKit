@@ -22,7 +22,7 @@ namespace TaleKit.Datas {
 		public MotionFile MotionFile {
 			get; private set;
 		}
-		public UiFile UiFile {
+		public UIFile UiFile {
 			get; private set;
 		}
 		public StoryFile StoryFile {
@@ -90,7 +90,7 @@ namespace TaleKit.Datas {
 			AssetManager = new AssetManager(this);
 
 			MotionFile = new MotionFile(this, initArgs.targetMotionData);
-			UiFile = new UiFile(this, initArgs.createRootUIItem);
+			UiFile = new UIFile(this, initArgs.createRootUIItem);
 			StoryFile = new StoryFile(this);
 			ProjectSetting = new ProjectSetting(this);
 

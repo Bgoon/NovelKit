@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TaleKit.Datas.UI {
-	public enum UiItemType {
+	public enum UIItemType {
 		Panel,
 		Text,
+		MotionText,
 	}
 }

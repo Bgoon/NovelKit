@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
-using TaleKit.Datas.UI.UiItem;
+using TaleKit.Datas.UI.UIItem;
 using UnityEngine;
 
 namespace TaleKit.Datas.Story {
@@ -14,7 +14,7 @@ namespace TaleKit.Datas.Story {
 	/// UI를 조작할 수 있는 명령
 	/// </summary>
 	public class Order_UI : OrderBase {
-		private UiFile UiFile => OwnerBlock.OwnerFile.OwnerTaleData.UiFile;
+		private UIFile UiFile => OwnerBlock.OwnerFile.OwnerTaleData.UiFile;
 
 		public override OrderType OrderType => OrderType.UI;
 		
@@ -30,7 +30,7 @@ namespace TaleKit.Datas.Story {
 		public string targetUiGuid;
 
 		[ValueEditor_ModelKeyFrame(nameof(targetUiGuid), nameof(OnTargetUiUpdated))]
-		public UiItemBase UiKeyData;
+		public UIItemBase UiKeyData;
 
 		[ValueEditor_NumberBox("Duration Sec", minValue = 0)]
 		public float durationSec = 1f;
@@ -73,18 +73,18 @@ namespace TaleKit.Datas.Story {
 			if (string.IsNullOrEmpty(targetUiGuid))
 				return;
 
-			UiItemBase targetUi = UiFile.UiSnapshot.GetUiItem(targetUiGuid);
+			UIItemBase targetUi = UiFile.UiSnapshot.GetUiItem(targetUiGuid);
 
 			if(targetUi == null) {
 				UiKeyData = null;
 				return;
 			}
 			switch(targetUi.itemType) {
-				case UiItemType.Panel:
-					UiKeyData = new UiPanel(UiFile);
+				case UIItemType.Panel:
+					UiKeyData = new UIPanel(UiFile);
 					break;
-				case UiItemType.Text:
-					UiKeyData = new UiText(UiFile);
+				case UIItemType.Text:
+					UiKeyData = new UIText(UiFile);
 					break;
 			}
 			UiKeyData.IsKeyFrameModel = true;

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements.UiRenderer"
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements.UIRenderer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,14 +9,7 @@
              mc:Ignorable="d" 
              d:DesignWidth="800" d:DesignHeight="450">
     <Grid>
-		<Grid Name="TextContext">
-			<TextBlock Name="TextRenderer" TextWrapping="Wrap"/>
-		</Grid>
-		<Grid Name="PanelContext">
-			<Border Name="SolidRenderer"/>
-			<Image Name="ImageRenderer" Stretch="Fill"/>
-			<GControls:NinePatchImage x:Name="NinePatchImageRenderer"/>
-		</Grid>
+		<Grid Name="ContentContext"/>
 		<Grid Name="ChildItemContext"/>
 
 		<Grid Name="FocusBox">
