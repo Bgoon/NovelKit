@@ -42,6 +42,7 @@ namespace TaleKit.Datas.Story {
 			UiCacheManager = new UiCacheManager(ownerTaleData);
 
 			RootClip = CreateStoryClip();
+			RootClip.name = "Root";
 
 			// Register events
 			ownerTaleData.Tick += UiCacheManager.OnTick;

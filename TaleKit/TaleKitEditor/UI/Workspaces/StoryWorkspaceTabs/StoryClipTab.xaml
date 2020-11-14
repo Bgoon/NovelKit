@@ -11,6 +11,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
 	<DockPanel Name="ItemPanel">
 		<GControls:ListManagerBar Name="StoryClipListController" DockPanel.Dock="Top" CreateFolderButtonVisible="False"/>
-		<GControls:EditTreeView Name="StoryClipListView" DockPanel.Dock="Top" ItemShadowVisible="True"/>
+		<GControls:EditTreeView Name="StoryClipTreeView" DockPanel.Dock="Top" ItemShadowVisible="True"/>
 	</DockPanel>
 </UserControl>

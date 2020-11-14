@@ -17,6 +17,8 @@ namespace TaleKit.Datas.Story {
 		public readonly List<StoryBlockBase> BlockItemList;
 		[SavableField]
 		public string guid;
+		[SavableField]
+		public string name = "New clip";
 
 		// [ Constructor ]
 		public StoryClip(StoryFile ownerFile) {

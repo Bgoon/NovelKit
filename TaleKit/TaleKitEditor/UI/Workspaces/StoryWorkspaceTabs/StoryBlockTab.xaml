@@ -10,6 +10,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
+		<Grid Name="EditingClipInfoContext" DockPanel.Dock="Top" Background="{StaticResource TabBackground}">
+			<TextBlock Name="EditingClipInfoTextBlock" Style="{StaticResource ContentText}" Margin="8,4">
+                <Run Name="EditingClipNameRun" Foreground="{StaticResource SelectedBackground}" FontFamily="{StaticResource DefaultFontFamily_Bold}">Clip A</Run>
+                <Run>수정 중</Run>
+            </TextBlock>
+        </Grid>
 		<GControls:ListManagerBar Name="StoryBlockListController" DockPanel.Dock="Top" CreateFolderButtonVisible="False"/>
 		<GControls:EditTreeView Name="StoryBlockTreeView" DockPanel.Dock="Top" ItemShadowVisible="True"/>
 	</DockPanel>

@@ -49,6 +49,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 				StoryBlock_Item storyBlockData = data as StoryBlock_Item;
 				storyBlockData.OrderAdded += StoryBlockData_OrderAdded;
 				storyBlockData.OrderRemoved += StoryBlockData_OrderRemoved;
+
+				UpdateOrderIndicator();
 			}
 			VisibleButton.RegisterClickEvent(VisibleButton_Click, true);
 		}

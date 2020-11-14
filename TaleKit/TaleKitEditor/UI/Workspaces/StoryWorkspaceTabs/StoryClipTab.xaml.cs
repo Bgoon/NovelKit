@@ -46,9 +46,14 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			MainWindow.ProjectLoaded += MainWindow_ProjectLoaded;
 			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
+
+			StoryClipTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
+			StoryClipTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
 		}
 
 
+
+		// [ Event ]
 		private void MainWindow_ProjectLoaded(TaleData taleData) {
 			EditingStoryFile.ClipCreated += EditingStoryFile_ClipCreated;
 			EditingStoryFile.ClipRemoved += EditingStoryFile_ClipRemoved;
@@ -58,12 +63,11 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			EditingStoryFile.ClipRemoved += EditingStoryFile_ClipRemoved;
 		}
 
-		// [ Event ]
 		private void CreateItemButton_Click() {
 			EditingStoryFile.CreateStoryClip();
 		}
 		private void RemoveItemButton_Click() {
-			foreach(var item in StoryClipListView.SelectedItemSet) {
+			foreach(var item in StoryClipTreeView.SelectedItemSet) {
 				StoryClipView clipView = item as StoryClipView;
 
 				EditingStoryFile.RemoveStoryClip(clipView.Data);
@@ -73,8 +77,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private void EditingStoryFile_ClipCreated(StoryClip clip) {
 			//TODO : 구현	
 			StoryClipView clipView = new StoryClipView(clip);
-			StoryClipListView.RootFolder.ChildItemCollection.Add(clipView);
-			clipView.ParentItem = StoryClipListView;
+			StoryClipTreeView.ChildItemCollection.Add(clipView);
+			clipView.ParentItem = StoryClipTreeView;
 
 			dataToViewDict.Add(clip, clipView);
 		}
@@ -82,6 +86,24 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			dataToViewDict[clip].DetachParent();
 
 			dataToViewDict.Remove(clip);
+		}
+
+		private void SelectedItemSet_SelectionAdded(ISelectable item) {
+			SelectionChanged();
+		}
+		private void SelectedItemSet_SelectionRemoved(ISelectable item) {
+			SelectionChanged();
+		}
+		private void SelectionChanged() {
+			StoryClipView lastSelectedClipView = StoryClipTreeView.SelectedItemSet.LastOrDefault() as StoryClipView;
+			StoryClip lastSelectedClip;
+			if(lastSelectedClipView == null) {
+				lastSelectedClip = EditingStoryFile.RootClip;
+			} else {
+				lastSelectedClip = lastSelectedClipView.Data;
+			}
+
+			StoryBlockTab.AttachClip(lastSelectedClip);
 		}
 	}
 }

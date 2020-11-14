@@ -59,21 +59,12 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		public StoryClip EditingClip {
-			get {
-				if (TargetEditingClip == null) {
-					return EditingStoryFile.RootClip;
-				} else {
-					return TargetEditingClip;
-				}
-			}
-		}
-		public StoryClip TargetEditingClip {
 			get; private set;
 		}
 
 		// Collection
 		private readonly HashSet<UIRenderer> RenderedRendererHashSet;
-		private readonly HashSet<UiMotion> UiMotionSet;
+		private readonly HashSet<UIMotionPlayer> UiMotionSet;
 
 		// [ Constructor ]
 		public StoryBlockTab() {
@@ -85,7 +76,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			// Init members
 			dataToViewDict = new Dictionary<StoryBlockBase, StoryBlockView>();
 			RenderedRendererHashSet = new HashSet<UIRenderer>();
-			UiMotionSet = new HashSet<UiMotion>();
+			UiMotionSet = new HashSet<UIMotionPlayer>();
 
 			// Register events
 			LoopEngine.AddLoopAction(OnTick);
@@ -99,6 +90,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			
 			MainWindow.ProjectLoaded += MainWindow_DataLoaded;
 			MainWindow.ProjectUnloaded += MainWindow_DataUnloaded;
+
+			DetachClip();
 		}
 
 		// [ Event ]
@@ -106,11 +99,13 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			UpdateMotion();
 		}
 
-		private void MainWindow_DataLoaded(TaleData obj) {
+		private void MainWindow_DataLoaded(TaleData taleData) {
 			EditingStoryFile.BlockItemCreated += StoryFile_ItemCreated;
 			EditingStoryFile.BlockItemRemoved += StoryFile_ItemRemoved;
+
+			AttachClip(EditingStoryFile.RootClip);
 		}
-		private void MainWindow_DataUnloaded(TaleData obj) {
+		private void MainWindow_DataUnloaded(TaleData taleData) {
 			EditingStoryFile.BlockItemCreated -= StoryFile_ItemCreated;
 			EditingStoryFile.BlockItemRemoved -= StoryFile_ItemRemoved;
 
@@ -144,7 +139,6 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private void StoryFile_ItemRemoved(StoryBlockBase item, StoryClip parentItem) {
 			//Remove view
 			dataToViewDict[item].DetachParent();
-			//StoryFile.RemoveStoryBlockItem(item);
 
 			dataToViewDict.Remove(item);
 		}
@@ -272,7 +266,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private void StartMotion(UIItemBase UiItem, UIRenderer UiRenderer, Order_UI order_UI) {
 			UIItemBase prevData = GetOrdersAppliedData(UiItem, GetSelectedBlockIndex() - 1);
 
-			UiMotionSet.Add(new UiMotion(UiRenderer, order_UI, prevData, GetOrderAppliedData(prevData, order_UI)));
+			UiMotionSet.Add(new UIMotionPlayer(UiRenderer, order_UI, prevData, GetOrderAppliedData(prevData, order_UI)));
 		}
 		private void ApplyOrderToRendererImmediately(UIRenderer UiRenderer, Order_UI order_UI) {
 			UiRenderer.RenderFromData(order_UI.UiKeyData);
@@ -322,13 +316,14 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		// Motion
-		public class UiMotion {
+		public class UIMotionPlayer {
 			private TaleData EditingData => order_UI.OwnerBlock.OwnerFile.OwnerTaleData;
 			private MotionFile EditingMotionFile => EditingData.MotionFile;
 		
 			private readonly static BindingFlags PublicRuntimeBindingFlags = BindingFlags.Public | BindingFlags.Instance;
 
-			public readonly UIRenderer UiRenderer;
+			// TODO : UIRenderer 를 인터페이스로 변경해서 참조
+			public readonly UIRenderer UIRenderer;
 			public readonly Order_UI order_UI;
 
 			public readonly UIItemBase prevKeyData;
@@ -342,8 +337,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			}
 			public bool IsOverTime => ActualTimeSec > order_UI.durationSec;
 
-			public UiMotion(UIRenderer UiRenderer, Order_UI order_UI, UIItemBase prevKeyData, UIItemBase currentKeyData) {
-				this.UiRenderer = UiRenderer;
+			public UIMotionPlayer(UIRenderer UiRenderer, Order_UI order_UI, UIItemBase prevKeyData, UIItemBase currentKeyData) {
+				this.UIRenderer = UiRenderer;
 				this.order_UI = order_UI;
 
 				this.prevKeyData = prevKeyData;
@@ -362,7 +357,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			private void Render() {
 				UIItemBase breakDownData = GetBreakDownData();
 
-				UiRenderer.RenderFromData(breakDownData);
+				UIRenderer.RenderFromData(breakDownData);
 			}
 			private UIItemBase GetBreakDownData() {
 				UIItemBase breakDownData = prevKeyData.Clone() as UIItemBase;
@@ -440,7 +435,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void UpdateMotion() {
-			foreach(UiMotion motion in UiMotionSet) {
+			foreach(UIMotionPlayer motion in UiMotionSet) {
 				if(!motion.IsComplete) {
 					motion.AddTime(LoopEngine.DeltaSeconds);
 				}
@@ -452,10 +447,23 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		// Attach
 		public void AttachClip(StoryClip clip) {
-			TargetEditingClip = clip;
+			DetachClip();
+
+			EditingClip = clip;
+
+			foreach(var item in clip.BlockItemList) {
+				StoryFile_ItemCreated(item, clip);
+			}
+
+			EditingClipNameRun.Text = clip.name;
 		}
 		public void DetachClip() {
-			TargetEditingClip = null;
+			EditingClip = null;
+
+			StoryBlockTreeView.ChildItemCollection.Clear();
+			dataToViewDict.Clear();
+
+			EditingClipNameRun.Text = "Root";
 		}
 
 		// Utility
