@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.ModelEditor;
 using NumberType = GKitForUnity.NumberType;
+using Screen = System.Windows.Forms.Screen;
 
 namespace TaleKitEditor.UI.ModelEditor {
 	public partial class ValueEditor_NumberBox : UserControl, IValueEditor, INotifyPropertyChanged {
@@ -30,6 +31,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 		public float DragAdjustFactor {
 			get; set;
 		} = 1f;
+		private const int DragAdjustPortalThreshold = 2;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		public event EditableValueChangedDelegate EditableValueChanged;
@@ -126,7 +128,9 @@ namespace TaleKitEditor.UI.ModelEditor {
 		private bool onDragging;
 		private float dragStartValue;
 		private float dragStartCursorPosX;
+		private Screen dragStartScreen;
 
+		// [ Constructor ]
 		[Obsolete]
 		public ValueEditor_NumberBox() {
 			//For designer
@@ -148,6 +152,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 			PropertyChanged += ValueEditorElement_NumberBox_PropertyChanged;
 		}
 
+		// [ Event ]
 		private void RaisePropertyChanged(string propertyName) {
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
@@ -187,6 +192,53 @@ namespace TaleKitEditor.UI.ModelEditor {
 			}
 		}
 
+		// Drag to adjust value
+		private void AdjustButton_MouseDown(object sender, MouseButtonEventArgs e) {
+			Mouse.Capture(AdjustButton);
+
+			onDragging = true;
+			dragStartValue = Value;
+			dragStartCursorPosX = MouseInput.AbsolutePosition.x;
+
+			if(dragStartScreen == null) {
+				Vector2 cursorAbsolutePos = MouseInput.AbsolutePosition;
+				dragStartScreen = Screen.FromPoint(new System.Drawing.Point((int)cursorAbsolutePos.x, (int)cursorAbsolutePos.y));
+			}
+		}
+		private void AdjustButton_MouseMove(object sender, MouseEventArgs e) {
+			if (!onDragging)
+				return;
+
+			// If cursor near to screen end, set opposite side position
+			Vector2 cursorAbsolutePos = MouseInput.AbsolutePosition;
+
+			float screenLeftDelta = dragStartScreen.Bounds.Left + DragAdjustPortalThreshold - cursorAbsolutePos.x;
+			float screenRightDelta = dragStartScreen.Bounds.Right - DragAdjustPortalThreshold - cursorAbsolutePos.x;
+
+			if (screenLeftDelta > 0) {
+				int targetPosX = dragStartScreen.Bounds.Right - (DragAdjustPortalThreshold + 10);
+				MouseInput.SetAbsolutePosition(new Vector2Int(targetPosX, (int)cursorAbsolutePos.y));
+
+				AdjustButton_MouseDown(null, null);
+			} else if (screenRightDelta < 0) {
+				int targetPosX = dragStartScreen.Bounds.Left + (DragAdjustPortalThreshold + 10);
+				MouseInput.SetAbsolutePosition(new Vector2Int(targetPosX, (int)cursorAbsolutePos.y));
+
+				AdjustButton_MouseDown(null, null);
+			}
+
+			float cursorPosXDiff = cursorAbsolutePos.x - dragStartCursorPosX;
+
+			EditableValue = dragStartValue + cursorPosXDiff * 0.3f * DragAdjustFactor;
+		}
+		private void AdjustButton_MouseUp(object sender, MouseButtonEventArgs e) {
+			Mouse.Capture(null);
+
+			onDragging = false;
+			dragStartScreen = null;
+		}
+
+		// Update
 		private void UpdateUI() {
 			ValueTextBox.Text = DisplayValue;
 		}
@@ -206,27 +258,5 @@ namespace TaleKitEditor.UI.ModelEditor {
 			}
 		}
 
-		private void AdjustButton_MouseDown(object sender, MouseButtonEventArgs e) {
-			Mouse.Capture(AdjustButton);
-
-			onDragging = true;
-			dragStartValue = Value;
-			dragStartCursorPosX = (float)e.GetPosition(AdjustButton).X;
-		}
-		private void AdjustButton_MouseMove(object sender, MouseEventArgs e) {
-			
-
-			if (!onDragging)
-				return;
-
-			float cursorPosXDiff = (float)e.GetPosition(AdjustButton).X - dragStartCursorPosX;
-
-			EditableValue = dragStartValue + cursorPosXDiff * 0.3f * DragAdjustFactor;
-		}
-		private void AdjustButton_MouseUp(object sender, MouseButtonEventArgs e) {
-			Mouse.Capture(null);
-
-			onDragging = false;
-		}
 	}
 }
