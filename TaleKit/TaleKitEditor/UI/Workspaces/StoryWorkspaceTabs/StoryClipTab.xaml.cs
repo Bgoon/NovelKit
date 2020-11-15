@@ -44,7 +44,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StoryClipListController.CreateItemButtonClick.Add(CreateItemButton_Click);
 			StoryClipListController.RemoveItemButtonClick.Add(RemoveItemButton_Click);
 
-			MainWindow.ProjectLoaded += MainWindow_ProjectLoaded;
+			MainWindow.ProjectPreloaded += MainWindow_ProjectPreloaded;
 			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
 
 			StoryClipTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
@@ -54,7 +54,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 
 		// [ Event ]
-		private void MainWindow_ProjectLoaded(TaleData taleData) {
+		private void MainWindow_ProjectPreloaded(TaleData taleData) {
 			EditingStoryFile.ClipCreated += EditingStoryFile_ClipCreated;
 			EditingStoryFile.ClipRemoved += EditingStoryFile_ClipRemoved;
 		}
@@ -75,7 +75,6 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void EditingStoryFile_ClipCreated(StoryClip clip) {
-			//TODO : 구현	
 			StoryClipView clipView = new StoryClipView(clip);
 			StoryClipTreeView.ChildItemCollection.Add(clipView);
 			clipView.ParentItem = StoryClipTreeView;

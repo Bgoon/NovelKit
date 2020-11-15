@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using TaleKit.Datas.Story.StoryBlock;
 
 namespace TaleKit.Datas.Story {
 	/// <summary>
@@ -7,10 +8,8 @@ namespace TaleKit.Datas.Story {
 	/// </summary>
 	public class Order_Logic : OrderBase {
 
-		public override OrderType OrderType => OrderType.Logic;
-
 		public Order_Logic(StoryBlock_Item ownerBlock) : base(ownerBlock) {
-
+			orderType = OrderType.Logic;
 		}
 
 		public override JObject ToJObject() {

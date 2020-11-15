@@ -9,10 +9,10 @@ namespace TaleKit.Datas.Motion {
 
 		public PenMotion.Datas.MotionFile motionData;
 
-		public MotionFile(TaleData ownerTaleData, PenMotion.Datas.MotionFile motionData) {
+		public MotionFile(TaleData ownerTaleData) {
 			this.OwnerTaleData = ownerTaleData;
 
-			this.motionData = motionData;
+			this.motionData = ownerTaleData.InitArgs.targetMotionData;
 		}
 
 		public JObject ToJObject() {

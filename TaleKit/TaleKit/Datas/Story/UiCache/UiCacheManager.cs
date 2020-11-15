@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleKit.Datas.UI;
 using GKitForUnity;
+using TaleKit.Datas.Story.StoryBlock;
 
 namespace TaleKit.Datas.Story {
 	public class UiCacheManager {
-		public readonly TaleData OwnerData;
-		private StoryFile StoryFile => OwnerData.StoryFile;
-		private UIFile UiFile => OwnerData.UiFile;
+		public readonly StoryFile OwnerFile;
+		public TaleData OwnerTaleData => OwnerFile.OwnerTaleData;
+		public UIFile UIFile => OwnerTaleData.UiFile;
 
 		public int CacheInterval {
 			get; private set;
@@ -21,7 +22,7 @@ namespace TaleKit.Datas.Story {
 			get {
 				StoryClip targetClip;
 				if (TargetClip == null) {
-					targetClip = OwnerData.StoryFile.RootClip;
+					targetClip = OwnerFile.RootClip;
 				} else {
 					targetClip = TargetClip;
 				}
@@ -33,8 +34,8 @@ namespace TaleKit.Datas.Story {
 		}
 
 		// [ Constructor ]
-		public UiCacheManager(TaleData ownerData) {
-			this.OwnerData = ownerData;
+		public UiCacheManager(StoryFile ownerFile) {
+			this.OwnerFile = ownerFile;
 		}
 
 		// [ Loop ]
@@ -49,39 +50,37 @@ namespace TaleKit.Datas.Story {
 
 		public void CreateCache(int cacheCount) {
 			UISnapshot cacheSnapshot = null;
-			int lastCacheBlockIndex = 0;
+			int lastCacheBlockIndex = -1;
 
 			StoryClip targetClip = TargetClipAuto;
-
 
 			// Find last cache
 			for(int blockI = targetClip.BlockItemList.Count-1; blockI>=0; --blockI) {
 				StoryBlockBase block = targetClip.BlockItemList[blockI];
 
 				if (block.HasUiCache) {
-					cacheSnapshot = block.UiCacheSnapshot.Clone();
+					cacheSnapshot = block.UICacheSnapshot.Clone();
 					lastCacheBlockIndex = blockI;
 					return;
 				}
 			}
+
 			if(cacheSnapshot == null) {
-				cacheSnapshot = UiFile.UiSnapshot.Clone();
+				cacheSnapshot = UIFile.UISnapshot.Clone();
 			}
 
 			// Simulate blocks and save cache
-			for (int blockI = lastCacheBlockIndex; blockI < targetClip.BlockItemList.Count; ++blockI) {
+			for (int blockI = lastCacheBlockIndex+1; blockI < targetClip.BlockItemList.Count; ++blockI) {
 				StoryBlockBase block = targetClip.BlockItemList[blockI];
 
 				// Apply orders
 				if(block.isVisible) {
-					cacheSnapshot.ApplyStoryBlockBase(block);
+					cacheSnapshot.ApplyStoryBlock(block);
 				}
 
 				// Save cache
 				if (blockI % CacheInterval == 0) {
 					block.SaveCache(cacheSnapshot.Clone());
-
-					Console.WriteLine("CacheSaved");
 
 					if(--cacheCount <= 0) {
 						return;
@@ -91,6 +90,10 @@ namespace TaleKit.Datas.Story {
 		}
 		public void ClearCacheAll() {
 			StoryClip targetClip = TargetClipAuto;
+
+			if (targetClip == null)
+				return;
+
 			for (int i = 0; i < targetClip.BlockItemList.Count; ++i) {
 				StoryBlockBase block = targetClip.BlockItemList[i];
 
@@ -108,7 +111,6 @@ namespace TaleKit.Datas.Story {
 		public void ClearCacheAfterBlock(int targetBlockIndex) {
 			StoryClip targetClip = TargetClipAuto;
 
-			Console.WriteLine($"CacheCleared index : {targetBlockIndex}");
 			for (int i = targetBlockIndex; i < targetClip.BlockItemList.Count; ++i) {
 				StoryBlockBase block = targetClip.BlockItemList[i];
 

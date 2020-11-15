@@ -38,7 +38,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements.UIContents {
 		}
 
 		public void Render(UIItemBase data) {
-			UIText textData = data as UIText;
+			UIItem_Text textData = data as UIItem_Text;
 
 			OwnerRenderer.SetProperty(textData, nameof(textData.text), (object value) => { ContentTextBlock.Text = (string)value; });
 			OwnerRenderer.SetProperty(textData, nameof(textData.fontFamily), (object value) => {

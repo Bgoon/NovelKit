@@ -32,6 +32,7 @@ namespace TaleKit.Datas {
 			get; private set;
 		}
 
+		public readonly TaleDataInitArgs InitArgs;
 		public string projectName;
 		public DateTime exportedTime;
 
@@ -49,8 +50,6 @@ namespace TaleKit.Datas {
 			get; private set;
 		}
 
-		public readonly bool IsEditMode;
-
 		public static TaleData FromTaleFile(string filename, TaleDataInitArgs initArgs) {
 			string projectDir = Path.Combine(Path.GetDirectoryName(filename), "TaleData");
 			Directory.CreateDirectory(projectDir);
@@ -65,12 +64,12 @@ namespace TaleKit.Datas {
 			return FromProjectDir(projectDir, initArgs);
 		}
 		public static TaleData FromProjectDir(string projectDir, TaleDataInitArgs initArgs) {
-			initArgs.createRootUIItem = false;
+			initArgs.onDataLoad = true;
 			initArgs.isEditMode = true;
 
 			TaleData taleData = new TaleData(projectDir, initArgs);
 
-			initArgs.projectLoadedTask?.Invoke(taleData);
+			initArgs.projectPreLoadedTask?.Invoke(taleData);
 
 			JObject jDataRoot = JObject.Parse(File.ReadAllText(taleData.DataFilename, Encoding.UTF8));
 
@@ -79,18 +78,20 @@ namespace TaleKit.Datas {
 			taleData.MotionFile.LoadFromJson((JObject)jDataRoot["MotionFile"]);
 			taleData.StoryFile.LoadFromJson((JObject)jDataRoot["StoryFile"]);
 
+			initArgs.projectLoadedTask?.Invoke(taleData);
+
 			return taleData;
 		}
 
 		// [ Constructor ]
 		public TaleData(string projectDir, TaleDataInitArgs initArgs) {
 			this.ProjectDir = IOUtility.NormalizePath(projectDir);
-			this.IsEditMode = initArgs.isEditMode;
+			this.InitArgs = initArgs;
 
 			AssetManager = new AssetManager(this);
 
-			MotionFile = new MotionFile(this, initArgs.targetMotionData);
-			UiFile = new UIFile(this, initArgs.createRootUIItem);
+			MotionFile = new MotionFile(this);
+			UiFile = new UIFile(this);
 			StoryFile = new StoryFile(this);
 			ProjectSetting = new ProjectSetting(this);
 

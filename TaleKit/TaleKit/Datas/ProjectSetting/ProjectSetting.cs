@@ -28,13 +28,13 @@ namespace TaleKit.Datas {
 		public JObject ToJObject() {
 			JObject jFile = new JObject();
 
-			jFile.AddAttrFields<ValueEditorAttribute>(this);
+			jFile.AddAttrFields<SavableFieldAttribute>(this);
 
 			return jFile;
 		}
 		public bool LoadFromJson(JObject jProjectSetting) {
 
-			this.LoadAttrFields<ValueEditorAttribute>(jProjectSetting);
+			this.LoadAttrFields<SavableFieldAttribute>(jProjectSetting);
 
 			return true;
 		}

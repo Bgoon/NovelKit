@@ -163,9 +163,9 @@ namespace TaleKit.Datas.UI.UIItem {
 		public JObject ToJObject() {
 			JObject jUiItem = new JObject();
 
-			JObject jAttributes = new JObject();
-			jUiItem.Add("Attributes", jAttributes);
-			jAttributes.AddAttrFields<ValueEditorAttribute>(this);
+			JObject jFields = new JObject();
+			jUiItem.Add("Fields", jFields);
+			jFields.AddAttrFields<SavableFieldAttribute>(this);
 
 			JArray jChilds = new JArray();
 			jUiItem.Add("Childs", jChilds);
@@ -177,7 +177,9 @@ namespace TaleKit.Datas.UI.UIItem {
 			return jUiItem;
 		}
 		public object Clone() {
-			return this.MemberwiseClone();
+			UIItemBase cloneItem = this.MemberwiseClone() as UIItemBase;
+			cloneItem.KeyFieldNameHashSet = new HashSet<string>();
+			return cloneItem;
 		}
 
 	}

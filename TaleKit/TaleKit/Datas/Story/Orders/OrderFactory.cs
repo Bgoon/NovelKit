@@ -1,4 +1,5 @@
 ﻿using System;
+using TaleKit.Datas.Story.StoryBlock;
 
 namespace TaleKit.Datas.Story {
 	public static class OrderFactory {

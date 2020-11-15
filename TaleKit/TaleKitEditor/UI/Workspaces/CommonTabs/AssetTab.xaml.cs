@@ -66,7 +66,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			selectedFileItemSet = new SelectedItemSet();
 		}
 		private void RegisterEvents() {
-			MainWindow.ProjectLoaded += MainWindow_ProjectLoaded;
+			MainWindow.ProjectPreloaded += MainWindow_ProjectPreloaded;
 			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
 
 			GotoParentButton.RegisterButtonReaction();
@@ -80,7 +80,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			InitMembers();
 			RegisterEvents();
 		}
-		private void MainWindow_ProjectLoaded(TaleData obj) {
+		private void MainWindow_ProjectPreloaded(TaleData obj) {
 			InitDirTree();
 			ExploreDir(AssetDir);
 		}

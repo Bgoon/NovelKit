@@ -28,6 +28,7 @@ using System.Reflection;
 using System.Diagnostics;
 using TaleKit.Datas.Motion;
 using TaleKit.Datas.UI.UIItem;
+using TaleKit.Datas.Story.StoryBlock;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	/// <summary>
@@ -88,8 +89,9 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StoryBlockTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
 			StoryBlockTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
 			
-			MainWindow.ProjectLoaded += MainWindow_DataLoaded;
-			MainWindow.ProjectUnloaded += MainWindow_DataUnloaded;
+			MainWindow.ProjectPreloaded += MainWindow_ProjectPreloaded;
+			MainWindow.ProjectLoaded += MainWIndow_ProjectLoaded;
+			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
 
 			DetachClip();
 		}
@@ -99,21 +101,22 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			UpdateMotion();
 		}
 
-		private void MainWindow_DataLoaded(TaleData taleData) {
-			EditingStoryFile.BlockItemCreated += StoryFile_ItemCreated;
-			EditingStoryFile.BlockItemRemoved += StoryFile_ItemRemoved;
-
+		private void MainWindow_ProjectPreloaded(TaleData taleData) {
+			EditingStoryFile.BlockCreated += StoryFile_ItemCreated;
+			EditingStoryFile.BlockRemoved += StoryFile_ItemRemoved;
+		}
+		private void MainWIndow_ProjectLoaded(TaleData taleData) {
 			AttachClip(EditingStoryFile.RootClip);
 		}
-		private void MainWindow_DataUnloaded(TaleData taleData) {
-			EditingStoryFile.BlockItemCreated -= StoryFile_ItemCreated;
-			EditingStoryFile.BlockItemRemoved -= StoryFile_ItemRemoved;
+		private void MainWindow_ProjectUnloaded(TaleData taleData) {
+			EditingStoryFile.BlockCreated -= StoryFile_ItemCreated;
+			EditingStoryFile.BlockRemoved -= StoryFile_ItemRemoved;
 
 			DetachClip();
 		}
 
 		private void StoryBlockListController_CreateItemButtonClick() {
-			EditingStoryFile.CreateStoryBlock_Item(EditingClip);
+			EditingStoryFile.CreateStoryBlock(EditingClip, StoryBlockType.Item);
 		}
 		private void StoryBlockListController_RemoveItemButtonClick() {
 			foreach (StoryBlockView itemView in StoryBlockTreeView.SelectedItemSet) {
@@ -191,9 +194,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		public void ApplyBlocksToRenderer(int lastBlockIndex, bool playMotion = false) {
 			StopMotion();
 
-			// TODO : Cache 사용하도록 수정
 			if (!ViewportTab.PlayStateButton.IsActive || lastBlockIndex < 0) {
-				UIRenderer rootRenderer = EditingUiFile.Guid_To_RendererDict[EditingUiFile.UiSnapshot.rootUiItem.guid] as UIRenderer;
+				UIRenderer rootRenderer = EditingUiFile.Guid_To_RendererDict[EditingUiFile.UISnapshot.rootUiItem.guid] as UIRenderer;
 				rootRenderer.Render(true);
 			} else {
 				StoryClip editingClip = EditingClip;
@@ -205,12 +207,12 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 					StoryBlockBase block = editingClip.BlockItemList[blockI];
 
 					if(block.HasUiCache) {
-						snapshot = block.UiCacheSnapshot.Clone();
+						snapshot = block.UICacheSnapshot.Clone();
 						cacheIndex = blockI;
 					}
 				}
-				if(snapshot == null) {
-					snapshot = EditingUiFile.UiSnapshot.Clone();
+				if (snapshot == null) {
+					snapshot = EditingUiFile.UISnapshot.Clone();
 				}
 
 				// Apply orders
@@ -220,7 +222,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 					if (!block.isVisible)
 						continue;
 
-					snapshot.ApplyStoryBlockBase(block);
+					snapshot.ApplyStoryBlock(block);
 				}
 				foreach(UIItemBase UiItem in snapshot.GetUiItems()) {
 					UIRenderer renderer = EditingUiFile.Guid_To_RendererDict[UiItem.guid] as UIRenderer;
@@ -232,16 +234,16 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 					StoryBlockBase lastBlock = EditingStoryFile.RootClip.BlockItemList[lastBlockIndex];
 
 					if (lastBlock.isVisible) {
-						switch (lastBlock.Type) {
-							case StoryBlockType.StoryBlock:
+						switch (lastBlock.blockType) {
+							case StoryBlockType.Item:
 								foreach (OrderBase order in (lastBlock as StoryBlock_Item).OrderList) {
-									if (order.OrderType == OrderType.UI) {
+									if (order.orderType == OrderType.UI) {
 										Order_UI order_UI = order as Order_UI;
 
-										if (string.IsNullOrEmpty(order_UI.targetUiGuid))
+										if (string.IsNullOrEmpty(order_UI.targetUIGuid))
 											continue;
 
-										UIItemBase UiItem = EditingUiFile.UiSnapshot.GetUiItem(order_UI.targetUiGuid);
+										UIItemBase UiItem = EditingUiFile.UISnapshot.GetUiItem(order_UI.targetUIGuid);
 
 										if (UiItem == null)
 											continue;
@@ -252,7 +254,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 									}
 								}
 								break;
-							case StoryBlockType.StoryClipBlock:
+							case StoryBlockType.Clip:
 								break;
 						}
 					}
@@ -269,7 +271,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			UiMotionSet.Add(new UIMotionPlayer(UiRenderer, order_UI, prevData, GetOrderAppliedData(prevData, order_UI)));
 		}
 		private void ApplyOrderToRendererImmediately(UIRenderer UiRenderer, Order_UI order_UI) {
-			UiRenderer.RenderFromData(order_UI.UiKeyData);
+			UiRenderer.RenderFromData(order_UI.UIKeyData);
 		}
 
 		private UIItemBase GetOrdersAppliedData(UIItemBase UiItem, int lastBlockIndex) {
@@ -277,19 +279,19 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			for(int i=0; i<=lastBlockIndex; ++i) {
 				StoryBlockBase blockBase = EditingStoryFile.RootClip.BlockItemList[i];
-				switch (blockBase.Type) {
-					case StoryBlockType.StoryBlock:
+				switch (blockBase.blockType) {
+					case StoryBlockType.Item:
 						foreach (OrderBase order in (blockBase as StoryBlock_Item).OrderList) {
-							if (order.OrderType == OrderType.UI) {
+							if (order.orderType == OrderType.UI) {
 								Order_UI order_UI = order as Order_UI;
-								if (order_UI.targetUiGuid != newItem.guid)
+								if (order_UI.targetUIGuid != newItem.guid)
 									continue;
 
 								ApplyOrder(newItem, order_UI);
 							}
 						}
 						break;
-					case StoryBlockType.StoryClipBlock:
+					case StoryBlockType.Clip:
 						break;
 				}
 			}
@@ -302,7 +304,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			return newData;
 		}
 		private void ApplyOrder(UIItemBase UiItem, Order_UI order_UI) {
-			UIItemBase keyData = order_UI.UiKeyData;
+			UIItemBase keyData = order_UI.UIKeyData;
 
 			foreach (FieldInfo keyFieldInfo in keyData.GetType().GetFields()) {
 				if (keyFieldInfo.GetCustomAttributes<ValueEditorAttribute>().Count() == 0)

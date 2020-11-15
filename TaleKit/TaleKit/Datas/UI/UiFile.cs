@@ -22,8 +22,6 @@ namespace TaleKit.Datas.UI {
 
 		public readonly TaleData OwnerTaleData;
 
-		private bool createRootUiItem;
-
 		// Event
 		public event NodeItemDelegate<UIItemBase, UIItemBase> ItemCreatedPreview;
 		public event NodeItemDelegate<UIItemBase, UIItemBase> ItemCreated;
@@ -31,39 +29,38 @@ namespace TaleKit.Datas.UI {
 
 		// UI Collection
 		public readonly List<UIItemBase> UiItemList;
-		public readonly List<UIText> TextList;
-		public readonly UISnapshot UiSnapshot;
+		public readonly List<UIItem_Text> TextList;
+		public readonly UISnapshot UISnapshot;
 		public readonly Dictionary<string, object> Guid_To_RendererDict;
 
 		// [ Constructor ]
-		public UIFile(TaleData ownerTaleData, bool createRootUiItem = true) {
+		public UIFile(TaleData ownerTaleData) {
 			this.OwnerTaleData = ownerTaleData;
-			this.createRootUiItem = createRootUiItem;
 
 			UiItemList = new List<UIItemBase>();
-			TextList = new List<UIText>();
-			UiSnapshot = new UISnapshot();
+			TextList = new List<UIItem_Text>();
+			UISnapshot = new UISnapshot();
 			Guid_To_RendererDict = new Dictionary<string, object>();
 
 		}
 		public void Init() {
-			if(createRootUiItem) {
-				UiSnapshot.rootUiItem = CreateUiItem(null, UIItemType.Panel);
+			if(!OwnerTaleData.InitArgs.onDataLoad) {
+				UISnapshot.rootUiItem = CreateUiItem(null, UIItemType.Panel);
 			}
 		}
 		public void Clear() {
-			RemoveUiItem(UiSnapshot.rootUiItem);
+			RemoveUiItem(UISnapshot.rootUiItem);
 
 			UiItemList.Clear();
 			TextList.Clear();
-			UiSnapshot.Clear();
+			UISnapshot.Clear();
 			Guid_To_RendererDict.Clear();
 		}
 
 		public JObject ToJObject() {
 			JObject jFile = new JObject();
 			//Add rootClip
-			jFile.Add("RootUI", UiSnapshot.ToJObject());
+			jFile.Add("RootUI", UISnapshot.ToJObject());
 
 			return jFile;
 		}
@@ -71,12 +68,12 @@ namespace TaleKit.Datas.UI {
 			LoadUIItem(jUIFile["RootUI"], null);
 			
 			void LoadUIItem(JToken jUIItem, UIItemBase parentUIItem) {
-				JToken jUIItemAttr = jUIItem["Attributes"];
-				UIItemType itemType = jUIItemAttr["itemType"].ToObject<UIItemType>();
-				string guid = jUIItemAttr["guid"].ToObject<string>();
+				JToken jUIItemFields = jUIItem["Fields"];
+				UIItemType itemType = jUIItemFields["itemType"].ToObject<UIItemType>();
+				string guid = jUIItemFields["guid"].ToObject<string>();
 
 				UIItemBase UIItem = CreateUiItem(parentUIItem, itemType, guid);
-				UIItem.LoadAttrFields<ValueEditorAttribute>(jUIItemAttr.ToObject<JObject>());
+				UIItem.LoadAttrFields<ValueEditorAttribute>(jUIItemFields.ToObject<JObject>());
 
 				JArray jChildUIItems = jUIItem["Childs"] as JArray;
 				foreach (JObject jChildUIItem in jChildUIItems) {
@@ -97,24 +94,24 @@ namespace TaleKit.Datas.UI {
 				default:
 					throw new Exception($"Failed to create UiItem because itemType '{itemType}' is unknown.");
 				case UIItemType.Panel:
-					item = new UIPanel(this);
+					item = new UIItem_Panel(this);
 					break;
 				case UIItemType.Text:
-					item = new UIText(this);
-					TextList.Add(item as UIText);
+					item = new UIItem_Text(this);
+					TextList.Add(item as UIItem_Text);
 					break;
 			}
 			if(!string.IsNullOrEmpty(guid)) {
 				item.guid = guid;
 			}
 
-			UiSnapshot.RegisterUiItem(item.guid, item);
+			UISnapshot.RegisterUiItem(item.guid, item);
 
 			// Add to collection
 			ItemCreatedPreview?.Invoke(item, parentUIItem);
 
 			if (parentUIItem == null) {
-				UiSnapshot.rootUiItem = item;
+				UISnapshot.rootUiItem = item;
 			} else {
 				UiItemList.Add(item);
 
@@ -140,11 +137,11 @@ namespace TaleKit.Datas.UI {
 			// Remove from collection
 			switch(item.itemType) {
 				case UIItemType.Text:
-					TextList.Remove(item as UIText);
+					TextList.Remove(item as UIItem_Text);
 					break;
 			}
 			UiItemList.Remove(item);
-			UiSnapshot.RemoveUiItem(item.guid);
+			UISnapshot.RemoveUiItem(item.guid);
 
 			ItemRemoved?.Invoke(item, parentItem);
 		}

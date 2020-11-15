@@ -79,8 +79,8 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 			UiTreeView.ItemMoved += UiTreeView_ItemMoved;
 
-			MainWindow.ProjectLoaded += MainWindow_DataLoaded;
-			MainWindow.ProjectUnloaded += MainWindow_DataUnloaded;
+			MainWindow.ProjectPreloaded += MainWindow_ProjectPreloaded;
+			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
 			MainWindow.WorkspaceActived += MainWindow_WorkspaceActived;
 
 			UiTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
@@ -100,11 +100,11 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		}
 
 		// [ Event ]
-		private void MainWindow_DataLoaded(TaleData obj) {
+		private void MainWindow_ProjectPreloaded(TaleData obj) {
 			EditingUiFile.ItemCreatedPreview += UiFile_ItemCreatedPreview;
 			EditingUiFile.ItemRemoved += UiFile_ItemRemoved;
 		}
-		private void MainWindow_DataUnloaded(TaleData obj) {
+		private void MainWindow_ProjectUnloaded(TaleData obj) {
 			EditingUiFile.ItemCreatedPreview -= UiFile_ItemCreatedPreview;
 			EditingUiFile.ItemRemoved -= UiFile_ItemRemoved;
 		}
@@ -122,7 +122,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			MenuPanel.ShowDialog(menuItems);
 
 			void CreateAndSelectUiItem(UIItemType itemType) {
-				UIItemBase parentItem = SelectedUiItemSingle ?? EditingUiFile.UiSnapshot.rootUiItem;
+				UIItemBase parentItem = SelectedUiItemSingle ?? EditingUiFile.UISnapshot.rootUiItem;
 				UIItemBase item = EditingUiFile.CreateUiItem(parentItem, itemType);
 
 				UiTreeView.SelectedItemSet.SetSelectedItem(item.View as ITreeItem);

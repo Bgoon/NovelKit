@@ -41,7 +41,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements.UIContents {
 		}
 
 		public void Render(UIItemBase data) {
-			UIPanel panelData = data as UIPanel;
+			UIItem_Panel panelData = data as UIItem_Panel;
 
 			OwnerRenderer.SetProperty(panelData, nameof(panelData.color), (object value) => { SolidRenderer.Background = ((UColor)value).ToColor().ToBrush(); });
 

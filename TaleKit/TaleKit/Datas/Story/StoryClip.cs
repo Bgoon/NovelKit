@@ -1,4 +1,5 @@
-﻿using GKitForUnity.Data;
+﻿using GKit.Json;
+using GKitForUnity.Data;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaleKit.Datas.ModelEditor;
+using TaleKit.Datas.Story.StoryBlock;
 
 namespace TaleKit.Datas.Story {
 	public class StoryClip {
@@ -23,10 +25,10 @@ namespace TaleKit.Datas.Story {
 		// [ Constructor ]
 		public StoryClip(StoryFile ownerFile) {
 			this.OwnerFile = ownerFile;
+			this.guid = Guid.NewGuid().ToString();
 
 			BlockItemList = new List<StoryBlockBase>();
 
-			guid = Guid.NewGuid().ToString();
 		}
 
 		// [ Tree ]
@@ -51,7 +53,14 @@ namespace TaleKit.Datas.Story {
 		public JObject ToJObject() {
 			JObject jClip = new JObject();
 
-			//Add items
+			// Add attributes
+			JObject jFields = new JObject();
+			jClip.Add("Fields", jFields);
+
+			jFields.AddAttrFields<SavableFieldAttribute>(this);
+
+
+			// Add items
 			JArray jBlocks = new JArray();
 			jClip.Add("Blocks", jBlocks);
 

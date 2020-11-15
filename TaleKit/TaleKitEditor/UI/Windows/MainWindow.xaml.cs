@@ -58,6 +58,7 @@ namespace TaleKitEditor.UI.Windows {
 
 		public event Action<WorkspaceComponent> WorkspaceActived;
 		public event Action BeforeProjectLoad;
+		public event Action<TaleData> ProjectPreloaded;
 		public event Action<TaleData> ProjectLoaded;
 		public event Action<TaleData> ProjectUnloaded;
 
@@ -182,8 +183,9 @@ namespace TaleKitEditor.UI.Windows {
 					isEditMode = true,
 				};
 				EditingTaleData = new TaleData(projectDir, initArgs);
-				
-				ProjectLoadedTask(EditingTaleData);
+
+				OnProjectPreLoaded(EditingTaleData);
+				OnProjectLoaded(EditingTaleData);
 			} catch (Exception ex) {
 				ToastMessage.Show(
 					$"파일을 생성하는 데 실패했습니다.{Environment.NewLine}" +
@@ -201,6 +203,8 @@ namespace TaleKitEditor.UI.Windows {
 
 			EditingTaleData.Dispose();
 			EditingTaleData = null;
+
+			WorkspaceContext.Visibility = Visibility.Collapsed;
 		}
 		public void OpenFile() {
 			if (!ShowCheckSaveDialog())
@@ -219,9 +223,11 @@ namespace TaleKitEditor.UI.Windows {
 			TaleDataInitArgs initArgs = new TaleDataInitArgs() {
 				targetMotionData = MotionWorkspace.EditorContext.EditingFile,
 				isEditMode = true,
-				projectLoadedTask = ProjectLoadedTask,
+				projectPreLoadedTask = OnProjectPreLoaded,
+				projectLoadedTask = OnProjectLoaded,
 			};
 			EditingTaleData = TaleData.FromProjectDir(dialog.FileName, initArgs);
+
 
 			// Render all elements
 			MotionWorkspace.EditorContext.MotionTab.UpdateItemPreviews();
@@ -259,14 +265,17 @@ namespace TaleKitEditor.UI.Windows {
 			return true;
 		}
 
-		private void ProjectLoadedTask(TaleData taleData) {
+		private void OnProjectPreLoaded(TaleData taleData) {
 			EditingTaleData = taleData;
 
-			ProjectLoaded?.Invoke(taleData);
-
+			ProjectPreloaded?.Invoke(taleData);
+		}
+		private void OnProjectLoaded(TaleData taleData) {
 			EditingTaleData.PostInit();
 
 			WorkspaceContext.Visibility = Visibility.Visible;
+
+			ProjectLoaded?.Invoke(taleData);
 		}
 
 		// [ Manage Workspace ]

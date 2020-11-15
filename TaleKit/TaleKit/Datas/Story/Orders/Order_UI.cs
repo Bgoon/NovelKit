@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TaleKit.Datas.ModelEditor;
+using TaleKit.Datas.Story.StoryBlock;
 using TaleKit.Datas.UI;
 using TaleKit.Datas.UI.UIItem;
 using UnityEngine;
@@ -15,8 +16,6 @@ namespace TaleKit.Datas.Story {
 	/// </summary>
 	public class Order_UI : OrderBase {
 		private UIFile UiFile => OwnerBlock.OwnerFile.OwnerTaleData.UiFile;
-
-		public override OrderType OrderType => OrderType.UI;
 		
 		// HelperData
 		public float BlendProgress => blendElapsedSeconds / BlendTotalSeconds;
@@ -27,10 +26,10 @@ namespace TaleKit.Datas.Story {
 
 		// Data
 		[ValueEditor_UiItemSelector("Target UI")]
-		public string targetUiGuid;
+		public string targetUIGuid;
 
-		[ValueEditor_ModelKeyFrame(nameof(targetUiGuid), nameof(OnTargetUiUpdated))]
-		public UIItemBase UiKeyData;
+		[ValueEditor_ModelKeyFrame(nameof(targetUIGuid), nameof(CreateUIKeyData))]
+		public UIItemBase UIKeyData;
 
 		[ValueEditor_NumberBox("Duration Sec", minValue = 0)]
 		public float durationSec = 1f;
@@ -41,6 +40,7 @@ namespace TaleKit.Datas.Story {
 
 		// [ Constructor ]
 		public Order_UI(StoryBlock_Item ownerBlock) : base(ownerBlock) {
+			orderType = OrderType.UI;
 		}
 
 		// [ Event ]
@@ -69,25 +69,27 @@ namespace TaleKit.Datas.Story {
 			SetBlendProgress(1f);
 		}
 
-		private void OnTargetUiUpdated() {
-			if (string.IsNullOrEmpty(targetUiGuid))
-				return;
+		public UIItemBase CreateUIKeyData() {
+			if (string.IsNullOrEmpty(targetUIGuid))
+				return null;
 
-			UIItemBase targetUi = UiFile.UiSnapshot.GetUiItem(targetUiGuid);
+			UIItemBase targetUi = UiFile.UISnapshot.GetUiItem(targetUIGuid);
 
 			if(targetUi == null) {
-				UiKeyData = null;
-				return;
+				UIKeyData = null;
+				return null;
 			}
 			switch(targetUi.itemType) {
 				case UIItemType.Panel:
-					UiKeyData = new UIPanel(UiFile);
+					UIKeyData = new UIItem_Panel(UiFile);
 					break;
 				case UIItemType.Text:
-					UiKeyData = new UIText(UiFile);
+					UIKeyData = new UIItem_Text(UiFile);
 					break;
 			}
-			UiKeyData.IsKeyFrameModel = true;
+			UIKeyData.IsKeyFrameModel = true;
+
+			return UIKeyData;
 		}
 
 		private void SetBlendProgress(float time) {
@@ -107,10 +109,10 @@ namespace TaleKit.Datas.Story {
 
 		public override JObject ToJObject() {
 			JObject jOrder = new JObject();
-			jOrder.Add("Type", OrderType.ToString());
+			jOrder.Add("OrderType", orderType.ToString());
 
-			JObject jAttributes = new JObject();
-			jOrder.Add("Fields", jAttributes);
+			JObject jFields = new JObject();
+			jOrder.Add("Fields", jFields);
 
 			SerializeUtility.FieldToJTokenDelegate classHandler = (object model, FieldInfo fieldInfo, out JObject jField) => {
 				jField = null;
@@ -128,7 +130,7 @@ namespace TaleKit.Datas.Story {
 				}
 			};
 
-			jAttributes.AddAttrFields<ValueEditorAttribute>(this, null, classHandler);
+			jFields.AddAttrFields<SavableFieldAttribute>(this, null, classHandler);
 
 
 			return jOrder;

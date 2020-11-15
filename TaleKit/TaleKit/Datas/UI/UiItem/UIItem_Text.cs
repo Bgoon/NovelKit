@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace TaleKit.Datas.UI.UIItem {
 	[Serializable]
-	public class UIText : UIItemBase {
+	public class UIItem_Text : UIItemBase {
 
 		[ValueEditorComponent_Header("Text Attributes")]
 		[ValueEditor_TextBox("Text")]
@@ -29,7 +29,7 @@ namespace TaleKit.Datas.UI.UIItem {
 		public TextAnchor textAnchor;
 
 
-		public UIText(UIFile ownerFile) : base(ownerFile, UIItemType.Text) {
+		public UIItem_Text(UIFile ownerFile) : base(ownerFile, UIItemType.Text) {
 
 		}
 	}

@@ -4,7 +4,7 @@ using System;
 namespace TaleKit.Datas.ModelEditor {
 
 	[AttributeUsage(AttributeTargets.Field)]
-	public class ValueEditorAttribute : Attribute {
+	public class ValueEditorAttribute : SavableFieldAttribute {
 		public string valueName;
 		public ValueEditorLayout layout;
 		public string visibleCondition;

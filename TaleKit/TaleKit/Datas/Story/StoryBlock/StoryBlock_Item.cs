@@ -5,7 +5,7 @@ using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
 using GKit.Json;
 
-namespace TaleKit.Datas.Story {
+namespace TaleKit.Datas.Story.StoryBlock {
 	public class StoryBlock_Item : StoryBlockBase {
 		public event Action<OrderBase> OrderAdded;
 		public event Action<OrderBase> OrderRemoved;
@@ -33,7 +33,7 @@ namespace TaleKit.Datas.Story {
 		public StoryBlockTrigger passTrigger;
 
 		// [ Constructor ]
-		public StoryBlock_Item(StoryFile ownerFile) : base(ownerFile, StoryBlockType.StoryBlock) {
+		public StoryBlock_Item(StoryFile ownerFile) : base(ownerFile, StoryBlockType.Item) {
 			OrderList = new List<OrderBase>();
 
 			passTrigger = StoryBlockTrigger.Click;
@@ -81,9 +81,9 @@ namespace TaleKit.Datas.Story {
 		public override JObject ToJObject() {
 			JObject jBlock = new JObject();
 
-			JObject jAttributes = new JObject();
-			jBlock.Add("Attributes", jAttributes);
-			jAttributes.AddAttrFields<ValueEditorAttribute>(this);
+			JObject jFields = new JObject();
+			jBlock.Add("Fields", jFields);
+			jFields.AddAttrFields<SavableFieldAttribute>(this);
 
 			//Add components
 			JArray jOrders = new JArray();

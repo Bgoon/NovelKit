@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using TaleKit;
 using TaleKit.Datas.ModelEditor;
+using TaleKit.Datas.Story.StoryBlock;
 using TaleKit.Datas.UI;
 
 namespace TaleKit.Datas.Story {
@@ -24,9 +25,8 @@ namespace TaleKit.Datas.Story {
 			get; protected set;
 		}
 
-		public abstract OrderType OrderType {
-			get;
-		}
+		[SavableField]
+		public OrderType orderType;
 
 
 		// [ Constructor ]
@@ -51,12 +51,10 @@ namespace TaleKit.Datas.Story {
 
 		public virtual JObject ToJObject() {
 			JObject jOrder = new JObject();
-			jOrder.Add("Type", OrderType.ToString());
+			JObject jFields = new JObject();
+			jOrder.Add("Fields", jFields);
 
-			JObject jAttributes = new JObject();
-			jOrder.Add("Fields", jAttributes);
-
-			jAttributes.AddAttrFields<ValueEditorAttribute>(this);
+			jFields.AddAttrFields<SavableFieldAttribute>(this);
 
 			return jOrder;
 		}

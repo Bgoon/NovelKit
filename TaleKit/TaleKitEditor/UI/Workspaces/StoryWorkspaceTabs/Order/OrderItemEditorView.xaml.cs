@@ -26,7 +26,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		private OrderBase order;
 
-		public string OrderTypeText => order == null ? null : order.OrderType.ToString();
+		public string OrderTypeText => order == null ? null : order.orderType.ToString();
 
 		[Obsolete]
 		internal OrderItemEditorView() {
@@ -37,7 +37,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			InitializeComponent();
 			Indicator.IsCountVisible = false;
-			Indicator.OrderType = order.OrderType;
+			Indicator.OrderType = order.orderType;
 
 			ModelEditorUtility.CreateOrderEditorView(order, ValueEditorViewContext);
 

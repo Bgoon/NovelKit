@@ -60,7 +60,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		// [ Event ]
 		private void OnLoadedOnce(object sender, RoutedEventArgs e) {
 			// Register events
-			MainWindow.ProjectLoaded += MainWindow_ProjectLoaded;
+			MainWindow.ProjectPreloaded += MainWindow_ProjectPreloaded;
 			
 			UiOutlinerTab.ItemMoved += UiOutlinerTab_ItemMoved;
 			PlayStateButton.ActiveChanged += PlayStateButton_ActiveChanged;
@@ -102,7 +102,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		}
 
 		// File event
-		private void MainWindow_ProjectLoaded(TaleKit.Datas.TaleData obj) {
+		private void MainWindow_ProjectPreloaded(TaleKit.Datas.TaleData taleData) {
 			EditingUiFile.ItemCreated += UiFile_ItemCreated;
 			EditingUiFile.ItemRemoved += UiFile_ItemRemoved;
 
@@ -193,7 +193,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 		// [ Render ]
 		public void ResetSnapshot() {
-			renderUiSnapshot.CopyDataFrom(EditingUiFile.UiSnapshot);
+			renderUiSnapshot = EditingUiFile.UISnapshot.Clone();
 		}
 		public void RenderAll() {
 			UIRenderer renderer = GetRenderer(renderUiSnapshot.rootUiItem);

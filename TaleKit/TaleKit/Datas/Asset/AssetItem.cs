@@ -130,9 +130,9 @@ namespace TaleKit.Datas.Resource {
 		public JObject ToJObject() {
 			JObject jAssetMeta = new JObject();
 
-			JObject jAttributes = new JObject();
-			jAssetMeta.Add("Attributes", jAttributes);
-			jAttributes.AddAttrFields<AssetMetaAttribute>(this);
+			JObject jFields = new JObject();
+			jAssetMeta.Add("Fields", jFields);
+			jFields.AddAttrFields<AssetMetaAttribute>(this);
 
 			return jAssetMeta;
 		}
