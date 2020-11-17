@@ -88,7 +88,6 @@
     <Compile Include="Datas\Motion\MotionFile.cs" />
     <Compile Include="Datas\Asset\AssetItem.cs" />
     <Compile Include="Datas\ProjectSetting\ProjectSetting.cs" />
-    <Compile Include="Datas\Story\Orders\Order_Clip.cs" />
     <Compile Include="Datas\Story\Orders\OrderFactory.cs" />
     <Compile Include="Datas\Story\Orders\OrderType.cs" />
     <Compile Include="Datas\Story\StoryBlockTrigger.cs" />

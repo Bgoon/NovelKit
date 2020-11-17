@@ -71,16 +71,13 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				//	colorCode = "B5B5B5";
 				//	break;
 				case OrderType.UI:
-					colorCode = "E6BD65";
+					colorCode = "B5B5B5";
 					break;
 				case OrderType.Logic:
-					colorCode = "65CCE6";
+					colorCode = "468CF2";
 					break;
 				case OrderType.Event:
-					colorCode = "AF67B5";
-					break;
-				case OrderType.Clip:
-					colorCode = "E66565";
+					colorCode = "C853D1";
 					break;
 			}
 			return colorCode.ToBrush();

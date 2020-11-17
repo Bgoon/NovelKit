@@ -3,6 +3,5 @@
 		UI,
 		Logic,
 		Event,
-		Clip,
 	}
 }

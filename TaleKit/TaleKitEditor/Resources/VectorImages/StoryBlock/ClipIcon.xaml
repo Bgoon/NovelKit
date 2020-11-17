@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="TaleKitEditor.Resources.VectorImages.ClipIcon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+	<UserControl.Resources>
+		<SolidColorBrush x:Key="ShapeColor" Color="#FF8E6B"></SolidColorBrush>
+    </UserControl.Resources>
+	<Path Fill="{StaticResource ShapeColor}" Data="M4.1,0C1.8,0,0,1.8,0,4.1v14.4C0,20.4,1.6,22,3.5,22S7,20.4,7,18.5V7.2c0-1.5-1.3-2.8-2.8-2.8S1.4,5.7,1.4,7.2
+ v9.3h1V7.2c0-1,0.8-1.8,1.8-1.8c1,0,1.8,0.8,1.8,1.8v11.2C6,19.9,4.9,21,3.5,21S1,19.9,1,18.5V4.1C1,2.4,2.4,1,4.1,1
+ s3.1,1.4,3.1,3.1v12.5h1V4.1C8.1,1.8,6.3,0,4.1,0z"/>
+</UserControl>

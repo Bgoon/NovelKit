@@ -3,6 +3,7 @@ using GKitForWPF.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.Story;
 using TaleKit.Datas.Story.StoryBlock;
 using TaleKitEditor.UI.Windows;
@@ -22,20 +24,26 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 	/// <summary>
 	/// StoryBlock.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class StoryBlockView : UserControl, ITreeItem {
+	public partial class StoryBlockView : UserControl, ITreeItem, IDisposable {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static StoryBlockTab StoryBlockTab => MainWindow.StoryWorkspace.StoryBlockTab;
 
-		public string description;
-		public readonly StoryBlockBase Data;
-
 		//ITreeItem interface
-		public string DisplayName => PreviewTextBlock.Text;
+		public string DisplayName {
+			get; set;
+		}
 		public ITreeFolder ParentItem {
 			get; set;
 		}
 		public FrameworkElement ItemContext => this;
+
+		public string description;
+		public readonly StoryBlockBase Data;
+
+		public StoryBlockType BlockType => Data.blockType;
+
+		private IBlockContent viewContent;
 
 
 		// [ Constructor ]
@@ -46,23 +54,50 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 			this.Data = data;
 
 			// Register events
-			if (data.blockType == StoryBlockType.Item) {
+			if (BlockType == StoryBlockType.Item) {
+				viewContent = new BlockContent_Item(this);
+
 				StoryBlock_Item storyBlockData = data as StoryBlock_Item;
 				storyBlockData.OrderAdded += StoryBlockData_OrderAdded;
 				storyBlockData.OrderRemoved += StoryBlockData_OrderRemoved;
 
-				UpdateOrderIndicator();
+				StoryBlockData_OrderCountChanged();
+				StoryBlockData_PassTriggerChanged();
+			} else if(BlockType == StoryBlockType.Clip) {
+				viewContent = new BlockContent_Clip(this);
 			}
+			ContentContext.Children.Add(viewContent as FrameworkElement);
+
 			VisibleButton.RegisterClickEvent(VisibleButton_Click, true);
+
+			Data.ModelUpdated += Data_ModelUpdated;
 		}
+		public void Dispose() {
+			if(BlockType == StoryBlockType.Item) {
+				StoryBlock_Item storyBlockData = Data as StoryBlock_Item;
+				storyBlockData.OrderAdded -= StoryBlockData_OrderAdded;
+				storyBlockData.OrderRemoved -= StoryBlockData_OrderRemoved;
+			}
+
+			Data.ModelUpdated -= Data_ModelUpdated;
+		}
+
 
 		// [ Event ]
 		private void StoryBlockData_OrderAdded(OrderBase obj) {
-			UpdateOrderIndicator();
+			StoryBlockData_OrderCountChanged();
 		}
 		private void StoryBlockData_OrderRemoved(OrderBase obj) {
-			UpdateOrderIndicator();
+			StoryBlockData_OrderCountChanged();
 		}
+		private void StoryBlockData_OrderCountChanged() {
+			(viewContent as BlockContent_Item).UpdateOrderIndicator();
+		}
+
+		private void StoryBlockData_PassTriggerChanged() {
+			(viewContent as BlockContent_Item).UpdatePassTriggerIcon();
+		}
+
 		private void VisibleButton_Click() {
 			Data.isVisible = !Data.isVisible;
 			
@@ -71,9 +106,27 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 			StoryBlockTab.ApplyBlockToSelectionToRenderer();
 		}
 
+		private void Data_ModelUpdated(EditableModel model, FieldInfo fieldInfo, object editorView) {
+			if(BlockType == StoryBlockType.Item) {
+				StoryBlock_Item itemBlock = Data as StoryBlock_Item;
+				switch(fieldInfo.Name) {
+					case nameof(itemBlock.passTrigger):
+						StoryBlockData_PassTriggerChanged();
+						break;
+				}
+
+			} else if(BlockType == StoryBlockType.Clip) {
+
+			}
+		}
+
 		// [ Control ]
 		public void SetDisplayName(string name) {
-			PreviewTextBlock.Text = name;
+			if(BlockType == StoryBlockType.Item) {
+				(viewContent as BlockContent_Item).PreviewTextBlock.Text = name;
+			} else if(BlockType == StoryBlockType.Clip) {
+				(viewContent as BlockContent_Clip).NameEditText.Text = name;
+			}
 		}
 
 		public void SetSelected(bool isSelected) {
@@ -85,28 +138,5 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 		public void UpdateVisibleButton() {
 			VisibleButton.Opacity = Data.isVisible ? 1d : 0d;
 		}
-		private void UpdateOrderIndicator() {
-			OrderIndicatorContext.Children.Clear();
-
-			if (Data.blockType == StoryBlockType.Item) {
-				StoryBlock_Item storyBlockData = (StoryBlock_Item)Data;
-
-				Dictionary<OrderType, OrderIndicator> indicatorDict = new Dictionary<OrderType, OrderIndicator>();
-
-				foreach (OrderBase order in storyBlockData.OrderList) {
-					if(indicatorDict.ContainsKey(order.orderType)) {
-						indicatorDict[order.orderType].Count++;
-					} else {
-						OrderIndicator indicator = new OrderIndicator();
-						indicator.OrderType = order.orderType;
-						indicator.Count = 1;
-						OrderIndicatorContext.Children.Add(indicator);
-
-						indicatorDict.Add(order.orderType, indicator);
-					}
-				}
-			}
-		}
-
 	}
 }

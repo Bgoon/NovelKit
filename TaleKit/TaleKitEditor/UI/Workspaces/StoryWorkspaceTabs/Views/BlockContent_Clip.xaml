@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views.BlockContent_Clip"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+             xmlns:GControls="clr-namespace:GKitForWPF.UI.Controls;assembly=GKitForWPF"
+             xmlns:VectorImages="clr-namespace:TaleKitEditor.Resources.VectorImages"
+
+             mc:Ignorable="d" 
+             d:DesignWidth="192" d:DesignHeight="40">
+	<DockPanel>
+		<VectorImages:ClipIcon DockPanel.Dock="Right" VerticalAlignment="Center" Margin="8,0"/>
+		<GControls:EditTextBlock x:Name="NameEditText" DockPanel.Dock="Left" Text="ClipName" Foreground="#FFB5B5B5" Margin="4,0,0,0" VerticalContentAlignment="Center" MinWidth="10"/>
+	</DockPanel>
+</UserControl>

@@ -460,6 +460,10 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			EditingClipNameRun.Text = clip.name;
 		}
 		public void DetachClip() {
+			foreach(var viewPair in dataToViewDict) {
+				viewPair.Value.Dispose();
+			}
+
 			EditingClip = null;
 
 			StoryBlockTreeView.ChildItemCollection.Clear();

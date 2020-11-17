@@ -9,10 +9,13 @@
              d:DesignWidth="220">
 	<Grid ClipToBounds="True" Height="40">
 		<DockPanel Name="ItemPanel" Background="{StaticResource ItemBackground}">
-			<StackPanel Name="OrderIndicatorContext" DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal" Margin="8,0,8,0">
-			</StackPanel>
 			<VectorImages:VisibleIcon x:Name="VisibleButton" VerticalAlignment="Center" Margin="4,0,0,0"/>
-			<TextBlock Name="PreviewTextBlock" Text="스크립트 미리보기" VerticalAlignment="Center" FontFamily="/TaleKitEditor;component/Resources/Fonts/#KoPubDotum_Pro Medium" Foreground="#FFB5B5B5" Margin="4,0,0,0"></TextBlock>
+			<Grid>
+				<Grid Name="ContentContext">
+
+
+				</Grid>
+			</Grid>
 		</DockPanel>
 
 		<!-- Arrow visual -->

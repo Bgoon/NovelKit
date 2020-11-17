@@ -159,6 +159,15 @@
     <Compile Include="Resources\VectorImages\DeleteShape.xaml.cs">
       <DependentUpon>DeleteShape.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\VectorImages\StoryBlock\ClipIcon.xaml.cs">
+      <DependentUpon>ClipIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\StoryBlock\PassTrigger_Auto.xaml.cs">
+      <DependentUpon>PassTrigger_Auto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VectorImages\StoryBlock\PassTrigger_Click.xaml.cs">
+      <DependentUpon>PassTrigger_Click.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\VectorImages\VisibleIcon.xaml.cs">
       <DependentUpon>VisibleIcon.xaml</DependentUpon>
     </Compile>
@@ -328,6 +337,13 @@
     <Compile Include="UI\ModelEditor\ValueEditorView.xaml.cs">
       <DependentUpon>ValueEditorView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\BlockContent_Clip.xaml.cs">
+      <DependentUpon>BlockContent_Clip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\BlockContent_Item.xaml.cs">
+      <DependentUpon>BlockContent_Item.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\IBlockContent.cs" />
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\StoryBlockView.xaml.cs">
       <DependentUpon>StoryBlockView.xaml</DependentUpon>
     </Compile>
@@ -336,9 +352,6 @@
     </Compile>
     <Compile Include="UI\Workspaces\StoryWorkspace.xaml.cs">
       <DependentUpon>StoryWorkspace.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\StoryClipView.xaml.cs">
-      <DependentUpon>StoryClipView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\StoryClipTab.xaml.cs">
       <DependentUpon>StoryClipTab.xaml</DependentUpon>
@@ -354,6 +367,9 @@
     </Compile>
     <Compile Include="UI\Workspaces\SettingWorkspace.xaml.cs">
       <DependentUpon>SettingWorkspace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\StoryClipView.xaml.cs">
+      <DependentUpon>StoryClipView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\UiWorkspace.xaml.cs">
       <DependentUpon>UiWorkspace.xaml</DependentUpon>
@@ -457,6 +473,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\VectorImages\DeleteShape.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\VectorImages\StoryBlock\ClipIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\VectorImages\StoryBlock\PassTrigger_Auto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\VectorImages\StoryBlock\PassTrigger_Click.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -676,6 +704,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Views\BlockContent_Clip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Views\BlockContent_Item.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Workspaces\StoryWorkspaceTabs\Views\StoryBlockView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -700,10 +736,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Views\StoryClipView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\Workspaces\StoryWorkspaceTabs\StoryClipTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -721,6 +753,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Workspaces\SettingWorkspace.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Views\StoryClipView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
