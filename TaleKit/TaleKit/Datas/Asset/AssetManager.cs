@@ -22,7 +22,6 @@ namespace TaleKit.Datas.Asset {
 
 		public List<AssetItem> assetList;
 		public Dictionary<string, AssetItem> pathToAssetDict;
-		public Dictionary<string, AssetItem> keyToAssetDict;
 
 		private FileSystemWatcher assetDirWatcher;
 
@@ -36,7 +35,6 @@ namespace TaleKit.Datas.Asset {
 
 			assetList = new List<AssetItem>();
 			pathToAssetDict = new Dictionary<string, AssetItem>();
-			keyToAssetDict = new Dictionary<string, AssetItem>();
 			recentlyDeletedItemDict = new Dictionary<string, AssetItem>();
 		}
 
@@ -124,31 +122,22 @@ namespace TaleKit.Datas.Asset {
 		private void ClearCollections() {
 			assetList.Clear();
 			pathToAssetDict.Clear();
-			keyToAssetDict.Clear();
 			recentlyDeletedItemDict.Clear();
 		}
 
 		//Asset
-		public AssetItem[] GetAssets(bool findHasKey) {
-			if(findHasKey ) {
-				return keyToAssetDict.Values.ToArray();
-			} else {
-				return assetList.ToArray();
-			}
+		public AssetItem[] GetAssets() {
+			return assetList.ToArray();
 		}
-		public AssetItem[] GetAssets(AssetType type, bool findHasKey) {
-			if(findHasKey) {
-				return keyToAssetDict.Values.Where(x => x.Type == type).ToArray();
-			} else {
-				return assetList.Where(x => x.Type == type).ToArray();
-			}
+		public AssetItem[] GetAssets(AssetType type) {
+			return assetList.Where(x => x.Type == type).ToArray();
 		}
-		public AssetItem GetAsset(string assetKey) {
-			if (string.IsNullOrEmpty(assetKey))
+		public AssetItem GetAsset(string assetPath) {
+			if (string.IsNullOrEmpty(assetPath))
 				return null;
 
 			AssetItem item;
-			if (!keyToAssetDict.TryGetValue(assetKey, out item))
+			if (!pathToAssetDict.TryGetValue(assetPath, out item))
 				return null;
 
 			return item;
@@ -174,35 +163,6 @@ namespace TaleKit.Datas.Asset {
 				return;
 
 			assetDirWatcher.Dispose();
-		}
-
-		public bool SetAssetKey(AssetItem item, string oldKey, string newKey) {
-			if (oldKey == newKey)
-				return true;
-
-			bool result = SetAssetKey(item, newKey);
-
-			if(result) {
-				//변경에 성공하면 이전 이름을 제거
-				if (!string.IsNullOrEmpty(oldKey)) {
-					if(keyToAssetDict.ContainsKey(oldKey)) {
-						keyToAssetDict.Remove(oldKey);
-					}
-				}
-			}
-
-			return result;
-		}
-		public bool SetAssetKey(AssetItem item, string newKey) {
-			if (string.IsNullOrEmpty(newKey))
-				return true;
-
-			if (keyToAssetDict.ContainsKey(newKey))
-				return false;
-
-			keyToAssetDict.Add(newKey, item);
-			item.Key = newKey;
-			return true;
 		}
 
 		//Manage meta
@@ -282,10 +242,6 @@ namespace TaleKit.Datas.Asset {
 
 				if (detectRenamed) {
 					DeleteAssetWithDetectRenameAsync(item);
-				} else {
-					if (item.HasKey && keyToAssetDict.ContainsKey(item.Key)) {
-						keyToAssetDict.Remove(item.Key);
-					}
 				}
 			}
 			item.DeleteMeta();
@@ -364,6 +320,7 @@ namespace TaleKit.Datas.Asset {
 
 			await Task.Delay(DeletedItemHoldMillisec);
 
+			// 기다린 동안 새로 추가된 동일한 해시의 Asset이 있으면 Rename으로 처리
 			if (recentlyDeletedItemDict.ContainsKey(item.fileHash)) {
 				recentlyDeletedItemDict.Remove(item.fileHash);
 

@@ -12,8 +12,6 @@ namespace TaleKit.Datas.Resource {
 		public readonly AssetManager OwnerAssetManager;
 		public TaleData OwnerTaleData => OwnerAssetManager.OwnerTaleData;
 
-		public bool HasKey => !string.IsNullOrEmpty(Key);
-
 		public string AssetRelPath {
 			get; private set;
 		}
@@ -35,11 +33,6 @@ namespace TaleKit.Datas.Resource {
 
 		[AssetMeta]
 		public string fileHash;
-
-		[AssetMeta]
-		[ValueEditorComponent_Header("메타데이터")]
-		[ValueEditor_TextBox("NameKey")]
-		public string Key;
 
 		[ValueEditorComponent_Header("미리보기")]
 		[ValueEditorComponent_FilePreview]

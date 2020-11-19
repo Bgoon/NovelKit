@@ -63,7 +63,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 			AssetComboBox.ItemsSource =
 				new string[] { UnselectedText }.Concat(
-					AssetManager.GetAssets(attr.assetType, true).Select(x => x.Key)
+					AssetManager.GetAssets(attr.assetType).Select(x => x.AssetRelPath)
 				).ToArray();
 
 			// Register events

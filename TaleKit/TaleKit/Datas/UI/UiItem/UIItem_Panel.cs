@@ -18,7 +18,7 @@ namespace TaleKit.Datas.UI.UIItem {
 		public UColor color = UColor.white;
 
 		[ValueEditor_AssetSelector("Image", AssetType.Image)]
-		public string imageAssetKey;
+		public string imageAsset;
 
 		[ValueEditor_Switch("Use NinePatch")]
 		public bool useNinePatch;
@@ -31,7 +31,7 @@ namespace TaleKit.Datas.UI.UIItem {
 		}
 
 		public AssetItem GetImageAsset() {
-			return AssetManager.GetAsset(imageAssetKey);
+			return AssetManager.GetAsset(imageAsset);
 		}
 	}
 }

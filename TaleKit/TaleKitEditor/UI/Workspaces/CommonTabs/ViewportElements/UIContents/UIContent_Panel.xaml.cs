@@ -47,7 +47,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements.UIContents {
 
 			Arg1Delegate<object> applyImage = (object value) => {
 
-				AssetItem imageAsset = OwnerRenderer.AssetManager.GetAsset(panelData.imageAssetKey);
+				AssetItem imageAsset = OwnerRenderer.AssetManager.GetAsset(panelData.imageAsset);
 				if (imageAsset != null) {
 					BitmapImage image = new BitmapImage(new Uri(panelData.GetImageAsset().AssetFilename));
 
@@ -67,7 +67,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements.UIContents {
 				}
 			};
 			OwnerRenderer.SetProperty(panelData, nameof(panelData.useNinePatch), applyImage);
-			OwnerRenderer.SetProperty(panelData, nameof(panelData.imageAssetKey), applyImage);
+			OwnerRenderer.SetProperty(panelData, nameof(panelData.imageAsset), applyImage);
 			OwnerRenderer.SetProperty(panelData, nameof(panelData.ninePatchSideAspect), (object value) => {
 				UGRect ninePatchSideAspect = (UGRect)value;
 
