@@ -21,7 +21,7 @@ namespace TaleKit.Datas.Story {
 		[SavableField]
 		public string guid;
 
-		// Ui Cache
+		// UI Cache
 		public bool HasUICache => UICacheSnapshot != null;
 		public UISnapshot UICacheSnapshot {
 			get; private set;

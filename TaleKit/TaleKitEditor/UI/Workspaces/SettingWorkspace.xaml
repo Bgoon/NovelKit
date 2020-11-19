@@ -9,7 +9,7 @@
 			 xmlns:Controls="clr-namespace:TaleKitEditor.UI.Controls"
 
 			 xmlns:GControls="clr-namespace:GKitForWPF.UI.Controls;assembly=GKitForWPF"
-			 xmlns:Tabs="clr-namespace:TaleKitEditor.UI.Workspaces.UiWorkspaceTabs"
+			 xmlns:Tabs="clr-namespace:TaleKitEditor.UI.Workspaces.UIWorkspaceTabs"
 			 xmlns:CommonTabs="clr-namespace:TaleKitEditor.UI.Workspaces.CommonTabs"
 			 xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 

@@ -44,9 +44,12 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 		public TaleData EditingTaleData => Data.OwnerFile.OwnerTaleData;
 		public AssetManager AssetManager => EditingTaleData.AssetManager;
 		public StoryFile EditingStoryFile => EditingTaleData.StoryFile;
-		public UIFile EditingUiFile => Data.OwnerFile;
+		public UIFile EditingUIFile => Data.OwnerFile;
 
 		public UIItemBase Data {
+			get; private set;
+		}
+		public UIItemBase RenderingData {
 			get; private set;
 		}
 
@@ -62,6 +65,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			InitializeComponent();
 
 			this.Data = data;
+			this.RenderingData = data.Clone() as UIItemBase;
 
 			rotateTransform = new RotateTransform();
 			this.RenderTransform = rotateTransform;
@@ -97,6 +101,8 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			}
 		}
 		public void RenderFromData(UIItemBase data) {
+			RenderingData.CopyDataFrom(data);
+
 			UIContent.Render(data);
 			RenderBase(data);
 		}

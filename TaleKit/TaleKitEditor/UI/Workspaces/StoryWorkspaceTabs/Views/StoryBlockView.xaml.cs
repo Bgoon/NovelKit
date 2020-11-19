@@ -101,7 +101,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 			Data.isVisible = !Data.isVisible;
 			
 			UpdateVisibleButton();
-			Data.OwnerFile.UiCacheManager.ClearCacheAfterBlock(Data);
+			Data.OwnerFile.UICacheManager.ClearCacheAfterBlock(Data);
 			StoryBlockTab.ApplyBlockToSelectionToRenderer();
 		}
 

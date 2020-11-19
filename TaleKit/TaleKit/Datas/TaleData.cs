@@ -22,7 +22,7 @@ namespace TaleKit.Datas {
 		public MotionFile MotionFile {
 			get; private set;
 		}
-		public UIFile UiFile {
+		public UIFile UIFile {
 			get; private set;
 		}
 		public StoryFile StoryFile {
@@ -74,7 +74,7 @@ namespace TaleKit.Datas {
 			JObject jDataRoot = JObject.Parse(File.ReadAllText(taleData.DataFilename, Encoding.UTF8));
 
 			taleData.ProjectSetting.LoadFromJson((JObject)jDataRoot["ProjectSetting"]);
-			taleData.UiFile.LoadFromJson((JObject)jDataRoot["UiFile"]);
+			taleData.UIFile.LoadFromJson((JObject)jDataRoot["UIFile"]);
 			taleData.MotionFile.LoadFromJson((JObject)jDataRoot["MotionFile"]);
 			taleData.StoryFile.LoadFromJson((JObject)jDataRoot["StoryFile"]);
 
@@ -91,7 +91,7 @@ namespace TaleKit.Datas {
 			AssetManager = new AssetManager(this);
 
 			MotionFile = new MotionFile(this);
-			UiFile = new UIFile(this);
+			UIFile = new UIFile(this);
 			StoryFile = new StoryFile(this);
 			ProjectSetting = new ProjectSetting(this);
 
@@ -104,11 +104,11 @@ namespace TaleKit.Datas {
 			}
 		}
 		public void Dispose() {
-			UiFile.Clear();
+			UIFile.Clear();
 			
 		}
 		public void PostInit() {
-			UiFile.Init();
+			UIFile.Init();
 		}
 
 		// [ Loop ]
@@ -176,7 +176,7 @@ namespace TaleKit.Datas {
 			jFile.Add(nameof(exportedTime), exportedTime.ToOADate());
 
 			jFile.Add("MotionFile", MotionFile.ToJObject());
-			jFile.Add("UiFile", UiFile.ToJObject());
+			jFile.Add("UIFile", UIFile.ToJObject());
 			jFile.Add("StoryFile", StoryFile.ToJObject());
 			jFile.Add("ProjectSetting", ProjectSetting.ToJObject());
 

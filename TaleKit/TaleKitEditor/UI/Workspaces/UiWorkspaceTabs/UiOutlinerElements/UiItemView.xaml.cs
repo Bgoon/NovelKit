@@ -19,13 +19,10 @@ using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
 using TaleKit.Datas.UI.UIItem;
 
-namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
-	/// <summary>
-	/// UiItem.xaml에 대한 상호 작용 논리
-	/// </summary>
-	public partial class UiItemView : UserControl, ITreeFolder {
-		public static readonly DependencyProperty DisplayNameProperty = DependencyProperty.RegisterAttached(nameof(DisplayName), typeof(string), typeof(UiItemView), new PropertyMetadata("Item"));
-		public static readonly DependencyProperty ItemTypeNameProperty = DependencyProperty.RegisterAttached(nameof(ItemTypeName), typeof(string), typeof(UiItemView), new PropertyMetadata("ItemType"));
+namespace TaleKitEditor.UI.Workspaces.UIWorkspaceTabs {
+	public partial class UIItemView : UserControl, ITreeFolder {
+		public static readonly DependencyProperty DisplayNameProperty = DependencyProperty.RegisterAttached(nameof(DisplayName), typeof(string), typeof(UIItemView), new PropertyMetadata("Item"));
+		public static readonly DependencyProperty ItemTypeNameProperty = DependencyProperty.RegisterAttached(nameof(ItemTypeName), typeof(string), typeof(UIItemView), new PropertyMetadata("ItemType"));
 
 		public readonly UIItemBase Data;
 
@@ -55,10 +52,10 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		}
 
 		// [ Constructor ]
-		public UiItemView() {
+		public UIItemView() {
 			InitializeComponent();
 		}
-		public UiItemView(UIItemBase data) : this() {
+		public UIItemView(UIItemBase data) : this() {
 			this.Data = data;
 			data.View = this;
 

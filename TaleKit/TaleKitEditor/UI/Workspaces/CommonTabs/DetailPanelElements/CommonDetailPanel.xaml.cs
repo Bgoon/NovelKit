@@ -24,7 +24,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 	public partial class CommonDetailPanel : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
-		private static UiWorkspace UiWorkspace => MainWindow.UiWorkspace;
+		private static UIWorkspace UIWorkspace => MainWindow.UIWorkspace;
 		private static DetailTab DetailTab => MainWindow.DetailTab;
 		private static ViewportTab ViewportTab => MainWindow.ViewportTab;
 

@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
+using TaleKitEditor.UI.Workspaces.UIWorkspaceTabs;
 
 namespace TaleKitEditor.UI.Workspaces {
-	public partial class UiWorkspace : UserControl {
-		public UiWorkspace() {
+	public partial class UIWorkspace : UserControl {
+		public UIWorkspace() {
 			InitializeComponent();
 		}
 	}

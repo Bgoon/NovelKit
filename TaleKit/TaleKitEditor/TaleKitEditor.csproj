@@ -374,8 +374,8 @@
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\StoryClipView.xaml.cs">
       <DependentUpon>StoryClipView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiWorkspace.xaml.cs">
-      <DependentUpon>UiWorkspace.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\UIWorkspace.xaml.cs">
+      <DependentUpon>UIWorkspace.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\CommonTabs\AssetTab.xaml.cs">
       <DependentUpon>AssetTab.xaml</DependentUpon>
@@ -383,11 +383,11 @@
     <Compile Include="UI\Workspaces\CommonTabs\DetailPanelElements\CommonDetailPanel.xaml.cs">
       <DependentUpon>CommonDetailPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiWorkspaceTabs\UiOutlinerElements\UiItemView.xaml.cs">
+    <Compile Include="UI\Workspaces\UIWorkspaceTabs\UIOutlinerElements\UiItemView.xaml.cs">
       <DependentUpon>UiItemView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\UiWorkspaceTabs\UiOutlinerTab.xaml.cs">
-      <DependentUpon>UiOutlinerTab.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\UIWorkspaceTabs\UIOutlinerTab.xaml.cs">
+      <DependentUpon>UIOutlinerTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UIRenderer.xaml.cs">
       <DependentUpon>UIRenderer.xaml</DependentUpon>
@@ -767,7 +767,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Workspaces\UiWorkspace.xaml">
+    <Page Include="UI\Workspaces\UIWorkspace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -779,11 +779,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UiWorkspaceTabs\UiOutlinerElements\UiItemView.xaml">
+    <Page Include="UI\Workspaces\UIWorkspaceTabs\UIOutlinerElements\UiItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\UiWorkspaceTabs\UiOutlinerTab.xaml">
+    <Page Include="UI\Workspaces\UIWorkspaceTabs\UIOutlinerTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

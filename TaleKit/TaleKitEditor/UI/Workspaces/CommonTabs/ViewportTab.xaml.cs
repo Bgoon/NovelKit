@@ -24,7 +24,7 @@ using TaleKitEditor.UI.ModelEditor;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
-using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
+using TaleKitEditor.UI.Workspaces.UIWorkspaceTabs;
 using TaleKitEditor.Workspaces;
 using UVector2 = UnityEngine.Vector2;
 
@@ -32,15 +32,17 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 	public partial class ViewportTab : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
-		private static UiWorkspace UiWorkspace => MainWindow.UiWorkspace;
-		private static UiOutlinerTab UiOutlinerTab => UiWorkspace.UiOutlinerTab;
-		private static UIFile EditingUiFile => MainWindow.EditingTaleData.UiFile;
+		private static UIWorkspace UIWorkspace => MainWindow.UIWorkspace;
+		private static UIOutlinerTab UIOutlinerTab => UIWorkspace.UIOutlinerTab;
+		private static UIFile EditingUIFile => MainWindow.EditingTaleData.UIFile;
 		private static StoryBlockTab StoryBlockTab => MainWindow.StoryWorkspace.StoryBlockTab;
 
 		private UIRenderer rootRenderer;
 
-		private UISnapshot renderUiSnapshot;
-		// TODO : 재생용 UiRoot를 Viewport가 하나 소지하고 있고, 이 데이터를 기반으로 화면에 보여주게 할 것
+		public UISnapshot RenderUISnapshot {
+			get; private set;
+		}
+		// TODO : 재생용 UIRoot를 Viewport가 하나 소지하고 있고, 이 데이터를 기반으로 화면에 보여주게 할 것
 
 		// [ Constructor ]
 		public ViewportTab() {
@@ -55,7 +57,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			MainWindow.ProjectPreloaded += MainWindow_ProjectPreloaded;
 			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
 			
-			UiOutlinerTab.ItemMoved += UiOutlinerTab_ItemMoved;
+			UIOutlinerTab.ItemMoved += UIOutlinerTab_ItemMoved;
 			PlayStateButton.ActiveChanged += PlayStateButton_ActiveChanged;
 
 			PlayStateButton.IsActive = true;
@@ -77,8 +79,8 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		private void MainWindow_ProjectPreloaded(TaleData taleData) {
 			ResetSnapshot();
 
-			EditingUiFile.ItemCreated += UiFile_ItemCreated;
-			EditingUiFile.ItemRemoved += UiFile_ItemRemoved;
+			EditingUIFile.ItemCreated += UIFile_ItemCreated;
+			EditingUIFile.ItemRemoved += UIFile_ItemRemoved;
 
 			ScrollToCenter();
 		}
@@ -105,24 +107,24 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		}
 
 		// File event
-		private void UiFile_ItemCreated(UIItemBase item, UIItemBase parentItem) {
+		private void UIFile_ItemCreated(UIItemBase item, UIItemBase parentItem) {
 			// Manage renderUI
-			UIItemBase renderUi;
+			UIItemBase renderUI;
 			if (parentItem == null) {
-				renderUi = renderUiSnapshot.rootUiItem = item.Clone() as UIItemBase;
+				renderUI = RenderUISnapshot.rootUIItem = item.Clone() as UIItemBase;
 			} else {
-				UIItemBase parentRenderUi = renderUiSnapshot.GetUiItem(parentItem.guid);
-				renderUi = item.Clone() as UIItemBase;
+				UIItemBase parentRenderUI = RenderUISnapshot.GetUIItem(parentItem.guid);
+				renderUI = item.Clone() as UIItemBase;
 
-				parentRenderUi.AddChildItem(renderUi);
+				parentRenderUI.AddChildItem(renderUI);
 			}
-			renderUi.InitializeClone();
-			renderUiSnapshot.RegisterUiItem(renderUi.guid, renderUi);
+			renderUI.InitializeClone();
+			RenderUISnapshot.RegisterUIItem(renderUI.guid, renderUI);
 
 
 			// Manage renderer
-			UIRenderer renderer = new UIRenderer(renderUi);
-			EditingUiFile.Guid_To_RendererDict.Add(item.guid, renderer);
+			UIRenderer renderer = new UIRenderer(renderUI);
+			EditingUIFile.Guid_To_RendererDict.Add(item.guid, renderer);
 
 			if (parentItem == null) {
 				rootRenderer = renderer;
@@ -134,37 +136,37 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 			renderer.Render(false);
 		}
-		private void UiFile_ItemRemoved(UIItemBase item, UIItemBase parentItem) {
-			// Manage renderUi
-			UIItemBase renderUi = renderUiSnapshot.GetUiItem(item.guid);
-			if(renderUi.ParentItem != null) {
-				renderUi.ParentItem.RemoveChildItem(renderUi);
+		private void UIFile_ItemRemoved(UIItemBase item, UIItemBase parentItem) {
+			// Manage renderUI
+			UIItemBase renderUI = RenderUISnapshot.GetUIItem(item.guid);
+			if(renderUI.ParentItem != null) {
+				renderUI.ParentItem.RemoveChildItem(renderUI);
 			}
-			renderUiSnapshot.RemoveUiItem(renderUi.guid);
+			RenderUISnapshot.RemoveUIItem(renderUI.guid);
 
 			// Manage renderer
 			UIRenderer renderer = GetRenderer(item);
 			renderer.DetachParent();
 
-			EditingUiFile.Guid_To_RendererDict.Remove(item.guid);
+			EditingUIFile.Guid_To_RendererDict.Remove(item.guid);
 		}
-		internal void UiItemDetailPanel_UiItemValueChanged(object model, FieldInfo fieldInfo, object editorView) {
-			UIItemBase UiItem = model as UIItemBase;
+		internal void UIItemDetailPanel_UIItemValueChanged(object model, FieldInfo fieldInfo, object editorView) {
+			UIItemBase UIItem = model as UIItemBase;
 
-			// Manage renderUi
-			UIItemBase renderUi = renderUiSnapshot.GetUiItem(UiItem.guid);
-			fieldInfo.SetValue(renderUi, fieldInfo.GetValue(UiItem));
+			// Manage renderUI
+			UIItemBase renderUI = RenderUISnapshot.GetUIItem(UIItem.guid);
+			fieldInfo.SetValue(renderUI, fieldInfo.GetValue(UIItem));
 
 			// Manage renderer
-			UIRenderer renderer = GetRenderer(UiItem);
+			UIRenderer renderer = GetRenderer(UIItem);
 
 			renderer.Render(false);
 		}
-		private void UiOutlinerTab_ItemMoved(UIItemBase item, UIItemBase newParentItem, UIItemBase oldParentItem, int index) {
-			// Manage renderUi
-			UIItemBase renderUi = renderUiSnapshot.GetUiItem(item.guid);
-			renderUiSnapshot.GetUiItem(oldParentItem.guid).RemoveChildItem(renderUi);
-			renderUiSnapshot.GetUiItem(newParentItem.guid).InsertChildItem(index, renderUi);
+		private void UIOutlinerTab_ItemMoved(UIItemBase item, UIItemBase newParentItem, UIItemBase oldParentItem, int index) {
+			// Manage renderUI
+			UIItemBase renderUI = RenderUISnapshot.GetUIItem(item.guid);
+			RenderUISnapshot.GetUIItem(oldParentItem.guid).RemoveChildItem(renderUI);
+			RenderUISnapshot.GetUIItem(newParentItem.guid).InsertChildItem(index, renderUI);
 			
 			// Manage renderer
 			UIRenderer renderer = GetRenderer(item);
@@ -185,17 +187,17 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 		// [ Render ]
 		public void ResetSnapshot() {
-			renderUiSnapshot = EditingUiFile.UISnapshot.Clone();
+			RenderUISnapshot = EditingUIFile.UISnapshot.Clone();
 		}
 		public void RenderAll() {
-			UIRenderer renderer = GetRenderer(renderUiSnapshot.rootUiItem);
+			UIRenderer renderer = GetRenderer(RenderUISnapshot.rootUIItem);
 
 			renderer.Render(true);
 		}
 
 		// [ Access ]
 		private UIRenderer GetRenderer(UIItemBase item) {
-			return EditingUiFile.Guid_To_RendererDict[item.guid] as UIRenderer;
+			return EditingUIFile.Guid_To_RendererDict[item.guid] as UIRenderer;
 		}
 
 		public async void ScrollToCenter() {

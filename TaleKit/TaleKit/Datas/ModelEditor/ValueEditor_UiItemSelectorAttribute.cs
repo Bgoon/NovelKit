@@ -2,9 +2,9 @@
 using TaleKit.Datas.Asset;
 
 namespace TaleKit.Datas.ModelEditor {
-	public class ValueEditor_UiItemSelectorAttribute : ValueEditorAttribute {
+	public class ValueEditor_UIItemSelectorAttribute : ValueEditorAttribute {
 
-		public ValueEditor_UiItemSelectorAttribute(string valueName) : base(valueName) {
+		public ValueEditor_UIItemSelectorAttribute(string valueName) : base(valueName) {
 		}
 	}
 }

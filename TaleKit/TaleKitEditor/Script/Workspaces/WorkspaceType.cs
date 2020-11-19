@@ -1,6 +1,6 @@
 ﻿namespace TaleKitEditor {
 	public enum WorkspaceType {
-		Ui,
+		UI,
 		Motion,
 		Story,
 		ProjectSetting,

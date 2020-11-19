@@ -45,7 +45,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 			{ typeof(ValueEditor_AssetSelectorAttribute), typeof(ValueEditor_AssetSelector) }, 
 			{ typeof(ValueEditor_TextBlockViewerAttribute), typeof(ValueEditor_TextBlockViewer) }, 
 			{ typeof(ValueEditor_EnumComboBoxAttribute), typeof(ValueEditor_EnumComboBox) }, 
-			{ typeof(ValueEditor_UiItemSelectorAttribute), typeof(ValueEditor_UiItemSelector) }, 
+			{ typeof(ValueEditor_UIItemSelectorAttribute), typeof(ValueEditor_UIItemSelector) }, 
 			{ typeof(ValueEditor_EasingSelectorAttribute), typeof(ValueEditor_EasingSelector) },
 			{ typeof(ValueEditor_StoryClipSelectorAttribute), typeof(ValueEditor_StoryClipSelector) },
 		};

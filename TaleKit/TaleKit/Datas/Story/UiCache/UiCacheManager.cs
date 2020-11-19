@@ -8,10 +8,10 @@ using TaleKit.Datas.UI;
 using GKitForUnity;
 
 namespace TaleKit.Datas.Story {
-	public class UiCacheManager {
+	public class UICacheManager {
 		public readonly StoryFile OwnerFile;
 		public TaleData OwnerTaleData => OwnerFile.OwnerTaleData;
-		public UIFile UIFile => OwnerTaleData.UiFile;
+		public UIFile UIFile => OwnerTaleData.UIFile;
 
 		public int CacheInterval {
 			get; private set;
@@ -33,7 +33,7 @@ namespace TaleKit.Datas.Story {
 		}
 
 		// [ Constructor ]
-		public UiCacheManager(StoryFile ownerFile) {
+		public UICacheManager(StoryFile ownerFile) {
 			this.OwnerFile = ownerFile;
 		}
 

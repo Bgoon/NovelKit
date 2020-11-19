@@ -14,7 +14,7 @@ namespace TaleKit.Datas.Story {
 	/// UI를 조작할 수 있는 명령
 	/// </summary>
 	public class Order_UI : OrderBase {
-		private UIFile UiFile => OwnerBlock.OwnerFile.OwnerTaleData.UiFile;
+		private UIFile UIFile => OwnerBlock.OwnerFile.OwnerTaleData.UIFile;
 		
 		// HelperData
 		public float BlendProgress => blendElapsedSeconds / BlendTotalSeconds;
@@ -24,7 +24,7 @@ namespace TaleKit.Datas.Story {
 		public float TotalSec => durationSec + delaySec;
 
 		// Data
-		[ValueEditor_UiItemSelector("Target UI")]
+		[ValueEditor_UIItemSelector("Target UI")]
 		public string targetUIGuid;
 
 		[ValueEditor_ModelKeyFrame(nameof(targetUIGuid), nameof(CreateUIKeyData))]
@@ -72,18 +72,18 @@ namespace TaleKit.Datas.Story {
 			if (string.IsNullOrEmpty(targetUIGuid))
 				return null;
 
-			UIItemBase targetUi = UiFile.UISnapshot.GetUiItem(targetUIGuid);
+			UIItemBase targetUI = UIFile.UISnapshot.GetUIItem(targetUIGuid);
 
-			if(targetUi == null) {
+			if(targetUI == null) {
 				UIKeyData = null;
 				return null;
 			}
-			switch(targetUi.itemType) {
+			switch(targetUI.itemType) {
 				case UIItemType.Panel:
-					UIKeyData = new UIItem_Panel(UiFile);
+					UIKeyData = new UIItem_Panel(UIFile);
 					break;
 				case UIItemType.Text:
-					UIKeyData = new UIItem_Text(UiFile);
+					UIKeyData = new UIItem_Text(UIFile);
 					break;
 			}
 			UIKeyData.IsKeyFrameModel = true;

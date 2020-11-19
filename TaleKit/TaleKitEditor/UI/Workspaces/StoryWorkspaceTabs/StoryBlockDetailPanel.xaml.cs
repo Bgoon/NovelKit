@@ -171,7 +171,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void ClearCurrentBlockCache() {
-			EditingBlock.OwnerFile.UiCacheManager.ClearCacheAfterBlock(EditingBlock);
+			EditingBlock.OwnerFile.UICacheManager.ClearCacheAfterBlock(EditingBlock);
 		}
 	}
 }

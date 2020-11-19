@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs;
-using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
+using TaleKitEditor.UI.Workspaces.UIWorkspaceTabs;
 using TaleKitEditor.Workspaces;
 
 namespace TaleKitEditor.UI.Workspaces {

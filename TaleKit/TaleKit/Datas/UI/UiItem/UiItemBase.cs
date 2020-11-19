@@ -4,6 +4,7 @@ using GKitForUnity.Data;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Resources;
 using TaleKit.Datas.Asset;
 using TaleKit.Datas.ModelEditor;
@@ -157,6 +158,18 @@ namespace TaleKit.Datas.UI.UIItem {
 		public void ClearChildItems() {
 			foreach(var childItem in ChildItemList) {
 				RemoveChildItem(childItem);
+			}
+		}
+
+		public void CopyDataFrom(UIItemBase srcUIItem) {
+			if (srcUIItem.itemType != itemType)
+				return;
+
+			foreach(FieldInfo fieldInfo in srcUIItem.GetType().GetFields()) {
+				if (fieldInfo.GetCustomAttribute(typeof(ValueEditorAttribute)) == null)
+					continue;
+
+				fieldInfo.SetValue(this, fieldInfo.GetValue(srcUIItem));
 			}
 		}
 

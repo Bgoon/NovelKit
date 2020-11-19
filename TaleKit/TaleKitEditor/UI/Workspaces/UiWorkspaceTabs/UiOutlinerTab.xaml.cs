@@ -24,35 +24,35 @@ using TaleKitEditor.UI.Workspaces.CommonTabs;
 using TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements;
 using TaleKitEditor.Workspaces;
 
-namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
+namespace TaleKitEditor.UI.Workspaces.UIWorkspaceTabs {
 	
 	
-	public partial class UiOutlinerTab : UserControl {
+	public partial class UIOutlinerTab : UserControl {
 		public delegate void ItemMovedDelegate(UIItemBase item, UIItemBase newParentItem, UIItemBase oldParentItem, int index);
 
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
-		private static UIFile EditingUiFile => MainWindow.EditingTaleData.UiFile;
+		private static UIFile EditingUIFile => MainWindow.EditingTaleData.UIFile;
 		private static DetailTab DetailTab => MainWindow.DetailTab;
 		private static ViewportTab ViewportTab => MainWindow.ViewportTab;
 		private static CommonDetailPanel CommonDetailPanel => DetailTab.CommonDetailPanel;
 
-		public UiItemView RootItemView {
+		public UIItemView RootItemView {
 			get; private set;
 		}
 
 		// SelectedItem
-		public UiItemView SelectedUiItemViewSingle {
+		public UIItemView SelectedUIItemViewSingle {
 			get {
-				if (UiTreeView.SelectedItemSet.Count > 0) {
-					return (UiItemView)UiTreeView.SelectedItemSet.Last();
+				if (UITreeView.SelectedItemSet.Count > 0) {
+					return (UIItemView)UITreeView.SelectedItemSet.Last();
 				}
 				return null;
 			}
 		}
-		public UIItemBase SelectedUiItemSingle {
+		public UIItemBase SelectedUIItemSingle {
 			get {
-				UiItemView selectedItemView = SelectedUiItemViewSingle;
+				UIItemView selectedItemView = SelectedUIItemViewSingle;
 				return selectedItemView == null ? null : selectedItemView.Data;
 			}
 		}
@@ -62,7 +62,7 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 		private List<UIRenderer> focusedRendererList;
 
 		// [ Constructor ]
-		public UiOutlinerTab() {
+		public UIOutlinerTab() {
 			InitializeComponent();
 
 			if (this.IsDesignMode())
@@ -71,25 +71,25 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			// Init member
 			focusedRendererList = new List<UIRenderer>();
 
-			UiTreeView.AutoApplyItemMove = false;
+			UITreeView.AutoApplyItemMove = false;
 
 			// Register events
-			UiItemListController.CreateItemButtonClick += UiItemListController_CreateItemButtonClick;
-			UiItemListController.RemoveItemButtonClick += UiItemListController_RemoveItemButtonClick;
+			UIItemListController.CreateItemButtonClick += UIItemListController_CreateItemButtonClick;
+			UIItemListController.RemoveItemButtonClick += UIItemListController_RemoveItemButtonClick;
 
-			UiTreeView.ItemMoved += UiTreeView_ItemMoved;
+			UITreeView.ItemMoved += UITreeView_ItemMoved;
 
 			MainWindow.ProjectPreloaded += MainWindow_ProjectPreloaded;
 			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
 			MainWindow.WorkspaceActived += MainWindow_WorkspaceActived;
 
-			UiTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
-			UiTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
+			UITreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
+			UITreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
 		}
 
 		private void MainWindow_WorkspaceActived(WorkspaceComponent workspace) {
 			switch(workspace.type) {
-				case WorkspaceType.Ui:
+				case WorkspaceType.UI:
 					
 
 					break;
@@ -101,56 +101,56 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 		// [ Event ]
 		private void MainWindow_ProjectPreloaded(TaleData obj) {
-			EditingUiFile.ItemCreatedPreview += UiFile_ItemCreatedPreview;
-			EditingUiFile.ItemRemoved += UiFile_ItemRemoved;
+			EditingUIFile.ItemCreatedPreview += UIFile_ItemCreatedPreview;
+			EditingUIFile.ItemRemoved += UIFile_ItemRemoved;
 		}
 		private void MainWindow_ProjectUnloaded(TaleData obj) {
-			EditingUiFile.ItemCreatedPreview -= UiFile_ItemCreatedPreview;
-			EditingUiFile.ItemRemoved -= UiFile_ItemRemoved;
+			EditingUIFile.ItemCreatedPreview -= UIFile_ItemCreatedPreview;
+			EditingUIFile.ItemRemoved -= UIFile_ItemRemoved;
 		}
 
-		private void UiItemListController_CreateItemButtonClick() {
-			// Show UiItemType menu
+		private void UIItemListController_CreateItemButtonClick() {
+			// Show UIItemType menu
 			Dialogs.MenuItem[] menuItems = ((UIItemType[])Enum.GetValues(typeof(UIItemType))).Select(
 				(UIItemType itemType) => {
 					UIItemType itemTypeInstance = itemType;
 					return new Dialogs.MenuItem(itemType.ToString(), () => {
-						CreateAndSelectUiItem(itemType);
+						CreateAndSelectUIItem(itemType);
 					});
 				}).ToArray();
 
 			MenuPanel.ShowDialog(menuItems);
 
-			void CreateAndSelectUiItem(UIItemType itemType) {
-				UIItemBase parentItem = SelectedUiItemSingle ?? EditingUiFile.UISnapshot.rootUiItem;
-				UIItemBase item = EditingUiFile.CreateUiItem(parentItem, itemType);
+			void CreateAndSelectUIItem(UIItemType itemType) {
+				UIItemBase parentItem = SelectedUIItemSingle ?? EditingUIFile.UISnapshot.rootUIItem;
+				UIItemBase item = EditingUIFile.CreateUIItem(parentItem, itemType);
 
-				UiTreeView.SelectedItemSet.SetSelectedItem(item.View as ITreeItem);
+				UITreeView.SelectedItemSet.SetSelectedItem(item.View as ITreeItem);
 			}
 			
 		}
-		private void UiItemListController_RemoveItemButtonClick() {
-			UiItemView[] selectedItems = UiTreeView.SelectedItemSet.Select(item=>(UiItemView)item).ToArray();
-			foreach (UiItemView itemView in selectedItems) {
+		private void UIItemListController_RemoveItemButtonClick() {
+			UIItemView[] selectedItems = UITreeView.SelectedItemSet.Select(item=>(UIItemView)item).ToArray();
+			foreach (UIItemView itemView in selectedItems) {
 				UIItemBase data = itemView.Data;
 
-				EditingUiFile.RemoveUiItem(data);
+				EditingUIFile.RemoveUIItem(data);
 			}
 		}
 
-		private void UiFile_ItemCreatedPreview(UIItemBase item, UIItemBase parentItem) {
-			// 생성된 UiItem의 부모관계가 정해지기 전에 먼저 UiItemView 를 생성한다.
-			// (Data_ChildInserted 이벤트에서 UiItemView를 필요로 하기 때문)
+		private void UIFile_ItemCreatedPreview(UIItemBase item, UIItemBase parentItem) {
+			// 생성된 UIItem의 부모관계가 정해지기 전에 먼저 UIItemView 를 생성한다.
+			// (Data_ChildInserted 이벤트에서 UIItemView를 필요로 하기 때문)
 
-			UiItemView itemView = new UiItemView(item);
+			UIItemView itemView = new UIItemView(item);
 
 			if (parentItem == null) {
 				//Create root
 				itemView.SetRootItem();
 				RootItemView = itemView;
 
-				UiTreeView.ChildItemCollection.Add(itemView);
-				UiTreeView.ManualRootFolder = itemView;
+				UITreeView.ChildItemCollection.Add(itemView);
+				UITreeView.ManualRootFolder = itemView;
 			} else {
 				itemView.ParentItem = parentItem.View as ITreeFolder;
 			}
@@ -162,30 +162,30 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 			item.ChildRemoved += Data_ChildRemoved;
 
 			void Data_ChildInserted(int index, UIItemBase childItem) {
-				UiItemView childItemView = childItem.View as UiItemView;
+				UIItemView childItemView = childItem.View as UIItemView;
 				itemView.ChildItemCollection.Insert(index, childItemView);
 			}
 			void Data_ChildRemoved(UIItemBase childItem, UIItemBase currentItem) {
-				UiItemView childItemView = childItem.View as UiItemView;
+				UIItemView childItemView = childItem.View as UIItemView;
 				itemView.ChildItemCollection.Remove(childItemView);
 			}
 
 			UITreeChanged();
 		}
-		private void UiFile_ItemRemoved(UIItemBase item, UIItemBase parentItem) {
+		private void UIFile_ItemRemoved(UIItemBase item, UIItemBase parentItem) {
 			//Remove view	
-			UiItemView itemView = item.View as UiItemView;
-			UiTreeView.NotifyItemRemoved(itemView);
+			UIItemView itemView = item.View as UIItemView;
+			UITreeView.NotifyItemRemoved(itemView);
 			itemView.DetachParent();
 
 			UITreeChanged();
 		}
 
-		private void UiTreeView_ItemMoved(ITreeItem itemView, ITreeFolder oldParentView, ITreeFolder newParentView, int index) {
+		private void UITreeView_ItemMoved(ITreeItem itemView, ITreeFolder oldParentView, ITreeFolder newParentView, int index) {
 			//Data에 적용하기
-			UIItemBase item = ((UiItemView)itemView).Data;
-			UIItemBase newParentItem = ((UiItemView)newParentView).Data;
-			UiItemView oldParentItemView = (oldParentView as UiItemView);
+			UIItemBase item = ((UIItemView)itemView).Data;
+			UIItemBase newParentItem = ((UIItemView)newParentView).Data;
+			UIItemView oldParentItemView = (oldParentView as UIItemView);
 
 			if(oldParentItemView != null) {
 				oldParentItemView.Data.RemoveChildItem(item);
@@ -210,27 +210,27 @@ namespace TaleKitEditor.UI.Workspaces.UiWorkspaceTabs {
 
 			UpdateRendererFocusBoxVisible();
 
-			if (UiTreeView.SelectedItemSet.Count != 1)
+			if (UITreeView.SelectedItemSet.Count != 1)
 				return;
 
-			UiItemView itemView = UiTreeView.SelectedItemSet.First as UiItemView;
+			UIItemView itemView = UITreeView.SelectedItemSet.First as UIItemView;
 			CommonDetailPanel.AttachModel(itemView.Data);
 			DetailTab.ActiveDetailPanel(DetailPanelType.Common);
 
-			itemView.Data.ModelUpdated += ViewportTab.UiItemDetailPanel_UiItemValueChanged;
+			itemView.Data.ModelUpdated += ViewportTab.UIItemDetailPanel_UIItemValueChanged;
 		}
 
 		private void UITreeChanged() {
-			EditingUiFile.OwnerTaleData.StoryFile.UiCacheManager.ClearCacheAll();
+			EditingUIFile.OwnerTaleData.StoryFile.UICacheManager.ClearCacheAll();
 		}
 
 
 		private void UpdateRendererFocusBoxVisible() {
 			ClearFocusBoxVisible();
 
-			foreach (var item in UiTreeView.SelectedItemSet) {
-				UiItemView itemView = UiTreeView.SelectedItemSet.First as UiItemView;
-				UIRenderer renderer = EditingUiFile.Guid_To_RendererDict[itemView.Data.guid] as UIRenderer;
+			foreach (var item in UITreeView.SelectedItemSet) {
+				UIItemView itemView = UITreeView.SelectedItemSet.First as UIItemView;
+				UIRenderer renderer = EditingUIFile.Guid_To_RendererDict[itemView.Data.guid] as UIRenderer;
 
 				renderer.SetFocusBoxVisible(true);
 				focusedRendererList.Add(renderer);

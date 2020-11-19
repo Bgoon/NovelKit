@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
-using TaleKitEditor.UI.Workspaces.UiWorkspaceTabs;
+using TaleKitEditor.UI.Workspaces.UIWorkspaceTabs;
 using TaleKitEditor.Workspaces.Tabs;
 
 namespace TaleKitEditor.UI.Workspaces.CommonTabs {

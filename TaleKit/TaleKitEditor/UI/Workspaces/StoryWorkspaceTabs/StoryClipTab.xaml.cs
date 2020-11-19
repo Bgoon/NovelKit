@@ -27,7 +27,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static TaleData EditingTaleData => MainWindow.EditingTaleData;
 		private static StoryFile EditingStoryFile => EditingTaleData.StoryFile;
-		private static UIFile EditingUiFile => EditingTaleData.UiFile;
+		private static UIFile EditingUIFile => EditingTaleData.UIFile;
 		private static ViewportTab ViewportTab => MainWindow.ViewportTab;
 		private static StoryBlockTab StoryBlockTab => MainWindow.StoryWorkspace.StoryBlockTab;
 

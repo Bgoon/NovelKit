@@ -30,7 +30,7 @@ namespace TaleKit.Datas.Story {
 			get; private set;
 		}
 
-		public readonly UiCacheManager UiCacheManager;
+		public readonly UICacheManager UICacheManager;
 
 		public event NodeItemDelegate<StoryBlockBase, StoryClip> BlockCreated;
 		public event NodeItemDelegate<StoryBlockBase, StoryClip> BlockRemoved;
@@ -43,7 +43,7 @@ namespace TaleKit.Datas.Story {
 			this.OwnerTaleData = ownerTaleData;
 
 			Guid_To_ClipDict = new Dictionary<string, StoryClip>();
-			UiCacheManager = new UiCacheManager(this);
+			UICacheManager = new UICacheManager(this);
 
 			if(!ownerTaleData.InitArgs.onDataLoad) {
 				RootClip = CreateStoryClip();
@@ -51,7 +51,7 @@ namespace TaleKit.Datas.Story {
 			}
 
 			// Register events
-			ownerTaleData.Tick += UiCacheManager.OnTick;
+			ownerTaleData.Tick += UICacheManager.OnTick;
 		}
 
 		// [ Data ]
@@ -127,7 +127,7 @@ namespace TaleKit.Datas.Story {
 					UIOrder.targetUIGuid = jFields["targetUIGuid"].ToObject<string>();
 
 					if(UIOrder.targetUIGuid != null) {
-						UIItemBase targetUI = ownerBlock.OwnerFile.OwnerTaleData.UiFile.UISnapshot.GetUiItem(UIOrder.targetUIGuid);
+						UIItemBase targetUI = ownerBlock.OwnerFile.OwnerTaleData.UIFile.UISnapshot.GetUIItem(UIOrder.targetUIGuid);
 						UIItemBase UIKeyData = UIOrder.CreateUIKeyData();
 
 						JObject jUIKeyData = jFields["UIKeyData"].ToObject<JObject>();

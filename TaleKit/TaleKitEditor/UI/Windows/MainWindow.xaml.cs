@@ -79,7 +79,7 @@ namespace TaleKitEditor.UI.Windows {
 		private void InitWorkspaces() {
 			//워크스페이스 생성
 			workspaces = new WorkspaceComponent[] {
-				new WorkspaceComponent(WorkspaceType.Ui, UiWorkspace, UiWorkspaceButton),
+				new WorkspaceComponent(WorkspaceType.UI, UIWorkspace, UIWorkspaceButton),
 				new WorkspaceComponent(WorkspaceType.Motion, MotionWorkspace, MotionWorkspaceButton),
 				new WorkspaceComponent(WorkspaceType.Story, StoryWorkspace, StoryWorkspaceButton),
 				new WorkspaceComponent(WorkspaceType.ProjectSetting, SettingWorkspace, SettingWorkspaceButton),
@@ -94,9 +94,9 @@ namespace TaleKitEditor.UI.Windows {
 			WorkspaceContext.Visibility = Visibility.Collapsed;
 
 			//공통 탭 설정
-			AssetTab = UiWorkspace.AssetTab;
-			ViewportTab = UiWorkspace.ViewportTab;
-			DetailTab = UiWorkspace.DetailTab;
+			AssetTab = UIWorkspace.AssetTab;
+			ViewportTab = UIWorkspace.ViewportTab;
+			DetailTab = UIWorkspace.DetailTab;
 			commonTabs = new UserControl[] {
 				AssetTab,
 				ViewportTab,
@@ -123,12 +123,12 @@ namespace TaleKitEditor.UI.Windows {
 			InitWorkspaces();
 			RegisterEvents();
 
-			ActiveWorkspace(WorkspaceType.Ui);
+			ActiveWorkspace(WorkspaceType.UI);
 
 			ProcessDebugTask();
 		}
-		private void UiWorkspaceButton_Click(object sender, RoutedEventArgs e) {
-			ActiveWorkspace(WorkspaceType.Ui);
+		private void UIWorkspaceButton_Click(object sender, RoutedEventArgs e) {
+			ActiveWorkspace(WorkspaceType.UI);
 		}
 		private void MotionWorkspaceButton_Click(object sender, RoutedEventArgs e) {
 			ActiveWorkspace(WorkspaceType.Motion);

@@ -14,7 +14,7 @@ namespace TaleKit.Datas.UI {
 	public class UISnapshot {
 		public readonly TaleData OwnerTaleData;
 
-		public UIItemBase rootUiItem;
+		public UIItemBase rootUIItem;
 		private Dictionary<string, UIItemBase> guid_To_UIItemDict;
 
 		// [ Constructor ]
@@ -26,7 +26,7 @@ namespace TaleKit.Datas.UI {
 
 		// [ Data Managing ]
 		public void Clear() {
-			rootUiItem = null;
+			rootUIItem = null;
 			guid_To_UIItemDict.Clear();
 		}
 		public UISnapshot Clone() {
@@ -37,7 +37,7 @@ namespace TaleKit.Datas.UI {
 				UIItemBase cloneItem = srcItem.Clone() as UIItemBase;
 
 				if (cloneItem.ParentItem == null) {
-					cloneSnapshot.rootUiItem = cloneItem;
+					cloneSnapshot.rootUIItem = cloneItem;
 				}
 				cloneSnapshot.guid_To_UIItemDict.Add(cloneItem.guid, cloneItem);
 			}
@@ -75,17 +75,17 @@ namespace TaleKit.Datas.UI {
 		}
 
 		// Control Collection
-		public UIItemBase[] GetUiItems() {
+		public UIItemBase[] GetUIItems() {
 			return guid_To_UIItemDict.Values.ToArray();
 		}
 
-		public void RegisterUiItem(string guid, UIItemBase UiItem) {
+		public void RegisterUIItem(string guid, UIItemBase UiItem) {
 			guid_To_UIItemDict.Add(guid, UiItem);
 		}
-		public void RemoveUiItem(string guid) {
+		public void RemoveUIItem(string guid) {
 			guid_To_UIItemDict.Remove(guid);
 		}
-		public UIItemBase GetUiItem(string guid) {
+		public UIItemBase GetUIItem(string guid) {
 			return guid_To_UIItemDict[guid];
 		}
 
@@ -125,7 +125,7 @@ namespace TaleKit.Datas.UI {
 		}
 
 		public JObject ToJObject() {
-			return rootUiItem.ToJObject();
+			return rootUIItem.ToJObject();
 		}
 	}
 }

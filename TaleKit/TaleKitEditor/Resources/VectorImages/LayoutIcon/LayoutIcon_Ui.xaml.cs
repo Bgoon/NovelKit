@@ -14,11 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace TaleKitEditor.Resources.VectorImages {
-	/// <summary>
-	/// LayoutIcon_Ui.xaml에 대한 상호 작용 논리
-	/// </summary>
-	public partial class LayoutIcon_Ui : UserControl {
-		public LayoutIcon_Ui() {
+	public partial class LayoutIcon_UI : UserControl {
+		public LayoutIcon_UI() {
 			InitializeComponent();
 		}
 	}
