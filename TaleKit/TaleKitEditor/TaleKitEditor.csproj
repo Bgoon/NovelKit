@@ -233,6 +233,9 @@
     <Compile Include="UI\Dialogs\TaleDialog.xaml.cs">
       <DependentUpon>TaleDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ModelEditor\ValueEditorView\ValueEditor_StoryClipSelector.xaml.cs">
+      <DependentUpon>ValueEditor_StoryClipSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ModelEditor\ValueEditorView\ValueEditor_EasingSelector.xaml.cs">
       <DependentUpon>ValueEditor_EasingSelector.xaml</DependentUpon>
     </Compile>
@@ -581,6 +584,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\ModelEditor\ValueEditorView\ValueEditorComponent_FilePreview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ModelEditor\ValueEditorView\ValueEditor_StoryClipSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

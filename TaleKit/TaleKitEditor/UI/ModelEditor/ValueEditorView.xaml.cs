@@ -47,6 +47,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 			{ typeof(ValueEditor_EnumComboBoxAttribute), typeof(ValueEditor_EnumComboBox) }, 
 			{ typeof(ValueEditor_UiItemSelectorAttribute), typeof(ValueEditor_UiItemSelector) }, 
 			{ typeof(ValueEditor_EasingSelectorAttribute), typeof(ValueEditor_EasingSelector) },
+			{ typeof(ValueEditor_StoryClipSelectorAttribute), typeof(ValueEditor_StoryClipSelector) },
 		};
 
 		public event Action<object> ElementEditorValueChanged;

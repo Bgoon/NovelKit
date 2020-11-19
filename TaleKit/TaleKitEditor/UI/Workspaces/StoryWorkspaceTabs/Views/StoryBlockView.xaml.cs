@@ -121,11 +121,11 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 
 		// [ Control ]
 		public void SetDisplayName(string name) {
-			if(BlockType == StoryBlockType.Item) {
-				(viewContent as BlockContent_Item).PreviewTextBlock.Text = name;
-			} else if(BlockType == StoryBlockType.Clip) {
-				(viewContent as BlockContent_Clip).NameEditText.Text = name;
-			}
+			//if(BlockType == StoryBlockType.Item) {
+			//	(viewContent as BlockContent_Item).PreviewTextBlock.Text = name;
+			//} else if(BlockType == StoryBlockType.Clip) {
+			//	(viewContent as BlockContent_Clip).NameEditText.Text = name;
+			//}
 		}
 
 		public void SetSelected(bool isSelected) {

@@ -8,6 +8,7 @@ namespace TaleKit.Datas.Story {
 	public class StoryBlock_Clip : StoryBlockBase {
 
 		// Data
+		[ValueEditor_StoryClipSelector("StoryClip")]
 		public string targetClipGuid;
 
 		public StoryBlock_Clip(StoryFile ownerFile) : base(ownerFile, StoryBlockType.Clip) {

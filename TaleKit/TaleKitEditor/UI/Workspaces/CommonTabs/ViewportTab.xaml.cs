@@ -180,12 +180,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			if (StoryBlockTab.StoryBlockTreeView.SelectedItemSet.Count != 1)
 				return;
 
-			switch (StoryBlockTab.SelectedBlockSingle.passTrigger) {
-				case StoryBlockTrigger.Click:
-				case StoryBlockTrigger.Auto:
-					StoryBlockTab.SelectNextBlock(1);
-					break;
-			}
+			StoryBlockTab.SelectNextBlock();
 		}
 
 		// [ Render ]

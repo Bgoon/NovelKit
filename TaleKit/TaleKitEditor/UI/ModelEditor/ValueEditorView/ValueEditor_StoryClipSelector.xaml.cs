@@ -16,82 +16,82 @@ using System.Windows.Shapes;
 using TaleKit.Datas;
 using TaleKit.Datas.Asset;
 using TaleKit.Datas.ModelEditor;
-using TaleKit.Datas.UI;
-using TaleKit.Datas.UI.UIItem;
+using TaleKit.Datas.Story;
 using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.ModelEditor {
 	/// <summary>
 	/// CheckBoxValueEditor.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class ValueEditor_UiItemSelector : UserControl, IValueEditor {
+	public partial class ValueEditor_StoryClipSelector : UserControl, IValueEditor {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static TaleData EditingTaleData => MainWindow.EditingTaleData;
-		private static UIFile UiFile => EditingTaleData.UiFile;
+		private static AssetManager AssetManager => EditingTaleData.AssetManager;
 
-		public static readonly DependencyProperty SelectedUiGuidProperty = DependencyProperty.RegisterAttached(nameof(SelectedUIGuid), typeof(string), typeof(ValueEditor_UiItemSelector), new PropertyMetadata(null));
+		public static readonly DependencyProperty SelectedAssetKeyProperty = DependencyProperty.RegisterAttached(nameof(SelectedStoryClip), typeof(string), typeof(ValueEditor_AssetSelector), new PropertyMetadata(null));
 
 		private const string UnselectedText = "(None)";
-		private readonly Dictionary<string, ComboBoxItem> Guid_To_ItemDict;
 
 		public event EditableValueChangedDelegate EditableValueChanged;
 
 		public object EditableValue {
 			get {
-				return SelectedUIGuid;
+				return SelectedStoryClip;
 			}
 			set {
-				SelectedUIGuid = (string)value;
+				SelectedStoryClip = (string)value;
 			}
 		}
-		public string SelectedUIGuid {
+		public string SelectedStoryClip {
 			get {
-				return (string)GetValue(SelectedUiGuidProperty);
+				return (string)GetValue(SelectedAssetKeyProperty);
 			}
 			set {
-				SetValue(SelectedUiGuidProperty, value);
+				SetValue(SelectedAssetKeyProperty, value);
 				EditableValueChanged?.Invoke(value);
 			}
 		}
 
 		private bool ignoreSelectionChanged;
 
-		public ValueEditor_UiItemSelector() {
+		private Dictionary<string, ComboBoxItem> Guid_To_ItemDict;
+
+		public ValueEditor_StoryClipSelector() {
 			InitializeComponent();
 
 			// Set ItemSource
 			Guid_To_ItemDict = new Dictionary<string, ComboBoxItem>();
-			IEnumerable<ComboBoxItem> items = UiFile.UiItemList.Select(
-				(UIItemBase itemSrc) => {
+			IEnumerable<ComboBoxItem> items = EditingTaleData.StoryFile.Guid_To_ClipDict.Values.Select(
+				(StoryClip clip) => {
 					ComboBoxItem item = new ComboBoxItem() {
-						Content = itemSrc.name,
-						Tag = itemSrc.guid
+						Content = clip.name,
+						Tag = clip.guid,
 					};
-					Guid_To_ItemDict.Add(itemSrc.guid, item);
+					Guid_To_ItemDict.Add(clip.guid, item);
 					return item;
 				}
 			);
 
-			UiItemComboBox.ItemsSource = new ComboBoxItem[] { new ComboBoxItem() { Content = UnselectedText } }
+			StoryClipComboBox.ItemsSource = new ComboBoxItem[] { new ComboBoxItem() { Content = UnselectedText } }
 				.Concat(items).ToArray();
 
 			// Register events
-			UiItemComboBox.SelectionChanged += UiComboBox_SelectionChanged;
+			StoryClipComboBox.SelectionChanged += StoryClipComboBox_SelectionChanged;
 			EditableValueChanged += OnEditableValueChanged;
 		}
 
-		private void UiComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+		private void StoryClipComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 			if (ignoreSelectionChanged)
 				return;
 
-			ComboBoxItem selectedItem = UiItemComboBox.SelectedValue as ComboBoxItem;
-			if (selectedItem == null ||selectedItem.Tag == null) {
-				SelectedUIGuid = null;
+			ComboBoxItem selectedItem = StoryClipComboBox.SelectedValue as ComboBoxItem;
+			if (selectedItem == null || selectedItem.Tag == null) {
+				SelectedStoryClip = null;
 				return;
 			}
 
-			SelectedUIGuid = selectedItem.Tag as string;
+			SelectedStoryClip = selectedItem.Tag as string;
 		}
 
 		private void OnEditableValueChanged(object value) {
@@ -102,10 +102,10 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 		private void UpdateUI() {
 			ComboBoxItem selectedItem = null;
-			if(!string.IsNullOrEmpty(SelectedUIGuid)) {
-				Guid_To_ItemDict.TryGetValue(SelectedUIGuid, out selectedItem);
+			if (!string.IsNullOrEmpty(SelectedStoryClip)) {
+				Guid_To_ItemDict.TryGetValue(SelectedStoryClip, out selectedItem);
 			}
-			UiItemComboBox.SelectedValue = selectedItem;
+			StoryClipComboBox.SelectedValue = selectedItem;
 		}
 	}
 }

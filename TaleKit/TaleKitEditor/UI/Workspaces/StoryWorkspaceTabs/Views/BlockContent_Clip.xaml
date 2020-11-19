@@ -12,5 +12,6 @@
 	<DockPanel>
 		<VectorImages:ClipIcon DockPanel.Dock="Right" VerticalAlignment="Center" Margin="8,0"/>
 		<GControls:EditTextBlock x:Name="NameEditText" DockPanel.Dock="Left" Text="ClipName" Foreground="#FFB5B5B5" Margin="4,0,0,0" VerticalContentAlignment="Center" MinWidth="10"/>
+		<Border/>
 	</DockPanel>
 </UserControl>

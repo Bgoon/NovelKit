@@ -28,6 +28,7 @@ using System.Reflection;
 using System.Diagnostics;
 using TaleKit.Datas.Motion;
 using TaleKit.Datas.UI.UIItem;
+using TaleKitEditor.UI.Dialogs;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	/// <summary>
@@ -51,7 +52,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				return null;
 			}
 		}
-		public StoryBlock_Item SelectedBlockSingle {
+		public StoryBlock_Item SelectedBlock_ItemSingle {
 			get {
 				StoryBlockView selectedItemView = SelectedBlockViewSingle;
 				return selectedItemView == null ? null : selectedItemView.Data as StoryBlock_Item;
@@ -115,7 +116,15 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void StoryBlockListController_CreateItemButtonClick() {
-			EditingStoryFile.CreateStoryBlock(EditingClip, StoryBlockType.Item);
+			List<Dialogs.MenuItem> menuItemList = new List<Dialogs.MenuItem>();
+			foreach(var type in Enum.GetValues(typeof(StoryBlockType))) {
+				StoryBlockType blockType = (StoryBlockType)type;
+
+				menuItemList.Add(new Dialogs.MenuItem(blockType.ToString(), () => {
+					EditingStoryFile.CreateStoryBlock(EditingClip, blockType);
+				}));
+			}
+			MenuPanel.ShowDialog(menuItemList.ToArray());
 		}
 		private void StoryBlockListController_RemoveItemButtonClick() {
 			foreach (StoryBlockView itemView in StoryBlockTreeView.SelectedItemSet) {
@@ -198,29 +207,45 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		// Block selection
-		public void SelectNextBlock(int indexOffset, bool usePreviewClipStack = true) {
+		public void SelectNextBlock(bool usePreviewClipStack = true) {
 			if (StoryBlockTreeView.SelectedItemSet.Count != 1)
 				return;
 
-			StopMotion();
+			for(; ;) {
+				StopMotion();
 
-			StoryClip clip;
-			int index;
-			
-			if(usePreviewClipStack && PreviewClipStack.Count > 0) {
-				StoryClipState clipState = PreviewClipStack.Peek();
-				clip = clipState.storyClip;
-				index = ++clipState.selectedIndex;
+				if(usePreviewClipStack && PreviewClipStack.Count > 0) {
+					// 진입한 Clip 기준으로 넘김
 
-				ApplyBlockToRendererWithMotion(clip.BlockItemList[index]);
-			} else {
-				clip = EditingClip;
-				index = clip.BlockItemList.IndexOf(SelectedBlockSingle);
+					StoryClipState clipState = PreviewClipStack.Peek();
+					StoryClip clip = clipState.storyClip;
+					int index = ++clipState.selectedIndex;
 
-				if (index + indexOffset < 0 || index + indexOffset >= clip.BlockItemList.Count)
-					return;
+					if(index >= clip.BlockItemList.Count) {
+						PreviewClipStack.Pop();	
+						continue;
+					}
 
-				StoryBlockTreeView.SelectedItemSet.SetSelectedItem(dataToViewDict[clip.BlockItemList[index + indexOffset]]);
+					StoryBlockBase block = clip.BlockItemList[index];
+					if (block.blockType == StoryBlockType.Item) {
+						if ((block as StoryBlock_Item).passTrigger == StoryBlockTrigger.None)
+							return;
+					}
+
+					ApplyBlockToRendererWithMotion(block);
+					break;
+				} else {
+					// Edit중인 클립 기준으로 넘김
+
+					StoryClip clip = EditingClip;
+					int index = clip.BlockItemList.IndexOf(SelectedBlockViewSingle.Data);
+
+					if (index + 1 >= clip.BlockItemList.Count)
+						return;
+
+					StoryBlockTreeView.SelectedItemSet.SetSelectedItem(dataToViewDict[clip.BlockItemList[index + 1]]);
+					break;
+				}
 			}
 		}
 
@@ -288,9 +313,12 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			for (; block.blockType == StoryBlockType.Clip;) {
 				StoryBlock_Clip clipBlock = block as StoryBlock_Clip;
-				if (!EditingStoryFile.GUID_To_ClipDict.ContainsKey(clipBlock.targetClipGuid))
+
+				if (string.IsNullOrEmpty(clipBlock.targetClipGuid))
 					return;
-				StoryClip nestedClip = EditingStoryFile.GUID_To_ClipDict[clipBlock.targetClipGuid];
+				if (!EditingStoryFile.Guid_To_ClipDict.ContainsKey(clipBlock.targetClipGuid))
+					return;
+				StoryClip nestedClip = EditingStoryFile.Guid_To_ClipDict[clipBlock.targetClipGuid];
 				PushPreviewClipStack(nestedClip);
 
 				block = nestedClip.BlockItemList.FirstOrDefault();

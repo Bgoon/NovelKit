@@ -34,7 +34,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		private Dictionary<OrderBase, OrderItemEditorView> orderToEditorViewDict;
 
-		public StoryBlock_Item EditingBlock {
+		public StoryBlockBase EditingBlock {
 			get; private set;
 		}
 
@@ -65,7 +65,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void AddOrderButton_Click(object sender, RoutedEventArgs e) {
-			AddOrderPanel.ShowDialog(EditingBlock, (Vector2)AddOrderButton.GetAbsolutePosition(new Point(10f, (float)AddOrderButton.ActualHeight * 0.5f)));
+			AddOrderPanel.ShowDialog(EditingBlock as StoryBlock_Item, (Vector2)AddOrderButton.GetAbsolutePosition(new Point(10f, (float)AddOrderButton.ActualHeight * 0.5f)));
 		}
 
 		private void EditingBlock_OrderAdded(OrderBase order) {
@@ -108,7 +108,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				if (KeyInput.GetKeyHold(WinKey.X))
 					return;
 
-				AttachBlock(StoryBlockTab.SelectedBlockSingle);
+				AttachBlock(StoryBlockTab.SelectedBlockViewSingle.Data);
 			} else {
 				string message;
 				if (selectedItemSet.Count == 0) {
@@ -123,33 +123,46 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		// [ Tree ]
-		public void AttachBlock(StoryBlock_Item blockItem) {
+		public void AttachBlock(StoryBlockBase block) {
 			DetachBlock();
-			this.EditingBlock = blockItem;
+			this.EditingBlock = block;
 
-			if (blockItem == null)
+			if (block == null)
 				return;
 
 
-			ModelEditorUtility.CreateOrderEditorView(blockItem, StoryBlockEditorViewContext);
-			foreach (OrderBase order in blockItem.OrderList) {
-				EditingBlock_OrderAdded(order);
+			ModelEditorUtility.CreateOrderEditorView(block, StoryBlockEditorViewContext);
+			if(block.blockType == StoryBlockType.Item) {
+				StoryBlock_Item itemBlock = block as StoryBlock_Item;
+				foreach (OrderBase order in itemBlock.OrderList) {
+					EditingBlock_OrderAdded(order);
+				}
+				//Register events
+				itemBlock.OrderAdded += EditingBlock_OrderAdded;
+				itemBlock.OrderRemoved += EditingBlock_OrderRemoved;
+
+				StoryBlock_ItemEditorContext.Visibility = Visibility.Visible;
+			} else if(block.blockType == StoryBlockType.Clip) {
+				StoryBlock_ItemEditorContext.Visibility = Visibility.Collapsed;
 			}
-			//Register events
-			blockItem.OrderAdded += EditingBlock_OrderAdded;
-			blockItem.OrderRemoved += EditingBlock_OrderRemoved;
 		}
 		public void DetachBlock() {
 			if (EditingBlock == null)
 				return;
 
-			foreach (OrderBase order in EditingBlock.OrderList) {
-				EditingBlock_OrderRemoved(order);
-			}
+			if(EditingBlock.blockType == StoryBlockType.Item) {
+				StoryBlock_Item itemBlock = EditingBlock as StoryBlock_Item;
 
-			//Remove events
-			EditingBlock.OrderAdded -= EditingBlock_OrderAdded;
-			EditingBlock.OrderRemoved -= EditingBlock_OrderRemoved;
+				foreach (OrderBase order in itemBlock.OrderList) {
+					EditingBlock_OrderRemoved(order);
+				}
+
+				//Remove events
+				itemBlock.OrderAdded -= EditingBlock_OrderAdded;
+				itemBlock.OrderRemoved -= EditingBlock_OrderRemoved;
+			} else if(EditingBlock.blockType == StoryBlockType.Clip) {
+				
+			}
 
 			this.EditingBlock = null;
 

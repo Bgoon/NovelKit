@@ -20,12 +20,14 @@
 			<ScrollViewer>
 				<StackPanel>
 					<StackPanel Name="StoryBlockEditorViewContext"></StackPanel>
-					<ModelEditors:ItemSeparator/>
-					<StackPanel Name="OrderEditorViewContext"></StackPanel>
-					<Button Name="AddOrderButton" Style="{StaticResource FlatButton}" Height="34" Background="#545454"
-						Click="AddOrderButton_Click">
-						<Polygon Fill="#BABABA" Points="16,6 10,6 10,0 6,0 6,6 0,6 0,10 6,10 6,16 10,16 10,10 16,10 "/>
-					</Button>
+					<StackPanel Name="StoryBlock_ItemEditorContext">
+						<ModelEditors:ItemSeparator/>
+						<StackPanel Name="OrderEditorViewContext"></StackPanel>
+						<Button Name="AddOrderButton" Style="{StaticResource FlatButton}" Height="34" Background="#545454"
+							Click="AddOrderButton_Click">
+							<Polygon Fill="#BABABA" Points="16,6 10,6 10,0 6,0 6,6 0,6 0,10 6,10 6,16 10,16 10,10 16,10 "/>
+						</Button>
+					</StackPanel>
 				</StackPanel>
 			</ScrollViewer>
 		</DockPanel>

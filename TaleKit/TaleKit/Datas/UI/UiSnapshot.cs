@@ -108,10 +108,12 @@ namespace TaleKit.Datas.UI {
 				}
 			} else if(storyBlockBase.blockType == StoryBlockType.Clip) {
 				StoryBlock_Clip clipBlock = storyBlockBase as StoryBlock_Clip;
-				if (!OwnerTaleData.StoryFile.GUID_To_ClipDict.ContainsKey(clipBlock.targetClipGuid))
+				if (string.IsNullOrEmpty(clipBlock.targetClipGuid))
+					return;
+				if (!OwnerTaleData.StoryFile.Guid_To_ClipDict.ContainsKey(clipBlock.targetClipGuid))
 					return;
 
-				StoryClip clip = OwnerTaleData.StoryFile.GUID_To_ClipDict[clipBlock.targetClipGuid];
+				StoryClip clip = OwnerTaleData.StoryFile.Guid_To_ClipDict[clipBlock.targetClipGuid];
 
 				ApplyStoryClip(clip);
 			}

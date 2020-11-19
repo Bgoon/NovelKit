@@ -26,7 +26,7 @@ namespace TaleKit.Datas.Story {
 			get; private set;
 		}
 
-		public Dictionary<string, StoryClip> GUID_To_ClipDict {
+		public Dictionary<string, StoryClip> Guid_To_ClipDict {
 			get; private set;
 		}
 
@@ -42,7 +42,7 @@ namespace TaleKit.Datas.Story {
 			// Init members
 			this.OwnerTaleData = ownerTaleData;
 
-			GUID_To_ClipDict = new Dictionary<string, StoryClip>();
+			Guid_To_ClipDict = new Dictionary<string, StoryClip>();
 			UiCacheManager = new UiCacheManager(this);
 
 			if(!ownerTaleData.InitArgs.onDataLoad) {
@@ -62,7 +62,7 @@ namespace TaleKit.Datas.Story {
 			JArray jClips = new JArray();
 			jFile.Add("Clips", jClips);
 
-			foreach (KeyValuePair<string, StoryClip> clipPair in GUID_To_ClipDict) {
+			foreach (KeyValuePair<string, StoryClip> clipPair in Guid_To_ClipDict) {
 				StoryClip clip = clipPair.Value;
 				if (clip == RootClip)
 					continue;
@@ -195,7 +195,7 @@ namespace TaleKit.Datas.Story {
 				clip.guid = guid;
 			}
 
-			GUID_To_ClipDict.Add(clip.guid, clip);
+			Guid_To_ClipDict.Add(clip.guid, clip);
 
 			ClipCreated?.Invoke(clip);
 
@@ -205,7 +205,7 @@ namespace TaleKit.Datas.Story {
 			foreach (StoryBlockBase childItem in clip.BlockItemList) {
 				RemoveStoryBlock(childItem);
 			}
-			GUID_To_ClipDict.Remove(clip.guid);
+			Guid_To_ClipDict.Remove(clip.guid);
 
 			ClipRemoved?.Invoke(clip);
 		}
