@@ -4,7 +4,7 @@ using System;
 using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
 
-namespace TaleKit.Datas.Story.StoryBlock {
+namespace TaleKit.Datas.Story {
 	public abstract class StoryBlockBase : EditableModel {
 		public readonly StoryFile OwnerFile;
 
@@ -22,7 +22,7 @@ namespace TaleKit.Datas.Story.StoryBlock {
 		public string guid;
 
 		// Ui Cache
-		public bool HasUiCache => UICacheSnapshot != null;
+		public bool HasUICache => UICacheSnapshot != null;
 		public UISnapshot UICacheSnapshot {
 			get; private set;
 		}
@@ -40,7 +40,7 @@ namespace TaleKit.Datas.Story.StoryBlock {
 		public void SaveCache(UISnapshot srcSnapshot) {
 			UICacheSnapshot = srcSnapshot.Clone();
 		}
-		public void DeleteCache() {
+		public void ClearCache() {
 			UICacheSnapshot = null;
 		}
 

@@ -17,7 +17,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.Story;
-using TaleKit.Datas.Story.StoryBlock;
 using TaleKitEditor.UI.Windows;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {

@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.Story;
-using TaleKit.Datas.Story.StoryBlock;
 using TaleKitEditor.Resources.VectorImages;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {

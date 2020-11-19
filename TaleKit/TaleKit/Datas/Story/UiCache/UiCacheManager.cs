@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleKit.Datas.UI;
 using GKitForUnity;
-using TaleKit.Datas.Story.StoryBlock;
 
 namespace TaleKit.Datas.Story {
 	public class UiCacheManager {
@@ -58,7 +57,7 @@ namespace TaleKit.Datas.Story {
 			for(int blockI = targetClip.BlockItemList.Count-1; blockI>=0; --blockI) {
 				StoryBlockBase block = targetClip.BlockItemList[blockI];
 
-				if (block.HasUiCache) {
+				if (block.HasUICache) {
 					cacheSnapshot = block.UICacheSnapshot.Clone();
 					lastCacheBlockIndex = blockI;
 					return;
@@ -97,7 +96,7 @@ namespace TaleKit.Datas.Story {
 			for (int i = 0; i < targetClip.BlockItemList.Count; ++i) {
 				StoryBlockBase block = targetClip.BlockItemList[i];
 
-				block.DeleteCache();
+				block.ClearCache();
 			}
 		}
 		public void ClearCacheAfterBlock(StoryBlockBase targetBlock) {
@@ -114,7 +113,7 @@ namespace TaleKit.Datas.Story {
 			for (int i = targetBlockIndex; i < targetClip.BlockItemList.Count; ++i) {
 				StoryBlockBase block = targetClip.BlockItemList[i];
 
-				block.DeleteCache();
+				block.ClearCache();
 			}
 		}
 	}

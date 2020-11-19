@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using TaleKit.Datas.ModelEditor;
-using TaleKit.Datas.Story.StoryBlock;
 using TaleKit.Datas.UI.UIItem;
 
 namespace TaleKit.Datas.Story {

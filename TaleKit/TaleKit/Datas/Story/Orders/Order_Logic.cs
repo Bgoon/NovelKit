@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using TaleKit.Datas.Story.StoryBlock;
 
 namespace TaleKit.Datas.Story {
 	/// <summary>

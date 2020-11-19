@@ -5,7 +5,6 @@ using System;
 using System.Collections;
 using TaleKit;
 using TaleKit.Datas.ModelEditor;
-using TaleKit.Datas.Story.StoryBlock;
 using TaleKit.Datas.UI;
 
 namespace TaleKit.Datas.Story {

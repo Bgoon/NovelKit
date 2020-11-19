@@ -23,7 +23,6 @@ using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views;
 using GKitForWPF.UI.Controls;
 using GKitForWPF;
 using TaleKitEditor.UI.Dialogs;
-using TaleKit.Datas.Story.StoryBlock;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	public partial class StoryBlockDetailPanel : UserControl {

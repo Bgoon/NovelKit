@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using TaleKit.Datas.Story;
-using TaleKit.Datas.Story.StoryBlock;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
 
 namespace TaleKitEditor.UI.Dialogs {

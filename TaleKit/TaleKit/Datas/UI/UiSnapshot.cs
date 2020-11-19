@@ -8,16 +8,19 @@ using System.Threading.Tasks;
 using GKit;
 using TaleKit.Datas.Story;
 using TaleKit.Datas.UI.UIItem;
-using TaleKit.Datas.Story.StoryBlock;
 using TaleKit.Datas.ModelEditor;
 
 namespace TaleKit.Datas.UI {
 	public class UISnapshot {
+		public readonly TaleData OwnerTaleData;
+
 		public UIItemBase rootUiItem;
 		private Dictionary<string, UIItemBase> guid_To_UIItemDict;
 
 		// [ Constructor ]
-		public UISnapshot() {
+		public UISnapshot(TaleData ownerTaleData) {
+			this.OwnerTaleData = ownerTaleData;
+
 			guid_To_UIItemDict = new Dictionary<string, UIItemBase>();
 		}
 
@@ -27,7 +30,7 @@ namespace TaleKit.Datas.UI {
 			guid_To_UIItemDict.Clear();
 		}
 		public UISnapshot Clone() {
-			UISnapshot cloneSnapshot = new UISnapshot();
+			UISnapshot cloneSnapshot = new UISnapshot(OwnerTaleData);
 
 			foreach (var srcUIItemPair in guid_To_UIItemDict) {
 				UIItemBase srcItem = srcUIItemPair.Value;
@@ -87,9 +90,9 @@ namespace TaleKit.Datas.UI {
 		}
 
 		public void ApplyStoryBlock(StoryBlockBase storyBlockBase) {
-			if(storyBlockBase is StoryBlock_Item) {
-				StoryBlock_Item storyBlock = storyBlockBase as StoryBlock_Item;
-				foreach (OrderBase order in storyBlock.OrderList) {
+			if(storyBlockBase.blockType == StoryBlockType.Item) {
+				StoryBlock_Item itemBlock = storyBlockBase as StoryBlock_Item;
+				foreach (OrderBase order in itemBlock.OrderList) {
 					Order_UI UIOrder = order as Order_UI;
 
 					if (UIOrder == null || string.IsNullOrEmpty(UIOrder.targetUIGuid) || !guid_To_UIItemDict.ContainsKey(UIOrder.targetUIGuid))
@@ -103,8 +106,19 @@ namespace TaleKit.Datas.UI {
 						}
 					}
 				}
-			} else {
-				// TODO : StoryClip 적용 구현
+			} else if(storyBlockBase.blockType == StoryBlockType.Clip) {
+				StoryBlock_Clip clipBlock = storyBlockBase as StoryBlock_Clip;
+				if (!OwnerTaleData.StoryFile.GUID_To_ClipDict.ContainsKey(clipBlock.targetClipGuid))
+					return;
+
+				StoryClip clip = OwnerTaleData.StoryFile.GUID_To_ClipDict[clipBlock.targetClipGuid];
+
+				ApplyStoryClip(clip);
+			}
+		}
+		public void ApplyStoryClip(StoryClip clip) {
+			foreach(StoryBlockBase block in clip.BlockItemList) {
+				ApplyStoryBlock(block);
 			}
 		}
 

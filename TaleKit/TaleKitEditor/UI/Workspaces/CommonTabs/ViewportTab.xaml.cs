@@ -1,5 +1,4 @@
 ﻿using GKitForWPF;
-using GKitForWPF;
 using GKitForWPF.UI.Controls;
 using System;
 using System.Collections.Generic;
@@ -17,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaleKit.Datas;
 using TaleKit.Datas.Story;
 using TaleKit.Datas.UI;
 using TaleKit.Datas.UI.UIItem;
@@ -46,21 +46,14 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		public ViewportTab() {
 			this.RegisterLoadedOnce(OnLoadedOnce);
 			InitializeComponent();
-
-			// Initialize members
-			renderUiSnapshot = new UISnapshot();
-
-			// Register events
-			MainWindow.WorkspaceActived += MainWindow_WorkspaceActived;
-			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
-
-			Viewport.RegisterClickEvent(Viewport_Click, true);
 		}
 
 		// [ Event ]
 		private void OnLoadedOnce(object sender, RoutedEventArgs e) {
 			// Register events
+			MainWindow.WorkspaceActived += MainWindow_WorkspaceActived;
 			MainWindow.ProjectPreloaded += MainWindow_ProjectPreloaded;
+			MainWindow.ProjectUnloaded += MainWindow_ProjectUnloaded;
 			
 			UiOutlinerTab.ItemMoved += UiOutlinerTab_ItemMoved;
 			PlayStateButton.ActiveChanged += PlayStateButton_ActiveChanged;
@@ -72,12 +65,22 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 
 			ResolutionSelector.OnResolutionChanged();
 			ResolutionSelector.RaiseZoomChanged();
+
+			Viewport.RegisterClickEvent(Viewport_Click, true);
 		}
 
 		private void MainWindow_WorkspaceActived(WorkspaceComponent workspace) {
 			// Viewport 데이터를 UI에디터로 초기화
 			ResetSnapshot();
 			RenderAll();
+		}
+		private void MainWindow_ProjectPreloaded(TaleData taleData) {
+			ResetSnapshot();
+
+			EditingUiFile.ItemCreated += UiFile_ItemCreated;
+			EditingUiFile.ItemRemoved += UiFile_ItemRemoved;
+
+			ScrollToCenter();
 		}
 		private void MainWindow_ProjectUnloaded(TaleKit.Datas.TaleData taleData) {
 			RendererContext.Children.Remove(rootRenderer);
@@ -102,12 +105,6 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		}
 
 		// File event
-		private void MainWindow_ProjectPreloaded(TaleKit.Datas.TaleData taleData) {
-			EditingUiFile.ItemCreated += UiFile_ItemCreated;
-			EditingUiFile.ItemRemoved += UiFile_ItemRemoved;
-
-			ScrollToCenter();
-		}
 		private void UiFile_ItemCreated(UIItemBase item, UIItemBase parentItem) {
 			// Manage renderUI
 			UIItemBase renderUi;
@@ -186,7 +183,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			switch (StoryBlockTab.SelectedBlockSingle.passTrigger) {
 				case StoryBlockTrigger.Click:
 				case StoryBlockTrigger.Auto:
-					StoryBlockTab.SelectAroundBlock(1);
+					StoryBlockTab.SelectNextBlock(1);
 					break;
 			}
 		}

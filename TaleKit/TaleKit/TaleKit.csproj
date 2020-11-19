@@ -91,11 +91,12 @@
     <Compile Include="Datas\Story\Orders\OrderFactory.cs" />
     <Compile Include="Datas\Story\Orders\OrderType.cs" />
     <Compile Include="Datas\Story\StoryBlockTrigger.cs" />
-    <Compile Include="Datas\Story\StoryBlock\StoryBlockType.cs" />
+    <Compile Include="Datas\Story\StoryBlocks\StoryBlockType.cs" />
     <Compile Include="Datas\Story\StoryClip.cs" />
-    <Compile Include="Datas\Story\StoryBlock\StoryBlock_Clip.cs" />
-    <Compile Include="Datas\Story\StoryBlock\StoryBlock_Item.cs" />
-    <Compile Include="Datas\Story\StoryBlock\StoryBlockBase.cs" />
+    <Compile Include="Datas\Story\StoryBlocks\StoryBlock_Clip.cs" />
+    <Compile Include="Datas\Story\StoryBlocks\StoryBlock_Item.cs" />
+    <Compile Include="Datas\Story\StoryBlocks\StoryBlockBase.cs" />
+    <Compile Include="Datas\Story\StoryClipState.cs" />
     <Compile Include="Datas\Story\StoryFile.cs" />
     <Compile Include="Datas\Story\UiCache\UiCacheManager.cs" />
     <Compile Include="Datas\TaleData.cs" />

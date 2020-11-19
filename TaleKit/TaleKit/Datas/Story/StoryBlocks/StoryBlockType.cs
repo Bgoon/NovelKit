@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaleKit.Datas.Story.StoryBlock {
+namespace TaleKit.Datas.Story {
 	public enum StoryBlockType {
 		Item,
 		Clip,

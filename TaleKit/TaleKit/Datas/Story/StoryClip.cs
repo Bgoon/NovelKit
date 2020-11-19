@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaleKit.Datas.ModelEditor;
-using TaleKit.Datas.Story.StoryBlock;
 
 namespace TaleKit.Datas.Story {
 	public class StoryClip {

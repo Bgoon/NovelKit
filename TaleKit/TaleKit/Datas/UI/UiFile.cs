@@ -39,7 +39,7 @@ namespace TaleKit.Datas.UI {
 
 			UiItemList = new List<UIItemBase>();
 			TextList = new List<UIItem_Text>();
-			UISnapshot = new UISnapshot();
+			UISnapshot = new UISnapshot(ownerTaleData);
 			Guid_To_RendererDict = new Dictionary<string, object>();
 
 		}

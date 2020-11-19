@@ -5,7 +5,7 @@ using TaleKit.Datas.ModelEditor;
 using TaleKit.Datas.UI;
 using GKit.Json;
 
-namespace TaleKit.Datas.Story.StoryBlock {
+namespace TaleKit.Datas.Story {
 	public class StoryBlock_Item : StoryBlockBase {
 		public event Action<OrderBase> OrderAdded;
 		public event Action<OrderBase> OrderRemoved;
@@ -85,7 +85,6 @@ namespace TaleKit.Datas.Story.StoryBlock {
 			jBlock.Add("Fields", jFields);
 			jFields.AddAttrFields<SavableFieldAttribute>(this);
 
-			//Add components
 			JArray jOrders = new JArray();
 			jBlock.Add("Orders", jOrders);
 
