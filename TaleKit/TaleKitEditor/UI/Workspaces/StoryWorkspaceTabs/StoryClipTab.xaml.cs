@@ -78,8 +78,23 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StoryClipView clipView = new StoryClipView(clip);
 			StoryClipTreeView.ChildItemCollection.Add(clipView);
 			clipView.ParentItem = StoryClipTreeView;
+			clipView.UpdateNameText();
 
 			dataToViewDict.Add(clip, clipView);
+
+			// Register events
+			clipView.NameEditText.TextEdited += ClipViewNameEditText_TextEdited;
+
+			void ClipViewNameEditText_TextEdited(string oldText, string newText, ref bool cancelEdit) {
+				if (string.IsNullOrEmpty(newText)) {
+					cancelEdit = true;
+					return;
+				}
+
+				clip.name = newText;
+
+				StoryBlockTab.UpdateBlockPreviews();
+			}
 		}
 		private void EditingStoryFile_ClipRemoved(StoryClip clip) {
 			dataToViewDict[clip].DetachParent();

@@ -42,12 +42,17 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 		}
 
 		// [ Control ]
+		[Obsolete]
 		public void SetDisplayName(string name) {
-			//PreviewTextBlock.Text = name;
+			NameEditText.Text = name;
 		}
-
+		[Obsolete]
 		public void SetSelected(bool isSelected) {
 			ItemPanel.Background = (Brush)Application.Current.Resources[isSelected ? "ItemBackground_Selected" : "ItemBackground"];
+		}
+
+		public void UpdateNameText() {
+			NameEditText.Text = Data.name;
 		}
 	}
 }

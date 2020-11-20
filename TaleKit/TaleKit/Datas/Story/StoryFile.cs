@@ -4,6 +4,7 @@ using GKitForUnity.IO;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using TaleKit.Datas.ModelEditor;
@@ -188,16 +189,17 @@ namespace TaleKit.Datas.Story {
 
 			BlockRemoved?.Invoke(item, clip);
 		}
-
 		public StoryClip CreateStoryClip(string guid = null) {
 			StoryClip clip = new StoryClip(this);
-			if(guid != null) {
+			clip.name = GetNewClipName();
+			if (guid != null) {
 				clip.guid = guid;
 			}
 
 			Guid_To_ClipDict.Add(clip.guid, clip);
 
 			ClipCreated?.Invoke(clip);
+
 
 			return clip;
 		}
@@ -210,8 +212,18 @@ namespace TaleKit.Datas.Story {
 			ClipRemoved?.Invoke(clip);
 		}
 
-		private string GetNewItemName() {
-			return "New object";
+		private string GetNewClipName() {
+			StoryClip[] clips = Guid_To_ClipDict.Values.ToArray();
+			for (int i = 1; i < clips.Length + 1; ++i) {
+				string newClipName = $"Clip {i}";
+
+				if (!clips.Any(x => x.name == newClipName)) {
+					return newClipName;
+				}
+			}
+
+			// 여기 도달하면 안 됨
+			return "New Clip";
 		}
 
 	}

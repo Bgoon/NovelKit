@@ -42,7 +42,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 
 		public StoryBlockType BlockType => Data.blockType;
 
-		private IBlockContent viewContent;
+		public readonly IBlockContent ViewContent;
 
 
 		// [ Constructor ]
@@ -54,7 +54,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 
 			// Register events
 			if (BlockType == StoryBlockType.Item) {
-				viewContent = new BlockContent_Item(this);
+				ViewContent = new StoryBlockViewContent_Item(this);
 
 				StoryBlock_Item storyBlockData = data as StoryBlock_Item;
 				storyBlockData.OrderAdded += StoryBlockData_OrderAdded;
@@ -63,9 +63,9 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 				StoryBlockData_OrderCountChanged();
 				StoryBlockData_PassTriggerChanged();
 			} else if(BlockType == StoryBlockType.Clip) {
-				viewContent = new BlockContent_Clip(this);
+				ViewContent = new StoryBlockViewContent_Clip(this);
 			}
-			ContentContext.Children.Add(viewContent as FrameworkElement);
+			ContentContext.Children.Add(ViewContent as FrameworkElement);
 
 			VisibleButton.RegisterClickEvent(VisibleButton_Click, true);
 
@@ -90,11 +90,11 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 			StoryBlockData_OrderCountChanged();
 		}
 		private void StoryBlockData_OrderCountChanged() {
-			(viewContent as BlockContent_Item).UpdateOrderIndicator();
+			(ViewContent as StoryBlockViewContent_Item).UpdateOrderIndicator();
 		}
 
 		private void StoryBlockData_PassTriggerChanged() {
-			(viewContent as BlockContent_Item).UpdatePassTriggerIcon();
+			(ViewContent as StoryBlockViewContent_Item).UpdatePassTriggerIcon();
 		}
 
 		private void VisibleButton_Click() {

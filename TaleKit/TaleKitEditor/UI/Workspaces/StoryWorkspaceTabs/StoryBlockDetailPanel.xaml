@@ -20,7 +20,7 @@
 			<ScrollViewer>
 				<StackPanel>
 					<StackPanel Name="StoryBlockEditorViewContext"></StackPanel>
-					<StackPanel Name="StoryBlock_ItemEditorContext">
+					<StackPanel Name="OrderEditorContext">
 						<ModelEditors:ItemSeparator/>
 						<StackPanel Name="OrderEditorViewContext"></StackPanel>
 						<Button Name="AddOrderButton" Style="{StaticResource FlatButton}" Height="34" Background="#545454"

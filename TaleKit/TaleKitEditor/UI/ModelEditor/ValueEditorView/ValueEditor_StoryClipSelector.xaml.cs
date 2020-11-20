@@ -27,6 +27,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
 		private static TaleData EditingTaleData => MainWindow.EditingTaleData;
+		private static StoryFile EditingStoryFile => EditingTaleData.StoryFile;
 		private static AssetManager AssetManager => EditingTaleData.AssetManager;
 
 		public static readonly DependencyProperty SelectedAssetKeyProperty = DependencyProperty.RegisterAttached(nameof(SelectedStoryClip), typeof(string), typeof(ValueEditor_AssetSelector), new PropertyMetadata(null));
@@ -62,8 +63,9 @@ namespace TaleKitEditor.UI.ModelEditor {
 
 			// Set ItemSource
 			Guid_To_ItemDict = new Dictionary<string, ComboBoxItem>();
-			IEnumerable<ComboBoxItem> items = EditingTaleData.StoryFile.Guid_To_ClipDict.Values.Select(
-				(StoryClip clip) => {
+			IEnumerable<ComboBoxItem> items = EditingTaleData.StoryFile.Guid_To_ClipDict.Values
+				.Where(x=>x != EditingStoryFile.RootClip)
+				.Select((StoryClip clip) => {
 					ComboBoxItem item = new ComboBoxItem() {
 						Content = clip.name,
 						Tag = clip.guid,

@@ -6,5 +6,6 @@ using System.Threading.Tasks;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 	public interface IBlockContent {
+		void UpdatePreviewText();
 	}
 }

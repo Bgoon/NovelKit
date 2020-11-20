@@ -23,11 +23,14 @@ using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views;
 using GKitForWPF.UI.Controls;
 using GKitForWPF;
 using TaleKitEditor.UI.Dialogs;
+using TaleKit.Datas;
 
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 	public partial class StoryBlockDetailPanel : UserControl {
 		private static Root Root => Root.Instance;
 		private static MainWindow MainWindow => Root.MainWindow;
+		private static TaleData EditingTaleData => MainWindow.EditingTaleData;
+		private static StoryFile EditingStoryFile => EditingTaleData.StoryFile;
 		private static StoryWorkspace StoryWorkspace => MainWindow.StoryWorkspace;
 		private static StoryBlockTab StoryBlockTab => StoryWorkspace.StoryBlockTab;
 		private static DetailTab DetailTab => MainWindow.DetailTab;
@@ -51,17 +54,42 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StoryBlockTab.StoryBlockTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
 			StoryBlockTab.StoryBlockTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
 
-			SelectionChanged();
+			SelectedItemSet_SelectionChanged();
 		}
 
 		// [ Event ]
 		private void SelectedItemSet_SelectionAdded(ISelectable item) {
-			SelectionChanged();
+			SelectedItemSet_SelectionChanged();
 			DetailTab.ActiveDetailPanel(DetailPanelType.StoryBlock);
 		}
 		private void SelectedItemSet_SelectionRemoved(ISelectable item) {
-			SelectionChanged();
+			SelectedItemSet_SelectionChanged();
 			DetailTab.DeactiveDetailPanel();
+		}
+		private void SelectedItemSet_SelectionChanged() {
+			SelectedItemSet selectedItemSet = StoryBlockTab.StoryBlockTreeView.SelectedItemSet;
+			bool showEditingContext = selectedItemSet.Count == 1;
+
+			EditorContext.Visibility = showEditingContext ? Visibility.Visible : Visibility.Collapsed;
+			MessageContext.Visibility = showEditingContext ? Visibility.Collapsed : Visibility.Visible;
+
+			if (showEditingContext) {
+#if DEBUG
+				if (KeyInput.GetKeyHold(WinKey.X))
+					return;
+#endif
+				AttachBlock(StoryBlockTab.SelectedBlockViewSingle.Data);
+			} else {
+				string message;
+				if (selectedItemSet.Count == 0) {
+					message = "편집할 블럭을 선택하세요.";
+				} else {
+					message = $"{selectedItemSet.Count} 개의 블럭 선택 중";
+				}
+				MessageTextBlock.Text = message;
+
+				DetachBlock();
+			}
 		}
 
 		private void AddOrderButton_Click(object sender, RoutedEventArgs e) {
@@ -79,6 +107,20 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			order.ModelUpdated += Order_ModelUpdated;
 
 			ClearCurrentBlockCache();
+
+			void Order_ModelUpdated(EditableModel model, FieldInfo fieldInfo, object editorView_) {
+				// TODO : 이 함수를 사용해서 RootClip 외엔 Preview가 안 돼므로 방식 변경 필요
+				StoryBlockTab.ApplyBlockToSelectionToRenderer();
+
+				// Update preview text
+				if (StoryBlockTab.Data_To_ViewDict.ContainsKey(order.OwnerBlock)) {
+					StoryBlockView blockView = StoryBlockTab.Data_To_ViewDict[order.OwnerBlock];
+					StoryBlockViewContent_Item viewContent_Item = blockView.ViewContent as StoryBlockViewContent_Item;
+					viewContent_Item.UpdatePreviewText();
+				}
+
+				ClearCurrentBlockCache();
+			}
 		}
 		private void EditingBlock_OrderRemoved(OrderBase order) {
 			order.ClearEvents();
@@ -91,34 +133,14 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			ClearCurrentBlockCache();
 		}
 
-		private void Order_ModelUpdated(EditableModel model, FieldInfo fieldInfo, object editorView) {
-			StoryBlockTab.ApplyBlockToSelectionToRenderer();
+		private void ClipBlock_ModelUpdated(EditableModel model, FieldInfo fieldInfo, object editorView) {
+			StoryBlock_Clip clipBlock = model as StoryBlock_Clip;
 
-			ClearCurrentBlockCache();
-		}
+			if(fieldInfo.Name == nameof(clipBlock.targetClipGuid)) {
+				StoryBlockView blockView = StoryBlockTab.Data_To_ViewDict[clipBlock];
+				StoryBlockViewContent_Clip clipViewContent = blockView.ViewContent as StoryBlockViewContent_Clip;
 
-		private void SelectionChanged() {
-			SelectedItemSet selectedItemSet = StoryBlockTab.StoryBlockTreeView.SelectedItemSet;
-			bool showEditingContext = selectedItemSet.Count == 1;
-
-			EditorContext.Visibility = showEditingContext ? Visibility.Visible : Visibility.Collapsed;
-			MessageContext.Visibility = showEditingContext ? Visibility.Collapsed : Visibility.Visible;
-
-			if (showEditingContext) {
-				if (KeyInput.GetKeyHold(WinKey.X))
-					return;
-
-				AttachBlock(StoryBlockTab.SelectedBlockViewSingle.Data);
-			} else {
-				string message;
-				if (selectedItemSet.Count == 0) {
-					message = "편집할 블럭을 선택하세요.";
-				} else {
-					message = $"{selectedItemSet.Count} 개의 블럭 선택 중";
-				}
-				MessageTextBlock.Text = message;
-
-				DetachBlock();
+				clipViewContent.UpdatePreviewText();
 			}
 		}
 
@@ -130,20 +152,24 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			if (block == null)
 				return;
 
+			StoryBlockView blockView = StoryBlockTab.Data_To_ViewDict[block];
 
 			ModelEditorUtility.CreateOrderEditorView(block, StoryBlockEditorViewContext);
+
 			if(block.blockType == StoryBlockType.Item) {
 				StoryBlock_Item itemBlock = block as StoryBlock_Item;
 				foreach (OrderBase order in itemBlock.OrderList) {
 					EditingBlock_OrderAdded(order);
 				}
+				OrderEditorContext.Visibility = Visibility.Visible;
+
 				//Register events
 				itemBlock.OrderAdded += EditingBlock_OrderAdded;
 				itemBlock.OrderRemoved += EditingBlock_OrderRemoved;
-
-				StoryBlock_ItemEditorContext.Visibility = Visibility.Visible;
 			} else if(block.blockType == StoryBlockType.Clip) {
-				StoryBlock_ItemEditorContext.Visibility = Visibility.Collapsed;
+				OrderEditorContext.Visibility = Visibility.Collapsed;
+
+				block.ModelUpdated += ClipBlock_ModelUpdated;
 			}
 		}
 		public void DetachBlock() {

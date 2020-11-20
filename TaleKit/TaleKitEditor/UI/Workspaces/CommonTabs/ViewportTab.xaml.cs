@@ -77,7 +77,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			RenderAll();
 		}
 		private void MainWindow_ProjectPreloaded(TaleData taleData) {
-			ResetSnapshot();
+			RebuildSnapshot();
 
 			EditingUIFile.ItemCreated += UIFile_ItemCreated;
 			EditingUIFile.ItemRemoved += UIFile_ItemRemoved;
@@ -186,8 +186,11 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 		}
 
 		// [ Render ]
-		public void ResetSnapshot() {
+		public void RebuildSnapshot() {
 			RenderUISnapshot = EditingUIFile.UISnapshot.Clone();
+		}
+		public void ResetSnapshot() {
+			RenderUISnapshot.CopyDataFrom(EditingUIFile.UISnapshot.Clone());
 		}
 		public void RenderAll() {
 			UIRenderer renderer = GetRenderer(RenderUISnapshot.rootUIItem);

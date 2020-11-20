@@ -199,6 +199,9 @@ namespace TaleKitEditor.UI.Workspaces.UIWorkspaceTabs {
 
 		private void SelectedItemSet_SelectionAdded(ISelectable item) {
 			OnSelectionChanged();
+
+			UIItemView itemView = item as UIItemView;
+			itemView.Data.ModelUpdated += ViewportTab.UIItemDetailPanel_UIItemValueChanged;
 		}
 		private void SelectedItemSet_SelectionRemoved(ISelectable item) {
 			OnSelectionChanged();
@@ -216,8 +219,6 @@ namespace TaleKitEditor.UI.Workspaces.UIWorkspaceTabs {
 			UIItemView itemView = UITreeView.SelectedItemSet.First as UIItemView;
 			CommonDetailPanel.AttachModel(itemView.Data);
 			DetailTab.ActiveDetailPanel(DetailPanelType.Common);
-
-			itemView.Data.ModelUpdated += ViewportTab.UIItemDetailPanel_UIItemValueChanged;
 		}
 
 		private void UITreeChanged() {

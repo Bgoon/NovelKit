@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views.BlockContent_Clip"
+﻿<UserControl x:Class="TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views.StoryBlockViewContent_Clip"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,7 +11,6 @@
              d:DesignWidth="192" d:DesignHeight="40">
 	<DockPanel>
 		<VectorImages:ClipIcon DockPanel.Dock="Right" VerticalAlignment="Center" Margin="8,0"/>
-		<GControls:EditTextBlock x:Name="NameEditText" DockPanel.Dock="Left" Text="ClipName" Foreground="#FFB5B5B5" Margin="4,0,0,0" VerticalContentAlignment="Center" MinWidth="10"/>
-		<Border/>
+		<TextBlock Name="PreviewTextBlock" Style="{StaticResource ContentText}" Text="스크립트 미리보기" VerticalAlignment="Center" Foreground="#FFB5B5B5" Margin="4,0,0,0"></TextBlock>
 	</DockPanel>
 </UserControl>

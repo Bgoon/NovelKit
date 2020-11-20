@@ -66,6 +66,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 
 			this.Data = data;
 			this.RenderingData = data.Clone() as UIItemBase;
+			this.RenderingData.InitializeClone();
 
 			rotateTransform = new RotateTransform();
 			this.RenderTransform = rotateTransform;

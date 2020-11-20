@@ -340,11 +340,11 @@
     <Compile Include="UI\ModelEditor\ValueEditorView.xaml.cs">
       <DependentUpon>ValueEditorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\BlockContent_Clip.xaml.cs">
-      <DependentUpon>BlockContent_Clip.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\StoryBlockViewContent_Clip.xaml.cs">
+      <DependentUpon>StoryBlockViewContent_Clip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\BlockContent_Item.xaml.cs">
-      <DependentUpon>BlockContent_Item.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\StoryBlockViewContent_Item.xaml.cs">
+      <DependentUpon>StoryBlockViewContent_Item.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\IBlockContent.cs" />
     <Compile Include="UI\Workspaces\StoryWorkspaceTabs\Views\StoryBlockView.xaml.cs">
@@ -711,11 +711,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Views\BlockContent_Clip.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Views\StoryBlockViewContent_Clip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Views\BlockContent_Item.xaml">
+    <Page Include="UI\Workspaces\StoryWorkspaceTabs\Views\StoryBlockViewContent_Item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

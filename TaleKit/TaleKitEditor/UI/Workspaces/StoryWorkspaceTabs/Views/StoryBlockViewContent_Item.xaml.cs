@@ -13,18 +13,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaleKit.Datas.Story;
+using TaleKit.Datas.UI;
+using TaleKit.Datas.UI.UIItem;
 using TaleKitEditor.Resources.VectorImages;
-
 namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 	/// <summary>
 	/// BlockContent_Item.xaml에 대한 상호 작용 논리
 	/// </summary>
-	public partial class BlockContent_Item : UserControl, IBlockContent {
+	public partial class StoryBlockViewContent_Item : UserControl, IBlockContent {
+		private static UIItem_Text NameRefUIItem;
 
 		public readonly StoryBlockView OwnerBlockView;
-		public StoryBlockBase Data => OwnerBlockView.Data;
+		public StoryBlock_Item Data => OwnerBlockView.Data as StoryBlock_Item;
 
-		public BlockContent_Item(StoryBlockView ownerBlockView) {
+		public StoryBlockViewContent_Item(StoryBlockView ownerBlockView) {
 			InitializeComponent();
 
 			this.OwnerBlockView = ownerBlockView;
@@ -67,6 +69,25 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs.Views {
 			if(icon != null) {
 				PassTriggerIconContext.Children.Add(icon);
 			}
+		}
+		public void UpdatePreviewText() {
+			string previewText = string.Empty;
+
+			foreach(OrderBase order in Data.OrderList) {
+				if (order.orderType != OrderType.UI)
+					continue;
+				Order_UI UIOrder = order as Order_UI;
+
+				if (UIOrder.UIKeyData == null)
+					continue;
+
+				if(UIOrder.UIKeyData.itemType == UIItemType.Text &&
+					UIOrder.UIKeyData.KeyFieldNameHashSet.Contains(nameof(NameRefUIItem.text))) {
+					previewText = (UIOrder.UIKeyData as UIItem_Text).text;
+				}
+			}
+
+			PreviewTextBlock.Text = previewText;
 		}
 	}
 }

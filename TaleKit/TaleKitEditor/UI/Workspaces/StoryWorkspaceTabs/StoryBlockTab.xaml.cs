@@ -43,7 +43,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private static UIFile EditingUIFile => EditingTaleData.UIFile;
 		private static ViewportTab ViewportTab => MainWindow.ViewportTab;
 
-		private readonly Dictionary<StoryBlockBase, StoryBlockView> dataToViewDict;
+		public readonly Dictionary<StoryBlockBase, StoryBlockView> Data_To_ViewDict;
 		public StoryBlockView SelectedBlockViewSingle {
 			get {
 				if (StoryBlockTreeView.SelectedItemSet.Count > 0) {
@@ -75,7 +75,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				return;
 
 			// Init members
-			dataToViewDict = new Dictionary<StoryBlockBase, StoryBlockView>();
+			Data_To_ViewDict = new Dictionary<StoryBlockBase, StoryBlockView>();
 			PlayingMotionSet = new HashSet<UIRendererMotion>();
 			PreviewClipStack = new Stack<StoryClipState>();
 
@@ -145,13 +145,13 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StoryBlockTreeView.ChildItemCollection.Add(itemView);
 			itemView.ParentItem = StoryBlockTreeView;
 
-			dataToViewDict.Add(item, itemView);
+			Data_To_ViewDict.Add(item, itemView);
 		}
 		private void StoryFile_ItemRemoved(StoryBlockBase item, StoryClip parentItem) {
 			//Remove view
-			dataToViewDict[item].DetachParent();
+			Data_To_ViewDict[item].DetachParent();
 
-			dataToViewDict.Remove(item);
+			Data_To_ViewDict.Remove(item);
 		}
 
 		private void StoryBlockListView_ItemMoved(ITreeItem itemView, ITreeFolder oldParentView, ITreeFolder newParentView, int index) {
@@ -181,12 +181,12 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			DetachClip();
 
 			EditingClip = clip;
-
 			foreach(var item in clip.BlockItemList) {
 				StoryFile_ItemCreated(item, clip);
 			}
-
 			EditingClipNameRun.Text = clip.name;
+
+			UpdateBlockPreviews();
 		}
 		public void DetachClip() {
 			if(EditingClip != null) {
@@ -194,16 +194,22 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 					block.ClearCache();
 				}
 			}
-			foreach(var viewPair in dataToViewDict) {
+			foreach(var viewPair in Data_To_ViewDict) {
 				viewPair.Value.Dispose();
 			}
 
 			EditingClip = null;
 
 			StoryBlockTreeView.ChildItemCollection.Clear();
-			dataToViewDict.Clear();
+			Data_To_ViewDict.Clear();
 
 			EditingClipNameRun.Text = "Root";
+		}
+
+		public void UpdateBlockPreviews() {
+			foreach(StoryBlockView blockView in Data_To_ViewDict.Values) {
+				blockView.ViewContent.UpdatePreviewText();
+			}
 		}
 
 		// Block selection
@@ -243,7 +249,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 					if (index + 1 >= clip.BlockItemList.Count)
 						return;
 
-					StoryBlockTreeView.SelectedItemSet.SetSelectedItem(dataToViewDict[clip.BlockItemList[index + 1]]);
+					StoryBlockTreeView.SelectedItemSet.SetSelectedItem(Data_To_ViewDict[clip.BlockItemList[index + 1]]);
 					break;
 				}
 			}
