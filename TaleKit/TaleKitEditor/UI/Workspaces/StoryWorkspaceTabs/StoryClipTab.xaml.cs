@@ -30,6 +30,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private static UIFile EditingUIFile => EditingTaleData.UIFile;
 		private static ViewportTab ViewportTab => MainWindow.ViewportTab;
 		private static StoryBlockTab StoryBlockTab => MainWindow.StoryWorkspace.StoryBlockTab;
+		private static StoryBlockDetailPanel DetailPanel => MainWindow.DetailTab.StoryBlockDetailPanel;
 
 		private readonly Dictionary<StoryClip, StoryClipView> dataToViewDict;
 
@@ -85,6 +86,8 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			// Register events
 			clipView.NameEditText.TextEdited += ClipViewNameEditText_TextEdited;
 
+			StoryClipTreeView.SelectedItemSet.SetSelectedItem(clipView);
+
 			void ClipViewNameEditText_TextEdited(string oldText, string newText, ref bool cancelEdit) {
 				if (string.IsNullOrEmpty(newText)) {
 					cancelEdit = true;
@@ -102,6 +105,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			dataToViewDict.Remove(clip);
 		}
 
+		// Selection
 		private void SelectedItemSet_SelectionAdded(ISelectable item) {
 			SelectionChanged();
 		}
@@ -117,6 +121,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				lastSelectedClip = lastSelectedClipView.Data;
 			}
 
+			DetailPanel.DetachBlock();
 			StoryBlockTab.AttachClip(lastSelectedClip);
 		}
 	}

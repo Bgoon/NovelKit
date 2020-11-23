@@ -7,6 +7,9 @@
 
              mc:Ignorable="d" 
              d:DesignWidth="220">
+	<UserControl.Resources>
+		<SolidColorBrush x:Key="SeparatorColor" Color="#FF686868"/>
+	</UserControl.Resources>
 	<Grid ClipToBounds="True" Height="40">
 		<DockPanel Name="ItemPanel" Background="{StaticResource ItemBackground}">
 			<VectorImages:VisibleIcon x:Name="VisibleButton" VerticalAlignment="Center" Margin="4,0,0,0"/>
@@ -19,18 +22,7 @@
 		</DockPanel>
 
 		<!-- Arrow visual -->
-		<Border Height="6" VerticalAlignment="Top">
-			<Border.Background>
-				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-					<GradientStop Color="#33000000" Offset="0"/>
-					<GradientStop Color="#00000000" Offset="1"/>
-				</LinearGradientBrush>
-			</Border.Background>
-		</Border>
-		<Polygon Points="0,0, 16,0, 8,8" Fill="{StaticResource ItemBackground}" HorizontalAlignment="Center" VerticalAlignment="Top">
-			<Polygon.BitmapEffect>
-				<DropShadowBitmapEffect Color="Black" Direction="-90" Opacity="0.6" ShadowDepth="1" Softness="0.2"/>
-			</Polygon.BitmapEffect>
-		</Polygon>
+		<Border Background="{StaticResource SeparatorColor}" Height="2" VerticalAlignment="Top"/>
+		<Polygon Stroke="{StaticResource SeparatorColor}" StrokeThickness="2" Fill="{StaticResource ItemBackground}" Points="0,0, 16,0, 8,8" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-1,0,0"/>
 	</Grid>
 </UserControl>

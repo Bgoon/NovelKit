@@ -59,7 +59,7 @@ namespace TaleKitEditor.UI.Dialogs {
 
 			Opacity = 1d;
 
-			this.PlayEaseInAnim(OpacityProperty, 0d, 1d, 0.2f);
+			//this.PlayEaseInAnim(OpacityProperty, 0d, 1d, 0.2f);
 		}
 		private void Window_Deactivated(object sender, EventArgs e) {
 			if (!isClosing) {

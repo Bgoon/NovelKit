@@ -71,7 +71,13 @@ namespace TaleKitEditor.UI.Workspaces.UIWorkspaceTabs {
 			}
 		}
 		private void NameEditText_TextEdited(string oldText, string newText, ref bool cancelEdit) {
+			if(string.IsNullOrEmpty(newText)) {
+				cancelEdit = true;
+				return;
+			}
+				
 			Data.name = newText;
+			Data.NotifyModelUpdated(Data, Data.GetType().GetField(nameof(Data.name)), null);
 		}
 
 		// [ Control ]

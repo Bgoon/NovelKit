@@ -51,29 +51,28 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			orderToEditorViewDict = new Dictionary<OrderBase, OrderItemEditorView>();
 			
 			// Register events
-			StoryBlockTab.StoryBlockTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
-			StoryBlockTab.StoryBlockTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
+			StoryBlockTab.StoryBlockTreeView.SelectedItemSet.SelectionAdded += SelectedBlockSet_SelectionAdded;
+			StoryBlockTab.StoryBlockTreeView.SelectedItemSet.SelectionRemoved += SelectedBlockSet_SelectionRemoved;
 
-			SelectedItemSet_SelectionChanged();
+			SelectedBlockSet_SelectionChanged();
 		}
 
 		// [ Event ]
-		private void SelectedItemSet_SelectionAdded(ISelectable item) {
-			SelectedItemSet_SelectionChanged();
+		private void SelectedBlockSet_SelectionAdded(ISelectable item) {
+			SelectedBlockSet_SelectionChanged();
 			DetailTab.ActiveDetailPanel(DetailPanelType.StoryBlock);
 		}
-		private void SelectedItemSet_SelectionRemoved(ISelectable item) {
-			SelectedItemSet_SelectionChanged();
+		private void SelectedBlockSet_SelectionRemoved(ISelectable item) {
+			SelectedBlockSet_SelectionChanged();
 			DetailTab.DeactiveDetailPanel();
 		}
-		private void SelectedItemSet_SelectionChanged() {
+		private void SelectedBlockSet_SelectionChanged() {
 			SelectedItemSet selectedItemSet = StoryBlockTab.StoryBlockTreeView.SelectedItemSet;
-			bool showEditingContext = selectedItemSet.Count == 1;
+			bool showEditorContext = selectedItemSet.Count == 1;
 
-			EditorContext.Visibility = showEditingContext ? Visibility.Visible : Visibility.Collapsed;
-			MessageContext.Visibility = showEditingContext ? Visibility.Collapsed : Visibility.Visible;
+			SetEditorContextVisible(showEditorContext);
 
-			if (showEditingContext) {
+			if (showEditorContext) {
 #if DEBUG
 				if (KeyInput.GetKeyHold(WinKey.X))
 					return;
@@ -192,12 +191,18 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			this.EditingBlock = null;
 
+			SetEditorContextVisible(false);
 			StoryBlockEditorViewContext.Children.Clear();
 			OrderEditorViewContext.Children.Clear();
 		}
 
 		private void ClearCurrentBlockCache() {
 			EditingBlock.OwnerFile.UICacheManager.ClearCacheAfterBlock(EditingBlock);
+		}
+
+		private void SetEditorContextVisible(bool visible) {
+			EditorContext.Visibility = visible ? Visibility.Visible : Visibility.Hidden;
+			MessageContext.Visibility = visible ? Visibility.Hidden : Visibility.Visible;
 		}
 	}
 }

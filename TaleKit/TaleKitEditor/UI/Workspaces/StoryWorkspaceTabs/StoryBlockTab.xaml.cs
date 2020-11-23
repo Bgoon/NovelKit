@@ -230,7 +230,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 					int index = ++clipState.selectedIndex;
 
 					if(index >= clip.BlockItemList.Count) {
-						PreviewClipStack.Pop();	
+						PopPreviewClipStack();
 						continue;
 					}
 

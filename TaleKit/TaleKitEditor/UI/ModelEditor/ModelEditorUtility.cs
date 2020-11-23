@@ -75,7 +75,7 @@ namespace TaleKitEditor.UI.ModelEditor {
 					continue;
 
 				ValueEditorAttribute editorAttr = field.GetCustomAttributes<ValueEditorAttribute>().FirstOrDefault();
-				if (editorType == ModelEditorType.EditKeyFrameModel && editorAttr.isStatic)
+				if (editorType == ModelEditorType.EditKeyFrameModel && editorAttr.noKey)
 					continue;
 
 				FrameworkElement editorView = createSpecificEditorView?.Invoke(field);

@@ -94,10 +94,10 @@ namespace TaleKit.Datas.UI.UIItem {
 
 		// Datas
 		[ValueEditorComponent_Header("Common")]
-		[ValueEditor_TextBlockViewer("GUID", isStatic = true)]
+		[ValueEditor_TextBlockViewer("GUID", noKey = true)]
 		public string guid;
 
-		[ValueEditor_TextBox("Name", isStatic = true)]
+		[ValueEditor_TextBlockViewer("Name", noKey = true)]
 		public string name = "UI Item";
 		[ValueEditor_TextBlockViewer("Type")]
 		public UIItemType itemType;
@@ -123,10 +123,12 @@ namespace TaleKit.Datas.UI.UIItem {
 			this.guid = Guid.NewGuid().ToString();
 			this.OwnerFile = ownerFile;
 			this.itemType = itemType;
-			System.Diagnostics.Debug.WriteLine($"Created {itemType}");
+
 			ChildItemList = new List<UIItemBase>();
 
 			KeyFieldNameHashSet = new HashSet<string>();
+
+			name = $"New {itemType}";
 
 			//For unity only (제거할것)
 			//GameObject = new GameObject();
