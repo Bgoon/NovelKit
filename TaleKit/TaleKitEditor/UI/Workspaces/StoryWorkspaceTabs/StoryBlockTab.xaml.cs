@@ -134,18 +134,20 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			}
 		}
 
-		private void StoryFile_ItemCreated(StoryBlockBase item, StoryClip parentItem) {
-			if (parentItem == null)
+		private void StoryFile_ItemCreated(StoryBlockBase block, StoryClip parentClip) {
+			if (parentClip == null)
 				return;
-			if (parentItem != EditingClip)
+			if (parentClip != EditingClip)
 				return;
 
 			//Create view
-			StoryBlockView itemView = new StoryBlockView(item);
-			StoryBlockTreeView.ChildItemCollection.Add(itemView);
-			itemView.ParentItem = StoryBlockTreeView;
+			StoryBlockView blockView = new StoryBlockView(block);
+			StoryBlockTreeView.ChildItemCollection.Add(blockView);
+			blockView.ParentItem = StoryBlockTreeView;
 
-			Data_To_ViewDict.Add(item, itemView);
+			blockView.ViewContent.UpdatePreviewText();
+
+			Data_To_ViewDict.Add(block, blockView);
 		}
 		private void StoryFile_ItemRemoved(StoryBlockBase item, StoryClip parentItem) {
 			//Remove view
