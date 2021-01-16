@@ -1,0 +1,229 @@
+﻿{
+  "exportedTime": 44212.6238459375,
+  "MotionFile": {
+    "Version": "2.0",
+    "RootFolder": {
+      "Type": "Folder",
+      "Items": {}
+    }
+  },
+  "UIFile": {
+    "RootUI": {
+      "Fields": {
+        "color": {
+          "r": "1",
+          "g": "1",
+          "b": "1",
+          "a": "1"
+        },
+        "imageAsset": "",
+        "useNinePatch": "False",
+        "ninePatchSideAspect": {
+          "xMin": "0",
+          "yMin": "0",
+          "xMax": "0",
+          "yMax": "0"
+        },
+        "guid": "9f77cf66-d357-4d95-ab53-142623da8201",
+        "name": "New Panel",
+        "itemType": "Panel",
+        "anchorPreset": "StretchAll",
+        "margin": {
+          "xMin": "0",
+          "yMin": "0",
+          "xMax": "0",
+          "yMax": "0"
+        },
+        "size": {
+          "x": "100",
+          "y": "100"
+        },
+        "rotation": "0"
+      },
+      "Childs": [
+        {
+          "Fields": {
+            "color": {
+              "r": "1",
+              "g": "1",
+              "b": "1",
+              "a": "1"
+            },
+            "imageAsset": "",
+            "useNinePatch": "False",
+            "ninePatchSideAspect": {
+              "xMin": "0",
+              "yMin": "0",
+              "xMax": "0",
+              "yMax": "0"
+            },
+            "guid": "da1d045a-226c-4556-8a71-f2e4b88dd296",
+            "name": "New Panel",
+            "itemType": "Panel",
+            "anchorPreset": "MidMid",
+            "margin": {
+              "xMin": "0",
+              "yMin": "0",
+              "xMax": "0",
+              "yMax": "0"
+            },
+            "size": {
+              "x": "100",
+              "y": "100"
+            },
+            "rotation": "0"
+          },
+          "Childs": []
+        }
+      ]
+    }
+  },
+  "StoryFile": {
+    "Clips": [
+      {
+        "Fields": {
+          "guid": "6c0b512e-e49d-4564-8364-619f1da8c355",
+          "name": "Clip 1"
+        },
+        "Blocks": [
+          {
+            "Fields": {
+              "passTrigger": "Click",
+              "blockType": "Item",
+              "isVisible": "True",
+              "guid": "127b3f7a-d3f1-4315-a6a7-0b7e2d293d3b"
+            },
+            "Orders": [
+              {
+                "OrderType": "UI",
+                "Fields": {
+                  "targetUIGuid": "da1d045a-226c-4556-8a71-f2e4b88dd296",
+                  "UIKeyData": {
+                    "color": {
+                      "r": "0.3882353",
+                      "g": "0.5529412",
+                      "b": "1",
+                      "a": "1"
+                    }
+                  },
+                  "durationSec": "1",
+                  "delaySec": "0",
+                  "easingKey": "",
+                  "orderType": "UI"
+                }
+              }
+            ]
+          },
+          {
+            "Fields": {
+              "passTrigger": "Click",
+              "blockType": "Item",
+              "isVisible": "True",
+              "guid": "baeedd1d-db1a-4a63-aecd-49774d4ba127"
+            },
+            "Orders": [
+              {
+                "OrderType": "UI",
+                "Fields": {
+                  "targetUIGuid": "da1d045a-226c-4556-8a71-f2e4b88dd296",
+                  "UIKeyData": {
+                    "color": {
+                      "r": "1",
+                      "g": "0.3490196",
+                      "b": "0.3490196",
+                      "a": "1"
+                    }
+                  },
+                  "durationSec": "1",
+                  "delaySec": "0",
+                  "easingKey": "",
+                  "orderType": "UI"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "RootClip": {
+      "Fields": {
+        "guid": "d32488d3-accb-4ce2-9458-f87992eecbdf",
+        "name": "Root"
+      },
+      "Blocks": [
+        {
+          "Fields": {
+            "passTrigger": "Click",
+            "blockType": "Item",
+            "isVisible": "True",
+            "guid": "cef12aff-3861-483d-bf25-090fa6e8086d"
+          },
+          "Orders": [
+            {
+              "OrderType": "UI",
+              "Fields": {
+                "targetUIGuid": "da1d045a-226c-4556-8a71-f2e4b88dd296",
+                "UIKeyData": {
+                  "color": {
+                    "r": "0.254902",
+                    "g": "0.6470588",
+                    "b": "0.3098039",
+                    "a": "1"
+                  }
+                },
+                "durationSec": "1",
+                "delaySec": "0",
+                "easingKey": "",
+                "orderType": "UI"
+              }
+            }
+          ]
+        },
+        {
+          "Fields": {
+            "targetClipGuid": "6c0b512e-e49d-4564-8364-619f1da8c355",
+            "blockType": "Clip",
+            "isVisible": "True",
+            "guid": "e711af25-692d-448d-ac42-c2299ddb8e35"
+          }
+        },
+        {
+          "Fields": {
+            "passTrigger": "Click",
+            "blockType": "Item",
+            "isVisible": "True",
+            "guid": "204bd9b4-2bc0-492c-bbfd-b6b88937f15f"
+          },
+          "Orders": [
+            {
+              "OrderType": "UI",
+              "Fields": {
+                "targetUIGuid": "da1d045a-226c-4556-8a71-f2e4b88dd296",
+                "UIKeyData": {
+                  "color": {
+                    "r": "0.254902",
+                    "g": "0.254902",
+                    "b": "0.254902",
+                    "a": "1"
+                  }
+                },
+                "durationSec": "1",
+                "delaySec": "0",
+                "easingKey": "",
+                "orderType": "UI"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ProjectSetting": {
+    "gameName": "",
+    "defaultFps": "60",
+    "resolution": {
+      "x": "1920",
+      "y": "1080"
+    }
+  }
+}

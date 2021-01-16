@@ -80,18 +80,18 @@ namespace TaleKit.Datas.Story {
 		public bool LoadFromJson(JObject jStoryFile) {
 			
 			JObject jRootClip = jStoryFile["RootClip"].ToObject<JObject>();
-			RootClip = LoadClip(jRootClip);
+			RootClip = LoadClip(jRootClip, true);
 
 			JArray jClips = jStoryFile["Clips"].ToObject<JArray>();
 			foreach(JObject jClip in jClips) {
 				LoadClip(jClip);
 			}
 
-			StoryClip LoadClip(JObject jClip) {
+			StoryClip LoadClip(JObject jClip, bool isRootClip = false) {
 				JObject jFields = jClip["Fields"].ToObject<JObject>();
 				string clipGuid = jFields["guid"].ToObject<string>();
 
-				StoryClip clip = CreateStoryClip(clipGuid);
+				StoryClip clip = CreateStoryClip(clipGuid, isRootClip);
 				clip.LoadAttrFields<SavableFieldAttribute>(jFields);
 
 				JArray jBlocks = jClip["Blocks"].ToObject<JArray>();
@@ -189,7 +189,7 @@ namespace TaleKit.Datas.Story {
 
 			BlockRemoved?.Invoke(item, clip);
 		}
-		public StoryClip CreateStoryClip(string guid = null) {
+		public StoryClip CreateStoryClip(string guid = null, bool isRootClip = false) {
 			StoryClip clip = new StoryClip(this);
 			clip.name = GetNewClipName();
 			if (guid != null) {
@@ -197,8 +197,9 @@ namespace TaleKit.Datas.Story {
 			}
 
 			Guid_To_ClipDict.Add(clip.guid, clip);
-
-			ClipCreated?.Invoke(clip);
+			if(!isRootClip) {
+				ClipCreated?.Invoke(clip);
+			}
 
 
 			return clip;

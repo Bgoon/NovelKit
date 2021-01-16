@@ -85,9 +85,9 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			StoryBlockListController.CreateItemButtonClick += StoryBlockListController_CreateItemButtonClick;
 			StoryBlockListController.RemoveItemButtonClick += StoryBlockListController_RemoveItemButtonClick;
 
-			StoryBlockTreeView.ItemMoved += StoryBlockListView_ItemMoved;
-			StoryBlockTreeView.SelectedItemSet.SelectionAdded += SelectedItemSet_SelectionAdded;
-			StoryBlockTreeView.SelectedItemSet.SelectionRemoved += SelectedItemSet_SelectionRemoved;
+			StoryBlockTreeView.ItemMoved += MoveBlockPosition;
+			StoryBlockTreeView.SelectedItemSet.SelectionAdded += SelectedBlockSet_SelectionAdded;
+			StoryBlockTreeView.SelectedItemSet.SelectionRemoved += SelectedBlockSet_SelectionRemoved;
 			
 			MainWindow.ProjectPreloaded += MainWindow_ProjectPreloaded;
 			MainWindow.ProjectLoaded += MainWIndow_ProjectLoaded;
@@ -102,15 +102,15 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		}
 
 		private void MainWindow_ProjectPreloaded(TaleData taleData) {
-			EditingStoryFile.BlockCreated += StoryFile_ItemCreated;
-			EditingStoryFile.BlockRemoved += StoryFile_ItemRemoved;
+			EditingStoryFile.BlockCreated += CreateBlockView;
+			EditingStoryFile.BlockRemoved += RemoveBlockView;
 		}
 		private void MainWIndow_ProjectLoaded(TaleData taleData) {
 			AttachClip(EditingStoryFile.RootClip);
 		}
 		private void MainWindow_ProjectUnloaded(TaleData taleData) {
-			EditingStoryFile.BlockCreated -= StoryFile_ItemCreated;
-			EditingStoryFile.BlockRemoved -= StoryFile_ItemRemoved;
+			EditingStoryFile.BlockCreated -= CreateBlockView;
+			EditingStoryFile.BlockRemoved -= RemoveBlockView;
 
 			DetachClip();
 		}
@@ -134,13 +134,13 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			}
 		}
 
-		private void StoryFile_ItemCreated(StoryBlockBase block, StoryClip parentClip) {
+		private void CreateBlockView(StoryBlockBase block, StoryClip parentClip) {
 			if (parentClip == null)
 				return;
 			if (parentClip != EditingClip)
 				return;
 
-			//Create view
+			// Create view
 			StoryBlockView blockView = new StoryBlockView(block);
 			StoryBlockTreeView.ChildItemCollection.Add(blockView);
 			blockView.ParentItem = StoryBlockTreeView;
@@ -148,15 +148,18 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			blockView.ViewContent.UpdatePreviewText();
 
 			Data_To_ViewDict.Add(block, blockView);
+
+			// Register events
+			blockView.RegisterRightClickEvent(StoryBlockView_RightClick, true);
 		}
-		private void StoryFile_ItemRemoved(StoryBlockBase item, StoryClip parentItem) {
+		private void RemoveBlockView(StoryBlockBase item, StoryClip parentItem) {
 			//Remove view
 			Data_To_ViewDict[item].DetachParent();
 
 			Data_To_ViewDict.Remove(item);
 		}
 
-		private void StoryBlockListView_ItemMoved(ITreeItem itemView, ITreeFolder oldParentView, ITreeFolder newParentView, int index) {
+		private void MoveBlockPosition(ITreeItem itemView, ITreeFolder oldParentView, ITreeFolder newParentView, int index) {
 			//Data에 적용하기
 			StoryBlockBase item = ((StoryBlockView)itemView).Data;
 
@@ -165,16 +168,69 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			editingClip.InsertChildItem(index, item);
 		}
 
-		private void SelectedItemSet_SelectionAdded(ISelectable item) {
-			OnStoryBlockSelectionChanged();
+		private void SelectedBlockSet_SelectionAdded(ISelectable item) {
+			SelectedBlockSet_SelectionChanged();
 		}
-		private void SelectedItemSet_SelectionRemoved(ISelectable item) {
-			OnStoryBlockSelectionChanged();
+		private void SelectedBlockSet_SelectionRemoved(ISelectable item) {
+			SelectedBlockSet_SelectionChanged();
 		}
-		private void OnStoryBlockSelectionChanged() {
+		private void SelectedBlockSet_SelectionChanged() {
 			ClearPreviewClipStack();
 
 			ApplyBlockToSelectionToRenderer(true);
+		}
+
+		private void StoryBlockView_RightClick() {
+			List<Dialogs.MenuItem> menuItemList = new List<Dialogs.MenuItem>() {
+				new Dialogs.MenuItem("복사", CopySelectedBlocks),
+				new Dialogs.MenuItem("붙여넣기", PasteBlocks),
+			};
+
+			if(CanMerge()) {
+				menuItemList.Add(new Dialogs.MenuItem("Clip으로 합치기", MergeBlocks));
+			}
+
+			MenuPanel.ShowDialog(menuItemList.ToArray());
+
+			bool CanMerge() {
+				StoryBlockBase prevBlock = null;
+				List<int> indexList = new List<int>();
+				foreach (var item in StoryBlockTreeView.SelectedItemSet) {
+					StoryBlockView blockView = item as StoryBlockView;
+					StoryBlockBase block = blockView.Data;
+
+					if(prevBlock == null) {
+						prevBlock = block;
+						indexList.Add(prevBlock.ParentClip.BlockItemList.IndexOf(prevBlock));
+					} else {
+						if(prevBlock.ParentClip != block.ParentClip) {
+							return false;
+						}
+						indexList.Add(block.ParentClip.BlockItemList.IndexOf(block));
+
+					}
+				}
+
+				indexList.Sort();
+				for(int i=1; i<indexList.Count; ++i) {
+					int indexDelta = indexList[i] - indexList[i - 1];
+					if(Mathf.Abs(indexDelta) > 1) {
+						return false;
+					}
+				}
+				return true;
+			}
+		}
+
+		// [ Block functions ]
+		private void CopySelectedBlocks() {
+
+		}
+		private void PasteBlocks() {
+
+		}
+		private void MergeBlocks() {
+		 
 		}
 
 		// [ Control ]
@@ -184,7 +240,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 			EditingClip = clip;
 			foreach(var item in clip.BlockItemList) {
-				StoryFile_ItemCreated(item, clip);
+				CreateBlockView(item, clip);
 			}
 			EditingClipNameRun.Text = clip.name;
 
@@ -261,7 +317,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		public void ApplyBlockToSelectionToRenderer(bool playMotion = false) {
 			if(StoryBlockTreeView.SelectedItemSet.Count == 1) {
 				StoryBlockBase selectedBlockBase = (StoryBlockTreeView.SelectedItemSet.First as StoryBlockView).Data;
-				int selectedBlockIndex = EditingStoryFile.RootClip.BlockItemList.IndexOf(selectedBlockBase);
+				int selectedBlockIndex = EditingClip.BlockItemList.IndexOf(selectedBlockBase);
 
 				ApplyBlocksToRenderer(EditingClip, selectedBlockIndex, playMotion);
 			} else {
@@ -414,7 +470,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 		private int GetSelectedBlockIndex() {
 			if (StoryBlockTreeView.SelectedItemSet.Count == 1) {
 				StoryBlockBase selectedBlockBase = (StoryBlockTreeView.SelectedItemSet.First as StoryBlockView).Data;
-				return EditingStoryFile.RootClip.BlockItemList.IndexOf(selectedBlockBase);
+				return EditingClip.BlockItemList.IndexOf(selectedBlockBase);
 			}
 			return -1;
 		}

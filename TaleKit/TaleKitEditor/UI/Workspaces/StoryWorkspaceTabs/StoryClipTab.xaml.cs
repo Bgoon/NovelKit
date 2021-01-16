@@ -56,12 +56,12 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 
 		// [ Event ]
 		private void MainWindow_ProjectPreloaded(TaleData taleData) {
-			EditingStoryFile.ClipCreated += EditingStoryFile_ClipCreated;
-			EditingStoryFile.ClipRemoved += EditingStoryFile_ClipRemoved;
+			EditingStoryFile.ClipCreated += CreateClipView;
+			EditingStoryFile.ClipRemoved += RemoveClipView;
 		}
 		private void MainWindow_ProjectUnloaded(TaleData taleData) {
-			EditingStoryFile.ClipCreated += EditingStoryFile_ClipCreated;
-			EditingStoryFile.ClipRemoved += EditingStoryFile_ClipRemoved;
+			EditingStoryFile.ClipCreated += CreateClipView;
+			EditingStoryFile.ClipRemoved += RemoveClipView;
 		}
 
 		private void CreateItemButton_Click() {
@@ -75,7 +75,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 			}
 		}
 
-		private void EditingStoryFile_ClipCreated(StoryClip clip) {
+		private void CreateClipView(StoryClip clip) {
 			StoryClipView clipView = new StoryClipView(clip);
 			StoryClipTreeView.ChildItemCollection.Add(clipView);
 			clipView.ParentItem = StoryClipTreeView;
@@ -99,7 +99,7 @@ namespace TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs {
 				StoryBlockTab.UpdateBlockPreviews();
 			}
 		}
-		private void EditingStoryFile_ClipRemoved(StoryClip clip) {
+		private void RemoveClipView(StoryClip clip) {
 			dataToViewDict[clip].DetachParent();
 
 			dataToViewDict.Remove(clip);
