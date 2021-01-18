@@ -103,6 +103,7 @@
     <Compile Include="Datas\TaleData.cs" />
     <Compile Include="Datas\TaleDataInitArgs.cs" />
     <Compile Include="Datas\UI\UIItemType.cs" />
+    <Compile Include="Datas\UI\UIItem\UIItem_ScriptText.cs" />
     <Compile Include="Datas\UI\UIItem\UIItem_Text.cs" />
     <Compile Include="Datas\UI\UIItem\UIItem_Panel.cs" />
     <Compile Include="Datas\UI\UISnapshot.cs" />

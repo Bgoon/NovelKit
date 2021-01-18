@@ -23,7 +23,7 @@ namespace TaleKit.Datas.UI {
 
 		// UI Collection
 		public readonly List<UIItemBase> UIItemList;
-		public readonly List<UIItem_Text> TextList;
+		public readonly List<UIItem_ScriptText> ScriptTextList;
 		public readonly UISnapshot UISnapshot;
 		public readonly Dictionary<string, object> Guid_To_RendererDict;
 
@@ -32,7 +32,7 @@ namespace TaleKit.Datas.UI {
 			this.OwnerTaleData = ownerTaleData;
 
 			UIItemList = new List<UIItemBase>();
-			TextList = new List<UIItem_Text>();
+			ScriptTextList = new List<UIItem_ScriptText>();
 			UISnapshot = new UISnapshot(ownerTaleData);
 			Guid_To_RendererDict = new Dictionary<string, object>();
 
@@ -46,7 +46,7 @@ namespace TaleKit.Datas.UI {
 			RemoveUIItem(UISnapshot.rootUIItem);
 
 			UIItemList.Clear();
-			TextList.Clear();
+			ScriptTextList.Clear();
 			UISnapshot.Clear();
 			Guid_To_RendererDict.Clear();
 		}
@@ -92,8 +92,12 @@ namespace TaleKit.Datas.UI {
 					break;
 				case UIItemType.Text:
 					item = new UIItem_Text(this);
-					TextList.Add(item as UIItem_Text);
 					break;
+				case UIItemType.ScriptText:
+					item = new UIItem_ScriptText(this);
+					ScriptTextList.Add(item as UIItem_ScriptText);
+					break;
+
 			}
 			if(!string.IsNullOrEmpty(guid)) {
 				item.guid = guid;
@@ -130,8 +134,8 @@ namespace TaleKit.Datas.UI {
 
 			// Remove from collection
 			switch(item.itemType) {
-				case UIItemType.Text:
-					TextList.Remove(item as UIItem_Text);
+				case UIItemType.ScriptText:
+					ScriptTextList.Remove(item as UIItem_ScriptText);
 					break;
 			}
 			UIItemList.Remove(item);

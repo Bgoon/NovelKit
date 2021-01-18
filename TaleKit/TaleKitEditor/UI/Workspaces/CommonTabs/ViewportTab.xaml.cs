@@ -23,6 +23,7 @@ using TaleKit.Datas.UI.UIItem;
 using TaleKitEditor.UI.ModelEditor;
 using TaleKitEditor.UI.Windows;
 using TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements;
+using TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements.UIContents;
 using TaleKitEditor.UI.Workspaces.StoryWorkspaceTabs;
 using TaleKitEditor.UI.Workspaces.UIWorkspaceTabs;
 using TaleKitEditor.Workspaces;
@@ -50,7 +51,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			InitializeComponent();
 		}
 
-		// [ Event ]
+		// Event - UI
 		private void OnLoadedOnce(object sender, RoutedEventArgs e) {
 			// Register events
 			MainWindow.WorkspaceActived += MainWindow_WorkspaceActived;
@@ -88,7 +89,21 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			RendererContext.Children.Remove(rootRenderer);
 		}
 
-		// Viewport
+		// Event - Time
+		public void OnTick() {
+			foreach(UIItem_ScriptText scriptTextItem in EditingUIFile.ScriptTextList) {
+				UIRenderer renderer = GetRenderer(scriptTextItem);
+				UIContent_ScriptText renderContent = renderer.UIContent as UIContent_ScriptText;
+
+				renderContent.UpdateMotion(Root.LoopEngine.DeltaSeconds);
+
+				if(KeyInput.GetKeyHold(WinKey.R)) {
+					renderContent.ResetMotion();
+				}
+			}
+		}
+
+		// Event - Viewport
 		private void ResolutionSelector_ZoomChanged(double newZoomScale, double oldZoomScale) {
 			double scaleDelta = newZoomScale - oldZoomScale;
 			UVector2 sizeDelta = ResolutionSelector.ResolutionNumberEditor.Value * (float)scaleDelta;
@@ -106,7 +121,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			StoryBlockTab.ApplyBlockToSelectionToRenderer();
 		}
 
-		// File event
+		// Event - Item
 		private void UIFile_ItemCreated(UIItemBase item, UIItemBase parentItem) {
 			// Manage renderUI
 			UIItemBase renderUI;
@@ -177,7 +192,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			renderer.Render(false);
 		} 
 
-		// Input
+		// Event - Input
 		private void Viewport_Click() {
 			if (StoryBlockTab.StoryBlockTreeView.SelectedItemSet.Count != 1)
 				return;
@@ -185,7 +200,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			StoryBlockTab.SelectNextBlock();
 		}
 
-		// [ Render ]
+		// Render
 		public void RebuildSnapshot() {
 			RenderUISnapshot = EditingUIFile.UISnapshot.Clone();
 		}
@@ -198,7 +213,7 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs {
 			renderer.Render(true);
 		}
 
-		// [ Access ]
+		// Access
 		private UIRenderer GetRenderer(UIItemBase item) {
 			return EditingUIFile.Guid_To_RendererDict[item.guid] as UIRenderer;
 		}

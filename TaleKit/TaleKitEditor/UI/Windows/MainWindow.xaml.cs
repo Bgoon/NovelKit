@@ -62,6 +62,7 @@ namespace TaleKitEditor.UI.Windows {
 		public event Action<TaleData> ProjectLoaded;
 		public event Action<TaleData> ProjectUnloaded;
 
+		// Constructor
 		public MainWindow() {
 			if (this.IsDesignMode()) {
 				InitializeComponent();
@@ -118,7 +119,7 @@ namespace TaleKitEditor.UI.Windows {
 			FileManagerBar.ExportButtonClick += ExportData;
 		}
 
-		// [ Event ]
+		// Event - UI
 		private void MainWindow_ContentRendered(object sender, EventArgs e) {
 			InitWorkspaces();
 			RegisterEvents();
@@ -140,7 +141,7 @@ namespace TaleKitEditor.UI.Windows {
 			ActiveWorkspace(WorkspaceType.ProjectSetting);
 		}
 
-		// [ Debug ]
+		// Debug
 		private async void ProcessDebugTask() {
 #if DEBUG
 			const string ProjectPath = @"X:\Dropbox\WorkDesk\A_Unity\2019\20190209_ProjectV\Develop\TaleKit\TestProject";
@@ -151,15 +152,17 @@ namespace TaleKitEditor.UI.Windows {
 #endif
 		}
 
-		// [ Loop ]
+		// Event - Time
 		private void OnTick() {
 			if (EditingTaleData == null)
 				return;
 
 			EditingTaleData.OnTick();
+
+			ViewportTab.OnTick();
 		}
 
-		// [ Manage project ]
+		// Manage project
 		public void CreateProject() {
 			if (!ShowCheckSaveDialog())
 				return;
@@ -278,7 +281,7 @@ namespace TaleKitEditor.UI.Windows {
 			ProjectLoaded?.Invoke(taleData);
 		}
 
-		// [ Manage Workspace ]
+		// Manage Workspace
 		public void ActiveWorkspace(WorkspaceType type) {
 			DeactiveWorkspaces();
 
@@ -312,7 +315,7 @@ namespace TaleKitEditor.UI.Windows {
 		}
 
 
-		// [ Tab ]
+		// Tab attaching
 		private void AttachTab(UserControl tab, WorkspaceComponent workspace) {
 			// Workspace에 {Name}Context Panel이 존재하면 Reflection을 사용해 붙인다.
 

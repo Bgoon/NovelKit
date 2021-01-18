@@ -210,6 +210,7 @@
     <Compile Include="Script\Utility\GKitToUnityConverter.cs" />
     <Compile Include="Script\Workspaces\Tabs\INeedPostInitTab.cs" />
     <Compile Include="Script\Workspaces\Workspace.cs" />
+    <Compile Include="UI\Controls\AlignableWrapPanel.cs" />
     <Compile Include="UI\Controls\Badge\Badge.xaml.cs">
       <DependentUpon>Badge.xaml</DependentUpon>
     </Compile>
@@ -311,8 +312,8 @@
       <DependentUpon>ResolutionEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\IUIContent.cs" />
-    <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_MotionText.xaml.cs">
-      <DependentUpon>UIContent_MotionText.xaml</DependentUpon>
+    <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_ScriptText.xaml.cs">
+      <DependentUpon>UIContent_ScriptText.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_Panel.xaml.cs">
       <DependentUpon>UIContent_Panel.xaml</DependentUpon>
@@ -675,7 +676,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_MotionText.xaml">
+    <Page Include="UI\Workspaces\CommonTabs\ViewportElements\UIContents\UIContent_ScriptText.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

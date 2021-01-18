@@ -54,8 +54,8 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 		}
 
 		// Member
-		private RotateTransform rotateTransform;
-		private IUIContent UIContent;
+		private readonly RotateTransform rotateTransform;
+		public readonly IUIContent UIContent;
 
 		[Obsolete]
 		public UIRenderer() {
@@ -73,7 +73,6 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 			this.RenderTransformOrigin = new Point(0.5f, 0.5f);
 
 
-			// Remove unused contexts
 			switch(data.itemType) {
 				case UIItemType.Panel:
 					UIContent = new UIContent_Panel(this);
@@ -81,8 +80,8 @@ namespace TaleKitEditor.UI.Workspaces.CommonTabs.ViewportElements {
 				case UIItemType.Text:
 					UIContent = new UIContent_Text(this);
 					break;
-				case UIItemType.MotionText:
-					UIContent = new UIContent_MotionText(this);
+				case UIItemType.ScriptText:
+					UIContent = new UIContent_ScriptText(this);
 					break;
 			}
 			ContentContext.Children.Add(UIContent as FrameworkElement);

@@ -8,6 +8,6 @@ namespace TaleKit.Datas.UI {
 	public enum UIItemType {
 		Panel,
 		Text,
-		MotionText,
+		ScriptText,
 	}
 }
